@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Thi Trắc Nghiệm Internet Cơ Bản - Chương VI</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-teal-500 selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-gradient-to-r from-teal-700 via-cyan-600 to-indigo-700 text-white shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-white/10 backdrop-blur flex items-center justify-center border border-white/20 shadow-inner">
+                    <i class="fa-solid fa-globe text-2xl text-cyan-200"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg sm:text-xl tracking-tight leading-none">Internet Basics Quiz</h1>
+                    <p class="text-xs text-teal-100 font-medium mt-0.5">Chương VI: Sử dụng Internet Cơ bản (40 Câu)</p>
+                </div>
+            </div>
+
+            <!-- Header Timer Display (Shown during quiz) -->
+            <div id="header-timer" class="hidden flex items-center space-x-3 bg-black/20 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 shadow-inner">
+                <i class="fa-regular fa-clock text-cyan-300 text-lg animate-pulse"></i>
+                <span id="timer-text" class="font-mono font-bold text-lg tracking-wider">40:00</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col">
+
+        <!-- SCREEN 1: Candidate Registration & Intro -->
+        <div id="screen-start" class="max-w-2xl mx-auto w-full my-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden transition-all duration-300">
+            <div class="bg-gradient-to-br from-teal-600 via-cyan-600 to-indigo-600 p-8 text-white relative overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl">
+                    <i class="fa-solid fa-wifi"></i>
+                </div>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md text-xs font-semibold rounded-full uppercase tracking-wider">Bài Thi Lý Thuyết</span>
+                    <span id="session-candidates-count" class="inline-flex items-center space-x-1.5 px-3 py-1 bg-amber-400 text-slate-900 text-xs font-bold rounded-full shadow">
+                        <i class="fa-solid fa-users text-xs"></i>
+                        <span>Đã hoàn thành: 0 thí sinh</span>
+                    </span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold">Trắc Nghiệm Internet Cơ Bản</h2>
+                <p class="text-teal-100 text-sm mt-1">Đánh giá kiến thức Chương VI: Tổng quan Internet, Lịch sử, Dịch vụ WWW, Trình duyệt, Thư điện tử & Bảo mật hệ thống.</p>
+            </div>
+
+            <div class="p-6 sm:p-8 space-y-6">
+                <!-- Instructions -->
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start space-x-3">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg mt-0.5 flex-shrink-0"></i>
+                    <div class="text-xs text-amber-800 leading-relaxed space-y-1">
+                        <p class="font-semibold">Quy định bài thi:</p>
+                        <ul class="list-disc list-inside space-y-0.5">
+                            <li>Đề thi gồm <strong>40 câu hỏi trắc nghiệm</strong> (Thang điểm 10).</li>
+                            <li>Thời gian làm bài quy định: <strong>40 phút</strong> (Hệ thống tự động nộp khi hết giờ).</li>
+                            <li>Điểm đạt tối thiểu: <strong>5.0 / 10.0</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Registration Form -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Họ và Tên Thí Sinh <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <i class="fa-regular fa-user absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                            <input type="text" id="user-name" placeholder="Nguyễn Văn A" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:bg-white text-sm font-medium transition outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mã Sinh Viên / Mã HV <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <i class="fa-solid fa-id-card absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                                <input type="text" id="user-id" placeholder="SV2026001" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:bg-white text-sm font-medium transition outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Lớp / Đơn Vị <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <i class="fa-solid fa-users absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                                <input type="text" id="user-class" placeholder="CNTT K20A" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:bg-white text-sm font-medium transition outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Thời Gian Làm Bài (Phút)</label>
+                        <select id="exam-time" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:bg-white text-sm font-medium transition outline-none">
+                            <option value="40" selected>40 Phút (Tiêu chuẩn)</option>
+                            <option value="30">30 Phút</option>
+                            <option value="20">20 Phút</option>
+                            <option value="15">15 Phút (Tốc độ)</option>
+                        </select>
+                    </div>
+
+                    <!-- Option to Toggle Shuffling for Candidates -->
+                    <div class="flex items-center space-x-2.5 bg-teal-50/60 p-3 rounded-xl border border-teal-100">
+                        <input type="checkbox" id="shuffle-toggle" checked class="w-4 h-4 text-teal-600 rounded border-slate-300 focus:ring-teal-500 cursor-pointer">
+                        <label for="shuffle-toggle" class="text-xs font-semibold text-teal-900 cursor-pointer select-none flex items-center space-x-2">
+                            <i class="fa-solid fa-shuffle text-teal-600"></i>
+                            <span>Xáo trộn ngẫu nhiên thứ tự câu hỏi & phương án khi làm bài</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="startExam()" class="w-full py-3.5 bg-gradient-to-r from-teal-600 via-cyan-600 to-indigo-600 hover:opacity-95 text-white font-bold rounded-xl shadow-lg shadow-teal-200 hover:shadow-xl transition transform active:scale-[0.99] flex items-center justify-center space-x-2 text-base">
+                        <span>Bắt Đầu Làm Bài Thi</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </button>
+
+                    <!-- Quick Class Score Export Preview Button on Start Screen -->
+                    <button onclick="previewExportClass()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs sm:text-sm transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-table-list text-indigo-600"></i>
+                        <span>Xem Trước & Xuất Bảng Điểm Lớp (CSV/Excel)</span>
+                    </button>
+
+                    <!-- End-of-session: clear all saved results -->
+                    <button onclick="openClearHistoryModal()" class="w-full py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-semibold rounded-xl text-xs sm:text-sm transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-trash-can"></i>
+                        <span>Xóa Kết Quả Buổi Học (Cuối Buổi)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: Quiz Interface -->
+        <div id="screen-quiz" class="hidden flex-1 grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Left 3 cols: Question Card -->
+            <div class="lg:col-span-3 flex flex-col justify-between bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-slate-100 space-y-6">
+                <!-- Question Header Info -->
+                <div>
+                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
+                        <div class="flex items-center space-x-2 text-xs font-semibold text-slate-500">
+                            <i class="fa-solid fa-user-graduate text-teal-600"></i>
+                            <span id="quiz-student-info">Thí sinh: --</span>
+                        </div>
+                        <span id="quiz-category-badge" class="px-3 py-1 bg-teal-50 text-teal-700 font-semibold text-xs rounded-full border border-teal-100">
+                            Danh mục
+                        </span>
+                    </div>
+
+                    <div class="flex items-center space-x-2 text-teal-600 font-bold text-sm mb-2">
+                        <span id="quiz-question-number">Câu 1 / 40</span>
+                    </div>
+
+                    <h3 id="question-text" class="text-base sm:text-lg font-bold text-slate-800 leading-snug">
+                        Nội dung câu hỏi...
+                    </h3>
+                </div>
+
+                <!-- Options List Container -->
+                <div id="options-container" class="space-y-3">
+                    <!-- Rendered dynamically -->
+                </div>
+
+                <!-- Navigation Action Buttons -->
+                <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <button id="btn-prev" onclick="prevQuestion()" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 disabled:opacity-40 disabled:cursor-not-allowed text-slate-700 font-semibold rounded-xl text-xs sm:text-sm transition flex items-center space-x-2">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                        <span>Câu Trước</span>
+                    </button>
+
+                    <div class="flex space-x-3">
+                        <button onclick="nextQuestion()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-xl text-xs sm:text-sm transition flex items-center space-x-2 shadow">
+                            <span>Câu Tiếp Theo</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <button onclick="confirmSubmitExam()" class="px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl text-xs sm:text-sm transition flex items-center space-x-2 shadow-md shadow-teal-200">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                            <span>Nộp Bài</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right 1 col: Question Palette & Progress Sidebar -->
+            <div class="lg:col-span-1 bg-white rounded-3xl p-6 shadow-md border border-slate-100 flex flex-col justify-between space-y-6">
+                <div>
+                    <h3 class="font-bold text-slate-800 text-sm mb-1 flex items-center justify-between">
+                        <span>Danh Sách Câu Hỏi</span>
+                        <i class="fa-solid fa-border-all text-teal-600 text-xs"></i>
+                    </h3>
+                    <p class="text-xs text-slate-400 mb-1">Nhấp vào số câu để chuyển nhanh</p>
+                    <p class="text-[11px] text-slate-400 mb-4"><i class="fa-regular fa-keyboard mr-1"></i>Phím tắt: A–D hoặc 1–4 chọn đáp án, ← / → chuyển câu</p>
+
+                    <!-- Question Matrix Grid -->
+                    <div id="palette-grid" class="grid grid-cols-5 gap-2 max-h-80 overflow-y-auto custom-scrollbar p-1">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Completion Progress Tracker -->
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-2">
+                    <div class="flex justify-between text-xs font-semibold">
+                        <span class="text-slate-500">Tiến độ làm bài:</span>
+                        <span id="completion-progress-text" class="text-teal-600 font-bold">0 / 40 câu</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                        <div id="completion-progress-bar" class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: Exam Results & Review Dashboard -->
+        <div id="screen-result" class="hidden flex-1 space-y-8">
+            
+            <!-- Result Overview Banner Card -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-slate-100 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <div class="md:col-span-2 space-y-3">
+                    <div id="result-status-badge" class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-700">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>KẾT QUẢ: ĐẠT</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Kết Quả Bài Thi Internet Cơ Bản</h2>
+                    <p class="text-sm text-slate-500" id="result-candidate-details">Thí sinh: Nguyễn Văn A | MSSV: SV2026001 | Lớp: CNTT K20A</p>
+                    
+                    <div class="pt-2 flex flex-wrap gap-4 text-xs font-medium text-slate-600">
+                        <div class="bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
+                            <span class="text-slate-400 block">Thời gian nộp:</span>
+                            <span id="result-time-spent" class="font-bold text-slate-700">25:30</span>
+                        </div>
+                        <div class="bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
+                            <span class="text-slate-400 block">Số câu trả lời đúng:</span>
+                            <span id="result-correct-ratio" class="font-bold text-emerald-600">32 / 40 câu</span>
+                        </div>
+                        <div class="bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
+                            <span class="text-slate-400 block">Tỷ lệ chính xác:</span>
+                            <span id="result-percentage" class="font-bold text-teal-600">80.0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Score Display Box -->
+                <div class="bg-gradient-to-br from-teal-600 via-cyan-600 to-indigo-600 text-white rounded-2xl p-6 text-center shadow-lg shadow-teal-200 flex flex-col justify-center items-center">
+                    <span class="text-xs uppercase font-semibold text-teal-100 tracking-wider">Điểm Số Thang Điểm 10</span>
+                    <span id="result-final-score" class="text-5xl font-black my-1">8.0</span>
+                    <span class="text-xs text-teal-100" id="result-score-evaluation">Đạt yêu cầu kiến thức!</span>
+                </div>
+            </div>
+
+            <!-- Action Toolbar: Export & Retry Buttons -->
+            <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-2">
+                    <h3 class="font-bold text-slate-800 text-sm sm:text-base">Bảng Đáp Án & Giải Thích Chi Tiết</h3>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                    <!-- Next Candidate Button -->
+                    <button onclick="prepareNextStudent()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-xs sm:text-sm transition flex items-center space-x-2 shadow-md shadow-indigo-200">
+                        <i class="fa-solid fa-user-plus text-sm"></i>
+                        <span>Thí Sinh Tiếp Theo Làm Bài</span>
+                    </button>
+
+                    <!-- Export Individual CSV Preview -->
+                    <button onclick="previewExportIndividual()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-xs sm:text-sm transition flex items-center space-x-2 shadow">
+                        <i class="fa-solid fa-eye text-sm"></i>
+                        <span>Xem Trước & Tải Kết Quả Cá Nhân</span>
+                    </button>
+
+                    <!-- Export Class Summary CSV Preview -->
+                    <button onclick="previewExportClass()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-xs sm:text-sm transition flex items-center space-x-2 shadow">
+                        <i class="fa-solid fa-table-list text-sm"></i>
+                        <span>Xem Trước & Tải Bảng Điểm Lớp</span>
+                    </button>
+
+                    <!-- Restart Exam Button for same student -->
+                    <button onclick="resetExam()" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-xl text-xs sm:text-sm transition flex items-center space-x-2">
+                        <i class="fa-solid fa-rotate-left text-sm"></i>
+                        <span>Làm Lại Bài Thi Này</span>
+                    </button>
+
+                    <!-- End-of-session: clear all saved results -->
+                    <button onclick="openClearHistoryModal()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-xl text-xs sm:text-sm transition flex items-center space-x-2 shadow">
+                        <i class="fa-solid fa-trash-can text-sm"></i>
+                        <span>Xóa Kết Quả Buổi Học</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detailed Question Review List -->
+            <div id="review-container" class="space-y-4">
+                <!-- Rendered Dynamically via JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirm Submit Modal -->
+    <div id="modal-confirm" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 transform transition-all">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800">Xác Nhận Nộp Bài Thi?</h3>
+                <p class="text-slate-500 text-sm mt-1" id="confirm-msg">
+                    Bạn có chắc chắn muốn nộp bài thi ngay bây giờ không?
+                </p>
+            </div>
+            <div class="flex space-x-3 pt-2">
+                <button onclick="closeModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl transition text-sm">
+                    Tiếp Tục Làm
+                </button>
+                <button onclick="submitExam()" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2.5 rounded-xl transition text-sm shadow">
+                    Nộp Bài Ngay
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Reset Modal -->
+    <div id="modal-reset-confirm" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-rotate-left text-blue-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800">Khởi Tạo Bài Thi Mới?</h3>
+                <p class="text-slate-500 text-sm mt-1">
+                    Hệ thống sẽ xóa bài làm hiện tại và đưa bạn về màn hình bắt đầu.
+                </p>
+            </div>
+            <div class="flex space-x-3 pt-2">
+                <button onclick="closeResetModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl transition text-sm">
+                    Hủy Bỏ
+                </button>
+                <button onclick="executeResetExam()" class="flex-1 bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2.5 rounded-xl transition text-sm shadow">
+                    Xác Nhận
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Clear Session History Modal -->
+    <div id="modal-clear-history" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-trash-can text-rose-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800">Xóa Kết Quả Buổi Học?</h3>
+                <p class="text-slate-500 text-sm mt-1">
+                    Toàn bộ kết quả của <strong id="clear-history-count" class="text-rose-600">0</strong> thí sinh đã lưu trên máy này sẽ bị xóa vĩnh viễn và không thể khôi phục.
+                </p>
+                <p class="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-2.5 mt-3">
+                    <i class="fa-solid fa-lightbulb mr-1"></i>Nên tải bảng điểm lớp về trước khi xóa.
+                </p>
+            </div>
+            <div class="flex flex-col gap-2 pt-2">
+                <button onclick="executeClearHistory(true)" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl transition text-sm shadow flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Tải Bảng Điểm Lớp Rồi Xóa</span>
+                </button>
+                <div class="flex space-x-3">
+                    <button onclick="closeClearHistoryModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl transition text-sm">
+                        Hủy Bỏ
+                    </button>
+                    <button onclick="executeClearHistory(false)" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-semibold py-2.5 rounded-xl transition text-sm shadow">
+                        Xóa Không Tải
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Preview Export Data -->
+    <div id="modal-preview-export" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-100 overflow-hidden transform transition-all">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-teal-700 via-cyan-700 to-indigo-700 text-white px-6 py-4 flex items-center justify-between flex-shrink-0">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
+                        <i class="fa-solid fa-file-invoice text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 id="preview-modal-title" class="font-bold text-base sm:text-lg leading-tight">Xem Trước Kết Quả Bảng Điểm</h3>
+                        <p id="preview-modal-subtitle" class="text-xs text-cyan-100 mt-0.5">Kiểm tra thông tin chi tiết trước khi tải file CSV/Excel</p>
+                    </div>
+                </div>
+                <button onclick="closePreviewModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Preview Meta Summary Bar -->
+            <div id="preview-meta-bar" class="bg-slate-50 border-b border-slate-200 px-6 py-3 flex flex-wrap items-center justify-between text-xs gap-2 flex-shrink-0">
+                <!-- Dynamic Meta info -->
+            </div>
+
+            <!-- Table Data Scrollable Container -->
+            <div class="p-4 sm:p-6 overflow-y-auto flex-1 custom-scrollbar bg-slate-50/50">
+                <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+                    <table id="preview-table" class="w-full text-left text-xs sm:text-sm border-collapse">
+                        <thead id="preview-table-head" class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider border-b border-slate-200 sticky top-0 z-10">
+                            <!-- Dynamic Table Head -->
+                        </thead>
+                        <tbody id="preview-table-body" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- Dynamic Table Rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modal Footer Controls -->
+            <div class="bg-white border-t border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-3 flex-shrink-0">
+                <div class="flex items-center text-xs text-slate-500 space-x-1.5">
+                    <i class="fa-solid fa-circle-info text-teal-600"></i>
+                    <span>Định dạng: <strong>CSV UTF-8 (Excel)</strong></span>
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="closePreviewModal()" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs sm:text-sm transition">
+                        Đóng
+                    </button>
+                    <button id="btn-download-from-preview" onclick="" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs sm:text-sm transition flex items-center space-x-2 shadow-md shadow-emerald-200">
+                        <i class="fa-solid fa-download text-sm"></i>
+                        <span>Tải File Ngay</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Component -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900/90 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 border border-slate-700 backdrop-blur-md">
+            <i id="toast-icon" class="fa-solid fa-circle-info text-amber-400 text-lg"></i>
+            <span id="toast-message" class="text-sm font-medium">Thông báo hệ thống...</span>
+        </div>
+    </div>
+
+    <script>
+        // 40 Internet Basics Questions Bank (Chapter VI)
+        const questionBank = [
+            // Sub-topic 1: Tổng quan & Lịch sử Internet (Questions 1 - 10)
+            {
+                id: 1,
+                category: "6.1.1 Tổng quan Internet",
+                question: "Từ 'Internet' là viết tắt gọn của cụm từ tiếng Anh nào sau đây?",
+                options: [
+                    "International Network",
+                    "Interconnected Network",
+                    "Internal Network",
+                    "Interactive Network"
+                ],
+                answer: 1,
+                explanation: "Internet là viết gọn của từ 'interconnected network' (mạng liên kết kết nối các mạng máy tính toàn cầu)."
+            },
+            {
+                id: 2,
+                category: "6.1.1 Tổng quan Internet",
+                question: "Hệ thống mạng Internet truyền thông theo phương thức chuyển gói dữ liệu dựa trên giao thức chuẩn hóa nào?",
+                options: ["HTTP / HTTPS", "FTP / SFTP", "TCP / IP", "SMTP / POP3"],
+                answer: 2,
+                explanation: "Hệ thống mạng Internet truyền thông theo kiểu chuyển gói dữ liệu (packet switching) dựa trên giao thức liên mạng chuẩn hóa TCP/IP."
+            },
+            {
+                id: 3,
+                category: "6.1.1 Tổng quan Internet",
+                question: "Bản chất kiến trúc của mạng Internet chính là sự kết nối quy mô toàn cầu của các loại mạng nào lại với nhau?",
+                options: [
+                    "Các mạng MAN, LAN lại với nhau",
+                    "Chỉ gồm các mạng PAN nội bộ",
+                    "Các mạng Wifi độc lập",
+                    "Các máy tính không dây đơn lẻ"
+                ],
+                answer: 0,
+                explanation: "Mạng Internet chính là sự kết nối quy mô toàn thế giới của các mạng máy tính nhỏ hơn như MAN, LAN lại với nhau."
+            },
+            {
+                id: 4,
+                category: "6.1.1 Lịch sử phát triển",
+                question: "Internet chính thức ra đời vào năm nào với tiền thân là mạng ARPANET?",
+                options: ["1969", "1974", "1983", "1991"],
+                answer: 0,
+                explanation: "Internet ra đời vào năm 1969, với tiền thân là mạng ARPANET do Bộ Quốc phòng Mỹ phát triển."
+            },
+            {
+                id: 5,
+                category: "6.1.1 Lịch sử phát triển",
+                question: "Mạng ARPANET khi mới thành lập vào tháng 7 năm 1969 đã liên kết 4 địa điểm đầu tiên tại quốc gia nào?",
+                options: ["Anh", "Pháp", "Mỹ", "Đức"],
+                answer: 2,
+                explanation: "Mạng ARPANET do Cơ quan quản lý dự án nghiên cứu phát triển ARPA thuộc Bộ Quốc phòng Mỹ thành lập liên kết 4 địa điểm đầu tiên tại Mỹ."
+            },
+            {
+                id: 6,
+                category: "6.1.1 Lịch sử phát triển",
+                question: "4 địa điểm nghiên cứu đầu tiên được liên kết tạo thành mạng diện rộng (WAN) ARPANET năm 1969 bao gồm những đâu?",
+                options: [
+                    "Stanford, UCLA, Đại học Utah, UC Santa Barbara",
+                    "Harvard, MIT, Stanford, Princeton",
+                    "Oxford, Cambridge, Stanford, UCLA",
+                    "Microsoft, IBM, Intel, Apple"
+                ],
+                answer: 0,
+                explanation: "4 địa điểm gồm: Viện nghiên cứu Stanford, Đại học California Los Angeles (UCLA), Đại học Utah và Đại học California Santa Barbara."
+            },
+            {
+                id: 7,
+                category: "6.1.1 Lịch sử phát triển",
+                question: "Thuật ngữ 'Internet' xuất hiện lần đầu tiên vào khoảng thời gian nào?",
+                options: ["Năm 1969", "Năm 1974", "Năm 1983", "Năm 1995"],
+                answer: 1,
+                explanation: "Thuật ngữ 'Internet' xuất hiện lần đầu tiên vào khoảng năm 1974 (lúc đó mạng vẫn thường được gọi là ARPANET)."
+            },
+            {
+                id: 8,
+                category: "6.1.1 Lịch sử phát triển",
+                question: "Năm 1983, giao thức nào chính thức được chuẩn hóa cho ngành quân sự Mỹ và bắt buộc tất cả máy tính nối với ARPANET phải sử dụng?",
+                options: ["Giao thức Ethernet", "Giao thức TCP/IP", "Giao thức IPX/SPX", "Giao thức AppleTalk"],
+                answer: 1,
+                explanation: "Năm 1983, giao thức TCP/IP chính thức được coi là chuẩn đối với ngành quân sự Mỹ và bắt buộc trên ARPANET."
+            },
+            {
+                id: 9,
+                category: "6.1.1 Lịch sử phát triển",
+                question: "Năm 1984, ARPANET được tách ra thành 2 phần gồm ARPANET (nghiên cứu) và MILNET. Mạng MILNET phục vụ mục đích gì?",
+                options: [
+                    "Dành riêng cho giáo dục đại học",
+                    "Dành cho các mục đích quân sự",
+                    "Dành cho thương mại tự do",
+                    "Dành cho y tế và tế bào học"
+                ],
+                answer: 1,
+                explanation: "Năm 1984, phần thứ 2 tách ra là MILNET, là mạng dành riêng cho các mục đích quân sự."
+            },
+            {
+                id: 10,
+                category: "6.1.1 Lịch sử phát triển",
+                question: "Năm 1994, kỷ niệm 25 năm ARPANET, sự kiện nổi bật nào trên Internet đã diễn ra?",
+                options: [
+                    "Sự ra đời của mạng xã hội Facebook",
+                    "NIST đề nghị thống nhất dùng TCP/IP và những hình ảnh video đầu tiên được truyền trên Internet",
+                    "Trình duyệt Google Chrome ra đời",
+                    "Mạng 4G LTE được phủ sóng toàn cầu"
+                ],
+                answer: 1,
+                explanation: "Năm 1994, NIST đề nghị thống nhất dùng giao thức TCP/IP và những hình ảnh video đầu tiên được truyền đi trên mạng Internet."
+            },
+
+            // Sub-topic 2: Dịch vụ WWW & Trình duyệt Web (Questions 11 - 20)
+            {
+                id: 11,
+                category: "6.1.2 Dịch vụ WWW",
+                question: "Dịch vụ World Wide Web (WWW) được nhà khoa học Tim Berners-Lee phát minh vào năm nào?",
+                options: ["Năm 1985", "Năm 1989", "Năm 1991", "Năm 1998"],
+                answer: 2,
+                explanation: "Năm 1991, Tim Berners-Lee tại Trung tâm nghiên cứu nguyên tử châu Âu (CERN) đã phát minh ra World Wide Web (WWW)."
+            },
+            {
+                id: 12,
+                category: "6.1.2 Dịch vụ WWW",
+                question: "Ý tưởng về siêu văn bản (Hypertext) làm nền tảng cho sự ra đời của WWW được ai đưa ra từ năm 1985?",
+                options: ["Ted Nelson", "Tim Berners-Lee", "Bill Gates", "Steve Jobs"],
+                answer: 0,
+                explanation: "Tim Berners-Lee phát minh WWW dựa trên ý tưởng về siêu văn bản do Ted Nelson đưa ra từ năm 1985."
+            },
+            {
+                id: 13,
+                category: "6.1.2 Dịch vụ WWW",
+                question: "Mỗi trang web trên World Wide Web được xây dựng dựa trên ngôn ngữ đánh dấu nào?",
+                options: [
+                    "HTML (Hypertext Markup Language)",
+                    "HTTP (Hypertext Transfer Protocol)",
+                    "URL (Uniform Resource Locator)",
+                    "XML (Extensible Markup Language)"
+                ],
+                answer: 0,
+                explanation: "Mỗi trang web được xây dựng trên ngôn ngữ HTML (Hypertext Markup Language - Ngôn ngữ đánh dấu siêu văn bản)."
+            },
+            {
+                id: 14,
+                category: "6.1.2 Dịch vụ WWW",
+                question: "Hai đặc trưng cơ bản quan trọng nhất của ngôn ngữ HTML cấu tạo nên trang web là gì?",
+                options: [
+                    "Tích hợp đa phương tiện (ảnh, âm thanh) và tạo các siêu liên kết (hyperlink)",
+                    "Tự động duyệt virus và mã hóa tài khoản",
+                    "Quản trị cơ sở dữ liệu và tính toán công thức",
+                    "Chỉ hiển thị văn bản thô và nén file"
+                ],
+                answer: 0,
+                explanation: "HTML có 2 đặc trưng: Tích hợp hình ảnh, âm thanh tạo môi trường đa phương tiện và tạo các siêu liên kết cho phép di chuyển linh hoạt."
+            },
+            {
+                id: 15,
+                category: "6.1.2 Dịch vụ WWW",
+                question: "Để có thể đọc và hiển thị nội dung các trang web trên Internet, người dùng phải sử dụng phần mềm nào?",
+                options: [
+                    "Phần mềm soạn thảo văn bản (Word processor)",
+                    "Trình duyệt Web (Web Browser)",
+                    "Phần mềm giải nén (WinRAR)",
+                    "Hệ quản trị cơ sở dữ liệu (Database)"
+                ],
+                answer: 1,
+                explanation: "Để đọc trang web, người ta sử dụng các phần mềm trình duyệt Web (Web Browser) như Chrome, Firefox, Edge, Safari..."
+            },
+            {
+                id: 16,
+                category: "6.1.2 Dịch vụ WWW",
+                question: "Tập hợp nhiều trang web liên quan được nhóm lại dưới một tên miền chung được gọi là gì?",
+                options: ["Web Page", "Website", "Web Server", "Web Browser"],
+                answer: 1,
+                explanation: "World Wide Web bao gồm hàng triệu các Website, mỗi Website được xây dựng từ nhiều trang web (Web page)."
+            },
+            {
+                id: 17,
+                category: "6.1.2 Dịch vụ WWW",
+                question: "Đâu KHÔNG phải là một trình duyệt web phổ biến hiện nay?",
+                options: ["Google Chrome", "Mozilla Firefox", "Microsoft Edge", "Microsoft Excel"],
+                answer: 3,
+                explanation: "Microsoft Excel là phần mềm bảng tính, không phải là trình duyệt web (Web Browser)."
+            },
+            {
+                id: 18,
+                category: "6.1.2 Dịch vụ WWW",
+                question: "Tính năng 'Siêu liên kết' (Hyperlink) trên trang web cho phép người dùng làm gì?",
+                options: [
+                    "Di chuyển từ trang web này sang trang web khác mà không cần trình tự cố định",
+                    "Tự động tăng tốc độ đường truyền mạng",
+                    "Xóa bỏ nội dung quảng cáo trên mạng",
+                    "Tải toàn bộ máy chủ web về máy cá nhân"
+                ],
+                answer: 0,
+                explanation: "Siêu liên kết cho phép click chuyển nhanh từ trang web này sang trang web khác không phụ thuộc trình tự."
+            },
+            {
+                id: 19,
+                category: "6.1.2 Dịch vụ WWW",
+                question: "Địa chỉ định danh duy nhất dùng để truy cập vào một trang web cụ thể trên Internet được gọi là gì?",
+                options: ["URL (Uniform Resource Locator)", "IP Address", "MAC Address", "DNS Server"],
+                answer: 0,
+                explanation: "URL là địa chỉ tài nguyên thống nhất (ví dụ: https://www.google.com) dùng truy cập trang web."
+            },
+            {
+                id: 20,
+                category: "6.1.2 Dịch vụ WWW",
+                question: "Giao thức truyền tải siêu văn bản an toàn có mã hóa bảo mật dữ liệu trên Web là gì?",
+                options: ["HTTP", "HTTPS", "FTP", "SMTP"],
+                answer: 1,
+                explanation: "HTTPS (Hypertext Transfer Protocol Secure) là giao thức truyền tải siêu văn bản an toàn được mã hóa SSL/TLS."
+            },
+
+            // Sub-topic 3: Bảo mật & Antivirus (Questions 21 - 30)
+            {
+                id: 21,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Nếu người dùng Internet không có ý thức tự bảo vệ thông tin cá nhân, họ có thể gặp nguy cơ nào?",
+                options: [
+                    "Bị lừa đảo, mất tài khoản, mất tiền, bị nhiễm virus và đánh cắp thông tin",
+                    "Máy tính tự động tăng gấp đôi dung lượng RAM",
+                    "Tốc độ mạng Internet tự động nhanh hơn",
+                    "Màn hình máy tính tự động độ phân giải cao hơn"
+                ],
+                answer: 0,
+                explanation: "Không tự bảo vệ thông tin có thể biến người dùng thành nạn nhân lừa đảo, mất tài khoản, mất tiền, lộ bí mật cá nhân..."
+            },
+            {
+                id: 22,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Vai trò quan trọng nhất của chương trình diệt Virus (Antivirus software) đối với máy tính là gì?",
+                options: [
+                    "Tạo rào chắn bảo vệ máy tính trước các nguy cơ về mã độc và virus",
+                    "Tăng dung lượng ổ đĩa cứng",
+                    "Sửa chữa phần cứng máy tính bị hỏng",
+                    "Thay thế cho đường truyền mạng Internet"
+                ],
+                answer: 0,
+                explanation: "Chương trình diệt virus là rào chắn quan trọng bảo vệ hệ thống trước nguy cơ mã độc, virus và phần mềm độc hại."
+            },
+            {
+                id: 23,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Đâu là danh sách các phần mềm diệt Virus (Antivirus) uy tín được đề xuất trong giáo trình?",
+                options: [
+                    "Kaspersky, BitDefender, BKAV, Avast, AVG, Avira",
+                    "Chrome, Firefox, Edge, Safari, Opera",
+                    "Photoshop, Premiere, Illustrator, Corel",
+                    "Word, Excel, PowerPoint, Access"
+                ],
+                answer: 0,
+                explanation: "Các phần mềm diệt virus được đề xuất gồm: Avast, AVG, BKAV, BitDefender, Kaspersky, Sophos Home, Avira..."
+            },
+            {
+                id: 24,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Tính năng UAC trên hệ điều hành Windows là viết tắt của cụm từ nào?",
+                options: [
+                    "User Access Control",
+                    "User Account Control",
+                    "Universal Account Center",
+                    "United Authorization Control"
+                ],
+                answer: 1,
+                explanation: "UAC là viết tắt của User Account Control (Chức năng kiểm soát tài khoản người dùng trên Windows)."
+            },
+            {
+                id: 25,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Lợi ích cốt lõi của tính năng UAC (User Account Control) trên Windows là gì?",
+                options: [
+                    "Ngăn chặn các phần mềm độc hại tiến hành tự ý thay đổi hệ thống mà chưa được người dùng cho phép",
+                    "Tự động xóa các file rác hàng ngày",
+                    "Tăng tốc độ khởi động Windows",
+                    "Dọn dẹp bộ nhớ RAM tự động"
+                ],
+                answer: 0,
+                explanation: "UAC xuất hiện cửa sổ cảnh báo giúp ngăn chặn các mã độc/ứng dụng tự ý can thiệp thay đổi cài đặt hệ thống."
+            },
+            {
+                id: 26,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Khi kết nối máy tính vào một mạng không dây mới, tường lửa Windows cung cấp 2 lựa chọn mạng nào?",
+                options: [
+                    "Home và Public",
+                    "Private và Secret",
+                    "Local và Global",
+                    "Work và University"
+                ],
+                answer: 0,
+                explanation: "Khi tiến hành kết nối mạng không dây, Windows cung cấp 2 cấu hình tường lửa lựa chọn là Home (Mạng gia đình/nội bộ) và Public (Mạng công cộng)."
+            },
+            {
+                id: 27,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Công cụ Tường lửa có sẵn tích hợp trong hệ điều hành Windows có tên là gì?",
+                options: [
+                    "Windows Defender Firewall",
+                    "Windows Antivirus Guard",
+                    "Windows Security Shield",
+                    "Windows Net Cleaner"
+                ],
+                answer: 0,
+                explanation: "Bản thân Windows có sẵn tính năng tường lửa bảo vệ mạng tên là Windows Defender Firewall."
+            },
+            {
+                id: 28,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Tại sao người dùng nên thường xuyên cập nhật (Update) các phiên bản vá lỗi cho phần mềm và hệ điều hành?",
+                options: [
+                    "Để khắc phục các lỗ hổng an ninh bảo mật do nhà phát triển sửa lỗi",
+                    "Để làm tăng dung lượng file lưu trữ",
+                    "Để thay đổi giao diện thành màu đen",
+                    "Để xóa bỏ phần mềm diệt virus"
+                ],
+                answer: 0,
+                explanation: "Các phần mềm có thể xuất hiện các lỗ hổng an ninh, việc cập nhật phiên bản vá lỗi mới giúp bịt kín lỗ hổng bảo mật."
+            },
+            {
+                id: 29,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Đối với các sản phẩm phần mềm thuộc Microsoft (như Windows, Office), ta có thể kiểm tra và tải bản vá lỗi qua công cụ nào?",
+                options: ["Windows Update", "Windows Store", "Task Manager", "Control Panel"],
+                answer: 0,
+                explanation: "Đối với các sản phẩm thuộc Microsoft, người dùng có thể kiểm tra và tải các bản cập nhật qua Windows Update."
+            },
+            {
+                id: 30,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Hình thức lừa đảo giả mạo email hoặc website uy tín nhằm đánh cắp mật khẩu, thẻ ngân hàng của người dùng gọi là gì?",
+                options: ["Phishing", "Spam", "DDoS", "Ransomware"],
+                answer: 0,
+                explanation: "Phishing (Lừa đảo giả mạo) là chiêu trò tạo trang web/email giả mạo để dụ người dùng nhập thông tin nhạy cảm."
+            },
+
+            // Sub-topic 4: Email, Mạng xã hội & An toàn thông tin (Questions 31 - 40)
+            {
+                id: 31,
+                category: "Thư điện tử & Mạng xã hội",
+                question: "Dịch vụ Thư điện tử (Email) cho phép người dùng thực hiện các thao tác cơ bản nào?",
+                options: [
+                    "Soạn, gửi, nhận, chuyển tiếp (Forward) và đính kèm tệp tin qua mạng",
+                    "Chỉnh sửa phần cứng máy tính từ xa",
+                    "Cài đặt lại hệ điều hành cho máy tính khác",
+                    "Tự động tăng dung lượng đường truyền Internet"
+                ],
+                answer: 0,
+                explanation: "Dịch vụ Email giúp trao đổi thư từ, tài liệu đính kèm, gửi/nhận/chuyển tiếp nhanh chóng qua môi trường Internet."
+            },
+            {
+                id: 32,
+                category: "Thư điện tử & Mạng xã hội",
+                question: "Trong cấu trúc một địa chỉ Email chuẩn (vd: nguyenvana@gmail.com), ký tự bắt buộc ngăn cách giữa tên người dùng và tên miền là gì?",
+                options: ["Ký tự @", "Ký tự #", "Ký tự $", "Ký tự &"],
+                answer: 0,
+                explanation: "Địa chỉ Email luôn có dạng [Tên_người_dùng]@[Tên_miền_máy_chủ_thư]."
+            },
+            {
+                id: 33,
+                category: "Thư điện tử & Mạng xã hội",
+                question: "Khi gửi Email cho nhiều người, mục 'BCC' (Blind Carbon Copy) có tác dụng đặc biệt gì?",
+                options: [
+                    "Gửi ẩn danh, các người nhận trong ô BCC sẽ không thấy địa chỉ email của nhau",
+                    "Công khai tất cả địa chỉ email người nhận",
+                    "Gửi thư có gắn mã độc tự hủy",
+                    "Bắt buộc người nhận phải trả lời thư"
+                ],
+                answer: 0,
+                explanation: "BCC (Blind Carbon Copy) giúp gửi đồng thời cho nhiều người nhưng giấu danh sách email người nhận."
+            },
+            {
+                id: 34,
+                category: "Thư điện tử & Mạng xã hội",
+                question: "Nguy cơ tiềm ẩn lớn nhất khi mở các tệp đính kèm hoặc nhấp vào liên kết trong Email từ người gửi lạ là gì?",
+                options: [
+                    "Máy tính bị nhiễm mã độc (Malware, Virus, Ransomware) hoặc bị đánh cắp tài khoản",
+                    "Email tự động đổi tên người gửi",
+                    "Trình duyệt tự động mở nhanh hơn",
+                    "Ổ cứng máy tính tự động được dọn dẹp"
+                ],
+                answer: 0,
+                explanation: "Mở file đính kèm lạ là con đường phổ biến nhất phát tán virus, trojan, mã độc tống tiền Ransomware."
+            },
+            {
+                id: 35,
+                category: "Thư điện tử & Mạng xã hội",
+                question: "Nguyên tắc quan trọng khi bảo vệ tài khoản cá nhân trên các trang Mạng xã hội (Facebook, Zalo...) là gì?",
+                options: [
+                    "Không tiết lộ thông tin mật, mật khẩu, CCCD, OTP hay dữ liệu cá nhân nhạy cảm",
+                    "Công khai tất cả mật khẩu cho bạn bè biết",
+                    "Sử dụng chung một mật khẩu đơn giản '123456' cho tất cả tài khoản",
+                    "Đăng tải thông tin thẻ ATM lên trang cá nhân"
+                ],
+                answer: 0,
+                explanation: "Không tiết lộ thông tin bí mật, mật khẩu, mã OTP là quy tắc sống còn bảo vệ an toàn trên mạng xã hội."
+            },
+            {
+                id: 36,
+                category: "Thư điện tử & Mạng xã hội",
+                question: "Giải pháp bảo mật bổ sung lớp xác thực thứ hai (2FA) cho tài khoản Email/Mạng xã hội giúp ích gì?",
+                options: [
+                    "Yêu cầu nhập thêm mã OTP gửi về điện thoại/ứng dụng khi đăng nhập, tăng cường độ an toàn",
+                    "Tự động đăng xuất sau 5 phút",
+                    "Giúp gửi email nhanh gấp đôi",
+                    "Không cần nhớ mật khẩu chính"
+                ],
+                answer: 0,
+                explanation: "Xác thực 2 yếu tố (2FA) đòi hỏi thêm mã OTP giúp bảo vệ tài khoản ngay cả khi mật khẩu bị lộ."
+            },
+            {
+                id: 37,
+                category: "Kỹ năng Internet cơ bản",
+                question: "Để tìm kiếm thông tin hiệu quả trên các cỗ máy tìm kiếm (như Google), ta nên làm gì?",
+                options: [
+                    "Sử dụng từ khóa (Keywords) ngắn gọn, chính xác và có thể đặt trong dấu ngoặc kép \"...\"",
+                    "Gõ nguyên một văn bản dài 5 trang",
+                    "Chỉ tìm kiếm bằng tiếng nước ngoài",
+                    "Tắt kết nối Internet khi tìm kiếm"
+                ],
+                answer: 0,
+                explanation: "Đặt cụm từ trong dấu ngoặc kép \"...\" giúp cỗ máy tìm kiếm chính xác chính xác cụm từ đó."
+            },
+            {
+                id: 38,
+                category: "Thư điện tử & Mạng xã hội",
+                question: "Thư rác, thư quảng cáo không mong muốn gửi hàng loạt vào hộp thư điện tử được gọi là gì?",
+                options: ["Spam Email", "Virus Email", "Draft Email", "Inbox Email"],
+                answer: 0,
+                explanation: "Spam Email (Thư rác) là các thư quảng cáo hoặc lừa đảo được gửi hàng loạt tới hộp thư."
+            },
+            {
+                id: 39,
+                category: "6.1.3 Bảo mật Internet",
+                question: "Mã độc tống tiền chuyên mã hóa dữ liệu máy tính người dùng và đòi tiền chuộc được gọi là gì?",
+                options: ["Ransomware", "Adware", "Spyware", "Cookie"],
+                answer: 0,
+                explanation: "Ransomware là loại mã độc nguy hiểm mã hóa toàn bộ tập tin và yêu cầu nạn nhân trả tiền chuộc để lấy lại dữ liệu."
+            },
+            {
+                id: 40,
+                category: "Kỹ năng Internet cơ bản",
+                question: "Thao tác nào sau đây đảm bảo an toàn nhất khi sử dụng máy tính công cộng hoặc tiệm Internet?",
+                options: [
+                    "Đăng xuất tất cả tài khoản, xóa lịch sử duyệt web/cookie và không lưu mật khẩu trên trình duyệt",
+                    "Chỉ cần tắt màn hình máy tính",
+                    "Nhấp chọn 'Remember Me' (Ghi nhớ tôi)",
+                    "Lưu mật khẩu vào file Notepad trên Desktop"
+                ],
+                answer: 0,
+                explanation: "Khi dùng máy công cộng, bắt buộc phải đăng xuất tài khoản, không lưu password và xóa lịch sử/cookie."
+            }
+        ];
+
+        // ===== Cấu hình & trạng thái toàn cục =====
+        const TOTAL_QUESTIONS = questionBank.length;
+        const PASS_SCORE = 5.0;
+        const OPTION_PREFIXES = ["A", "B", "C", "D"];
+        const HISTORY_STORAGE_KEY = "internetQuiz_examHistory_v1";
+        const MODAL_IDS = ["modal-confirm", "modal-reset-confirm", "modal-preview-export", "modal-clear-history"];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let currentQuestions = []; // Đề thi đang làm của thí sinh hiện tại
+        let timerInterval = null;
+        let examStartTime = 0;     // Mốc thời gian (ms) bắt đầu làm bài
+        let examEndTime = 0;       // Mốc thời gian (ms) hết giờ
+        let secondsRemaining = 0;
+        let timeSpentSeconds = 0;
+        let examInProgress = false; // Chống nộp bài 2 lần & cảnh báo khi rời trang
+        let lastResult = null;      // Kết quả đã chấm của thí sinh vừa nộp
+        let toastTimer = null;
+
+        let studentData = {
+            name: "",
+            id: "",
+            className: "",
+            timeMinutes: 40
+        };
+
+        const $ = (id) => document.getElementById(id);
+        const show = (id) => $(id).classList.remove("hidden");
+        const hide = (id) => $(id).classList.add("hidden");
+
+        function formatTime(totalSeconds) {
+            const m = Math.floor(totalSeconds / 60);
+            const s = totalSeconds % 60;
+            return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        // Helper function to generate and optionally shuffle questions & options
+        function shuffleInPlace(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function generateExamQuestions(shuffleEnabled) {
+            const cloned = questionBank.map(q => {
+                // Xáo trộn theo chỉ số để không phụ thuộc vào nội dung phương án (tránh lỗi khi 2 phương án trùng chữ)
+                const order = q.options.map((_, i) => i);
+                if (shuffleEnabled) shuffleInPlace(order);
+
+                return {
+                    id: q.id,
+                    category: q.category,
+                    question: q.question,
+                    options: order.map(i => q.options[i]),
+                    answer: order.indexOf(q.answer),
+                    explanation: q.explanation
+                };
+            });
+
+            return shuffleEnabled ? shuffleInPlace(cloned) : cloned;
+        }
+
+        // ===== Lưu kết quả buổi học vào trình duyệt (không mất khi tải lại trang) =====
+        let examHistory = loadHistory();
+
+        function loadHistory() {
+            try {
+                const raw = localStorage.getItem(HISTORY_STORAGE_KEY);
+                const data = raw ? JSON.parse(raw) : [];
+                return Array.isArray(data) ? data : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveHistory() {
+            try {
+                if (examHistory.length === 0) {
+                    localStorage.removeItem(HISTORY_STORAGE_KEY);
+                } else {
+                    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(examHistory));
+                }
+            } catch (e) {
+                showToast("Không lưu được kết quả vào trình duyệt (bộ nhớ bị chặn hoặc đầy)!", "fa-triangle-exclamation text-red-400");
+            }
+        }
+
+        window.onload = function() {
+            updateSessionCounter();
+        };
+
+        // Đồng bộ khi mở nhiều tab cùng lúc
+        window.addEventListener("storage", (e) => {
+            if (e.key === HISTORY_STORAGE_KEY || e.key === null) {
+                examHistory = loadHistory();
+                updateSessionCounter();
+            }
+        });
+
+        // Cảnh báo khi đóng/tải lại trang lúc đang làm bài
+        window.addEventListener("beforeunload", (e) => {
+            if (examInProgress) {
+                e.preventDefault();
+                e.returnValue = "";
+            }
+        });
+
+        function updateSessionCounter() {
+            const counterEl = $("session-candidates-count");
+            if (counterEl) {
+                counterEl.innerHTML = `<i class="fa-solid fa-users text-xs mr-1"></i>Đã hoàn thành: ${examHistory.length} thí sinh`;
+            }
+        }
+
+        // Toast Helper Function
+        function showToast(message, iconClass = "fa-circle-info text-amber-400") {
+            const toast = $("toast-notification");
+            const msgEl = $("toast-message");
+            const iconEl = $("toast-icon");
+            if (!toast || !msgEl || !iconEl) return;
+
+            msgEl.innerText = message;
+            iconEl.className = `fa-solid ${iconClass} text-lg`;
+
+            // Hủy hẹn giờ cũ để toast mới không bị ẩn sớm
+            clearTimeout(toastTimer);
+            toast.classList.remove("translate-y-20", "opacity-0", "pointer-events-none");
+            toastTimer = setTimeout(() => {
+                toast.classList.add("translate-y-20", "opacity-0", "pointer-events-none");
+            }, 3500);
+        }
+
+        // Quay về màn hình bắt đầu
+        function resetToStartScreen(clearStudentFields) {
+            clearInterval(timerInterval);
+            examInProgress = false;
+            userAnswers = [];
+            currentQuestionIndex = 0;
+
+            if (clearStudentFields) {
+                $("user-name").value = "";
+                $("user-id").value = "";
+            }
+
+            hide("screen-result");
+            hide("screen-quiz");
+            hide("header-timer");
+            show("screen-start");
+
+            updateSessionCounter();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Prepare Environment for Next Candidate
+        function prepareNextStudent() {
+            resetToStartScreen(true);
+            showToast("Đã sẵn sàng cho thí sinh tiếp theo! Đề thi sẽ được xáo trộn tự động.", "fa-shuffle text-teal-400");
+            setTimeout(() => $("user-name").focus(), 300);
+        }
+
+        // Start Exam Function
+        function startExam() {
+            studentData.name = $("user-name").value.trim();
+            studentData.id = $("user-id").value.trim();
+            studentData.className = $("user-class").value.trim();
+            studentData.timeMinutes = parseInt($("exam-time").value, 10) || 40;
+
+            const firstEmpty = [["user-name", studentData.name], ["user-id", studentData.id], ["user-class", studentData.className]]
+                .find(([, val]) => !val);
+            if (firstEmpty) {
+                showToast("Vui lòng nhập đầy đủ thông tin thí sinh!", "fa-triangle-exclamation text-amber-400");
+                $(firstEmpty[0]).focus();
+                return;
+            }
+
+            const isShuffleOn = $("shuffle-toggle").checked;
+            const alreadyTaken = examHistory.some(h => String(h.id).toLowerCase() === studentData.id.toLowerCase());
+
+            currentQuestions = generateExamQuestions(isShuffleOn);
+            userAnswers = new Array(TOTAL_QUESTIONS).fill(null);
+            currentQuestionIndex = 0;
+            lastResult = null;
+            examInProgress = true;
+
+            hide("screen-start");
+            show("screen-quiz");
+            show("header-timer");
+
+            $("quiz-student-info").innerText = `${studentData.name} (${studentData.id})`;
+
+            buildPalette();
+            loadQuestion(0);
+            startTimer();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (alreadyTaken) {
+                showToast(`Mã ${studentData.id} đã có kết quả trong buổi này — lần làm mới sẽ được thêm vào bảng điểm.`, "fa-triangle-exclamation text-amber-400");
+            } else if (isShuffleOn) {
+                showToast("Đã xáo trộn ngẫu nhiên đề thi cho thí sinh!", "fa-shuffle text-teal-400");
+            }
+        }
+
+        // Đồng hồ đếm ngược dựa trên thời gian thực (không bị lệch khi tab chạy nền)
+        function startTimer() {
+            clearInterval(timerInterval);
+            examStartTime = Date.now();
+            examEndTime = examStartTime + studentData.timeMinutes * 60 * 1000;
+            tickTimer();
+            timerInterval = setInterval(tickTimer, 1000);
+        }
+
+        function tickTimer() {
+            const now = Date.now();
+            secondsRemaining = Math.max(0, Math.ceil((examEndTime - now) / 1000));
+            timeSpentSeconds = Math.min(studentData.timeMinutes * 60, Math.floor((now - examStartTime) / 1000));
+            updateTimerDisplay();
+
+            if (secondsRemaining <= 0) {
+                clearInterval(timerInterval);
+                showToast("Đã hết thời gian làm bài! Tự động nộp bài...", "fa-clock text-red-400");
+                submitExam();
+            }
+        }
+
+        function updateTimerDisplay() {
+            const el = $("timer-text");
+            el.innerText = formatTime(secondsRemaining);
+            // Đổi màu đỏ khi còn dưới 5 phút
+            el.classList.toggle("text-red-300", secondsRemaining <= 300);
+        }
+
+        // Load Question to UI
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = currentQuestions[index];
+
+            $("quiz-question-number").innerText = `Câu ${index + 1} / ${TOTAL_QUESTIONS}`;
+            $("quiz-category-badge").innerText = q.category;
+            $("question-text").innerText = q.question;
+
+            const fragment = document.createDocumentFragment();
+
+            q.options.forEach((optText, optIdx) => {
+                const isSelected = userAnswers[index] === optIdx;
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.onclick = () => selectOption(optIdx);
+
+                btn.className = `w-full text-left p-4 rounded-2xl border transition flex items-center space-x-3.5 group ${
+                    isSelected
+                        ? 'border-teal-600 bg-teal-50/70 ring-2 ring-teal-500/20 text-teal-900 font-medium'
+                        : 'border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 hover:border-slate-300 text-slate-700'
+                }`;
+
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0 transition ${
+                        isSelected
+                            ? 'bg-teal-600 text-white shadow-md shadow-teal-200'
+                            : 'bg-white border border-slate-200 text-slate-500 group-hover:border-slate-400'
+                    }">${OPTION_PREFIXES[optIdx]}</span>
+                    <span class="text-sm sm:text-base leading-snug flex-1">${escapeHtml(optText)}</span>
+                `;
+
+                fragment.appendChild(btn);
+            });
+
+            const optionsContainer = $("options-container");
+            optionsContainer.innerHTML = "";
+            optionsContainer.appendChild(fragment);
+
+            $("btn-prev").disabled = (index === 0);
+            updatePalette();
+        }
+
+        // Option Selection Handler
+        function selectOption(optIdx) {
+            if (!examInProgress) return;
+            userAnswers[currentQuestionIndex] = optIdx;
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                loadQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < TOTAL_QUESTIONS - 1) {
+                loadQuestion(currentQuestionIndex + 1);
+            } else {
+                showToast("Bạn đang ở câu cuối cùng!", "fa-circle-info text-blue-400");
+            }
+        }
+
+        // Tạo lưới số câu 1 lần khi bắt đầu, sau đó chỉ cập nhật class
+        function buildPalette() {
+            const grid = $("palette-grid");
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.innerText = i + 1;
+                btn.onclick = () => loadQuestion(i);
+                fragment.appendChild(btn);
+            }
+
+            grid.innerHTML = "";
+            grid.appendChild(fragment);
+        }
+
+        function updatePalette() {
+            const buttons = $("palette-grid").children;
+
+            for (let i = 0; i < buttons.length; i++) {
+                let bgClasses = userAnswers[i] !== null
+                    ? "bg-teal-600 text-white font-bold shadow-sm"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200";
+                if (i === currentQuestionIndex) {
+                    bgClasses += " ring-2 ring-amber-400 ring-offset-2";
+                }
+                buttons[i].className = `h-9 w-full rounded-xl text-xs font-semibold flex items-center justify-center transition ${bgClasses}`;
+            }
+
+            updateProgressSummary();
+        }
+
+        // Update Answer Progress Summary
+        function updateProgressSummary() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const percentage = (answeredCount / TOTAL_QUESTIONS) * 100;
+
+            $("completion-progress-text").innerText = `${answeredCount} / ${TOTAL_QUESTIONS} câu`;
+            $("completion-progress-bar").style.width = `${percentage}%`;
+        }
+
+        // Confirm Submit Modal
+        function confirmSubmitExam() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            const msg = unanswered > 0
+                ? `Bạn còn ${unanswered} câu chưa trả lời. Bạn có chắc chắn muốn nộp bài ngay không?`
+                : `Bạn đã hoàn thành ${TOTAL_QUESTIONS}/${TOTAL_QUESTIONS} câu hỏi. Bạn có chắc chắn muốn nộp bài thi?`;
+
+            $("confirm-msg").innerText = msg;
+            show("modal-confirm");
+        }
+
+        function closeModal() {
+            hide("modal-confirm");
+        }
+
+        // Chấm điểm bài làm hiện tại (dùng chung cho màn kết quả & xuất file)
+        function computeResult() {
+            const correctCount = currentQuestions.reduce(
+                (sum, q, idx) => sum + (userAnswers[idx] === q.answer ? 1 : 0), 0);
+            const scoreNumber = (correctCount / TOTAL_QUESTIONS) * 10;
+
+            return {
+                correctCount,
+                score: scoreNumber.toFixed(1),
+                percentage: ((correctCount / TOTAL_QUESTIONS) * 100).toFixed(1),
+                isPassed: scoreNumber >= PASS_SCORE,
+                status: scoreNumber >= PASS_SCORE ? "ĐẠT" : "CHƯA ĐẠT",
+                timeSpent: formatTime(timeSpentSeconds)
+            };
+        }
+
+        // Final Exam Submission Logic
+        function submitExam() {
+            // Chặn nộp trùng (bấm 2 lần hoặc hết giờ đúng lúc đang bấm nộp)
+            if (!examInProgress) return;
+            examInProgress = false;
+
+            closeModal();
+            clearInterval(timerInterval);
+            timeSpentSeconds = Math.min(studentData.timeMinutes * 60, Math.round((Date.now() - examStartTime) / 1000));
+
+            const result = computeResult();
+            lastResult = result;
+
+            examHistory.push({
+                id: studentData.id,
+                name: studentData.name,
+                className: studentData.className,
+                score: result.score,
+                correctCount: result.correctCount,
+                total: TOTAL_QUESTIONS,
+                timeSpent: result.timeSpent,
+                status: result.status,
+                submittedAt: new Date().toLocaleString('vi-VN')
+            });
+            saveHistory();
+            updateSessionCounter();
+
+            hide("screen-quiz");
+            hide("header-timer");
+            show("screen-result");
+
+            $("result-candidate-details").innerText =
+                `Thí sinh: ${studentData.name} | Mã SV: ${studentData.id} | Lớp: ${studentData.className}`;
+            $("result-time-spent").innerText = result.timeSpent;
+            $("result-correct-ratio").innerText = `${result.correctCount} / ${TOTAL_QUESTIONS} câu`;
+            $("result-percentage").innerText = `${result.percentage}%`;
+            $("result-final-score").innerText = result.score;
+
+            const statusBadge = $("result-status-badge");
+            const evalText = $("result-score-evaluation");
+
+            if (result.isPassed) {
+                statusBadge.className = "inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800";
+                statusBadge.innerHTML = `<i class="fa-solid fa-circle-check"></i><span>KẾT QUẢ: ĐẠT</span>`;
+                evalText.innerText = "Chúc mừng! Bạn đã đạt yêu cầu bài thi.";
+            } else {
+                statusBadge.className = "inline-flex items-center space-x-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-red-100 text-red-800";
+                statusBadge.innerHTML = `<i class="fa-solid fa-circle-xmark"></i><span>KẾT QUẢ: CHƯA ĐẠT</span>`;
+                evalText.innerText = `Chưa đạt yêu cầu (Cần tối thiểu ${PASS_SCORE.toFixed(1)} điểm).`;
+            }
+
+            renderDetailedReview();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showToast("Đã nộp bài và chấm điểm thành công!", "fa-circle-check text-emerald-400");
+        }
+
+        // Render Review Breakdown for each Question
+        function renderDetailedReview() {
+            const pointPerQuestion = (10 / TOTAL_QUESTIONS).toFixed(2);
+
+            const cards = currentQuestions.map((q, idx) => {
+                const uAns = userAnswers[idx];
+                const cAns = q.answer;
+                const isCorrect = uAns === cAns;
+
+                const statusBadge = isCorrect
+                    ? `<span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-lg"><i class="fa-solid fa-check mr-1"></i> Đúng (+${pointPerQuestion})</span>`
+                    : `<span class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-lg"><i class="fa-solid fa-xmark mr-1"></i> ${uAns === null ? 'Chưa làm' : 'Sai'} (0.00)</span>`;
+
+                const optionsHtml = q.options.map((opt, oIdx) => {
+                    let optStyle = "bg-slate-50 border-slate-200 text-slate-700";
+                    let optIcon = "";
+                    if (oIdx === cAns) {
+                        optStyle = "bg-emerald-50 border-emerald-500 font-semibold text-emerald-900";
+                        optIcon = '<i class="fa-solid fa-circle-check text-emerald-600 text-base ml-auto"></i>';
+                    } else if (oIdx === uAns) {
+                        optStyle = "bg-rose-50 border-rose-500 font-semibold text-rose-900 line-through";
+                        optIcon = '<i class="fa-solid fa-circle-xmark text-rose-500 text-base ml-auto"></i>';
+                    }
+
+                    return `
+                        <div class="p-3 rounded-xl border ${optStyle} text-xs sm:text-sm flex items-center justify-between space-x-2">
+                            <span class="font-bold mr-2 text-slate-500">${OPTION_PREFIXES[oIdx]}.</span>
+                            <span class="flex-1">${escapeHtml(opt)}</span>
+                            ${optIcon}
+                        </div>
+                    `;
+                }).join("");
+
+                return `
+                    <div class="p-6 rounded-3xl bg-white border shadow-sm space-y-4 ${isCorrect ? 'border-emerald-200' : 'border-rose-200'}">
+                        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                            <span class="font-bold text-teal-600 text-sm">Câu ${idx + 1} - ${escapeHtml(q.category)}</span>
+                            ${statusBadge}
+                        </div>
+                        <p class="font-semibold text-slate-800 text-sm sm:text-base">${escapeHtml(q.question)}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                            ${optionsHtml}
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs text-slate-600 flex items-start space-x-2">
+                            <i class="fa-solid fa-lightbulb text-amber-500 text-sm mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <strong class="text-slate-800">Giải thích chi tiết:</strong> ${escapeHtml(q.explanation)}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Ghi DOM một lần duy nhất thay vì 40 lần appendChild
+            $("review-container").innerHTML = cards.join("");
+        }
+
+        // ===== Modal xem trước dùng chung =====
+        function openPreviewModal({ title, subtitle, metaHtml, headHtml, rowsHtml, onDownload }) {
+            $("preview-modal-title").innerText = title;
+            $("preview-modal-subtitle").innerText = subtitle;
+            $("preview-meta-bar").innerHTML = metaHtml;
+            $("preview-table-head").innerHTML = headHtml;
+            $("preview-table-body").innerHTML = rowsHtml;
+            $("btn-download-from-preview").onclick = function() {
+                onDownload();
+                closePreviewModal();
+            };
+            show("modal-preview-export");
+        }
+
+        function closePreviewModal() {
+            hide("modal-preview-export");
+        }
+
+        // Preview Individual Student Result
+        function previewExportIndividual() {
+            if (!lastResult || currentQuestions.length === 0) {
+                showToast("Chưa có dữ liệu bài làm để xem trước!", "fa-triangle-exclamation text-amber-400");
+                return;
+            }
+
+            const r = lastResult;
+            const rowsHtml = currentQuestions.map((q, idx) => {
+                const uAns = userAnswers[idx] !== null ? OPTION_PREFIXES[userAnswers[idx]] : "Chưa làm";
+                const isCorrect = userAnswers[idx] === q.answer;
+                return `
+                    <tr class="${isCorrect ? 'hover:bg-emerald-50/50' : 'hover:bg-rose-50/50'}">
+                        <td class="p-3 text-center font-bold text-slate-500">${idx + 1}</td>
+                        <td class="p-3 font-medium text-slate-600">${escapeHtml(q.category)}</td>
+                        <td class="p-3 text-slate-800">${escapeHtml(q.question)}</td>
+                        <td class="p-3 text-center font-bold ${isCorrect ? 'text-emerald-700' : 'text-rose-600'}">${uAns}</td>
+                        <td class="p-3 text-center font-bold text-teal-700">${OPTION_PREFIXES[q.answer]}</td>
+                        <td class="p-3 text-center">
+                            ${isCorrect
+                                ? `<span class="inline-block px-2 py-0.5 bg-emerald-100 text-emerald-800 text-xs font-bold rounded">Đúng</span>`
+                                : `<span class="inline-block px-2 py-0.5 bg-rose-100 text-rose-800 text-xs font-bold rounded">Sai</span>`}
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+
+            openPreviewModal({
+                title: "Xem Trước Bảng Điểm Cá Nhân",
+                subtitle: `Thí sinh: ${studentData.name} | MSSV: ${studentData.id} | Lớp: ${studentData.className}`,
+                metaHtml: `
+                    <div class="flex items-center space-x-3">
+                        <span class="px-2.5 py-0.5 rounded-full font-bold text-xs ${r.isPassed ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                            ${r.status}
+                        </span>
+                        <span class="font-semibold text-slate-700">Điểm số: <strong class="text-teal-600 text-sm">${r.score}/10</strong></span>
+                        <span class="text-slate-500">| Số câu đúng: <strong>${r.correctCount}/${TOTAL_QUESTIONS}</strong></span>
+                    </div>
+                    <div class="text-slate-500">
+                        Thời gian: <strong>${r.timeSpent}</strong>
+                    </div>
+                `,
+                headHtml: `
+                    <tr>
+                        <th class="p-3 text-center w-12 border-b">STT</th>
+                        <th class="p-3 border-b min-w-[140px]">Danh Mục</th>
+                        <th class="p-3 border-b min-w-[250px]">Nội Dung Câu Hỏi</th>
+                        <th class="p-3 text-center border-b w-24">Đã Chọn</th>
+                        <th class="p-3 text-center border-b w-24">Đáp Án Đúng</th>
+                        <th class="p-3 text-center border-b w-24">Kết Quả</th>
+                    </tr>
+                `,
+                rowsHtml,
+                onDownload: exportToExcel
+            });
+        }
+
+        function getClassStats() {
+            const total = examHistory.length;
+            const passed = examHistory.filter(item => item.status === "ĐẠT").length;
+            return {
+                total,
+                passed,
+                failed: total - passed,
+                passRate: total ? ((passed / total) * 100).toFixed(1) : "0.0"
+            };
+        }
+
+        // Preview Class Summary Results
+        function previewExportClass() {
+            if (examHistory.length === 0) {
+                showToast("Chưa có dữ liệu danh sách thí sinh làm bài!", "fa-triangle-exclamation text-amber-400");
+                return;
+            }
+
+            const stats = getClassStats();
+            const classNames = [...new Set(examHistory.map(h => h.className))].join(", ");
+
+            const rowsHtml = examHistory.map((item, idx) => {
+                const isPassed = item.status === "ĐẠT";
+                return `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-3 text-center font-bold text-slate-500">${idx + 1}</td>
+                        <td class="p-3 font-mono text-slate-700 font-semibold">${escapeHtml(item.id)}</td>
+                        <td class="p-3 font-bold text-slate-800">${escapeHtml(item.name)}</td>
+                        <td class="p-3 text-slate-600">${escapeHtml(item.className)}</td>
+                        <td class="p-3 text-center font-extrabold ${isPassed ? 'text-emerald-600' : 'text-rose-600'}">${escapeHtml(item.score)}</td>
+                        <td class="p-3 text-center font-medium text-slate-700">${item.correctCount}/${item.total || TOTAL_QUESTIONS}</td>
+                        <td class="p-3 text-center text-slate-500 font-mono">${escapeHtml(item.timeSpent)}</td>
+                        <td class="p-3 text-center text-slate-500 text-xs whitespace-nowrap">${escapeHtml(item.submittedAt || "")}</td>
+                        <td class="p-3 text-center">
+                            <span class="inline-block px-2.5 py-0.5 text-xs font-bold rounded-full ${isPassed ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                                ${escapeHtml(item.status)}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+
+            openPreviewModal({
+                title: "Xem Trước Bảng Điểm Tổng Hợp Cả Lớp",
+                subtitle: `Thống kê tổng cộng ${stats.total} thí sinh đã hoàn thành bài thi`,
+                metaHtml: `
+                    <div class="flex items-center space-x-3">
+                        <span class="font-semibold text-slate-700">Tổng thí sinh: <strong class="text-indigo-600">${stats.total}</strong></span>
+                        <span class="text-slate-500">| Tỷ lệ đạt: <strong class="text-emerald-600">${stats.passRate}%</strong> (${stats.passed} Đạt / ${stats.failed} Chưa đạt)</span>
+                    </div>
+                    <div class="text-slate-500">
+                        <i class="fa-solid fa-users text-teal-600 mr-1"></i>Lớp: ${escapeHtml(classNames)}
+                    </div>
+                `,
+                headHtml: `
+                    <tr>
+                        <th class="p-3 text-center w-12 border-b">STT</th>
+                        <th class="p-3 border-b">Mã Số SV</th>
+                        <th class="p-3 border-b">Họ và Tên</th>
+                        <th class="p-3 border-b">Lớp / Đơn Vị</th>
+                        <th class="p-3 text-center border-b">Điểm Số (10)</th>
+                        <th class="p-3 text-center border-b">Số Câu Đúng</th>
+                        <th class="p-3 text-center border-b">Thời Gian</th>
+                        <th class="p-3 text-center border-b">Nộp Lúc</th>
+                        <th class="p-3 text-center border-b">Kết Quả</th>
+                    </tr>
+                `,
+                rowsHtml,
+                onDownload: exportAllToExcel
+            });
+        }
+
+        // ===== Tiện ích CSV =====
+        // Bọc ô CSV an toàn: escape dấu ngoặc kép & chặn công thức Excel (=, +, -, @)
+        function csvCell(value) {
+            let s = String(value === null || value === undefined ? "" : value);
+            if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+            return `"${s.replace(/"/g, '""')}"`;
+        }
+
+        function csvRow(cells) {
+            return cells.map(csvCell).join(",") + "\r\n";
+        }
+
+        function safeFileName(str) {
+            return String(str).trim().replace(/[\\/:*?"<>|]+/g, "").replace(/\s+/g, "_");
+        }
+
+        function downloadCsv(content, fileName) {
+            const blob = new Blob(["﻿" + content], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            // Trì hoãn thu hồi URL để trình duyệt kịp bắt đầu tải
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        // Export All Students Results to Excel (CSV UTF-8 with BOM)
+        function exportAllToExcel() {
+            if (examHistory.length === 0) {
+                showToast("Chưa có dữ liệu danh sách thí sinh!", "fa-triangle-exclamation text-amber-400");
+                return;
+            }
+
+            const now = new Date();
+            const stats = getClassStats();
+
+            let csv = "";
+            csv += csvRow(["BẢNG ĐIỂM TỔNG HỢP CẢ LỚP - BÀI THI TRẮC NGHIỆM INTERNET CƠ BẢN (CHƯƠNG VI)"]);
+            csv += csvRow([`Thời gian xuất danh sách: ${now.toLocaleDateString('vi-VN')} ${now.toLocaleTimeString('vi-VN')}`]);
+            csv += csvRow([`Tổng số thí sinh: ${stats.total} | Tỷ lệ ĐẠT: ${stats.passRate}% (${stats.passed} Đạt / ${stats.failed} Chưa đạt)`]);
+            csv += "\r\n";
+            csv += csvRow(["STT", "MÃ SỐ SV", "HỌ VÀ TÊN", "LỚP / ĐƠN VỊ", "ĐIỂM SỐ (THANG 10)", "SỐ CÂU ĐÚNG", "THỜI GIAN LÀM BÀI", "NỘP LÚC", "KẾT QUẢ"]);
+
+            examHistory.forEach((item, idx) => {
+                csv += csvRow([
+                    idx + 1, item.id, item.name, item.className, item.score,
+                    `${item.correctCount}/${item.total || TOTAL_QUESTIONS}`, item.timeSpent, item.submittedAt || "", item.status
+                ]);
+            });
+
+            downloadCsv(csv, `Bang_Diem_Tong_Hop_InternetBasics_${now.toISOString().slice(0, 10)}.csv`);
+            showToast("Đã tải xuống Bảng điểm tổng hợp thành công!", "fa-circle-check text-emerald-400");
+        }
+
+        // Export Individual Student Results to CSV
+        function exportToExcel() {
+            if (!lastResult) {
+                showToast("Chưa có dữ liệu bài làm để xuất!", "fa-triangle-exclamation text-amber-400");
+                return;
+            }
+            const r = lastResult;
+
+            let csv = "";
+            csv += csvRow(["KẾT QUẢ BÀI THI CÁ NHÂN - INTERNET CƠ BẢN"]);
+            csv += csvRow(["HỌ TÊN", "MÃ SINH VIÊN", "LỚP / ĐƠN VỊ", "ĐIỂM SỐ", "SỐ CÂU ĐÚNG", "THỜI GIAN LÀM BÀI", "TRẠNG THÁI"]);
+            csv += csvRow([studentData.name, studentData.id, studentData.className, r.score, `${r.correctCount}/${TOTAL_QUESTIONS}`, r.timeSpent, r.status]);
+            csv += "\r\n";
+            csv += csvRow(["STT", "Danh Mục", "Câu Hỏi", "Đáp Án Đã Chọn", "Đáp Án Đúng", "Kết Quả"]);
+
+            currentQuestions.forEach((q, idx) => {
+                const uAns = userAnswers[idx] !== null ? OPTION_PREFIXES[userAnswers[idx]] : "Chưa làm";
+                const res = userAnswers[idx] === q.answer ? "Đúng" : "Sai";
+                csv += csvRow([idx + 1, q.category, q.question, uAns, OPTION_PREFIXES[q.answer], res]);
+            });
+
+            downloadCsv(csv, `Ket_Qua_InternetBasics_${safeFileName(studentData.id)}_${safeFileName(studentData.name)}.csv`);
+            showToast("Đã xuất file kết quả cá nhân thành công!", "fa-circle-check text-emerald-400");
+        }
+
+        // Reset Exam Function Modal Triggers
+        function resetExam() {
+            show("modal-reset-confirm");
+        }
+
+        function closeResetModal() {
+            hide("modal-reset-confirm");
+        }
+
+        function executeResetExam() {
+            closeResetModal();
+            resetToStartScreen(false);
+            showToast("Đã khởi tạo lại bài thi!");
+        }
+
+        // ===== Xóa kết quả buổi học (cuối buổi) =====
+        function openClearHistoryModal() {
+            if (examHistory.length === 0) {
+                showToast("Chưa có kết quả nào để xóa.", "fa-circle-info text-blue-400");
+                return;
+            }
+            $("clear-history-count").innerText = examHistory.length;
+            show("modal-clear-history");
+        }
+
+        function closeClearHistoryModal() {
+            hide("modal-clear-history");
+        }
+
+        function executeClearHistory(exportFirst) {
+            if (exportFirst) exportAllToExcel();
+
+            examHistory = [];
+            lastResult = null;
+            currentQuestions = [];
+            saveHistory();
+
+            closeClearHistoryModal();
+            resetToStartScreen(true);
+            $("user-class").value = "";
+            $("review-container").innerHTML = "";
+
+            showToast(exportFirst
+                ? "Đã tải bảng điểm và xóa toàn bộ kết quả buổi học!"
+                : "Đã xóa toàn bộ kết quả buổi học!", "fa-trash-can text-rose-400");
+        }
+
+        // ===== Phím tắt =====
+        function isAnyModalOpen() {
+            return MODAL_IDS.some(id => !$(id).classList.contains("hidden"));
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeModal();
+                closeResetModal();
+                closePreviewModal();
+                closeClearHistoryModal();
+                return;
+            }
+
+            const tag = e.target.tagName;
+            const isTyping = tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA";
+
+            // Nhấn Enter trong form đăng ký để bắt đầu thi
+            if (e.key === "Enter" && isTyping && !$("screen-start").classList.contains("hidden")) {
+                e.preventDefault();
+                startExam();
+                return;
+            }
+
+            if (!examInProgress || isAnyModalOpen() || isTyping || e.ctrlKey || e.altKey || e.metaKey) return;
+
+            const letterIdx = OPTION_PREFIXES.indexOf(e.key.toUpperCase());
+            const numberIdx = ["1", "2", "3", "4"].indexOf(e.key);
+            const optIdx = letterIdx >= 0 ? letterIdx : numberIdx;
+
+            if (optIdx >= 0 && optIdx < currentQuestions[currentQuestionIndex].options.length) {
+                e.preventDefault();
+                selectOption(optIdx);
+            } else if (e.key === "ArrowRight") {
+                e.preventDefault();
+                nextQuestion();
+            } else if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                prevQuestion();
+            }
+        });
+
+        // Helper Utility to escape HTML strings safely
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
