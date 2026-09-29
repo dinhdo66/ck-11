@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài giảng PowerPoint 2019</title>
+<style>
+:root{
+  --bg:#f4f6fb; --surface:#ffffff; --surface-2:#eef1f8; --text:#1d2433; --muted:#5b6478;
+  --border:#dde2ee; --primary:#b7472a; --primary-2:#c95a36; --primary-soft:#fbece6;
+  --accent:#2563eb; --ok:#15803d; --ok-soft:#e6f6ec; --bad:#b91c1c; --bad-soft:#fdecec;
+  --warn:#b45309; --warn-soft:#fff5e5; --code-bg:#1e2230; --code-text:#e6e9f2;
+  --shadow:0 2px 10px rgba(20,30,60,.07); --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#11141b; --surface:#1a1f2a; --surface-2:#232937; --text:#e7eaf2; --muted:#9aa3b8;
+    --border:#2e3546; --primary:#f08a64; --primary-2:#f5a585; --primary-soft:#3b2219;
+    --accent:#6ea0ff; --ok:#4ade80; --ok-soft:#173222; --bad:#f87171; --bad-soft:#3a1c1c;
+    --warn:#fbbf24; --warn-soft:#3a2d14; --code-bg:#0c0f15; --code-text:#e6e9f2;
+    --shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65;font-size:16px}
+a{color:var(--accent)}
+code,kbd{font-family:Consolas,"Courier New",monospace;font-size:.92em}
+code{background:var(--surface-2);padding:1px 6px;border-radius:5px}
+kbd{border:1px solid var(--border);border-bottom-width:3px;border-radius:5px;padding:0 6px;background:var(--surface)}
+
+/* Header */
+header.hero{background:linear-gradient(135deg,#7e2d17,#b7472a 55%,#d8663f);color:#fff;padding:36px 16px 44px}
+.hero .wrap{max-width:1180px;margin:0 auto}
+.hero .badge{display:inline-block;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:99px;font-size:.85rem;letter-spacing:.3px}
+.hero h1{margin:12px 0 6px;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.25}
+.hero p{margin:0;opacity:.92;max-width:760px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.hero .meta span,.hero .meta a{background:rgba(0,0,0,.18);padding:6px 12px;border-radius:10px;font-size:.9rem;color:#fff;text-decoration:none}
+.hero .meta a:hover{background:rgba(0,0,0,.3)}
+
+/* Layout */
+.layout{max-width:1180px;margin:-22px auto 40px;padding:0 16px;display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
+nav.toc{position:sticky;top:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
+nav.toc h3{margin:4px 8px 10px;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+nav.toc a{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:9px;color:var(--text);text-decoration:none;font-size:.94rem}
+nav.toc a .n{flex:0 0 24px;height:24px;border-radius:7px;background:var(--surface-2);display:grid;place-items:center;font-size:.78rem;font-weight:700;color:var(--muted)}
+nav.toc a:hover,nav.toc a.active{background:var(--primary-soft);color:var(--primary)}
+nav.toc a.active .n{background:var(--primary);color:#fff}
+.progress-read{height:4px;background:var(--surface-2);border-radius:4px;margin:12px 8px 4px;overflow:hidden}
+.progress-read i{display:block;height:100%;width:0;background:var(--primary);transition:width .2s}
+main{min-width:0}
+section.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:22px;scroll-margin-top:16px}
+section.card h2{margin:0 0 14px;font-size:1.45rem;display:flex;align-items:center;gap:12px}
+section.card h2 .num{background:var(--primary);color:#fff;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:1rem;flex:0 0 34px}
+section.card h3{margin:22px 0 8px;font-size:1.1rem;color:var(--primary)}
+.lead{color:var(--muted);margin-top:-4px}
+
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:14px 0}
+.tile{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px}
+.tile h4{margin:0 0 6px;font-size:1rem}
+.tile p{margin:0;color:var(--muted);font-size:.94rem}
+.tile .ic{font-size:1.5rem}
+
+.note{border-left:4px solid var(--accent);background:var(--surface-2);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.note.warn{border-color:var(--warn);background:var(--warn-soft)}
+.note.tip{border-color:var(--ok);background:var(--ok-soft)}
+.note b:first-child{display:block;margin-bottom:2px}
+
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.94rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td code{white-space:nowrap}
+
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+ol.steps li{counter-increment:s;position:relative;padding:4px 0 14px 48px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:32px;height:32px;border-radius:50%;background:var(--primary-soft);color:var(--primary);font-weight:700;display:grid;place-items:center}
+ol.steps li:not(:last-child)::after{content:"";position:absolute;left:15px;top:36px;bottom:0;width:2px;background:var(--border)}
+
+/* Query Design mock */
+.designer{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.9rem}
+.designer .bar{background:var(--primary);color:#fff;padding:7px 12px;font-weight:600;display:flex;justify-content:space-between}
+.designer .tables{background:var(--surface-2);padding:16px;display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;position:relative;border-bottom:1px solid var(--border)}
+.tbox{background:var(--surface);border:1px solid var(--border);border-radius:8px;min-width:140px;box-shadow:var(--shadow)}
+.tbox b{display:block;background:var(--primary-soft);color:var(--primary);padding:5px 10px;border-radius:8px 8px 0 0}
+.tbox div{padding:2px 10px;color:var(--muted)}
+.tbox div:last-child{padding-bottom:8px}
+.tbox .pk{color:var(--text);font-weight:600}
+.join-line{align-self:center;color:var(--muted);font-weight:700}
+.qbe{overflow-x:auto;background:var(--surface)}
+.qbe table{font-size:.86rem;min-width:560px}
+.qbe th{width:90px;text-align:right;color:var(--muted);background:var(--surface-2)}
+.qbe td{border-left:1px solid var(--border);min-width:120px}
+.qbe .hl{color:var(--accent);font-weight:600}
+
+pre.code{background:var(--code-bg);color:var(--code-text);padding:16px 18px;border-radius:12px;overflow-x:auto;font-size:.9rem;line-height:1.6;margin:14px 0}
+pre.code .k{color:#ff9e9e;font-weight:700}
+pre.code .a{color:#8cc8ff;font-weight:700}
+pre.code .c{color:#8fd19e;font-style:italic}
+pre.code .s{color:#f5d38a}
+
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.82rem;font-weight:700;margin-right:6px}
+.chip.sel{background:#e0ecff;color:#1d4ed8}
+.chip.act{background:var(--warn-soft);color:var(--warn)}
+.chip.sql{background:var(--ok-soft);color:var(--ok)}
+@media (prefers-color-scheme: dark){.chip.sel{background:#1b2a48;color:#8fb4ff}}
+
+/* Quiz */
+.student-box{background:linear-gradient(135deg,var(--primary-soft),var(--surface-2));border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin:6px 0 18px}
+.student-box label{display:block;font-weight:700;margin-bottom:8px}
+.student-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.student-row input{flex:1 1 260px;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:1rem;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
+.student-row input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft)}
+.student-row input.invalid{border-color:var(--bad);box-shadow:0 0 0 4px var(--bad-soft);animation:shake .35s}
+.err-msg{color:var(--bad);font-size:.9rem;margin-top:8px;display:none;font-weight:600}
+.err-msg.show{display:block}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.quiz-status{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:16px;box-shadow:var(--shadow)}
+.quiz-status .bar{flex:1 1 160px;height:8px;background:var(--surface-2);border-radius:8px;overflow:hidden}
+.quiz-status .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .25s}
+.quiz-status .pill{font-size:.9rem;background:var(--surface-2);padding:4px 10px;border-radius:99px;white-space:nowrap}
+.qnav{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin-bottom:18px}
+.qnav button{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:6px 0;cursor:pointer;font-weight:600;font-size:.85rem}
+.qnav button.done{background:var(--primary);border-color:var(--primary);color:#fff}
+.qnav button.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.qnav button.wrong{background:var(--bad);border-color:var(--bad);color:#fff}
+
+.q{border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px;scroll-margin-top:80px;transition:border-color .2s}
+.q.answered{border-color:color-mix(in srgb,var(--primary) 45%,var(--border))}
+.q .qt{font-weight:600;margin-bottom:10px}
+.q .qt .qn{color:var(--primary);margin-right:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:1px solid var(--border);border-radius:9px;margin-bottom:7px;cursor:pointer;transition:background .15s,border-color .15s}
+.opt:hover{background:var(--surface-2)}
+.opt input{margin-top:5px;accent-color:var(--primary)}
+.opt .l{font-weight:700;color:var(--muted);min-width:18px}
+.opt.sel{border-color:var(--primary);background:var(--primary-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.incorrect{border-color:var(--bad);background:var(--bad-soft)}
+.q.locked .opt{cursor:default}
+.explain{display:none;margin-top:8px;font-size:.92rem;padding:10px 12px;border-radius:9px;background:var(--surface-2)}
+.q.locked .explain{display:block}
+
+.btn{border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:.98rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .1s,filter .15s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:var(--surface-2);color:var(--text);border:1px solid var(--border)}
+.btn-danger{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+.result{display:none;border-radius:14px;padding:22px;margin:18px 0;text-align:center;border:2px solid var(--border)}
+.result.show{display:block}
+.result .score{font-size:3rem;font-weight:800;line-height:1.1}
+.result .rank{display:inline-block;margin-top:6px;padding:4px 14px;border-radius:99px;font-weight:700}
+.result.good{border-color:var(--ok);background:var(--ok-soft)} .result.good .score{color:var(--ok)}
+.result.mid{border-color:var(--warn);background:var(--warn-soft)} .result.mid .score{color:var(--warn)}
+.result.low{border-color:var(--bad);background:var(--bad-soft)} .result.low .score{color:var(--bad)}
+.result .stats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:12px;color:var(--muted)}
+
+/* History */
+.hist-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.hist-tools input{flex:1 1 220px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-size:.95rem}
+.score-chip{display:inline-block;min-width:48px;text-align:center;padding:2px 8px;border-radius:8px;font-weight:700}
+.score-chip.good{background:var(--ok-soft);color:var(--ok)}
+.score-chip.mid{background:var(--warn-soft);color:var(--warn)}
+.score-chip.low{background:var(--bad-soft);color:var(--bad)}
+.empty{text-align:center;color:var(--muted);padding:22px}
+.del-row{background:none;border:none;color:var(--bad);cursor:pointer;font-size:1rem}
+
+/* Modal + toast */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:var(--surface);border-radius:14px;max-width:440px;width:100%;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.modal h3{margin:0 0 8px}
+.modal .actions{justify-content:flex-end}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:10px;z-index:60;transition:transform .3s;font-weight:600;max-width:calc(100% - 32px)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.to-top{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:none;background:var(--primary);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:var(--shadow);display:none;z-index:20}
+footer{text-align:center;color:var(--muted);font-size:.88rem;padding:10px 16px 40px}
+footer .credit{display:inline-block;margin-top:12px;padding:10px 22px;border-radius:99px;background:linear-gradient(135deg,#7e2d17,#b7472a 55%,#d8663f);color:#fff;font-size:1rem;font-weight:600;letter-spacing:.2px;box-shadow:0 4px 16px rgba(183,71,42,.35);transition:transform .2s,box-shadow .2s}
+footer .credit:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(183,71,42,.45)}
+.lesson-nav{max-width:1180px;margin:0 auto 18px;padding:0 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lesson-nav a{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;text-decoration:none;color:var(--text);font-weight:600;box-shadow:var(--shadow)}
+.lesson-nav a:hover{border-color:var(--primary);color:var(--primary)}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav.toc{position:static;display:flex;overflow-x:auto;gap:4px;padding:8px}
+  nav.toc h3,.progress-read{display:none}
+  nav.toc a{white-space:nowrap}
+  section.card{padding:20px 16px}
+}
+@media print{nav.toc,.to-top,.quiz-status,.qnav,.actions,.hist-tools,.lesson-nav{display:none!important}.layout{display:block}}
+/* Macro builder mock */
+.builder{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.92rem}
+.builder .bar{background:var(--primary);color:#fff;padding:7px 12px;font-weight:600;display:flex;justify-content:space-between}
+.builder .body{display:grid;grid-template-columns:1fr 220px;min-height:200px}
+.builder .canvas{padding:14px;background:var(--surface)}
+.builder .catalog{background:var(--surface-2);border-left:1px solid var(--border);padding:12px}
+.builder .catalog b{display:block;margin-bottom:6px}
+.builder .catalog div{padding:3px 0;color:var(--muted)}
+.mblock{border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:8px;background:var(--surface-2)}
+.mblock .act{font-weight:700;color:var(--accent)}
+.mblock .arg{display:grid;grid-template-columns:110px 1fr;gap:4px 10px;margin-top:6px;font-size:.88rem}
+.mblock .arg span:nth-child(odd){color:var(--muted)}
+.mblock.cmt{color:var(--ok);font-style:italic;background:transparent;border-style:dashed}
+.mblock.if{border-color:var(--warn);background:var(--warn-soft)}
+.addnew{border:1px dashed var(--border);border-radius:8px;padding:7px 12px;color:var(--muted)}
+
+
+@media (max-width:900px){
+  .builder .body{grid-template-columns:1fr}
+  .builder .catalog{border-left:none;border-top:1px solid var(--border)}
+}
+
+/* Form Design mock */
+.fsec-h{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3px 12px;font-size:.82rem;font-weight:700;color:var(--muted)}
+.fsec{padding:12px 16px;border-bottom:1px solid var(--border)}
+.frow{display:flex;gap:12px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.fctl{display:inline-block;padding:4px 10px;border-radius:5px;font-size:.88rem}
+.fctl.lbl{min-width:70px;color:var(--text)}
+.fctl.box{border:1px solid var(--border);background:var(--surface-2);min-width:180px;color:var(--accent)}
+.fctl.btn-mock{border:1px solid var(--border);background:var(--surface-2);font-weight:600;margin:2px 4px 2px 0}
+
+
+
+/* Mô phỏng giao diện Word */
+.ribbon{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.85rem}
+.ribbon .wtitle{background:var(--primary);color:#fff;padding:6px 12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ribbon .wtabs{display:flex;gap:2px;background:var(--surface-2);padding:4px 8px 0;flex-wrap:wrap}
+.ribbon .wtabs span{padding:4px 10px;border-radius:6px 6px 0 0;color:var(--muted)}
+.ribbon .wtabs span.on{background:var(--surface);color:var(--primary);font-weight:700}
+.ribbon .wgroups{display:flex;background:var(--surface);padding:8px 4px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.ribbon .wgrp{padding:2px 12px;border-right:1px solid var(--border);text-align:center;display:flex;flex-direction:column;justify-content:space-between;gap:4px}
+.ribbon .wgrp:last-child{border-right:none}
+.ribbon .wgrp .it{font-weight:600}
+.ribbon .wgrp .gn{color:var(--muted);font-size:.72rem}
+.ribbon .wdoc{background:var(--surface-2);padding:16px}
+.ribbon .wpage{background:var(--surface);max-width:520px;margin:0 auto;padding:22px 28px;box-shadow:var(--shadow);border:1px solid var(--border);min-height:120px}
+.ribbon .wstatus{background:var(--primary);color:#fff;padding:3px 12px;font-size:.76rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.callouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:10px 0}
+.callouts div{background:var(--surface-2);border-radius:8px;padding:8px 12px;font-size:.9rem}
+.callouts b{color:var(--primary)}
+.flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin:14px 0}
+.flow .st{flex:1 1 150px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:.9rem}
+.flow .st b{display:block;color:var(--primary)}
+.flow .ar{align-self:center;color:var(--muted);font-weight:700}
+.margin-demo{position:relative;max-width:300px;aspect-ratio:210/297;margin:14px auto;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
+.margin-demo .inner{position:absolute;top:8%;bottom:8%;left:14%;right:7%;border:1px dashed var(--primary);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem;text-align:center;padding:6px}
+.margin-demo span{position:absolute;font-size:.72rem;color:var(--primary);font-weight:700}
+
+/* Mô phỏng cửa sổ PowerPoint */
+.pp{display:grid;grid-template-columns:110px 1fr;background:var(--surface-2);min-height:230px}
+.pp .thumbs{border-right:1px solid var(--border);padding:8px 6px;display:flex;flex-direction:column;gap:8px}
+.pp .th{display:flex;gap:4px;align-items:flex-start;font-size:.72rem;color:var(--muted)}
+.pp .th .mini{flex:1;aspect-ratio:16/9;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:4px;display:flex;flex-direction:column;gap:3px;position:relative}
+.pp .th .mini i{display:block;height:3px;background:var(--border);border-radius:2px;width:85%}
+.pp .th .mini .pic{position:absolute;right:5px;bottom:5px;width:30%;height:40%;background:var(--primary-soft);border-radius:2px}
+.pp .th.on .mini{outline:2px solid var(--primary)}
+.pp .th.child{padding-left:12px}
+.pp .stage{padding:14px;display:flex;flex-direction:column;gap:8px}
+.pp .slide16{aspect-ratio:16/9;background:var(--surface);box-shadow:var(--shadow);border:1px solid var(--border);border-radius:4px;position:relative;padding:6% 8%;display:flex;flex-direction:column;justify-content:center;gap:8px;max-width:520px;width:100%;margin:0 auto}
+.pp .ph{border:1px dashed var(--muted);border-radius:3px;padding:6px 10px;color:var(--muted)}
+.pp .ph.title{font-weight:700;font-size:1.05rem;text-align:center;color:var(--text)}
+.pp .ph.sub{text-align:center;font-size:.85rem}
+.pp .ph.body{font-size:.82rem;line-height:1.6}
+.pp .logo{position:absolute;right:10px;bottom:8px;font-size:.7rem;font-weight:800;color:#fff;background:var(--primary);padding:2px 6px;border-radius:4px}
+.pp .notes{border:1px solid var(--border);background:var(--surface);border-radius:4px;padding:5px 10px;font-size:.78rem;color:var(--muted);max-width:520px;width:100%;margin:0 auto}
+@media (max-width:600px){.pp{grid-template-columns:70px 1fr}}
+
+/* Thanh chuyển bài học */
+.lesson-tabs{background:#5a1f0f;padding:10px 16px}
+.lesson-tabs .wrap{max-width:1180px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lesson-tabs .brand{color:#fff;font-weight:700;margin-right:auto;opacity:.95}
+.lesson-tabs button{border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:8px 16px;border-radius:99px;font-weight:600;font-size:.94rem;cursor:pointer;transition:background .15s}
+.lesson-tabs button:hover{background:rgba(255,255,255,.12)}
+.lesson-tabs button.active{background:#fff;color:#b7472a;border-color:#fff}
+.lesson{display:none}
+.lesson.active{display:block}
+.lesson-nav button{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;color:var(--primary);font-weight:600;font-size:1rem;box-shadow:var(--shadow);cursor:pointer;font-family:inherit}
+.lesson-nav button:hover{border-color:var(--primary)}
+</style>
+</head>
+<body>
+
+<div class="lesson-tabs">
+  <div class="wrap">
+    <a class="brand" href="index.html" title="Về trang chủ bộ bài giảng" style="text-decoration:none">🏠 📽️ Microsoft PowerPoint 2019</a>
+    <button type="button" data-lesson="lamquen">Bài 1. Làm quen &amp; Tạo bài</button>
+    <button type="button" data-lesson="thietke">Bài 2. Thiết kế &amp; Slide Master</button>
+    <button type="button" data-lesson="doituong">Bài 3. Đa phương tiện</button>
+    <button type="button" data-lesson="hieuung">Bài 4. Hiệu ứng</button>
+    <button type="button" data-lesson="trinhchieu">Bài 5. Trình chiếu &amp; Xuất bản</button>
+  </div>
+</div>
+
+<!-- ================= BÀI 1: LÀM QUEN & TẠO BÀI TRÌNH CHIẾU ================= -->
+<div class="lesson" id="lesson-lamquen">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📽️ Tin học ứng dụng · Microsoft PowerPoint 2019</span>
+    <h1>Bài 1. Làm quen với PowerPoint 2019 và tạo bài trình chiếu</h1>
+    <p>Giao diện PowerPoint 2019, tạo – mở – lưu bài trình chiếu, bố cục slide (Layout), placeholder, thêm – nhân bản – sắp xếp slide, chia Section và các chế độ xem.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#p1-s1"><span class="n">1</span>Giao diện PowerPoint 2019</a>
+    <a href="#p1-s2"><span class="n">2</span>Tạo, mở, lưu bài trình chiếu</a>
+    <a href="#p1-s3"><span class="n">3</span>Bố cục slide & placeholder</a>
+    <a href="#p1-s4"><span class="n">4</span>Quản lý slide</a>
+    <a href="#p1-s5"><span class="n">5</span>Section</a>
+    <a href="#p1-s6"><span class="n">6</span>Các chế độ xem</a>
+    <a href="#p1-s7"><span class="n">7</span>Soạn nội dung & dàn ý</a>
+    <a href="#p1-s8"><span class="n">8</span>Ghi chú & tái sử dụng slide</a>
+    <a href="#p1-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#p1-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="p1-s1">
+      <h2><span class="num">1</span>Giao diện PowerPoint 2019</h2>
+      <p><b>Microsoft PowerPoint 2019</b> là phần mềm tạo <b>bài trình chiếu</b> (presentation) gồm nhiều <b>trang chiếu (slide)</b> chứa văn bản, hình ảnh, biểu đồ, âm thanh, video và hiệu ứng, dùng để thuyết trình, giảng dạy, báo cáo.</p>
+      <div class="ribbon" aria-label="Mô phỏng giao diện PowerPoint 2019">
+        <div class="wtitle"><span>💾 ↶ ↷ ▶ &nbsp;|&nbsp; BaoCao.pptx - PowerPoint</span><span>🔍 Tell me what you want to do</span><span>— ☐ ✕</span></div>
+        <div class="wtabs"><span>File</span><span class="on">Home</span><span>Insert</span><span>Design</span><span>Transitions</span><span>Animations</span><span>Slide Show</span><span>Review</span><span>View</span></div>
+        <div class="wgroups">
+          <div class="wgrp"><span class="it">📋 Paste · ✂ · ⧉ · 🖌</span><span class="gn">Clipboard</span></div>
+          <div class="wgrp"><span class="it">New Slide ▾ · Layout ▾ · Reset · Section ▾</span><span class="gn">Slides</span></div>
+          <div class="wgrp"><span class="it">Calibri ▾ 28 ▾ <b>B</b> <i>I</i> <u>U</u></span><span class="gn">Font</span></div>
+          <div class="wgrp"><span class="it">• 1. ≡ ⇕</span><span class="gn">Paragraph</span></div>
+          <div class="wgrp"><span class="it">⬠ Shapes · Arrange</span><span class="gn">Drawing</span></div>
+        </div>
+        <div class="pp">
+          <div class="thumbs">
+            <div class="th on"><b>1</b><div class="mini"><i style="width:70%"></i><i style="width:40%"></i></div></div>
+            <div class="th"><b>2</b><div class="mini"><i style="width:50%"></i><i></i><i></i><i style="width:60%"></i></div></div>
+            <div class="th"><b>3</b><div class="mini"><i style="width:45%"></i><span class="pic"></span></div></div>
+          </div>
+          <div class="stage">
+            <div class="slide16">
+              <div class="ph title">BÁO CÁO TỔNG KẾT NĂM HỌC</div>
+              <div class="ph sub">Click to add subtitle</div>
+            </div>
+            <div class="notes">Click to add notes</div>
+          </div>
+        </div>
+        <div class="wstatus"><span>Slide 1 of 3 · Vietnamese</span><span>📝 Notes · 💬 Comments &nbsp; ▣ ▦ 📖 ▶ &nbsp; − ——●—— + 70%</span></div>
+      </div>
+      <div class="callouts">
+        <div><b>Slide pane / Thumbnails</b> — khung bên trái hiển thị hình thu nhỏ các slide, dùng để chọn, kéo sắp xếp.</div>
+        <div><b>Slide area</b> — vùng soạn thảo slide đang chọn.</div>
+        <div><b>Notes pane</b> — ghi chú cho người thuyết trình (không hiển thị khi trình chiếu cho khán giả).</div>
+        <div><b>Status bar</b> — số thứ tự slide, nút Notes, Comments, các chế độ xem, nút Slide Show và Zoom.</div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tab</th><th>Chức năng chính</th></tr></thead>
+        <tbody>
+          <tr><td><b>Home</b></td><td>Thêm slide, bố cục, Section, phông chữ, đoạn văn, vẽ hình, sắp xếp đối tượng</td></tr>
+          <tr><td><b>Insert</b></td><td>Bảng, hình ảnh, Icons, 3D Models, SmartArt, biểu đồ, Zoom, liên kết, Action, hộp văn bản, Header &amp; Footer, video, âm thanh, quay màn hình</td></tr>
+          <tr><td><b>Design</b></td><td>Chủ đề (Themes), biến thể (Variants), kích thước slide, định dạng nền</td></tr>
+          <tr><td><b>Transitions</b></td><td>Hiệu ứng chuyển slide, thời gian, cách chuyển</td></tr>
+          <tr><td><b>Animations</b></td><td>Hiệu ứng hoạt hình cho đối tượng, Animation Pane, thời điểm bắt đầu</td></tr>
+          <tr><td><b>Slide Show</b></td><td>Trình chiếu, thiết lập trình chiếu, ẩn slide, diễn tập, ghi hình, Presenter View</td></tr>
+          <tr><td><b>Review</b></td><td>Chính tả, chú thích (Comment), so sánh bài trình chiếu</td></tr>
+          <tr><td><b>View</b></td><td>Các chế độ xem, Slide Master, Handout Master, Notes Master, thước, lưới, Zoom</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="p1-s2">
+      <h2><span class="num">2</span>Tạo, mở và lưu bài trình chiếu</h2>
+      <ul>
+        <li><b>File → New</b> (<kbd>Ctrl</kbd>+<kbd>N</kbd>): <b>Blank Presentation</b> hoặc chọn một mẫu (template) / chủ đề có sẵn.</li>
+        <li><b>Mở</b>: <kbd>Ctrl</kbd>+<kbd>O</kbd> · <b>Lưu</b>: <kbd>Ctrl</kbd>+<kbd>S</kbd> · <b>Lưu thành</b>: <kbd>F12</kbd> · <b>Đóng</b>: <kbd>Ctrl</kbd>+<kbd>W</kbd>.</li>
+      </ul>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phần mở rộng</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><code>.pptx</code></td><td>Định dạng mặc định từ PowerPoint 2007 trở về sau</td></tr>
+          <tr><td><code>.ppt</code></td><td>PowerPoint 97–2003 (mở ở Compatibility Mode)</td></tr>
+          <tr><td><code>.ppsx</code></td><td><b>PowerPoint Show</b> — mở tệp là <b>trình chiếu ngay</b>, không vào màn hình soạn thảo</td></tr>
+          <tr><td><code>.potx</code></td><td>Tệp mẫu (Template)</td></tr>
+          <tr><td><code>.pptm</code></td><td>Bài trình chiếu có chứa macro</td></tr>
+          <tr><td><code>.pdf</code> · <code>.mp4</code> · <code>.png/.jpg</code></td><td>Xuất ra PDF, video, hoặc lưu từng slide thành ảnh (Bài 5)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>AutoRecover</b>Thiết lập thời gian tự lưu bản khôi phục tại <b>File → Options → Save</b>.</div>
+    </section>
+
+    <section class="card" id="p1-s3">
+      <h2><span class="num">3</span>Bố cục slide (Layout) và placeholder</h2>
+      <p><b>Layout</b> quy định cách sắp xếp các <b>placeholder</b> (khung giữ chỗ có viền nét đứt: "Click to add title", "Click to add text"…) trên slide. Đổi bố cục: <b>Home → Layout</b>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Layout</th><th>Thành phần</th></tr></thead>
+        <tbody>
+          <tr><td><b>Title Slide</b></td><td>Tiêu đề và phụ đề — thường dùng cho slide đầu tiên</td></tr>
+          <tr><td><b>Title and Content</b></td><td>Tiêu đề và một khung nội dung (văn bản hoặc bảng, biểu đồ, hình, SmartArt, video)</td></tr>
+          <tr><td><b>Section Header</b></td><td>Tiêu đề phân đoạn, chuyển sang phần mới</td></tr>
+          <tr><td><b>Two Content / Comparison</b></td><td>Hai khung nội dung song song / có thêm tiêu đề cho từng bên để so sánh</td></tr>
+          <tr><td><b>Title Only / Blank</b></td><td>Chỉ có tiêu đề / slide trống</td></tr>
+          <tr><td><b>Content with Caption / Picture with Caption</b></td><td>Nội dung hoặc hình ảnh kèm chú thích</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Reset</b>Khi đã di chuyển, đổi cỡ placeholder và muốn trả về đúng vị trí, định dạng của layout: <b>Home → Reset</b>. Nội dung trong placeholder hiển thị trong <b>Outline View</b>; nội dung trong Text Box tự vẽ thì <b>không</b>.</div>
+    </section>
+
+    <section class="card" id="p1-s4">
+      <h2><span class="num">4</span>Quản lý slide</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác</th><th>Cách thực hiện</th></tr></thead>
+        <tbody>
+          <tr><td>Thêm slide mới</td><td><b>Home → New Slide</b> hoặc <kbd>Ctrl</kbd>+<kbd>M</kbd>; nhấn <kbd>Enter</kbd> tại khung Thumbnails</td></tr>
+          <tr><td>Nhân bản slide</td><td>Chuột phải → <b>Duplicate Slide</b> hoặc <kbd>Ctrl</kbd>+<kbd>D</kbd></td></tr>
+          <tr><td>Xóa slide</td><td>Chọn slide ở khung Thumbnails → <kbd>Delete</kbd></td></tr>
+          <tr><td>Di chuyển slide</td><td>Kéo thả hình thu nhỏ; hoặc dùng chế độ <b>Slide Sorter</b></td></tr>
+          <tr><td>Chọn nhiều slide</td><td>Giữ <kbd>Ctrl</kbd> (rời nhau) hoặc <kbd>Shift</kbd> (liên tục)</td></tr>
+          <tr><td>Ẩn slide</td><td>Chuột phải → <b>Hide Slide</b> — slide vẫn còn nhưng bị bỏ qua khi trình chiếu (số thứ tự bị gạch chéo)</td></tr>
+          <tr><td>Chèn slide từ dàn ý Word</td><td>New Slide → <b>Slides from Outline</b> (các Heading trở thành tiêu đề slide)</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="p1-s5">
+      <h2><span class="num">5</span>Chia bài trình chiếu thành Section</h2>
+      <p><b>Section</b> giúp nhóm các slide thành từng phần (Mở đầu, Nội dung, Kết luận), thuận tiện quản lý bài dài và làm việc nhóm.</p>
+      <ul>
+        <li><b>Home → Section → Add Section</b>, đặt tên; <b>Rename Section</b>, <b>Remove Section</b>, <b>Collapse All / Expand All</b>.</li>
+        <li>Chuột phải vào tên Section → <b>Move Section Up/Down</b> để di chuyển cả nhóm slide.</li>
+        <li>Section được dùng để tạo <b>Section Zoom</b> (Bài 3) và in/trình chiếu theo phần.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="p1-s6">
+      <h2><span class="num">6</span>Các chế độ xem (tab View)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Chế độ</th><th>Đặc điểm</th></tr></thead>
+        <tbody>
+          <tr><td><b>Normal</b></td><td>Mặc định — Thumbnails, vùng soạn slide và khung Notes</td></tr>
+          <tr><td><b>Outline View</b></td><td>Hiển thị dàn ý văn bản (tiêu đề và nội dung placeholder) của tất cả slide</td></tr>
+          <tr><td><b>Slide Sorter</b></td><td>Hiển thị các slide dạng lưới để sắp xếp, nhân bản, ẩn, áp hiệu ứng chuyển trang nhanh</td></tr>
+          <tr><td><b>Notes Page</b></td><td>Xem và soạn trang ghi chú (slide ở trên, ghi chú ở dưới) như khi in</td></tr>
+          <tr><td><b>Reading View</b></td><td>Trình chiếu trong cửa sổ PowerPoint (không toàn màn hình)</td></tr>
+          <tr><td><b>Slide Show</b></td><td>Trình chiếu toàn màn hình (<kbd>F5</kbd>)</td></tr>
+          <tr><td><b>Slide Master / Handout Master / Notes Master</b></td><td>Chỉnh mẫu chung cho slide / bản in phát tay / trang ghi chú (Bài 2)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Tab View còn có <b>Ruler</b>, <b>Gridlines</b>, <b>Guides</b> (đường gióng để căn đối tượng), <b>Zoom</b> và <b>Fit to Window</b>.</p>
+    </section>
+
+    <section class="card" id="p1-s7">
+      <h2><span class="num">7</span>Soạn nội dung và dàn ý</h2>
+      <ul>
+        <li>Nhấp vào placeholder để gõ nội dung. Trong khung nội dung, mỗi lần <kbd>Enter</kbd> tạo một <b>gạch đầu dòng</b> mới.</li>
+        <li><kbd>Tab</kbd> hạ cấp gạch đầu dòng (thụt vào), <kbd>Shift</kbd>+<kbd>Tab</kbd> nâng cấp; <b>Increase/Decrease List Level</b> trong nhóm Paragraph.</li>
+        <li><kbd>Shift</kbd>+<kbd>Enter</kbd>: xuống dòng mà không tạo gạch đầu dòng mới.</li>
+        <li>Trong <b>Outline View</b>: gõ tiêu đề rồi <kbd>Enter</kbd> tạo slide mới; <kbd>Tab</kbd> biến dòng đó thành nội dung của slide trước.</li>
+        <li><b>AutoFit</b>: khi chữ tràn khung, PowerPoint tự thu nhỏ cỡ chữ; nút AutoFit Options cho phép tắt, hoặc tách sang 2 slide / 2 cột.</li>
+        <li>Kiểm tra chính tả: <b>Review → Spelling</b> (<kbd>F7</kbd>).</li>
+      </ul>
+      <div class="note warn"><b>Quy tắc 6 × 6</b>Mỗi slide nên có không quá khoảng <b>6 dòng</b>, mỗi dòng không quá khoảng <b>6 từ</b> (với tiếng Việt có thể linh hoạt). Slide là điểm nhấn cho lời nói, không phải để đọc nguyên văn.</div>
+    </section>
+
+    <section class="card" id="p1-s8">
+      <h2><span class="num">8</span>Ghi chú thuyết trình và tái sử dụng slide</h2>
+      <ul>
+        <li><b>Notes</b>: nhấn nút Notes trên Status bar để hiện khung ghi chú dưới slide; ghi chú được xem trong <b>Presenter View</b> khi trình chiếu và có thể in thành <b>Notes Pages</b>.</li>
+        <li><b>Reuse Slides</b> (Home → New Slide → Reuse Slides): chèn slide từ bài trình chiếu khác; chọn <b>Keep source formatting</b> để giữ định dạng gốc.</li>
+        <li>Sao chép slide giữa hai tệp: Copy ở Thumbnails → Paste, chọn <b>Use Destination Theme</b> hoặc <b>Keep Source Formatting</b>.</li>
+        <li><b>Comments</b> (Review → New Comment): góp ý cho slide khi làm việc nhóm.</li>
+      </ul>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="p1-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="p1-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="p1-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="p1-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="p1-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="p1-quizBar"></i></div>
+        <span class="pill">⏱ <b id="p1-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="p1-qnav"></div>
+      <div id="p1-quizBox"></div>
+
+      <div class="result" id="p1-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="p1-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="p1-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="p1-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="p1-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="p1-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="p1-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="p1-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav" style="justify-content:flex-end">
+  <button type="button" data-lesson="thietke">Bài tiếp theo: Bài 2. Thiết kế &amp; Slide Master →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 2: THIẾT KẾ & SLIDE MASTER ================= -->
+<div class="lesson" id="lesson-thietke">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📽️ Tin học ứng dụng · Microsoft PowerPoint 2019</span>
+    <h1>Bài 2. Thiết kế slide, định dạng và Slide Master</h1>
+    <p>Chủ đề – biến thể, kích thước slide, nền slide, định dạng văn bản, Header &amp; Footer, Slide Master để đồng bộ toàn bài và nguyên tắc thiết kế slide hiệu quả.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#p2-s1"><span class="n">1</span>Themes & Variants</a>
+    <a href="#p2-s2"><span class="n">2</span>Kích thước slide</a>
+    <a href="#p2-s3"><span class="n">3</span>Định dạng nền</a>
+    <a href="#p2-s4"><span class="n">4</span>Định dạng văn bản</a>
+    <a href="#p2-s5"><span class="n">5</span>Text Box & WordArt</a>
+    <a href="#p2-s6"><span class="n">6</span>Header & Footer</a>
+    <a href="#p2-s7"><span class="n">7</span>Slide Master</a>
+    <a href="#p2-s8"><span class="n">8</span>Nguyên tắc thiết kế</a>
+    <a href="#p2-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#p2-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="p2-s1">
+      <h2><span class="num">1</span>Chủ đề (Themes) và biến thể (Variants)</h2>
+      <p><b>Theme</b> là bộ thiết kế đồng bộ gồm <b>màu sắc</b>, <b>phông chữ</b>, <b>hiệu ứng</b> và <b>nền</b>, áp dụng cho toàn bài trình chiếu.</p>
+      <ul>
+        <li><b>Design → Themes</b>: nhấp một theme để áp dụng cho <b>tất cả slide</b>; chuột phải → <b>Apply to Selected Slides</b> để chỉ áp dụng cho slide đang chọn.</li>
+        <li><b>Design → Variants</b>: chọn biến thể màu của theme; mũi tên ▾ để đổi riêng <b>Colors</b>, <b>Fonts</b>, <b>Effects</b>, <b>Background Styles</b>.</li>
+        <li><b>Customize Colors / Customize Fonts</b>: tạo bộ màu, bộ phông riêng (ví dụ phông tiêu đề và nội dung hỗ trợ tiếng Việt).</li>
+        <li><b>Save Current Theme</b>: lưu theme thành tệp <code>.thmx</code> để dùng lại trong Word, Excel, PowerPoint.</li>
+      </ul>
+      <div class="note tip"><b>Dùng màu, phông của theme</b>Khi chọn màu từ hàng <b>Theme Colors</b> (thay vì Standard Colors), đổi theme sẽ tự đổi màu theo, giữ bài trình chiếu luôn đồng bộ.</div>
+    </section>
+
+    <section class="card" id="p2-s2">
+      <h2><span class="num">2</span>Kích thước slide (Slide Size)</h2>
+      <p><b>Design → Slide Size</b>: <b>Widescreen (16:9)</b> — mặc định của PowerPoint 2019, hoặc <b>Standard (4:3)</b>. <b>Custom Slide Size</b> để chọn khổ A4, Letter, banner, hướng <b>Portrait/Landscape</b>, số bắt đầu đánh số slide.</p>
+      <p>Khi đổi kích thước, PowerPoint hỏi cách co giãn nội dung: <b>Maximize</b> (giữ cỡ nội dung, có thể tràn ra ngoài) hoặc <b>Ensure Fit</b> (thu nhỏ nội dung cho vừa).</p>
+      <div class="grid-2">
+        <div class="tile"><h4>16 : 9</h4><div style="aspect-ratio:16/9;border:2px solid var(--primary);border-radius:6px;display:grid;place-items:center;color:var(--muted)">Widescreen</div></div>
+        <div class="tile"><h4>4 : 3</h4><div style="aspect-ratio:4/3;max-width:75%;border:2px solid var(--primary);border-radius:6px;display:grid;place-items:center;color:var(--muted)">Standard</div></div>
+      </div>
+    </section>
+
+    <section class="card" id="p2-s3">
+      <h2><span class="num">3</span>Định dạng nền slide (Format Background)</h2>
+      <p><b>Design → Format Background</b> (hoặc chuột phải vào vùng trống của slide) mở khung Format Background:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Kiểu nền</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td><b>Solid fill</b></td><td>Một màu đơn, chỉnh độ trong suốt (Transparency)</td></tr>
+          <tr><td><b>Gradient fill</b></td><td>Chuyển màu: kiểu Linear/Radial, hướng, các điểm dừng màu (gradient stops)</td></tr>
+          <tr><td><b>Picture or texture fill</b></td><td>Nền là ảnh (Insert từ tệp, Online) hoặc chất liệu (texture)</td></tr>
+          <tr><td><b>Pattern fill</b></td><td>Nền hoa văn với màu nền và màu họa tiết</td></tr>
+          <tr><td><b>Hide background graphics</b></td><td>Ẩn các hình trang trí của theme/Slide Master trên slide này</td></tr>
+        </tbody>
+      </table></div>
+      <p>Mặc định chỉ áp dụng cho slide đang chọn; nhấn <b>Apply to All</b> để áp dụng cho mọi slide, <b>Reset Background</b> để trở lại nền của theme.</p>
+    </section>
+
+    <section class="card" id="p2-s4">
+      <h2><span class="num">4</span>Định dạng văn bản</h2>
+      <ul>
+        <li><b>Home → Font</b>: phông, cỡ (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>&gt;</kbd> / <kbd>&lt;</kbd>), <kbd>Ctrl</kbd>+<kbd>B</kbd>/<kbd>I</kbd>/<kbd>U</kbd>, <b>Text Shadow</b>, <b>Character Spacing</b>, <b>Change Case</b>, màu chữ, <b>Clear All Formatting</b>.</li>
+        <li><b>Replace Fonts</b> (Home → Replace ▾): thay một phông bằng phông khác trong <b>toàn bộ</b> bài trình chiếu — hữu ích khi lỗi phông tiếng Việt.</li>
+        <li><b>Paragraph</b>: căn lề (<kbd>Ctrl</kbd>+<kbd>L</kbd>/<kbd>E</kbd>/<kbd>R</kbd>/<kbd>J</kbd>), <b>Bullets</b>, <b>Numbering</b>, <b>Line Spacing</b>, <b>Text Direction</b> (xoay chữ), <b>Align Text</b> (Top/Middle/Bottom trong khung), <b>Columns</b> (chia cột trong khung chữ).</li>
+        <li><b>Convert to SmartArt</b>: chuyển nhanh danh sách gạch đầu dòng thành sơ đồ SmartArt.</li>
+        <li><b>Format Painter</b> để sao chép định dạng giữa các đoạn chữ, đối tượng.</li>
+      </ul>
+      <div class="note"><b>Cỡ chữ khuyến nghị</b>Tiêu đề 32–44 pt, nội dung ≥ 24 pt (tối thiểu khoảng 18 pt) để người ngồi cuối phòng vẫn đọc được. Dùng phông không chân (Arial, Calibri, Segoe UI) cho màn chiếu.</div>
+    </section>
+
+    <section class="card" id="p2-s5">
+      <h2><span class="num">5</span>Text Box và WordArt</h2>
+      <ul>
+        <li><b>Insert → Text Box</b>: nhấp để tạo hộp chữ tự giãn theo nội dung, hoặc kéo để tạo hộp có độ rộng cố định. Nội dung Text Box <b>không hiển thị trong Outline View</b>.</li>
+        <li><b>Insert → WordArt</b>: chữ nghệ thuật. Tab <b>Drawing Tools → Format</b>: <b>Text Fill</b>, <b>Text Outline</b>, <b>Text Effects</b> (Shadow, Reflection, Glow, Bevel, 3-D Rotation, <b>Transform</b> — uốn cong chữ).</li>
+        <li><b>Shape Format</b> của khung chữ: Shape Fill, Shape Outline, Shape Effects; <b>Format Shape → Text Options → Text Box</b>: lề trong, <i>Do not Autofit / Shrink text on overflow / Resize shape to fit text</i>, <i>Wrap text in shape</i>.</li>
+        <li><b>Set as Default Text Box</b>: chuột phải vào hộp chữ đã định dạng để đặt làm mặc định cho các hộp chữ mới.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="p2-s6">
+      <h2><span class="num">6</span>Header &amp; Footer, số slide, ngày tháng</h2>
+      <p><b>Insert → Header &amp; Footer</b> (hoặc Slide Number, Date &amp; Time) mở hộp thoại có 2 tab:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tab</th><th>Tùy chọn</th></tr></thead>
+        <tbody>
+          <tr><td><b>Slide</b></td><td><b>Date and time</b> (Update automatically / Fixed), <b>Slide number</b>, <b>Footer</b> (nội dung chân slide), <b>Don't show on title slide</b> (không hiện trên slide tiêu đề); <b>Apply</b> (slide đang chọn) hoặc <b>Apply to All</b></td></tr>
+          <tr><td><b>Notes and Handouts</b></td><td>Header, Footer, ngày, số trang cho trang ghi chú và bản in phát tay</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Slide không hiện Footer?</b>Nếu layout trên Slide Master đã xóa placeholder Footer/Slide Number, hộp thoại Header &amp; Footer sẽ không có tác dụng với các slide dùng layout đó — cần vào Slide Master bật lại <b>Footers</b>.</div>
+    </section>
+
+    <section class="card" id="p2-s7">
+      <h2><span class="num">7</span>Slide Master — mẫu chung cho toàn bài</h2>
+      <p><b>View → Slide Master</b>. Mọi thay đổi trên Slide Master tự áp dụng cho các slide tương ứng — cách nhanh nhất để đồng bộ logo, phông, màu, vị trí tiêu đề.</p>
+      <div class="pp" aria-label="Mô phỏng Slide Master" style="border:1px solid var(--border);border-radius:12px;overflow:hidden">
+        <div class="thumbs">
+          <div class="th on master"><b>★</b><div class="mini"><i style="width:70%"></i><i></i><i></i></div></div>
+          <div class="th child"><b>└</b><div class="mini"><i style="width:60%"></i><i style="width:40%"></i></div></div>
+          <div class="th child"><b>└</b><div class="mini"><i style="width:50%"></i><i></i><i></i></div></div>
+          <div class="th child"><b>└</b><div class="mini"><i style="width:45%"></i></div></div>
+        </div>
+        <div class="stage">
+          <div class="slide16" style="border:2px solid var(--primary)">
+            <div class="ph title" style="font-size:.95rem">Click to edit Master title style</div>
+            <div class="ph body">• Edit Master text styles<br>&nbsp;&nbsp;– Second level<br>&nbsp;&nbsp;&nbsp;&nbsp;» Third level</div>
+            <div class="logo">LOGO</div>
+          </div>
+          <div class="notes">Slide Master (★ ở trên cùng) và các Layout Master (└) bên dưới</div>
+        </div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thành phần / lệnh</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Slide Master</b> (slide lớn trên cùng)</td><td>Thay đổi ở đây áp dụng cho <b>tất cả</b> các layout bên dưới</td></tr>
+          <tr><td><b>Layout Master</b> (các slide nhỏ bên dưới)</td><td>Thay đổi chỉ áp dụng cho các slide dùng <b>layout đó</b></td></tr>
+          <tr><td><b>Insert Layout / Insert Placeholder</b></td><td>Tạo bố cục mới, thêm khung giữ chỗ (Content, Text, Picture, Chart, Table, Media…)</td></tr>
+          <tr><td><b>Master Layout</b></td><td>Bật/tắt Title, Text, Date, Slide Number, Footers trên Slide Master</td></tr>
+          <tr><td><b>Preserve</b></td><td>Giữ lại master không bị xóa khi không có slide nào dùng</td></tr>
+          <tr><td><b>Close Master View</b></td><td>Thoát về chế độ Normal</td></tr>
+        </tbody>
+      </table></div>
+      <p>Tương tự: <b>Handout Master</b> (bố cục bản in phát tay) và <b>Notes Master</b> (bố cục trang ghi chú).</p>
+      <div class="note tip"><b>Ví dụ</b>Muốn logo trường xuất hiện ở góc mọi slide: vào Slide Master, chọn slide master trên cùng, chèn logo → Close Master View. Logo không bị chọn nhầm hay di chuyển khi soạn slide thường.</div>
+    </section>
+
+    <section class="card" id="p2-s8">
+      <h2><span class="num">8</span>Nguyên tắc thiết kế slide hiệu quả</h2>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">🎯</div><h4>Mỗi slide một ý</h4><p>Tiêu đề nêu thông điệp chính; nội dung ngắn gọn, từ khóa thay cho câu dài.</p></div>
+        <div class="tile"><div class="ic">🔠</div><h4>Chữ đủ lớn, ít phông</h4><p>Tối đa 2 phông chữ; nội dung ≥ 24 pt; hạn chế viết hoa toàn bộ.</p></div>
+        <div class="tile"><div class="ic">🌓</div><h4>Tương phản cao</h4><p>Chữ tối trên nền sáng hoặc chữ sáng trên nền tối; tránh đỏ – xanh lá cạnh nhau.</p></div>
+        <div class="tile"><div class="ic">🖼️</div><h4>Hình ảnh chất lượng</h4><p>Ảnh rõ nét, đúng tỷ lệ, liên quan nội dung; ghi nguồn khi cần.</p></div>
+        <div class="tile"><div class="ic">📐</div><h4>Căn chỉnh thẳng hàng</h4><p>Dùng Guides, Align, Distribute; giữ khoảng trắng hợp lý.</p></div>
+        <div class="tile"><div class="ic">✨</div><h4>Hiệu ứng tiết chế</h4><p>Hiệu ứng phục vụ nội dung, thống nhất một kiểu chuyển trang.</p></div>
+      </div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="p2-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="p2-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="p2-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="p2-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="p2-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="p2-quizBar"></i></div>
+        <span class="pill">⏱ <b id="p2-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="p2-qnav"></div>
+      <div id="p2-quizBox"></div>
+
+      <div class="result" id="p2-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="p2-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="p2-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="p2-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="p2-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="p2-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="p2-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="p2-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="lamquen">← Bài trước: Bài 1. Làm quen &amp; tạo bài trình chiếu</button>
+  <button type="button" data-lesson="doituong">Bài tiếp theo: Bài 3. Đối tượng đa phương tiện →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 3: ĐỐI TƯỢNG ĐA PHƯƠNG TIỆN ================= -->
+<div class="lesson" id="lesson-doituong">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📽️ Tin học ứng dụng · Microsoft PowerPoint 2019</span>
+    <h1>Bài 3. Chèn và xử lý đối tượng đa phương tiện</h1>
+    <p>Hình ảnh, Shapes, Icons, 3D Models, SmartArt, bảng, biểu đồ, âm thanh, video, quay màn hình, liên kết – nút hành động, Zoom và các công cụ sắp xếp, căn chỉnh đối tượng.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#p3-s1"><span class="n">1</span>Hình ảnh</a>
+    <a href="#p3-s2"><span class="n">2</span>Shapes & Merge Shapes</a>
+    <a href="#p3-s3"><span class="n">3</span>Icons, 3D Models, SmartArt</a>
+    <a href="#p3-s4"><span class="n">4</span>Bảng & biểu đồ</a>
+    <a href="#p3-s5"><span class="n">5</span>Âm thanh & video</a>
+    <a href="#p3-s6"><span class="n">6</span>Liên kết & Action</a>
+    <a href="#p3-s7"><span class="n">7</span>Zoom (mới 2019)</a>
+    <a href="#p3-s8"><span class="n">8</span>Sắp xếp & căn chỉnh</a>
+    <a href="#p3-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#p3-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="p3-s1">
+      <h2><span class="num">1</span>Hình ảnh (Pictures)</h2>
+      <ul>
+        <li><b>Insert → Pictures</b> (ảnh trên máy) · <b>Online Pictures</b> · <b>Screenshot</b> (chụp cửa sổ/vùng màn hình) · <b>Photo Album</b> (tạo album nhiều ảnh, mỗi ảnh một slide).</li>
+        <li>Nhấp biểu tượng ảnh trong placeholder nội dung để chèn ảnh vừa khung.</li>
+      </ul>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lệnh (Picture Tools → Format)</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Remove Background</b></td><td>Xóa phông nền ảnh</td></tr>
+          <tr><td><b>Corrections / Color / Artistic Effects</b></td><td>Độ sáng – tương phản, màu, hiệu ứng nghệ thuật</td></tr>
+          <tr><td><b>Compress Pictures</b></td><td>Nén ảnh, xóa phần đã cắt để giảm dung lượng tệp</td></tr>
+          <tr><td><b>Change Picture / Reset Picture</b></td><td>Thay ảnh khác giữ nguyên định dạng / bỏ định dạng</td></tr>
+          <tr><td><b>Picture Styles, Border, Effects, Layout</b></td><td>Khung, viền, hiệu ứng; chuyển ảnh thành SmartArt</td></tr>
+          <tr><td><b>Crop</b></td><td>Cắt xén; <b>Crop to Shape</b> (cắt theo hình tròn, sao…), <b>Aspect Ratio</b>, <b>Fill/Fit</b></td></tr>
+          <tr><td><b>Alt Text</b></td><td>Mô tả ảnh cho người khiếm thị</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Giữ tỷ lệ khi đổi kích thước</b>Kéo nút góc (không kéo nút giữa cạnh) hoặc giữ <kbd>Shift</kbd> khi kéo để ảnh không bị méo.</div>
+    </section>
+
+    <section class="card" id="p3-s2">
+      <h2><span class="num">2</span>Hình vẽ (Shapes) và Merge Shapes</h2>
+      <ul>
+        <li><b>Insert → Shapes</b>: đường, hình chữ nhật, hình cơ bản, mũi tên, phương trình, lưu đồ, sao, chú thích, nút hành động. Giữ <kbd>Shift</kbd> khi vẽ để có hình vuông, tròn, đường thẳng.</li>
+        <li>Nhấp đúp vào hình và gõ để thêm chữ vào hình. Chuột phải → <b>Edit Points</b> để chỉnh đường viền hình.</li>
+        <li><b>Shape Fill</b>, <b>Shape Outline</b>, <b>Shape Effects</b>, <b>Shape Styles</b>; <b>Change Shape</b> đổi sang hình khác giữ định dạng.</li>
+        <li><b>Set as Default Shape</b>: đặt định dạng của hình làm mặc định cho hình vẽ mới.</li>
+      </ul>
+      <h3>Merge Shapes (Format → Insert Shapes → Merge Shapes)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lệnh</th><th>Kết quả khi chọn 2 hình chồng nhau</th></tr></thead>
+        <tbody>
+          <tr><td><b>Union</b></td><td>Hợp nhất thành một hình</td></tr>
+          <tr><td><b>Combine</b></td><td>Hợp nhất nhưng khoét bỏ phần giao nhau</td></tr>
+          <tr><td><b>Fragment</b></td><td>Chia thành các mảnh theo đường giao</td></tr>
+          <tr><td><b>Intersect</b></td><td>Chỉ giữ phần giao nhau</td></tr>
+          <tr><td><b>Subtract</b></td><td>Lấy hình chọn trước trừ đi hình chọn sau</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="p3-s3">
+      <h2><span class="num">3</span>Icons, 3D Models và SmartArt</h2>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">★</div><h4>Icons <span class="chip sql">2019</span></h4><p>Biểu tượng vector theo chủ đề; đổi màu không vỡ nét; có thể <b>Convert to Shape</b> để tách từng phần.</p></div>
+        <div class="tile"><div class="ic">🧊</div><h4>3D Models <span class="chip sql">2019</span></h4><p>Chèn mô hình 3D (.fbx, .obj, .glb…), xoay tự do; kết hợp hiệu ứng Morph hoặc hoạt hình 3D (Turntable, Swing, Jump &amp; Turn).</p></div>
+        <div class="tile"><div class="ic">🔀</div><h4>SmartArt</h4><p>Sơ đồ: List, Process, Cycle, Hierarchy, Relationship, Matrix, Pyramid, Picture; dùng khung <b>Text Pane</b> để nhập nội dung.</p></div>
+      </div>
+      <ul>
+        <li>SmartArt Tools → Design: <b>Add Shape</b>, <b>Promote/Demote</b>, <b>Right to Left</b>, <b>Change Colors</b>, <b>SmartArt Styles</b>, <b>Convert → to Text / to Shapes</b>.</li>
+        <li><b>Home → Convert to SmartArt</b>: chuyển nhanh danh sách gạch đầu dòng thành sơ đồ.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="p3-s4">
+      <h2><span class="num">4</span>Bảng và biểu đồ</h2>
+      <ul>
+        <li><b>Insert → Table</b>: chọn số cột × hàng; Table Tools → <b>Design</b> (Table Styles, Header Row, Banded Rows, Shading, Borders) và <b>Layout</b> (chèn/xóa hàng cột, Merge/Split Cells, căn lề, kích thước ô). PowerPoint <b>không có</b> tính năng công thức trong bảng như Word/Excel.</li>
+        <li><b>Insert → Table → Excel Spreadsheet</b>: nhúng bảng tính Excel để tính toán.</li>
+        <li><b>Insert → Chart</b>: chọn loại biểu đồ, nhập dữ liệu trong cửa sổ bảng tính; <b>Chart Tools → Design → Edit Data</b>, <b>Switch Row/Column</b>, <b>Change Chart Type</b>; nút Chart Elements (+), Chart Styles, Chart Filters.</li>
+        <li>Dán biểu đồ từ Excel với tùy chọn <b>Keep Source Formatting &amp; Link Data</b> để biểu đồ cập nhật theo tệp Excel gốc.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="p3-s5">
+      <h2><span class="num">5</span>Âm thanh, video và quay màn hình</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lệnh (tab Insert → Media)</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td><b>Video → This Device / Online Video</b></td><td>Chèn video (.mp4…) từ máy hoặc nhúng video trực tuyến (cần Internet khi chiếu)</td></tr>
+          <tr><td><b>Audio → Audio on My PC / Record Audio</b></td><td>Chèn tệp âm thanh hoặc ghi âm lời thuyết minh</td></tr>
+          <tr><td><b>Screen Recording</b></td><td>Quay video thao tác trên màn hình và chèn thẳng vào slide</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Tab Playback (Video/Audio Tools)</h3>
+      <ul>
+        <li><b>Trim Video / Trim Audio</b>: cắt bớt đầu, cuối; <b>Fade In / Fade Out</b>; <b>Add Bookmark</b>.</li>
+        <li><b>Start</b>: <i>In Click Sequence</i>, <i>Automatically</i>, <i>When Clicked On</i>.</li>
+        <li><b>Play Full Screen</b>, <b>Loop until Stopped</b>, <b>Rewind after Playing</b>, <b>Hide During Show</b> (ẩn biểu tượng loa).</li>
+        <li>Âm thanh chạy nền nhiều slide: chọn <b>Play in Background</b> (tự bật Start Automatically, <b>Play Across Slides</b>, Loop, Hide During Show).</li>
+        <li><b>Poster Frame</b> (tab Format): chọn khung hình hiển thị khi video chưa phát.</li>
+      </ul>
+      <div class="note"><b>Giảm dung lượng</b>File → Info → <b>Compress Media</b> (Full HD / HD / Standard) để giảm kích thước tệp có video, âm thanh.</div>
+    </section>
+
+    <section class="card" id="p3-s6">
+      <h2><span class="num">6</span>Liên kết (Link) và nút hành động (Action)</h2>
+      <ul>
+        <li><b>Insert → Link</b> (<kbd>Ctrl</kbd>+<kbd>K</kbd>): liên kết đến trang web, tệp, địa chỉ email hoặc <b>Place in This Document</b> (một slide trong bài: First, Last, Next, Previous, slide cụ thể).</li>
+        <li><b>Insert → Action</b>: thiết lập cho đối tượng khi <b>Mouse Click</b> hoặc <b>Mouse Over</b>: Hyperlink to (slide, bài khác, URL), <b>Run program</b>, <b>Play sound</b>.</li>
+        <li><b>Action Buttons</b> (Insert → Shapes → cuối danh sách): nút Back, Forward, Beginning, End, Home, Information, Return, Movie… có sẵn hành động tương ứng.</li>
+        <li>Liên kết chỉ hoạt động khi <b>trình chiếu</b>; khi soạn thảo dùng <kbd>Ctrl</kbd>+nhấp để mở.</li>
+      </ul>
+      <div class="note tip"><b>Ứng dụng</b>Tạo slide mục lục có các nút dẫn đến từng phần và nút "Về mục lục" ở cuối mỗi phần; tạo trò chơi ô chữ, câu hỏi trắc nghiệm tương tác.</div>
+    </section>
+
+    <section class="card" id="p3-s7">
+      <h2><span class="num">7</span>Zoom — trình bày phi tuyến tính <span class="chip sql">Mới 2019</span></h2>
+      <p><b>Insert → Zoom</b> tạo hình thu nhỏ slide có thể nhấp vào khi trình chiếu để nhảy đến, rồi tự quay lại.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại Zoom</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td><b>Summary Zoom</b></td><td>Tạo một <b>slide tóm tắt mới</b> chứa các hình thu nhỏ của các phần (Section) được chọn</td></tr>
+          <tr><td><b>Section Zoom</b></td><td>Chèn liên kết đến một <b>Section</b>; trình chiếu hết section sẽ quay lại slide chứa Zoom</td></tr>
+          <tr><td><b>Slide Zoom</b></td><td>Chèn liên kết đến <b>một slide</b> cụ thể</td></tr>
+        </tbody>
+      </table></div>
+      <p>Tab <b>Zoom Tools → Format</b>: <b>Return to Zoom</b>, <b>Zoom Transition</b>, <b>Zoom Background</b>, đổi ảnh đại diện (Change Image).</p>
+    </section>
+
+    <section class="card" id="p3-s8">
+      <h2><span class="num">8</span>Sắp xếp và căn chỉnh đối tượng</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lệnh (Format / Home → Arrange)</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Bring Forward / Bring to Front</b></td><td>Đưa đối tượng lên một lớp / lên trên cùng</td></tr>
+          <tr><td><b>Send Backward / Send to Back</b></td><td>Đưa xuống một lớp / xuống dưới cùng</td></tr>
+          <tr><td><b>Align</b></td><td>Căn trái, giữa, phải, trên, giữa dọc, dưới — theo nhau (<i>Align Selected Objects</i>) hoặc theo slide (<i>Align to Slide</i>)</td></tr>
+          <tr><td><b>Distribute Horizontally / Vertically</b></td><td>Dàn đều khoảng cách giữa các đối tượng</td></tr>
+          <tr><td><b>Group / Ungroup</b> (<kbd>Ctrl</kbd>+<kbd>G</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd>)</td><td>Nhóm / bỏ nhóm đối tượng</td></tr>
+          <tr><td><b>Rotate</b></td><td>Xoay 90°, lật ngang, lật dọc</td></tr>
+          <tr><td><b>Selection Pane</b> (<kbd>Alt</kbd>+<kbd>F10</kbd>)</td><td>Liệt kê, đổi tên, ẩn/hiện, đổi thứ tự lớp các đối tượng</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Smart Guides</b> (đường gióng màu đỏ) tự xuất hiện khi kéo đối tượng để căn thẳng hàng với đối tượng khác. <kbd>Ctrl</kbd> + phím mũi tên để dịch chuyển từng chút.</p>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="p3-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="p3-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="p3-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="p3-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="p3-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="p3-quizBar"></i></div>
+        <span class="pill">⏱ <b id="p3-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="p3-qnav"></div>
+      <div id="p3-quizBox"></div>
+
+      <div class="result" id="p3-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="p3-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="p3-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="p3-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="p3-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="p3-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="p3-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="p3-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="thietke">← Bài trước: Bài 2. Thiết kế &amp; Slide Master</button>
+  <button type="button" data-lesson="hieuung">Bài tiếp theo: Bài 4. Hiệu ứng chuyển trang &amp; hoạt hình →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 4: HIỆU ỨNG ================= -->
+<div class="lesson" id="lesson-hieuung">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📽️ Tin học ứng dụng · Microsoft PowerPoint 2019</span>
+    <h1>Bài 4. Hiệu ứng chuyển trang (Transitions) và hiệu ứng hoạt hình (Animations)</h1>
+    <p>Tạo hiệu ứng chuyển slide, Morph, thiết lập thời gian tự chuyển; bốn nhóm hiệu ứng hoạt hình, thời điểm bắt đầu, Animation Pane, Animation Painter, Trigger và hiệu ứng cho SmartArt, biểu đồ.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#p4-s1"><span class="n">1</span>Hiệu ứng chuyển trang</a>
+    <a href="#p4-s2"><span class="n">2</span>Thời gian & cách chuyển</a>
+    <a href="#p4-s3"><span class="n">3</span>Morph</a>
+    <a href="#p4-s4"><span class="n">4</span>4 nhóm hiệu ứng hoạt hình</a>
+    <a href="#p4-s5"><span class="n">5</span>Thời điểm & thời lượng</a>
+    <a href="#p4-s6"><span class="n">6</span>Animation Pane</a>
+    <a href="#p4-s7"><span class="n">7</span>Trigger & tùy chọn nâng cao</a>
+    <a href="#p4-s8"><span class="n">8</span>Hiệu ứng cho SmartArt, biểu đồ</a>
+    <a href="#p4-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#p4-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="p4-s1">
+      <h2><span class="num">1</span>Hiệu ứng chuyển trang (Transitions)</h2>
+      <p><b>Transition</b> là hiệu ứng xuất hiện khi <b>chuyển từ slide này sang slide khác</b> trong lúc trình chiếu. Hiệu ứng được gán cho slide và chạy <b>khi slide đó xuất hiện</b>.</p>
+      <ol class="steps">
+        <li>Chọn slide (hoặc nhiều slide ở Thumbnails / Slide Sorter).</li>
+        <li>Tab <b>Transitions</b> → chọn hiệu ứng trong nhóm <b>Transition to This Slide</b>: Subtle (Fade, Push, Wipe, Split, Reveal, Cut…), Exciting (Curtains, Page Curl, Gallery, Vortex…), Dynamic Content.</li>
+        <li><b>Effect Options</b>: hướng/kiểu của hiệu ứng (From Right, From Top, Vertical…).</li>
+        <li><b>Preview</b> để xem thử; biểu tượng ngôi sao ★ cạnh hình thu nhỏ cho biết slide có hiệu ứng.</li>
+      </ol>
+      <p>Chọn <b>None</b> để bỏ hiệu ứng chuyển trang.</p>
+    </section>
+
+    <section class="card" id="p4-s2">
+      <h2><span class="num">2</span>Thời gian và cách chuyển slide (nhóm Timing)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tùy chọn</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Sound</b></td><td>Âm thanh kèm hiệu ứng chuyển trang</td></tr>
+          <tr><td><b>Duration</b></td><td>Thời lượng chạy của hiệu ứng (giây) — số nhỏ chạy nhanh hơn</td></tr>
+          <tr><td><b>Apply To All</b></td><td>Áp dụng hiệu ứng, thời lượng, cách chuyển hiện tại cho <b>tất cả slide</b></td></tr>
+          <tr><td><b>Advance Slide: On Mouse Click</b></td><td>Chuyển slide khi nhấp chuột / nhấn phím</td></tr>
+          <tr><td><b>Advance Slide: After</b> mm:ss</td><td><b>Tự động</b> chuyển slide sau khoảng thời gian đặt sẵn</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Kết hợp hai tùy chọn</b>Nếu chọn cả <i>On Mouse Click</i> và <i>After</i>, slide sẽ chuyển khi hết thời gian hoặc khi người trình bày nhấp chuột — tùy điều nào đến trước. Để tất cả slide tự chạy, đặt After rồi nhấn <b>Apply To All</b>.</div>
+    </section>
+
+    <section class="card" id="p4-s3">
+      <h2><span class="num">3</span>Hiệu ứng Morph</h2>
+      <p><b>Morph</b> tạo chuyển động mượt mà: các đối tượng <b>xuất hiện trên cả hai slide liên tiếp</b> sẽ tự động di chuyển, đổi kích thước, màu sắc, xoay từ trạng thái ở slide trước sang slide sau.</p>
+      <ol class="steps">
+        <li>Tạo slide 1 với các đối tượng (hình, chữ, ảnh, mô hình 3D).</li>
+        <li><b>Duplicate Slide</b> (<kbd>Ctrl</kbd>+<kbd>D</kbd>) để tạo slide 2, thay đổi vị trí, kích thước, màu, góc xoay của đối tượng.</li>
+        <li>Chọn <b>slide 2</b> → Transitions → <b>Morph</b>. Effect Options: <b>Objects</b>, <b>Words</b>, <b>Characters</b>.</li>
+      </ol>
+      <div class="flow">
+        <div class="st"><b>Slide 1</b>● hình tròn nhỏ ở góc trái, màu xanh</div>
+        <div class="ar">— Morph →</div>
+        <div class="st"><b>Slide 2</b>● hình tròn to ở giữa, màu cam (được gán Morph)</div>
+      </div>
+      <div class="note tip"><b>Mẹo</b>Đặt tên đối tượng trong Selection Pane bắt đầu bằng <code>!!</code> (ví dụ <code>!!Logo</code>) ở cả hai slide để PowerPoint ghép đúng cặp đối tượng khi Morph.</div>
+    </section>
+
+    <section class="card" id="p4-s4">
+      <h2><span class="num">4</span>Bốn nhóm hiệu ứng hoạt hình (Animations)</h2>
+      <p><b>Animation</b> là hiệu ứng áp dụng cho <b>từng đối tượng trên slide</b> (chữ, hình, ảnh, biểu đồ…). Chọn đối tượng → tab <b>Animations</b> → chọn hiệu ứng.</p>
+      <div class="grid-2">
+        <div class="tile" style="border-left:5px solid #2e9d4c"><h4 style="color:#2e9d4c">Entrance (xuất hiện)</h4><p>Màu <b>xanh lá</b>. Đối tượng xuất hiện vào slide: Appear, Fade, Fly In, Float In, Wipe, Zoom, Bounce…</p></div>
+        <div class="tile" style="border-left:5px solid #d4a017"><h4 style="color:#b8860b">Emphasis (nhấn mạnh)</h4><p>Màu <b>vàng</b>. Đối tượng đang có trên slide được nhấn mạnh: Pulse, Spin, Grow/Shrink, Teeter, Color Pulse…</p></div>
+        <div class="tile" style="border-left:5px solid #d13438"><h4 style="color:#d13438">Exit (biến mất)</h4><p>Màu <b>đỏ</b>. Đối tượng rời khỏi slide: Disappear, Fade, Fly Out, Float Out, Zoom…</p></div>
+        <div class="tile" style="border-left:5px solid #2b579a"><h4 style="color:#2b579a">Motion Paths (đường chuyển động)</h4><p>Đối tượng di chuyển theo đường: Lines, Arcs, Turns, Shapes, Loops, <b>Custom Path</b> (tự vẽ).</p></div>
+      </div>
+      <ul>
+        <li><b>More Entrance/Emphasis/Exit Effects…</b> để xem đầy đủ danh sách.</li>
+        <li><b>Effect Options</b>: hướng, kiểu; với văn bản có <b>Sequence</b>: As One Object, All at Once, <b>By Paragraph</b>.</li>
+        <li>Mô hình 3D có thêm nhóm hiệu ứng <b>3D</b>: Arrive, Turntable, Swing, Jump &amp; Turn, Leave.</li>
+      </ul>
+      <div class="note warn"><b>Thêm nhiều hiệu ứng cho một đối tượng</b>Chọn hiệu ứng từ bộ sưu tập sẽ <b>thay thế</b> hiệu ứng cũ. Muốn thêm hiệu ứng thứ hai (ví dụ vừa Fly In vừa Pulse) phải dùng nút <b>Add Animation</b>.</div>
+    </section>
+
+    <section class="card" id="p4-s5">
+      <h2><span class="num">5</span>Thời điểm bắt đầu, thời lượng và độ trễ (nhóm Timing)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Start</th><th>Hiệu ứng bắt đầu khi</th></tr></thead>
+        <tbody>
+          <tr><td><b>On Click</b></td><td>Người trình bày nhấp chuột / nhấn phím</td></tr>
+          <tr><td><b>With Previous</b></td><td><b>Cùng lúc</b> với hiệu ứng liền trước</td></tr>
+          <tr><td><b>After Previous</b></td><td><b>Ngay sau khi</b> hiệu ứng liền trước kết thúc (tự động)</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>Duration</b>: thời lượng chạy hiệu ứng; <b>Delay</b>: thời gian chờ trước khi bắt đầu.</li>
+        <li><b>Reorder Animation</b>: <i>Move Earlier / Move Later</i> để đổi thứ tự hiệu ứng.</li>
+        <li>Các số 1, 2, 3… hiện cạnh đối tượng (khi đang ở tab Animations) là thứ tự nhấp chuột; hiệu ứng With/After Previous dùng chung số với hiệu ứng trước.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="p4-s6">
+      <h2><span class="num">6</span>Animation Pane và Animation Painter</h2>
+      <div class="ribbon" aria-label="Mô phỏng Animation Pane" style="max-width:420px">
+        <div class="wtitle"><span>Animation Pane</span><span>▶ Play From</span></div>
+        <div class="wpage" style="max-width:none;padding:10px 12px;min-height:0;font-size:.85rem;line-height:1.9">
+          <div>1 🖱 <span style="color:#2e9d4c">★</span> Title 1: Báo cáo tổng kết <span style="float:right;color:var(--muted)">▬▬▬</span></div>
+          <div>2 🖱 <span style="color:#2e9d4c">★</span> Content: Kết quả học tập <span style="float:right;color:var(--muted)">&nbsp;&nbsp;▬▬</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;🕒 <span style="color:#d4a017">★</span> Picture 3 <span style="float:right;color:var(--muted)">&nbsp;&nbsp;&nbsp;&nbsp;▬▬</span></div>
+          <div>3 🖱 <span style="color:#d13438">★</span> Picture 3 <span style="float:right;color:var(--muted)">▬</span></div>
+        </div>
+      </div>
+      <ul>
+        <li><b>Animation Pane</b> (Animations → Advanced Animation): danh sách mọi hiệu ứng trên slide theo thứ tự; kéo thả để sắp xếp; biểu tượng 🖱 = On Click, 🕒 = After Previous, không biểu tượng = With Previous; thanh ngang thể hiện thời điểm và thời lượng.</li>
+        <li>Nhấp mũi tên ▾ của một hiệu ứng → <b>Effect Options</b> / <b>Timing</b> / <b>Remove</b>.</li>
+        <li><b>Animation Painter</b> (<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>): sao chép toàn bộ hiệu ứng của một đối tượng sang đối tượng khác (nhấp đúp để áp dụng nhiều lần).</li>
+        <li><b>Preview</b> xem thử hiệu ứng của slide; <b>Play From</b> trong Animation Pane chạy từ hiệu ứng đang chọn.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="p4-s7">
+      <h2><span class="num">7</span>Trigger và các tùy chọn nâng cao</h2>
+      <p><b>Trigger</b> (Animations → Advanced Animation → <b>Trigger</b>): hiệu ứng chỉ chạy khi <b>nhấp vào một đối tượng cụ thể</b> (<i>On Click of</i>…) hoặc khi video đến một bookmark (<i>On Bookmark</i>). Dùng để làm câu hỏi trắc nghiệm: nhấp vào đáp án nào thì hiện dấu ✔ hoặc ✘ tương ứng.</p>
+      <h3>Hộp thoại Effect Options (từ Animation Pane)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tab</th><th>Tùy chọn</th></tr></thead>
+        <tbody>
+          <tr><td><b>Effect</b></td><td>Hướng, <b>Smooth start/end</b>, <b>Sound</b>, <b>After animation</b> (đổi màu/ẩn sau khi chạy — <i>Hide After Animation</i>, <i>Dim</i> màu), <b>Animate text</b>: All at once / By word / By letter</td></tr>
+          <tr><td><b>Timing</b></td><td>Start, Delay, Duration, <b>Repeat</b> (lặp lại n lần, Until Next Click, Until End of Slide), <b>Rewind when done playing</b>, <b>Triggers</b></td></tr>
+          <tr><td><b>Text Animation</b></td><td>Group text: As One Object, All Paragraphs at Once, By 1st/2nd… Level Paragraphs; <i>In reverse order</i></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="p4-s8">
+      <h2><span class="num">8</span>Hiệu ứng cho SmartArt, biểu đồ và nguyên tắc sử dụng</h2>
+      <ul>
+        <li><b>SmartArt</b>: Effect Options → <b>As One Object</b>, <b>All at Once</b>, <b>One by One</b>, <b>By Level</b>… để sơ đồ xuất hiện dần từng khối.</li>
+        <li><b>Biểu đồ</b>: Effect Options → <b>By Series</b>, <b>By Category</b>, <b>By Element in Series/Category</b> để các cột xuất hiện lần lượt.</li>
+        <li><b>Văn bản</b>: By Paragraph để từng gạch đầu dòng xuất hiện theo lời giảng.</li>
+      </ul>
+      <div class="note warn"><b>Nguyên tắc</b>Hiệu ứng phục vụ việc dẫn dắt nội dung, không phải để trang trí. Hạn chế hiệu ứng quá nhanh/quá lâu, âm thanh gây mất tập trung; giữ thống nhất một vài kiểu hiệu ứng trong toàn bài.</div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="p4-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="p4-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="p4-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="p4-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="p4-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="p4-quizBar"></i></div>
+        <span class="pill">⏱ <b id="p4-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="p4-qnav"></div>
+      <div id="p4-quizBox"></div>
+
+      <div class="result" id="p4-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="p4-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="p4-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="p4-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="p4-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="p4-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="p4-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="p4-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="doituong">← Bài trước: Bài 3. Đối tượng đa phương tiện</button>
+  <button type="button" data-lesson="trinhchieu">Bài tiếp theo: Bài 5. Trình chiếu &amp; xuất bản →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 5: TRÌNH CHIẾU & XUẤT BẢN ================= -->
+<div class="lesson" id="lesson-trinhchieu">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📽️ Tin học ứng dụng · Microsoft PowerPoint 2019</span>
+    <h1>Bài 5. Trình chiếu, in ấn và xuất bản bài trình chiếu</h1>
+    <p>Trình chiếu và điều khiển slide, Presenter View, bút vẽ – con trỏ laser, thiết lập trình chiếu, diễn tập – ghi hình, trình chiếu tùy chỉnh, in bản phát tay, xuất PDF – video và bảo vệ tệp.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#p5-s1"><span class="n">1</span>Bắt đầu trình chiếu</a>
+    <a href="#p5-s2"><span class="n">2</span>Phím điều khiển</a>
+    <a href="#p5-s3"><span class="n">3</span>Presenter View & bút vẽ</a>
+    <a href="#p5-s4"><span class="n">4</span>Set Up Slide Show</a>
+    <a href="#p5-s5"><span class="n">5</span>Diễn tập & ghi hình</a>
+    <a href="#p5-s6"><span class="n">6</span>Custom Slide Show</a>
+    <a href="#p5-s7"><span class="n">7</span>In ấn</a>
+    <a href="#p5-s8"><span class="n">8</span>Xuất bản & bảo vệ</a>
+    <a href="#p5-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#p5-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="p5-s1">
+      <h2><span class="num">1</span>Bắt đầu trình chiếu</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Cách</th><th>Trình chiếu từ</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>F5</kbd> · Slide Show → <b>From Beginning</b></td><td>Slide <b>đầu tiên</b></td></tr>
+          <tr><td><kbd>Shift</kbd>+<kbd>F5</kbd> · <b>From Current Slide</b> · nút ▶ trên Status bar</td><td>Slide <b>đang chọn</b></td></tr>
+          <tr><td><kbd>Alt</kbd>+<kbd>F5</kbd></td><td>Trình chiếu với <b>Presenter View</b></td></tr>
+          <tr><td>Mở tệp <code>.ppsx</code></td><td>Tự trình chiếu ngay từ đầu</td></tr>
+        </tbody>
+      </table></div>
+      <p>Nhấn <kbd>Esc</kbd> để kết thúc trình chiếu và trở về màn hình soạn thảo.</p>
+    </section>
+
+    <section class="card" id="p5-s2">
+      <h2><span class="num">2</span>Phím điều khiển khi trình chiếu</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phím</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>N</kbd>, <kbd>Enter</kbd>, <kbd>Space</kbd>, <kbd>→</kbd>, <kbd>↓</kbd>, <kbd>Page Down</kbd>, nhấp chuột</td><td>Hiệu ứng / slide <b>tiếp theo</b></td></tr>
+          <tr><td><kbd>P</kbd>, <kbd>Backspace</kbd>, <kbd>←</kbd>, <kbd>↑</kbd>, <kbd>Page Up</kbd></td><td>Hiệu ứng / slide <b>trước</b></td></tr>
+          <tr><td>Số slide + <kbd>Enter</kbd></td><td>Nhảy đến slide có số thứ tự đó (ví dụ <kbd>5</kbd> <kbd>Enter</kbd>)</td></tr>
+          <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>Về slide đầu / đến slide cuối</td></tr>
+          <tr><td><kbd>B</kbd> hoặc <kbd>.</kbd> / <kbd>W</kbd> hoặc <kbd>,</kbd></td><td>Màn hình <b>đen</b> / màn hình <b>trắng</b> (nhấn lại để tiếp tục)</td></tr>
+          <tr><td><kbd>G</kbd></td><td>Hiển thị tất cả slide dạng lưới để chọn nhanh</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>P</kbd> / <kbd>Ctrl</kbd>+<kbd>A</kbd></td><td>Chuyển con trỏ thành <b>bút vẽ</b> / trở lại mũi tên</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>L</kbd></td><td>Con trỏ <b>laser</b></td></tr>
+          <tr><td><kbd>E</kbd></td><td>Xóa các nét vẽ trên slide</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>H</kbd></td><td>Ẩn con trỏ chuột</td></tr>
+          <tr><td><kbd>Esc</kbd></td><td>Kết thúc trình chiếu</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Mẹo</b>Nhấn <kbd>F1</kbd> trong lúc trình chiếu để xem danh sách toàn bộ phím điều khiển.</div>
+    </section>
+
+    <section class="card" id="p5-s3">
+      <h2><span class="num">3</span>Presenter View, bút vẽ và phóng to</h2>
+      <p><b>Presenter View</b> (Slide Show → đánh dấu <i>Use Presenter View</i>, hoặc <kbd>Alt</kbd>+<kbd>F5</kbd>): khi máy nối với máy chiếu, <b>khán giả chỉ thấy slide</b>, còn màn hình người trình bày hiển thị:</p>
+      <div class="grid-2">
+        <div class="tile"><h4>Slide hiện tại</h4><p>Kèm công cụ bút, laser, phóng to, xem tất cả slide, tắt màn hình (Black screen).</p></div>
+        <div class="tile"><h4>Slide tiếp theo</h4><p>Biết trước nội dung sắp chiếu để chuyển ý mạch lạc.</p></div>
+        <div class="tile"><h4>Ghi chú (Notes)</h4><p>Nội dung ghi chú của slide, có thể phóng to cỡ chữ.</p></div>
+        <div class="tile"><h4>Đồng hồ</h4><p>Thời gian đã trình bày và giờ hiện tại.</p></div>
+      </div>
+      <ul>
+        <li><b>Công cụ bút</b> (chuột phải → Pointer Options): Laser Pointer, <b>Pen</b>, <b>Highlighter</b>, Ink Color, Eraser. Khi kết thúc, PowerPoint hỏi <b>Keep</b> hay <b>Discard</b> các chú thích mực (ink annotations).</li>
+        <li><b>Zoom into the slide</b> (biểu tượng kính lúp): phóng to một vùng của slide.</li>
+        <li>Slide Show → <b>Monitor</b>: chọn màn hình hiển thị trình chiếu khi có nhiều màn hình.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="p5-s4">
+      <h2><span class="num">4</span>Thiết lập trình chiếu (Set Up Slide Show)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nhóm</th><th>Tùy chọn</th></tr></thead>
+        <tbody>
+          <tr><td><b>Show type</b></td><td><b>Presented by a speaker (full screen)</b> — mặc định · <b>Browsed by an individual (window)</b> — xem trong cửa sổ · <b>Browsed at a kiosk (full screen)</b> — tự chạy lặp lại, người xem không điều khiển được bằng nhấp chuột</td></tr>
+          <tr><td><b>Show options</b></td><td><b>Loop continuously until 'Esc'</b> (lặp liên tục), Show without narration, Show without animation, Disable hardware graphics acceleration, Pen color, Laser pointer color</td></tr>
+          <tr><td><b>Show slides</b></td><td>All · From … To … · Custom show</td></tr>
+          <tr><td><b>Advance slides</b></td><td><b>Manually</b> (thủ công) · <b>Using timings, if present</b> (theo thời gian đã đặt/diễn tập)</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Hide Slide</b> (Slide Show tab): ẩn slide dự phòng khỏi trình chiếu, vẫn có thể gõ số slide + Enter để gọi ra khi cần.</p>
+    </section>
+
+    <section class="card" id="p5-s5">
+      <h2><span class="num">5</span>Diễn tập và ghi hình bài trình bày</h2>
+      <ul>
+        <li><b>Rehearse Timings</b>: trình chiếu thử, thanh <b>Recording</b> đếm thời gian cho từng slide; khi kết thúc chọn <b>Yes</b> để lưu thời gian — dùng cho chế độ tự chạy. Xem thời gian từng slide trong Slide Sorter.</li>
+        <li><b>Record Slide Show</b> (From Beginning / From Current Slide): ghi lại <b>lời thuyết minh (narration)</b>, <b>video webcam</b>, nét vẽ bút và thời gian; mỗi slide chứa biểu tượng âm thanh/video tương ứng. <b>Clear</b> để xóa bản ghi.</li>
+        <li>Bỏ chọn <b>Play Narrations</b> / <b>Use Timings</b> trên tab Slide Show để tạm không dùng lời thuyết minh / thời gian đã ghi.</li>
+      </ul>
+      <div class="note"><b>Ứng dụng</b>Ghi hình bài giảng rồi <b>Export → Create a Video</b> (Bài 5, mục 8) để học viên xem lại, hoặc chiếu tự động tại quầy thông tin (kiosk).</div>
+    </section>
+
+    <section class="card" id="p5-s6">
+      <h2><span class="num">6</span>Trình chiếu tùy chỉnh (Custom Slide Show)</h2>
+      <p>Từ một bài trình chiếu, tạo nhiều "phiên bản" gồm các slide chọn lọc cho các đối tượng khán giả khác nhau mà không phải tạo tệp mới.</p>
+      <ol class="steps">
+        <li><b>Slide Show → Custom Slide Show → Custom Shows → New</b>.</li>
+        <li>Đặt tên (ví dụ "Bản rút gọn 10 phút"), chọn các slide ở cột trái → <b>Add</b>; sắp xếp thứ tự bằng mũi tên lên/xuống.</li>
+        <li>Trình chiếu: Custom Slide Show → chọn tên; hoặc đặt trong Set Up Slide Show → <b>Custom show</b>; hoặc tạo liên kết đến custom show (<i>Show and return</i>).</li>
+      </ol>
+    </section>
+
+    <section class="card" id="p5-s7">
+      <h2><span class="num">7</span>In bài trình chiếu (File → Print, <kbd>Ctrl</kbd>+<kbd>P</kbd>)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Print Layout</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td><b>Full Page Slides</b></td><td>Mỗi trang giấy một slide</td></tr>
+          <tr><td><b>Notes Pages</b></td><td>Slide ở trên, <b>ghi chú</b> của người trình bày ở dưới</td></tr>
+          <tr><td><b>Outline</b></td><td>In dàn ý văn bản của các slide</td></tr>
+          <tr><td><b>Handouts</b></td><td>Bản phát tay: 1, 2, 3, 4, 6 hoặc 9 slide mỗi trang; kiểu <b>3 Slides</b> có sẵn <b>dòng kẻ để khán giả ghi chép</b></td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>Slides</b>: Print All Slides, Print Selection, Print Current Slide, Custom Range (ví dụ <code>1-3,7</code>); <i>Print Hidden Slides</i>.</li>
+        <li>Tùy chọn khác: <b>Frame Slides</b> (kẻ khung slide), <b>Scale to Fit Paper</b>, <b>Color / Grayscale / Pure Black and White</b>, in một mặt / hai mặt, Collated.</li>
+        <li><b>Create Handouts</b> (File → Export): xuất bản phát tay sang <b>Microsoft Word</b> để chỉnh sửa (Notes next to slides, Blank lines below slides, Outline only…).</li>
+      </ul>
+    </section>
+
+    <section class="card" id="p5-s8">
+      <h2><span class="num">8</span>Xuất bản, chia sẻ và bảo vệ</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>File → Export</th><th>Kết quả</th></tr></thead>
+        <tbody>
+          <tr><td><b>Create PDF/XPS Document</b></td><td>Tệp PDF; Options chọn phạm vi, in kèm Handouts, Notes pages</td></tr>
+          <tr><td><b>Create a Video</b></td><td>Video <b>.mp4</b> / .wmv — chọn chất lượng (lên đến <b>Ultra HD 4K</b> trong PowerPoint 2019), dùng thời gian và thuyết minh đã ghi hoặc số giây mặc định cho mỗi slide</td></tr>
+          <tr><td><b>Package Presentation for CD</b></td><td>Đóng gói bài trình chiếu kèm các tệp liên kết (video, âm thanh, phông nhúng) vào thư mục hoặc CD</td></tr>
+          <tr><td><b>Create Handouts</b></td><td>Xuất bản phát tay sang Word</td></tr>
+          <tr><td><b>Change File Type</b></td><td>Lưu dạng .ppsx (Show), .potx (Template), .png/.jpg (mỗi slide một ảnh), .ppt</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Nhúng phông và bảo vệ</h3>
+      <ul>
+        <li><b>File → Options → Save → Embed fonts in the file</b>: nhúng phông chữ để trình chiếu trên máy khác không bị lỗi phông.</li>
+        <li><b>File → Info → Protect Presentation</b>: <b>Encrypt with Password</b> (mật khẩu mở tệp), <b>Mark as Final</b> (đánh dấu bản cuối, chỉ đọc), <b>Add a Digital Signature</b>.</li>
+        <li><b>Check for Issues</b>: <b>Inspect Document</b> (xóa ghi chú, comment, thông tin ẩn), Check Accessibility, Check Compatibility.</li>
+        <li><b>Share</b>: lưu lên OneDrive để cộng tác; <b>Compress Media</b> để giảm dung lượng trước khi gửi.</li>
+      </ul>
+      <div class="note tip"><b>Danh sách kiểm tra trước buổi thuyết trình</b>Diễn tập với Presenter View · kiểm tra phông trên máy trình chiếu (nhúng phông) · kiểm tra âm thanh, video (đóng gói nếu dùng tệp liên kết) · xuất PDF dự phòng · mang theo bút trình chiếu.</div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="p5-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="p5-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="p5-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="p5-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="p5-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="p5-quizBar"></i></div>
+        <span class="pill">⏱ <b id="p5-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="p5-qnav"></div>
+      <div id="p5-quizBox"></div>
+
+      <div class="result" id="p5-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="p5-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="p5-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="p5-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="p5-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="p5-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="p5-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="p5-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="hieuung">← Bài trước: Bài 4. Hiệu ứng chuyển trang &amp; hoạt hình</button>
+</div>
+</div>
+
+
+<footer>Bài giảng điện tử · Microsoft PowerPoint 2019 · Bài 1. Làm quen &amp; Tạo bài · Bài 2. Thiết kế &amp; Slide Master · Bài 3. Đa phương tiện · Bài 4. Hiệu ứng · Bài 5. Trình chiếu &amp; Xuất bản<br><span class="credit">✨ Bài học được thiết kế nhờ <b>Claude</b> trợ giúp - 2026</span></footer>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">Xác nhận</h3>
+    <p id="modalText"></p>
+    <div class="actions">
+      <button class="btn btn-ghost" id="modalNo">Hủy</button>
+      <button class="btn btn-primary" id="modalYes">Đồng ý</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<button class="to-top" id="toTop" aria-label="Lên đầu trang">↑</button>
+
+<script>
+(function(){
+  "use strict";
+
+  // ===== Ngân hàng câu hỏi (a = chỉ số đáp án đúng trong mảng o) =====
+  // ----- Bài 1: Làm quen & tạo bài trình chiếu -----
+  const P1_QUESTIONS = [
+    {q:"Microsoft PowerPoint 2019 là phần mềm dùng để:", o:["Soạn thảo văn bản","Tạo và trình chiếu bài thuyết trình","Tính toán bảng tính","Quản trị cơ sở dữ liệu"], a:1, e:"Bài trình chiếu gồm nhiều slide."},
+    {q:"Mỗi trang trong bài trình chiếu PowerPoint được gọi là:", o:["Slide","Sheet","Page","Frame"], a:0, e:"Slide (trang chiếu)."},
+    {q:"Khung bên trái cửa sổ PowerPoint (chế độ Normal) hiển thị:", o:["Ghi chú của slide","Danh sách hiệu ứng","Hình thu nhỏ của các slide","Danh sách phông chữ"], a:2, e:"Thumbnails dùng để chọn, sắp xếp slide."},
+    {q:"Khung Notes bên dưới slide dùng để:", o:["Hiển thị tiêu đề slide","Chèn chú thích cho khán giả","Ghi số slide","Ghi chú cho người thuyết trình"], a:3, e:"Xem được trong Presenter View, in ở Notes Pages."},
+    {q:"Tab chứa các hiệu ứng chuyển slide là:", o:["Animations","Transitions","Design","Slide Show"], a:1, e:"Animations là hiệu ứng cho đối tượng."},
+    {q:"Tab chứa Themes, Variants và Slide Size là:", o:["Design","Home","View","Insert"], a:0, e:"Design."},
+    {q:"Định dạng tệp mặc định của PowerPoint 2019 là:", o:[".ppt",".ppsx",".pptx",".potx"], a:2, e:".pptx."},
+    {q:"Tệp có phần mở rộng .ppsx khi mở sẽ:", o:["Mở ở chế độ soạn thảo","Mở dạng PDF","Mở ở chế độ chỉ đọc","Trình chiếu ngay lập tức"], a:3, e:"PowerPoint Show."},
+    {q:"Tệp mẫu (template) của PowerPoint có phần mở rộng:", o:[".pptm",".potx",".thmx",".ppsx"], a:1, e:".thmx là tệp theme."},
+    {q:"Phím tắt thêm slide mới là:", o:["Ctrl + M","Ctrl + N","Ctrl + D","Ctrl + Enter"], a:0, e:"Ctrl + N tạo bài trình chiếu mới."},
+    {q:"Tổ hợp phím nhân bản (Duplicate) slide đang chọn là:", o:["Ctrl + C","Ctrl + M","Ctrl + D","Ctrl + V"], a:2, e:"Hoặc chuột phải → Duplicate Slide."},
+    {q:"Các khung có viền nét đứt như \"Click to add title\" trên slide gọi là:", o:["Text Box","Shape","Frame","Placeholder"], a:3, e:"Placeholder được quy định bởi Layout."},
+    {q:"Để đổi bố cục của slide đang chọn, ta dùng:", o:["Design → Themes","Home → Layout","Insert → Table","View → Slide Master"], a:1, e:"Home → Layout."},
+    {q:"Layout thường dùng cho slide đầu tiên của bài trình chiếu là:", o:["Title Slide","Title and Content","Blank","Two Content"], a:0, e:"Gồm tiêu đề và phụ đề."},
+    {q:"Layout có hai khung nội dung kèm tiêu đề riêng cho mỗi bên để so sánh là:", o:["Two Content","Section Header","Comparison","Title Only"], a:2, e:"Comparison có thêm tiêu đề cho mỗi cột."},
+    {q:"Lệnh Home → Reset có tác dụng:", o:["Xóa slide","Xóa toàn bộ nội dung slide","Đổi theme","Đưa vị trí, kích thước, định dạng placeholder về mặc định của layout"], a:3, e:"Nội dung vẫn được giữ."},
+    {q:"Để xóa một slide, ta chọn slide ở khung Thumbnails rồi nhấn:", o:["Esc","Delete","Ctrl + X rồi Esc","F2"], a:1, e:"Delete."},
+    {q:"Lệnh Hide Slide có tác dụng:", o:["Slide vẫn còn trong tệp nhưng bị bỏ qua khi trình chiếu","Xóa slide","Ẩn nội dung slide khi soạn thảo","Ẩn slide khi in"], a:0, e:"Số thứ tự slide bị gạch chéo."},
+    {q:"Để chèn slide từ dàn ý Word (các Heading thành tiêu đề slide), ta dùng:", o:["Reuse Slides","Duplicate Slide","New Slide → Slides from Outline","Insert → Object"], a:2, e:"Slides from Outline."},
+    {q:"Section trong PowerPoint dùng để:", o:["Chia slide thành nhiều cột","Tạo hiệu ứng","Chia màn hình","Nhóm các slide thành từng phần để quản lý"], a:3, e:"Home → Section → Add Section."},
+    {q:"Để di chuyển cả một nhóm slide thuộc cùng một phần, ta:", o:["Kéo từng slide","Chuột phải tên Section → Move Section Up/Down","Dùng Cut và Paste từng slide","Dùng Reuse Slides"], a:1, e:"Section giúp di chuyển cả nhóm."},
+    {q:"Chế độ xem mặc định của PowerPoint, gồm Thumbnails, vùng soạn slide và khung Notes là:", o:["Normal","Slide Sorter","Reading View","Outline View"], a:0, e:"Normal."},
+    {q:"Chế độ xem hiển thị các slide dạng lưới để sắp xếp nhanh là:", o:["Normal","Notes Page","Slide Sorter","Reading View"], a:2, e:"Slide Sorter."},
+    {q:"Chế độ xem hiển thị dàn ý văn bản của tất cả các slide là:", o:["Notes Page","Slide Master","Reading View","Outline View"], a:3, e:"Outline View."},
+    {q:"Chế độ Reading View có đặc điểm:", o:["Hiển thị toàn màn hình","Trình chiếu trong cửa sổ PowerPoint, không toàn màn hình","Chỉ hiển thị ghi chú","Không có hiệu ứng"], a:1, e:"Slide Show mới là toàn màn hình."},
+    {q:"Chế độ Notes Page dùng để:", o:["Xem và soạn trang ghi chú như khi in","Trình chiếu","Sắp xếp slide","Chỉnh Slide Master"], a:0, e:"Slide ở trên, ghi chú ở dưới."},
+    {q:"Nội dung nào sau đây KHÔNG hiển thị trong Outline View?", o:["Tiêu đề trong placeholder","Gạch đầu dòng trong placeholder nội dung","Chữ trong Text Box tự vẽ","Tiêu đề slide Section Header"], a:2, e:"Outline chỉ lấy chữ trong placeholder."},
+    {q:"Trong khung nội dung, để hạ một gạch đầu dòng xuống cấp thấp hơn, ta nhấn:", o:["Enter","Shift + Tab","Ctrl + Enter","Tab"], a:3, e:"Shift + Tab nâng cấp."},
+    {q:"Trong khung nội dung, để xuống dòng mà không tạo gạch đầu dòng mới, ta nhấn:", o:["Enter","Shift + Enter","Tab","Ctrl + M"], a:1, e:"Shift + Enter tạo ngắt dòng."},
+    {q:"Trong Outline View, gõ tiêu đề rồi nhấn Enter sẽ:", o:["Tạo slide mới","Tạo gạch đầu dòng","Xuống dòng trong tiêu đề","Kết thúc Outline"], a:0, e:"Tab để biến dòng đó thành nội dung slide trước."},
+    {q:"Tính năng tự thu nhỏ cỡ chữ khi nội dung tràn khung placeholder là:", o:["AutoCorrect","AutoFormat","AutoFit","AutoSize Font"], a:2, e:"AutoFit Options cho phép tắt hoặc tách slide."},
+    {q:"Theo quy tắc 6 × 6, một slide nên có:", o:["6 hình ảnh và 6 hiệu ứng","6 slide mỗi phần","6 màu và 6 phông","Khoảng 6 dòng, mỗi dòng khoảng 6 từ"], a:3, e:"Slide ngắn gọn, làm điểm nhấn cho lời nói."},
+    {q:"Để chèn slide từ một bài trình chiếu khác và giữ định dạng gốc, ta dùng:", o:["Duplicate Slide","Reuse Slides với Keep source formatting","Slides from Outline","Insert → Object"], a:1, e:"Home → New Slide → Reuse Slides."},
+    {q:"Khi dán slide từ tệp khác, tùy chọn Use Destination Theme sẽ:", o:["Áp dụng theme của bài trình chiếu đích cho slide được dán","Giữ nguyên theme gốc","Dán dạng hình ảnh","Xóa định dạng chữ"], a:0, e:"Keep Source Formatting mới giữ theme gốc."},
+    {q:"Phím tắt kiểm tra chính tả trong PowerPoint là:", o:["F5","F12","F7","F9"], a:2, e:"Review → Spelling."},
+    {q:"Để thêm góp ý cho một slide khi làm việc nhóm, ta dùng:", o:["Notes","Text Box","Section","Review → New Comment"], a:3, e:"Comments."},
+    {q:"Ribbon của PowerPoint 2019 KHÔNG có tab nào sau đây?", o:["Transitions","Mailings","Animations","Slide Show"], a:1, e:"Mailings có trong Word."},
+    {q:"Để hiển thị đường gióng (Guides) giúp căn chỉnh đối tượng, ta vào:", o:["Tab View","Tab Design","Tab Home","Tab Review"], a:0, e:"View → Guides / Gridlines / Ruler."},
+    {q:"Thiết lập tự lưu bản khôi phục (AutoRecover) nằm ở:", o:["File → Info","File → Export","File → Options → Save","Review → Protect"], a:2, e:"Đặt số phút giữa các lần lưu."},
+    {q:"Thanh trạng thái (Status bar) của PowerPoint KHÔNG có thành phần nào?", o:["Số thứ tự slide","Nút Notes","Nút Slide Show","Nút Record Slide Show"], a:3, e:"Record Slide Show ở tab Slide Show."}
+  ];
+
+  // ----- Bài 2: Thiết kế & Slide Master -----
+  const P2_QUESTIONS = [
+    {q:"Theme (chủ đề) trong PowerPoint bao gồm:", o:["Chỉ màu nền","Bộ màu sắc, phông chữ, hiệu ứng và nền đồng bộ","Chỉ hiệu ứng chuyển slide","Chỉ phông chữ"], a:1, e:"Design → Themes."},
+    {q:"Nhấp chọn một theme trong nhóm Themes sẽ áp dụng cho:", o:["Tất cả các slide","Chỉ slide đang chọn","Chỉ slide đầu tiên","Slide Master của bài khác"], a:0, e:"Chuột phải → Apply to Selected Slides để áp dụng riêng."},
+    {q:"Để chỉ đổi bộ màu của theme mà giữ nguyên bố cục, ta dùng:", o:["Design → Slide Size","Design → Format Background","Design → Variants → Colors","Home → Font Color"], a:2, e:"Variants: Colors, Fonts, Effects, Background Styles."},
+    {q:"Theme có thể được lưu thành tệp có phần mở rộng:", o:[".potx",".pptx",".ppsx",".thmx"], a:3, e:"Save Current Theme → .thmx."},
+    {q:"Kích thước slide mặc định của PowerPoint 2019 là:", o:["Standard (4:3)","Widescreen (16:9)","A4","Letter"], a:1, e:"Design → Slide Size."},
+    {q:"Khi đổi kích thước slide, tùy chọn Ensure Fit có tác dụng:", o:["Thu nhỏ nội dung cho vừa slide mới","Giữ nguyên cỡ nội dung, có thể tràn","Xóa nội dung tràn","Cắt bỏ viền slide"], a:0, e:"Maximize giữ nguyên cỡ nội dung."},
+    {q:"Lệnh định dạng nền slide nằm ở:", o:["Home → Background","Insert → Background","Design → Format Background","View → Background"], a:2, e:"Hoặc chuột phải vào vùng trống của slide."},
+    {q:"Kiểu nền chuyển màu từ màu này sang màu khác là:", o:["Solid fill","Pattern fill","Picture fill","Gradient fill"], a:3, e:"Gradient: Linear, Radial…"},
+    {q:"Trong khung Format Background, nút Apply to All có tác dụng:", o:["Áp dụng cho slide đang chọn","Áp dụng nền cho tất cả các slide","Xóa nền","Lưu thành theme"], a:1, e:"Mặc định chỉ áp dụng cho slide đang chọn."},
+    {q:"Tùy chọn Hide background graphics trong Format Background dùng để:", o:["Ẩn các hình trang trí của theme/Slide Master trên slide","Ẩn ảnh nền","Ẩn toàn bộ slide","Ẩn chữ"], a:0, e:"Hình trang trí nằm trên Slide Master."},
+    {q:"Để thay một phông chữ bằng phông khác trong toàn bộ bài trình chiếu, ta dùng:", o:["Find and Replace","Format Painter","Home → Replace → Replace Fonts","Design → Fonts"], a:2, e:"Replace Fonts."},
+    {q:"Lệnh Convert to SmartArt dùng để:", o:["Chuyển ảnh thành SmartArt","Chuyển bảng thành biểu đồ","Chuyển slide thành ảnh","Chuyển danh sách gạch đầu dòng thành sơ đồ SmartArt"], a:3, e:"Home → Paragraph → Convert to SmartArt."},
+    {q:"Cỡ chữ khuyến nghị cho nội dung slide khi trình chiếu là:", o:["10 – 12 pt","Khoảng 24 pt trở lên","8 pt","60 pt"], a:1, e:"Tiêu đề 32–44 pt."},
+    {q:"Nội dung trong Text Box tự vẽ:", o:["Không hiển thị trong Outline View","Luôn hiển thị trong Outline View","Không in được","Không định dạng được"], a:0, e:"Chỉ nội dung placeholder hiện trong Outline."},
+    {q:"Để uốn cong chữ WordArt, ta dùng:", o:["Text Fill","Text Outline","Text Effects → Transform","Shape Effects → Bevel"], a:2, e:"Transform có các kiểu Follow Path, Warp."},
+    {q:"Lệnh Set as Default Text Box có tác dụng:", o:["Xóa định dạng Text Box","Chuyển Text Box thành placeholder","Đặt Text Box vào Slide Master","Đặt định dạng hộp chữ hiện tại làm mặc định cho hộp chữ mới"], a:3, e:"Chuột phải vào khung Text Box."},
+    {q:"Để chèn số thứ tự slide cho tất cả các slide, ta dùng:", o:["Home → Numbering","Insert → Header & Footer → Slide number → Apply to All","Design → Slide Size","View → Slide Master → Numbering"], a:1, e:"Hoặc Insert → Slide Number."},
+    {q:"Trong hộp thoại Header & Footer, tùy chọn Don't show on title slide có tác dụng:", o:["Không hiển thị footer, số slide trên slide dùng layout Title Slide","Ẩn slide tiêu đề","Không in slide tiêu đề","Ẩn tiêu đề của mọi slide"], a:0, e:"Thường dùng cho slide bìa."},
+    {q:"Trong Header & Footer, chọn Date and time → Update automatically có nghĩa:", o:["Ngày cố định do người dùng nhập","Chỉ hiện giờ","Ngày tự cập nhật theo ngày mở/trình chiếu","Không hiển thị ngày"], a:2, e:"Fixed là ngày cố định."},
+    {q:"Lệnh mở Slide Master là:", o:["Design → Slide Master","Home → Master","Insert → Slide Master","View → Slide Master"], a:3, e:"View → Master Views."},
+    {q:"Trong chế độ Slide Master, slide lớn ở trên cùng của khung trái là:", o:["Layout Master","Slide Master — thay đổi áp dụng cho tất cả layout bên dưới","Slide tiêu đề","Handout Master"], a:1, e:"Các slide nhỏ bên dưới là Layout Master."},
+    {q:"Chỉnh sửa trên một Layout Master (slide nhỏ bên dưới) sẽ áp dụng cho:", o:["Các slide dùng layout đó","Tất cả slide","Chỉ slide đầu tiên","Không slide nào"], a:0, e:"Slide Master mới áp dụng cho tất cả."},
+    {q:"Muốn logo xuất hiện ở góc tất cả các slide mà không bị chọn nhầm khi soạn, ta chèn logo vào:", o:["Từng slide","Khung Notes","Slide Master (slide trên cùng)","Header & Footer"], a:2, e:"Vào View → Slide Master."},
+    {q:"Lệnh tạo một bố cục slide mới trong chế độ Slide Master là:", o:["New Slide","Duplicate Slide","Insert Placeholder","Insert Layout"], a:3, e:"Insert Placeholder để thêm khung giữ chỗ."},
+    {q:"Lệnh Insert Placeholder trong Slide Master dùng để:", o:["Chèn slide mới","Thêm khung giữ chỗ (Content, Text, Picture, Chart…) vào layout","Chèn logo","Chèn số slide"], a:1, e:"Tạo layout tùy biến."},
+    {q:"Để thoát khỏi chế độ Slide Master, ta nhấn:", o:["Close Master View","Esc","Ctrl + W","Save"], a:0, e:"Trở về Normal."},
+    {q:"Để chỉnh bố cục bản in phát tay (handouts), ta dùng:", o:["Slide Master","Notes Master","Handout Master","Print Preview"], a:2, e:"View → Handout Master."},
+    {q:"Slide không hiển thị footer dù đã chọn Apply to All trong Header & Footer. Nguyên nhân có thể là:", o:["Slide bị ẩn","Theme không hỗ trợ tiếng Việt","Chưa lưu tệp","Layout trên Slide Master đã tắt/xóa placeholder Footer"], a:3, e:"Bật lại Footers trong Slide Master."},
+    {q:"Chọn màu từ hàng Theme Colors (thay vì Standard Colors) có lợi ích:", o:["Màu sáng hơn","Màu tự đổi theo khi đổi theme","Không in màu","Giảm dung lượng tệp"], a:1, e:"Giữ thiết kế đồng bộ."},
+    {q:"Khuyến nghị số phông chữ sử dụng trong một bài trình chiếu là:", o:["Tối đa khoảng 2 phông","Mỗi slide một phông","Càng nhiều càng đẹp","Chỉ dùng phông viết tay"], a:0, e:"Một phông tiêu đề, một phông nội dung."},
+    {q:"Kiểu phông phù hợp cho chữ hiển thị trên màn chiếu là:", o:["Phông có chân nhỏ, mảnh","Phông trang trí","Phông không chân như Arial, Calibri","Phông viết tay"], a:2, e:"Dễ đọc ở khoảng cách xa."},
+    {q:"Nguyên tắc về màu sắc chữ và nền trên slide là:", o:["Chữ và nền cùng màu","Dùng nhiều màu rực rỡ","Chữ đỏ trên nền xanh lá","Đảm bảo tương phản cao giữa chữ và nền"], a:3, e:"Chữ tối trên nền sáng hoặc ngược lại."},
+    {q:"Lệnh Columns trong nhóm Paragraph dùng để:", o:["Chèn bảng","Chia chữ trong khung thành nhiều cột","Chia slide làm đôi","Tạo layout Two Content"], a:1, e:"Chia cột trong text box/placeholder."},
+    {q:"Lệnh Align Text trong nhóm Paragraph dùng để:", o:["Căn chữ theo chiều dọc trong khung (Top, Middle, Bottom)","Căn lề trái phải","Căn các đối tượng","Căn slide"], a:0, e:"Căn ngang dùng Ctrl + L/E/R/J."},
+    {q:"Trong Format Shape → Text Box, tùy chọn Resize shape to fit text có nghĩa:", o:["Thu nhỏ chữ khi tràn","Không tự điều chỉnh","Khung tự thay đổi kích thước theo lượng chữ","Xoay chữ"], a:2, e:"Shrink text on overflow mới là thu nhỏ chữ."},
+    {q:"Tổ hợp phím căn giữa đoạn văn trong khung chữ PowerPoint là:", o:["Ctrl + C","Ctrl + M","Ctrl + J","Ctrl + E"], a:3, e:"Giống Word."},
+    {q:"Lệnh Design → Slide Size → Custom Slide Size cho phép:", o:["Đổi theme","Chọn khổ A4, hướng Portrait/Landscape, số bắt đầu của slide","Đổi phông","Đổi layout"], a:1, e:"Dùng khi thiết kế poster, tài liệu in."},
+    {q:"Để xem các hình trang trí nằm ở đâu và chỉnh sửa chúng cho mọi slide, ta mở:", o:["Slide Master","Slide Sorter","Reading View","Outline View"], a:0, e:"Hình trang trí của theme đặt trên master."},
+    {q:"Notes Master dùng để:", o:["Soạn ghi chú cho từng slide","Chèn comment","Chỉnh bố cục chung của các trang ghi chú khi in","Ẩn ghi chú"], a:2, e:"View → Notes Master."},
+    {q:"Nguyên tắc thiết kế nào sau đây là ĐÚNG?", o:["Đưa toàn bộ bài nói lên slide","Mỗi slide dùng một kiểu hiệu ứng khác nhau","Dùng ảnh mờ, vỡ hạt","Mỗi slide tập trung một ý chính"], a:3, e:"Slide là điểm nhấn cho lời nói."}
+  ];
+
+  // ----- Bài 3: Đối tượng đa phương tiện -----
+  const P3_QUESTIONS = [
+    {q:"Lệnh tạo album ảnh, mỗi ảnh một slide, là:", o:["Insert → Pictures","Insert → Photo Album","Insert → Screenshot","Design → Album"], a:1, e:"Photo Album tạo bài trình chiếu mới."},
+    {q:"Để thay ảnh khác mà vẫn giữ kích thước, định dạng của ảnh cũ, ta dùng:", o:["Change Picture","Reset Picture","Crop","Compress Pictures"], a:0, e:"Picture Tools → Format → Change Picture."},
+    {q:"Để cắt ảnh theo hình tròn, ngôi sao…, ta dùng:", o:["Remove Background","Picture Border","Crop → Crop to Shape","Artistic Effects"], a:2, e:"Crop to Shape."},
+    {q:"Để kéo thay đổi kích thước ảnh mà không bị méo, ta:", o:["Kéo nút giữa cạnh","Nhấn Ctrl + D","Dùng Crop","Kéo nút ở góc ảnh (hoặc giữ Shift khi kéo)"], a:3, e:"Giữ tỷ lệ ảnh."},
+    {q:"Compress Pictures dùng để:", o:["Tăng độ phân giải ảnh","Nén ảnh, giảm dung lượng tệp","Cắt ảnh","Đổi định dạng ảnh"], a:1, e:"Có thể xóa phần đã cắt."},
+    {q:"Alt Text của ảnh dùng để:", o:["Mô tả ảnh cho người dùng trình đọc màn hình","Tên tệp ảnh","Chú thích hiển thị dưới ảnh","Chữ chèn lên ảnh"], a:0, e:"Tăng khả năng tiếp cận."},
+    {q:"Khi vẽ Shapes, giữ phím nào để được hình vuông, hình tròn?", o:["Ctrl","Alt","Shift","Tab"], a:2, e:"Shift giữ tỷ lệ."},
+    {q:"Để chỉnh đường viền (các đỉnh) của một hình vẽ, ta chọn:", o:["Change Shape","Shape Outline","Merge Shapes","Edit Points"], a:3, e:"Chuột phải → Edit Points."},
+    {q:"Trong Merge Shapes, lệnh chỉ giữ lại phần giao nhau của các hình là:", o:["Union","Intersect","Combine","Fragment"], a:1, e:"Intersect."},
+    {q:"Trong Merge Shapes, lệnh hợp nhất các hình thành một hình duy nhất là:", o:["Union","Subtract","Intersect","Fragment"], a:0, e:"Union."},
+    {q:"Lệnh Subtract trong Merge Shapes cho kết quả:", o:["Phần giao nhau","Hợp nhất hai hình","Hình chọn trước trừ đi phần của hình chọn sau","Chia thành nhiều mảnh"], a:2, e:"Thứ tự chọn hình rất quan trọng."},
+    {q:"Tính năng chèn biểu tượng vector có thể đổi màu, mới trong PowerPoint 2019, là:", o:["Clip Art","Symbol","WordArt","Icons"], a:3, e:"Insert → Icons."},
+    {q:"Tính năng 3D Models trong PowerPoint 2019 cho phép:", o:["Vẽ hình khối 3-D bằng Shapes","Chèn mô hình 3D và xoay theo mọi hướng","Tạo chữ nổi","Tạo biểu đồ 3D"], a:1, e:"Kết hợp hiệu ứng Morph hoặc hiệu ứng 3D."},
+    {q:"Để vẽ sơ đồ tổ chức, ta dùng SmartArt nhóm:", o:["Hierarchy","Cycle","List","Matrix"], a:0, e:"Hierarchy."},
+    {q:"Trong SmartArt, khung dùng để nhập nhanh nội dung các khối là:", o:["Notes Pane","Selection Pane","Text Pane","Animation Pane"], a:2, e:"Nhấp mũi tên ở cạnh trái SmartArt."},
+    {q:"Để thêm một khối mới vào sơ đồ SmartArt, ta dùng:", o:["Insert Shape","Duplicate","Promote","Add Shape"], a:3, e:"SmartArt Tools → Design → Add Shape."},
+    {q:"Phát biểu nào đúng về bảng trong PowerPoint?", o:["Có sẵn chức năng Formula như Word","Không có chức năng tính toán công thức; cần tính toán thì nhúng bảng Excel","Không trộn ô được","Không định dạng được"], a:1, e:"Insert → Table → Excel Spreadsheet."},
+    {q:"Khi chèn biểu đồ (Insert → Chart), dữ liệu biểu đồ được nhập tại:", o:["Cửa sổ bảng tính kiểu Excel","Khung Notes","Hộp thoại Chart Options","Placeholder"], a:0, e:"Edit Data để sửa lại."},
+    {q:"Dán biểu đồ từ Excel với tùy chọn Keep Source Formatting & Link Data giúp:", o:["Biểu đồ thành ảnh","Xóa dữ liệu","Biểu đồ cập nhật theo tệp Excel gốc","Biểu đồ đổi theo theme"], a:2, e:"Liên kết dữ liệu."},
+    {q:"Để chèn video từ máy tính, ta dùng:", o:["Insert → Pictures","Insert → Object","Insert → Screenshot","Insert → Video → This Device"], a:3, e:"Hoặc Online Video."},
+    {q:"Lệnh Trim Video dùng để:", o:["Nén video","Cắt bớt phần đầu và cuối video","Chỉnh độ sáng video","Chèn phụ đề"], a:1, e:"Playback → Trim Video."},
+    {q:"Để nhạc nền chạy liên tục qua nhiều slide, ta chọn:", o:["Play in Background","Play Full Screen","Rewind after Playing","Fade In"], a:0, e:"Tự bật Play Across Slides, Loop, Hide During Show."},
+    {q:"Tùy chọn Hide During Show của âm thanh có tác dụng:", o:["Tắt tiếng","Ẩn slide","Ẩn biểu tượng loa khi trình chiếu","Không phát âm thanh"], a:2, e:"Âm thanh vẫn phát."},
+    {q:"Tính năng quay video thao tác trên màn hình máy tính và chèn vào slide là:", o:["Screenshot","Record Slide Show","Record Audio","Screen Recording"], a:3, e:"Insert → Media → Screen Recording."},
+    {q:"Poster Frame của video là:", o:["Khung viền video","Hình ảnh hiển thị khi video chưa được phát","Phụ đề","Thanh điều khiển video"], a:1, e:"Video Tools → Format → Poster Frame."},
+    {q:"Để giảm dung lượng tệp PowerPoint có chứa video, âm thanh, ta dùng:", o:["File → Info → Compress Media","Compress Pictures","Save As .ppt","Package for CD"], a:0, e:"Full HD, HD, Standard."},
+    {q:"Phím tắt chèn liên kết (Link) là:", o:["Ctrl + L","Ctrl + H","Ctrl + K","Ctrl + Shift + L"], a:2, e:"Insert → Link."},
+    {q:"Để tạo liên kết từ một hình đến slide số 5 trong cùng bài, trong hộp thoại Insert Hyperlink ta chọn:", o:["Existing File or Web Page","Create New Document","E-mail Address","Place in This Document"], a:3, e:"Chọn slide đích."},
+    {q:"Lệnh Insert → Action cho phép thiết lập hành động khi:", o:["Mở tệp","Nhấp chuột (Mouse Click) hoặc rê chuột (Mouse Over) lên đối tượng","Lưu tệp","In tệp"], a:1, e:"Hyperlink, Run program, Play sound."},
+    {q:"Action Buttons (nút hành động) nằm ở:", o:["Insert → Shapes (cuối danh sách)","Insert → Icons","Design → Buttons","Slide Show → Buttons"], a:0, e:"Back, Forward, Home, End…"},
+    {q:"Liên kết và nút hành động trên slide hoạt động khi:", o:["Soạn thảo và nhấp chuột thường","In ra giấy","Trình chiếu (khi soạn thảo phải Ctrl + nhấp)","Ở chế độ Slide Sorter"], a:2, e:"Chỉ hoạt động khi trình chiếu."},
+    {q:"Tính năng Zoom (Insert → Zoom) mới trong PowerPoint 2019 KHÔNG có loại nào?", o:["Summary Zoom","Section Zoom","Slide Zoom","Picture Zoom"], a:3, e:"Ba loại: Summary, Section, Slide Zoom."},
+    {q:"Summary Zoom có tác dụng:", o:["Phóng to slide khi trình chiếu","Tạo một slide tóm tắt mới chứa hình thu nhỏ các phần được chọn","Liên kết đến một slide","Thu nhỏ toàn bộ slide"], a:1, e:"Trình bày phi tuyến tính."},
+    {q:"Tùy chọn Return to Zoom của Section/Slide Zoom có tác dụng:", o:["Quay lại slide chứa Zoom sau khi trình chiếu xong phần được liên kết","Phóng to lại","Xóa Zoom","Chuyển về slide đầu"], a:0, e:"Zoom Tools → Format → Return to Zoom."},
+    {q:"Lệnh đưa đối tượng lên trên cùng tất cả các lớp là:", o:["Bring Forward","Send to Back","Bring to Front","Send Backward"], a:2, e:"Bring Forward chỉ lên một lớp."},
+    {q:"Tổ hợp phím nhóm (Group) các đối tượng đang chọn trong PowerPoint là:", o:["Ctrl + Shift + G","Alt + G","Ctrl + U","Ctrl + G"], a:3, e:"Ctrl + Shift + G để bỏ nhóm."},
+    {q:"Lệnh Distribute Horizontally dùng để:", o:["Căn các đối tượng thẳng hàng trái","Dàn đều khoảng cách ngang giữa các đối tượng","Lật ngang đối tượng","Nhóm đối tượng"], a:1, e:"Arrange → Align → Distribute."},
+    {q:"Phím tắt mở Selection Pane trong PowerPoint là:", o:["Alt + F10","Ctrl + F10","F10","Shift + F10"], a:0, e:"Liệt kê, đổi tên, ẩn/hiện đối tượng."},
+    {q:"Các đường gióng màu đỏ tự xuất hiện khi kéo đối tượng để căn thẳng hàng gọi là:", o:["Gridlines","Rulers","Smart Guides","Margins"], a:2, e:"Smart Guides."},
+    {q:"Lệnh Insert → Screenshot dùng để:", o:["Lưu slide thành ảnh","Quay video màn hình","Chụp slide đang soạn","Chèn ảnh chụp cửa sổ đang mở hoặc một vùng màn hình"], a:3, e:"Screen Clipping."}
+  ];
+
+  // ----- Bài 4: Hiệu ứng -----
+  const P4_QUESTIONS = [
+    {q:"Hiệu ứng xuất hiện khi chuyển từ slide này sang slide khác gọi là:", o:["Animation","Transition","Motion Path","Trigger"], a:1, e:"Tab Transitions."},
+    {q:"Hiệu ứng áp dụng cho từng đối tượng (chữ, hình, ảnh) trên slide gọi là:", o:["Animation","Transition","Theme","Variant"], a:0, e:"Tab Animations."},
+    {q:"Hiệu ứng chuyển trang được gán cho slide sẽ chạy khi:", o:["Slide đó kết thúc","Mở tệp","Slide đó xuất hiện","Nhấp vào đối tượng"], a:2, e:"Hiệu ứng thuộc về slide đích."},
+    {q:"Lệnh Effect Options của Transition dùng để:", o:["Đặt thời lượng","Thêm âm thanh","Áp dụng cho tất cả","Chọn hướng, kiểu của hiệu ứng"], a:3, e:"Ví dụ From Right, From Top."},
+    {q:"Mục Duration trong nhóm Timing của tab Transitions là:", o:["Thời gian slide hiển thị","Thời lượng chạy của hiệu ứng chuyển trang","Thời gian chờ trước hiệu ứng","Tổng thời gian trình chiếu"], a:1, e:"Số nhỏ chạy nhanh hơn."},
+    {q:"Để áp dụng hiệu ứng chuyển trang hiện tại cho tất cả các slide, ta nhấn:", o:["Apply To All","Preview","Effect Options","Duplicate"], a:0, e:"Transitions → Timing → Apply To All."},
+    {q:"Để slide tự động chuyển sau 10 giây, trong Advance Slide ta chọn:", o:["On Mouse Click","Duration 10","After: 00:10","Delay 10"], a:2, e:"After đặt thời gian tự chuyển."},
+    {q:"Biểu tượng ngôi sao nhỏ cạnh hình thu nhỏ slide cho biết:", o:["Slide bị ẩn","Slide quan trọng","Slide có comment","Slide có hiệu ứng chuyển trang hoặc hoạt hình"], a:3, e:"Nhấp vào để xem thử."},
+    {q:"Hiệu ứng chuyển trang tạo chuyển động mượt của các đối tượng xuất hiện trên cả hai slide liên tiếp là:", o:["Fade","Morph","Push","Zoom"], a:1, e:"Gán Morph cho slide thứ hai."},
+    {q:"Để dùng Morph, cách làm thông thường là:", o:["Nhân bản slide, thay đổi vị trí/kích thước đối tượng ở slide sau, gán Morph cho slide sau","Gán Morph cho slide đầu tiên","Chèn Motion Path","Dùng Animation Painter"], a:0, e:"Đối tượng cần có trên cả hai slide."},
+    {q:"Nhóm hiệu ứng Entrance (xuất hiện) có biểu tượng màu:", o:["Đỏ","Vàng","Xanh lá","Xanh dương"], a:2, e:"Emphasis vàng, Exit đỏ."},
+    {q:"Nhóm hiệu ứng làm đối tượng biến mất khỏi slide là:", o:["Entrance","Emphasis","Motion Paths","Exit"], a:3, e:"Màu đỏ."},
+    {q:"Nhóm hiệu ứng nhấn mạnh đối tượng đang có trên slide (Pulse, Spin…) là:", o:["Entrance","Emphasis","Exit","Transition"], a:1, e:"Màu vàng."},
+    {q:"Để đối tượng di chuyển theo một đường tự vẽ, ta dùng:", o:["Motion Paths → Custom Path","Emphasis → Spin","Transition → Push","Entrance → Fly In"], a:0, e:"Custom Path."},
+    {q:"Muốn thêm hiệu ứng thứ hai cho một đối tượng đã có hiệu ứng, ta dùng:", o:["Chọn hiệu ứng mới từ bộ sưu tập","Effect Options","Add Animation","Animation Painter"], a:2, e:"Chọn trực tiếp sẽ thay thế hiệu ứng cũ."},
+    {q:"Với văn bản nhiều gạch đầu dòng, để từng dòng xuất hiện lần lượt, Effect Options → Sequence chọn:", o:["As One Object","All at Once","One by One (SmartArt)","By Paragraph"], a:3, e:"By Paragraph."},
+    {q:"Start: On Click nghĩa là hiệu ứng bắt đầu khi:", o:["Slide xuất hiện","Người trình bày nhấp chuột hoặc nhấn phím","Hiệu ứng trước kết thúc","Cùng lúc với hiệu ứng trước"], a:1, e:"Mặc định."},
+    {q:"Start: With Previous nghĩa là hiệu ứng bắt đầu:", o:["Cùng lúc với hiệu ứng liền trước","Sau hiệu ứng liền trước","Khi nhấp chuột","Sau 1 giây"], a:0, e:"After Previous: ngay sau khi hiệu ứng trước kết thúc."},
+    {q:"Start: After Previous nghĩa là hiệu ứng bắt đầu:", o:["Khi nhấp chuột","Cùng lúc với hiệu ứng trước","Ngay sau khi hiệu ứng liền trước kết thúc","Khi slide kết thúc"], a:2, e:"Tự động nối tiếp."},
+    {q:"Mục Delay trong nhóm Timing của tab Animations là:", o:["Thời lượng hiệu ứng","Số lần lặp","Tốc độ hiệu ứng","Thời gian chờ trước khi hiệu ứng bắt đầu"], a:3, e:"Duration là thời lượng."},
+    {q:"Để đổi thứ tự một hiệu ứng lên trước, trong nhóm Timing ta chọn:", o:["Move Later","Reorder Animation → Move Earlier","Delay","Trigger"], a:1, e:"Hoặc kéo thả trong Animation Pane."},
+    {q:"Khung liệt kê toàn bộ hiệu ứng trên slide theo thứ tự, cho phép kéo thả sắp xếp là:", o:["Animation Pane","Selection Pane","Reviewing Pane","Transition Pane"], a:0, e:"Animations → Advanced Animation → Animation Pane."},
+    {q:"Trong Animation Pane, biểu tượng đồng hồ bên cạnh hiệu ứng cho biết Start là:", o:["On Click","With Previous","After Previous","Trigger"], a:2, e:"Chuột = On Click; không biểu tượng = With Previous."},
+    {q:"Công cụ sao chép toàn bộ hiệu ứng từ đối tượng này sang đối tượng khác là:", o:["Format Painter","Add Animation","Duplicate","Animation Painter"], a:3, e:"Alt + Shift + C."},
+    {q:"Phím tắt của Animation Painter là:", o:["Ctrl + Shift + C","Alt + Shift + C","Ctrl + Alt + C","Alt + C"], a:1, e:"Ctrl + Shift + C là sao chép định dạng."},
+    {q:"Trigger (bộ kích hoạt) cho phép hiệu ứng chạy khi:", o:["Nhấp vào một đối tượng cụ thể trên slide","Slide xuất hiện","Hết thời gian","Mở tệp"], a:0, e:"Animations → Trigger → On Click of."},
+    {q:"Ứng dụng phổ biến của Trigger là:", o:["Tự động chuyển slide","Đánh số slide","Làm câu hỏi trắc nghiệm tương tác: nhấp vào đáp án hiện đúng/sai","Chèn nhạc nền"], a:2, e:"Mỗi đáp án kích hoạt hiệu ứng riêng."},
+    {q:"Trong Effect Options, tùy chọn After animation → Hide After Animation có tác dụng:", o:["Ẩn slide","Tắt hiệu ứng","Lặp lại hiệu ứng","Ẩn đối tượng sau khi hiệu ứng chạy xong"], a:3, e:"Có thể chọn Dim màu."},
+    {q:"Trong tab Timing của Effect Options, mục Repeat dùng để:", o:["Đặt độ trễ","Lặp lại hiệu ứng nhiều lần hoặc đến khi nhấp chuột/hết slide","Đổi thứ tự","Chọn Trigger"], a:1, e:"Until Next Click, Until End of Slide."},
+    {q:"Tùy chọn Animate text: By letter có tác dụng:", o:["Chữ xuất hiện từng ký tự một","Chữ xuất hiện cả khối","Chữ xuất hiện từng đoạn","Chữ xuất hiện từng từ"], a:0, e:"By word: từng từ."},
+    {q:"Để các khối trong SmartArt xuất hiện lần lượt, Effect Options chọn:", o:["As One Object","All at Once","One by One","By Series"], a:2, e:"Hoặc By Level."},
+    {q:"Để các cột của biểu đồ xuất hiện lần lượt theo từng nhóm, Effect Options chọn:", o:["By Paragraph","One by One","As One Object","By Category"], a:3, e:"Hoặc By Series, By Element."},
+    {q:"Mô hình 3D có thêm nhóm hiệu ứng riêng như:", o:["Fly In, Wipe","Turntable, Swing, Jump & Turn","Pulse, Spin","Push, Split"], a:1, e:"Hiệu ứng 3D trong PowerPoint 2019."},
+    {q:"Nút Preview trên tab Animations dùng để:", o:["Xem thử các hiệu ứng của slide đang chọn","Trình chiếu từ đầu","Xem trước khi in","Mở Animation Pane"], a:0, e:"Play From trong Animation Pane chạy từ hiệu ứng chọn."},
+    {q:"Để bỏ hiệu ứng chuyển trang của slide, trong Transitions ta chọn:", o:["Remove","Cut","None","Delete"], a:2, e:"None."},
+    {q:"Trong Morph, đặt tên đối tượng bắt đầu bằng \"!!\" ở cả hai slide có tác dụng:", o:["Ẩn đối tượng","Khóa đối tượng","Đổi màu đối tượng","Buộc PowerPoint ghép đúng cặp đối tượng khi Morph"], a:3, e:"Đặt tên trong Selection Pane."},
+    {q:"Nếu chọn đồng thời On Mouse Click và After 00:05 trong Advance Slide, slide sẽ chuyển:", o:["Chỉ khi nhấp chuột","Khi hết 5 giây hoặc khi nhấp chuột, tùy điều nào đến trước","Chỉ sau 5 giây","Không chuyển"], a:1, e:"Kết hợp hai cách."},
+    {q:"Số 1, 2, 3 hiển thị cạnh đối tượng khi ở tab Animations cho biết:", o:["Thứ tự các lần nhấp chuột kích hoạt hiệu ứng","Số slide","Số lần lặp","Thời lượng hiệu ứng"], a:0, e:"Hiệu ứng With/After Previous dùng chung số với hiệu ứng trước."},
+    {q:"Nguyên tắc sử dụng hiệu ứng nào sau đây là hợp lý?", o:["Mỗi đối tượng một hiệu ứng khác nhau","Dùng nhiều âm thanh cho sinh động","Hiệu ứng phục vụ dẫn dắt nội dung, thống nhất và tiết chế","Đặt Duration càng dài càng tốt"], a:2, e:"Tránh làm người xem mất tập trung."},
+    {q:"Hiệu ứng thuộc nhóm Transitions là:", o:["Fly In","Pulse","Motion Path","Push"], a:3, e:"Fly In (Entrance), Pulse (Emphasis) là Animation."}
+  ];
+
+  // ----- Bài 5: Trình chiếu & xuất bản -----
+  const P5_QUESTIONS = [
+    {q:"Phím tắt trình chiếu từ slide đầu tiên là:", o:["Shift + F5","F5","Alt + F5","Ctrl + F5"], a:1, e:"Shift + F5 chiếu từ slide hiện tại."},
+    {q:"Phím tắt trình chiếu từ slide đang chọn là:", o:["Shift + F5","F5","Ctrl + Enter","F7"], a:0, e:"Hoặc nút ▶ trên Status bar."},
+    {q:"Phím tắt trình chiếu với Presenter View là:", o:["Ctrl + F5","F6","Alt + F5","Shift + F6"], a:2, e:"Alt + F5."},
+    {q:"Để kết thúc trình chiếu, ta nhấn:", o:["End","Enter","Ctrl + W","Esc"], a:3, e:"Esc trở về màn hình soạn thảo."},
+    {q:"Phím nào KHÔNG dùng để chuyển sang slide/hiệu ứng tiếp theo khi trình chiếu?", o:["N","P","Space","Enter"], a:1, e:"P (Previous) quay lại."},
+    {q:"Khi trình chiếu, gõ số 7 rồi nhấn Enter sẽ:", o:["Nhảy đến slide số 7","Phóng to 7 lần","Chuyển 7 hiệu ứng","Không có tác dụng"], a:0, e:"Kể cả slide đang bị ẩn."},
+    {q:"Khi trình chiếu, nhấn phím B sẽ:", o:["Quay lại slide trước","Bật bút vẽ","Chuyển màn hình sang màu đen","Chuyển màn hình sang màu trắng"], a:2, e:"W: màn hình trắng."},
+    {q:"Khi trình chiếu, tổ hợp phím chuyển con trỏ thành bút vẽ là:", o:["Ctrl + L","Ctrl + B","Ctrl + D","Ctrl + P"], a:3, e:"Ctrl + A trở lại mũi tên."},
+    {q:"Khi trình chiếu, tổ hợp phím bật con trỏ laser là:", o:["Ctrl + P","Ctrl + L","Ctrl + H","Alt + L"], a:1, e:"Laser Pointer."},
+    {q:"Khi trình chiếu, phím E dùng để:", o:["Xóa các nét vẽ trên slide","Kết thúc trình chiếu","Về slide cuối","Ẩn con trỏ"], a:0, e:"Erase."},
+    {q:"Khi trình chiếu, phím G có tác dụng:", o:["Bật lưới","Chuyển màn hình xám","Hiển thị tất cả slide dạng lưới để chọn","Về slide đầu"], a:2, e:"Chọn nhanh slide cần chiếu."},
+    {q:"Phím xem danh sách toàn bộ phím điều khiển khi đang trình chiếu là:", o:["F12","H","Ctrl + ?","F1"], a:3, e:"F1."},
+    {q:"Presenter View có đặc điểm:", o:["Khán giả thấy cả ghi chú","Khán giả chỉ thấy slide, người trình bày thấy slide hiện tại, slide tiếp theo, ghi chú, đồng hồ","Chỉ dùng được khi không có máy chiếu","Hiển thị Slide Sorter"], a:1, e:"Slide Show → Use Presenter View."},
+    {q:"Khi kết thúc trình chiếu có dùng bút vẽ, PowerPoint hỏi:", o:["Keep hay Discard các chú thích mực","Save hay Close","Print hay Export","Không hỏi gì"], a:0, e:"Keep để lưu nét vẽ lên slide."},
+    {q:"Trong Set Up Slide Show, kiểu trình chiếu tự chạy lặp lại, người xem không điều khiển được bằng nhấp chuột là:", o:["Presented by a speaker","Browsed by an individual","Browsed at a kiosk","Custom show"], a:2, e:"Thường dùng ở quầy thông tin."},
+    {q:"Tùy chọn Loop continuously until 'Esc' có tác dụng:", o:["Lặp lại một hiệu ứng","Lặp lại âm thanh","Lặp lại slide đầu","Trình chiếu lặp lại liên tục đến khi nhấn Esc"], a:3, e:"Set Up Slide Show → Show options."},
+    {q:"Trong Set Up Slide Show, mục Advance slides → Using timings, if present nghĩa là:", o:["Chuyển slide thủ công","Chuyển slide theo thời gian đã đặt hoặc đã diễn tập","Không chuyển slide","Chuyển slide ngẫu nhiên"], a:1, e:"Manually là thủ công."},
+    {q:"Tính năng trình chiếu thử và lưu thời gian hiển thị của từng slide là:", o:["Rehearse Timings","Record Audio","Custom Slide Show","Set Up Slide Show"], a:0, e:"Slide Show → Rehearse Timings."},
+    {q:"Record Slide Show cho phép ghi lại:", o:["Chỉ thời gian","Chỉ âm thanh nền","Lời thuyết minh, video webcam, nét vẽ bút và thời gian","Màn hình máy tính"], a:2, e:"Screen Recording mới là quay màn hình."},
+    {q:"Để tạo bản trình chiếu chỉ gồm một số slide chọn lọc mà không tạo tệp mới, ta dùng:", o:["Hide Slide","Section","Reuse Slides","Custom Slide Show"], a:3, e:"Slide Show → Custom Slide Show → Custom Shows."},
+    {q:"Slide dự phòng không muốn chiếu nhưng vẫn giữ lại để gọi ra khi cần, ta dùng:", o:["Delete Slide","Hide Slide","Custom Show","Section"], a:1, e:"Gõ số slide + Enter để gọi."},
+    {q:"Kiểu in có slide ở trên và ghi chú của người trình bày ở dưới là:", o:["Notes Pages","Full Page Slides","Outline","Handouts"], a:0, e:"Print Layout → Notes Pages."},
+    {q:"Kiểu in bản phát tay có sẵn dòng kẻ bên cạnh để khán giả ghi chép là:", o:["1 Slide","2 Slides","3 Slides","6 Slides Horizontal"], a:2, e:"Handouts 3 Slides."},
+    {q:"Kiểu in Handouts cho phép in tối đa bao nhiêu slide trên một trang?", o:["4","6","12","9"], a:3, e:"1, 2, 3, 4, 6 hoặc 9."},
+    {q:"Kiểu in chỉ in dàn ý văn bản của các slide là:", o:["Notes Pages","Outline","Handouts","Frame Slides"], a:1, e:"Outline."},
+    {q:"Tùy chọn Frame Slides khi in có tác dụng:", o:["Kẻ khung viền quanh mỗi slide","In màu","In hai mặt","In slide ẩn"], a:0, e:"File → Print → Print Layout."},
+    {q:"Trong ô Slides của màn hình Print, nhập \"1-3,7\" nghĩa là in:", o:["Slide 1 và slide 37","3 bản của slide 1 đến 7","Slide 1, 2, 3 và slide 7","Slide 1 đến 37"], a:2, e:"Custom Range."},
+    {q:"Để xuất bản phát tay sang Word để chỉnh sửa, ta dùng:", o:["Save As → .docx","Print → Handouts","Copy → Paste","File → Export → Create Handouts"], a:3, e:"Send to Microsoft Word."},
+    {q:"Để xuất bài trình chiếu thành video, ta dùng:", o:["Save As → .ppsx","File → Export → Create a Video","Record Slide Show","Screen Recording"], a:1, e:"Định dạng .mp4 / .wmv."},
+    {q:"PowerPoint 2019 có thể xuất video với chất lượng cao nhất là:", o:["Ultra HD (4K)","Standard (480p)","HD (720p)","Full HD (1080p)"], a:0, e:"4K là tính năng mới của 2019."},
+    {q:"Package Presentation for CD dùng để:", o:["Ghi âm thuyết minh","Nén ảnh","Đóng gói bài trình chiếu kèm các tệp liên kết (video, âm thanh, phông) vào thư mục/CD","Tạo video"], a:2, e:"Tránh thiếu tệp khi chiếu trên máy khác."},
+    {q:"Để lưu mỗi slide thành một tệp ảnh, ta dùng:", o:["Insert → Screenshot","Print to PDF","Compress Pictures","Export → Change File Type → PNG/JPEG"], a:3, e:"Chọn All Slides hoặc Just This One."},
+    {q:"Để trình chiếu trên máy khác không bị lỗi phông chữ, ta nên:", o:["Dùng phông viết tay","Nhúng phông: File → Options → Save → Embed fonts in the file","Đổi Theme","Nén ảnh"], a:1, e:"Embed fonts."},
+    {q:"Lệnh đặt mật khẩu để mở tệp PowerPoint là:", o:["File → Info → Protect Presentation → Encrypt with Password","Review → Protect","Mark as Final","Inspect Document"], a:0, e:"Quên mật khẩu sẽ không mở được."},
+    {q:"Lệnh Mark as Final có tác dụng:", o:["Xóa tệp nháp","Đặt mật khẩu","Đánh dấu bản cuối, mở ở chế độ chỉ đọc","Nén tệp"], a:2, e:"Người dùng vẫn có thể chọn Edit Anyway."},
+    {q:"Inspect Document dùng để:", o:["Kiểm tra chính tả","Kiểm tra hiệu ứng","Kiểm tra kích thước slide","Kiểm tra và xóa ghi chú, comment, thông tin ẩn trước khi chia sẻ"], a:3, e:"File → Info → Check for Issues."},
+    {q:"Lệnh Slide Show → Monitor dùng để:", o:["Tăng độ sáng","Chọn màn hình hiển thị trình chiếu khi có nhiều màn hình","Chỉnh độ phân giải","Bật Presenter View"], a:1, e:"Chọn Automatic hoặc một màn hình cụ thể."},
+    {q:"Công cụ phóng to một vùng của slide khi đang trình chiếu là:", o:["Zoom into the slide (kính lúp)","Slide Zoom","Section Zoom","View → Zoom"], a:0, e:"Có trên thanh công cụ trình chiếu và Presenter View."},
+    {q:"Xuất bài trình chiếu ra PDF, ta dùng:", o:["Insert → PDF","Print → Handouts","File → Export → Create PDF/XPS Document","Review → PDF"], a:2, e:"Hoặc Save As chọn PDF."},
+    {q:"Việc nào NÊN làm trước buổi thuyết trình?", o:["Chỉ mang tệp .pptx có video liên kết","Không cần diễn tập","Tắt Presenter View","Diễn tập, nhúng phông, kiểm tra âm thanh – video, chuẩn bị bản PDF dự phòng"], a:3, e:"Giảm rủi ro khi trình chiếu trên máy khác."}
+  ];
+
+
+  // ===== Helpers dùng chung =====
+  const byId = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const pad = n => String(n).padStart(2,"0");
+  const fmtTime = sec => pad(Math.floor(sec/60)) + ":" + pad(sec%60);
+  const LETTERS = ["A","B","C","D"];
+  const rankOf = s => s >= 8 ? "good" : s >= 5 ? "mid" : "low";
+  const rankText = s => s >= 9 ? "Xuất sắc" : s >= 8 ? "Giỏi" : s >= 6.5 ? "Khá" : s >= 5 ? "Trung bình" : "Chưa đạt";
+
+  function toast(msg){
+    const t = byId("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2600);
+  }
+  function confirmBox(title, text, yesLabel){
+    return new Promise(resolve => {
+      byId("modalTitle").textContent = title; byId("modalText").textContent = text;
+      byId("modalYes").textContent = yesLabel || "Đồng ý";
+      const m = byId("modal"); m.classList.add("show");
+      const done = v => { m.classList.remove("show"); byId("modalYes").onclick = byId("modalNo").onclick = null; resolve(v); };
+      byId("modalYes").onclick = () => done(true);
+      byId("modalNo").onclick = () => done(false);
+    });
+  }
+
+  // ===== Khởi tạo một bài học (quiz + lịch sử) =====
+  function initLesson(cfg){
+    const P = cfg.prefix, QUESTIONS = cfg.questions, TOTAL = QUESTIONS.length, STORAGE_KEY = cfg.storageKey;
+    const $ = id => byId(P + id);
+
+    function loadHistory(){
+      try { const d = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Array.isArray(d) ? d : []; }
+      catch(e){ return []; }
+    }
+    function saveHistory(list){
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); return true; }
+      catch(e){ toast("⚠ Không thể lưu vào LocalStorage trên trình duyệt này."); return false; }
+    }
+
+    let answers = new Array(TOTAL).fill(null);
+    let submitted = false, seconds = 0, timerId = null, started = false;
+    const navBtn = i => $("qnav").querySelector(`[data-go="${i}"]`);
+
+    function startTimer(){
+      if (started) return; started = true;
+      timerId = setInterval(() => { seconds++; $("timer").textContent = fmtTime(seconds); }, 1000);
+    }
+
+    // Thứ tự hiển thị các phương án được xáo trộn mỗi lần làm bài; giá trị lưu vẫn là chỉ số gốc
+    let orders = [];
+    const shuffle = arr => { for (let k = arr.length - 1; k > 0; k--){ const r = Math.floor(Math.random() * (k + 1)); [arr[k], arr[r]] = [arr[r], arr[k]]; } return arr; };
+    const letterOf = (i, j) => LETTERS[orders[i].indexOf(j)];
+
+    function renderQuiz(){
+      orders = QUESTIONS.map(item => shuffle(item.o.map((_, j) => j)));
+      $("qnav").innerHTML = QUESTIONS.map((_, i) => `<button type="button" data-go="${i}" title="Câu ${i+1}">${i+1}</button>`).join("");
+      $("quizBox").innerHTML = QUESTIONS.map((item, i) => `
+        <div class="q" id="${P}q${i}">
+          <div class="qt"><span class="qn">Câu ${i+1}.</span>${esc(item.q)}</div>
+          ${orders[i].map((j, pos) => `
+            <label class="opt" data-o="${j}">
+              <input type="radio" name="${P}q${i}" value="${j}" data-i="${i}">
+              <span class="l">${LETTERS[pos]}.</span><span>${esc(item.o[j])}</span>
+            </label>`).join("")}
+          <div class="explain"></div>
+        </div>`).join("");
+    }
+
+    function updateProgress(){
+      const n = answers.filter(a => a !== null).length;
+      $("answeredCount").textContent = n;
+      $("quizBar").style.width = (n / TOTAL * 100) + "%";
+    }
+
+    $("quizBox").addEventListener("change", e => {
+      if (submitted || e.target.type !== "radio") return;
+      const qi = +e.target.dataset.i, oi = +e.target.value;
+      answers[qi] = oi; startTimer();
+      const qEl = $("q" + qi);
+      qEl.classList.add("answered");
+      qEl.querySelectorAll(".opt").forEach(o => o.classList.toggle("sel", +o.dataset.o === oi));
+      navBtn(qi).classList.add("done");
+      updateProgress();
+    });
+
+    $("qnav").addEventListener("click", e => {
+      const b = e.target.closest("[data-go]"); if (!b) return;
+      $("q" + b.dataset.go).scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    const nameInput = $("studentName");
+    nameInput.addEventListener("input", () => {
+      if (nameInput.value.trim().length >= 2){ nameInput.classList.remove("invalid"); $("nameErr").classList.remove("show"); }
+    });
+
+    function validateName(){
+      const name = nameInput.value.trim().replace(/\s+/g, " ");
+      if (name.length < 2){
+        nameInput.classList.remove("invalid"); void nameInput.offsetWidth; nameInput.classList.add("invalid");
+        $("nameErr").classList.add("show");
+        nameInput.scrollIntoView({behavior:"smooth", block:"center"});
+        setTimeout(() => nameInput.focus(), 350);
+        toast("⚠ Vui lòng nhập Họ và tên trước khi nộp bài!");
+        return null;
+      }
+      return name;
+    }
+
+    async function submitQuiz(){
+      if (submitted) return;
+      const name = validateName();
+      if (!name) return;
+      const missing = answers.filter(a => a === null).length;
+      if (missing > 0){
+        const ok = await confirmBox("Còn câu chưa làm", `Bạn còn ${missing} câu chưa trả lời. Các câu này sẽ được tính là sai. Bạn vẫn muốn nộp bài?`, "Nộp bài");
+        if (!ok) return;
+      }
+      submitted = true; clearInterval(timerId);
+
+      let correct = 0;
+      QUESTIONS.forEach((item, i) => {
+        const qEl = $("q" + i), chosen = answers[i], isRight = chosen === item.a;
+        if (isRight) correct++;
+        qEl.classList.add("locked");
+        qEl.querySelectorAll("input").forEach(inp => inp.disabled = true);
+        qEl.querySelectorAll(".opt").forEach(o => {
+          const j = +o.dataset.o; o.classList.remove("sel");
+          if (j === item.a) o.classList.add("correct");
+          else if (j === chosen) o.classList.add("incorrect");
+        });
+        const status = chosen === null ? "⚪ Chưa trả lời." : isRight ? "✅ Chính xác!" : `❌ Sai. Bạn chọn ${letterOf(i, chosen)}.`;
+        qEl.querySelector(".explain").innerHTML = `<b>${status}</b> Đáp án đúng: <b>${letterOf(i, item.a)}</b>. ${esc(item.e)}`;
+        const nb = navBtn(i); nb.classList.remove("done"); nb.classList.add(isRight ? "right" : "wrong");
+      });
+
+      const score = Math.round(correct / TOTAL * 10 * 100) / 100;
+      const rk = rankOf(score);
+      const res = $("result");
+      res.className = "result show " + rk;
+      res.innerHTML = `
+        <div>Kết quả của học viên <b>${esc(name)}</b></div>
+        <div class="score">${score.toLocaleString("vi-VN")} / 10</div>
+        <span class="rank score-chip ${rk}">${rankText(score)}</span>
+        <div class="stats"><span>✅ Đúng: <b>${correct}</b></span><span>❌ Sai/bỏ trống: <b>${TOTAL - correct}</b></span><span>⏱ Thời gian: <b>${fmtTime(seconds)}</b></span></div>
+        <p style="margin:12px 0 0;color:var(--muted)">Xem lại đáp án và giải thích bên trên từng câu hỏi.</p>`;
+
+      nameInput.disabled = true;
+      $("submitBtn").disabled = true;
+
+      const list = loadHistory();
+      list.unshift({ id: Date.now(), name, score, correct, total: TOTAL, time: seconds, date: new Date().toISOString() });
+      if (saveHistory(list)) toast("✔ Đã nộp bài và lưu kết quả!");
+      renderHistory();
+      res.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+
+    function resetQuiz(){
+      answers = new Array(TOTAL).fill(null);
+      submitted = false; started = false; seconds = 0; clearInterval(timerId);
+      $("timer").textContent = "00:00";
+      renderQuiz(); updateProgress();
+      $("result").className = "result"; $("result").innerHTML = "";
+      nameInput.disabled = false; $("submitBtn").disabled = false;
+    }
+
+    $("submitBtn").addEventListener("click", submitQuiz);
+    $("resetBtn").addEventListener("click", async () => {
+      if (!submitted && answers.some(a => a !== null)){
+        const ok = await confirmBox("Làm lại bài", "Toàn bộ câu trả lời hiện tại sẽ bị xóa. Tiếp tục?", "Làm lại");
+        if (!ok) return;
+      }
+      resetQuiz();
+      $("quiz").scrollIntoView({behavior:"smooth"});
+    });
+
+    function renderHistory(){
+      const kw = $("histSearch").value.trim().toLowerCase();
+      const list = loadHistory();
+      const rows = list.filter(r => !kw || String(r.name).toLowerCase().includes(kw));
+      const body = $("histBody");
+      if (!rows.length){
+        body.innerHTML = `<tr><td colspan="7" class="empty">${list.length ? "Không tìm thấy học viên phù hợp." : "Chưa có kết quả nào. Hãy làm bài kiểm tra!"}</td></tr>`;
+        return;
+      }
+      body.innerHTML = rows.map((r, i) => {
+        const d = new Date(r.date);
+        return `<tr>
+          <td>${i+1}</td>
+          <td><b>${esc(r.name)}</b></td>
+          <td><span class="score-chip ${rankOf(r.score)}">${Number(r.score).toLocaleString("vi-VN")}</span></td>
+          <td>${r.correct}/${r.total}</td>
+          <td>${fmtTime(r.time || 0)}</td>
+          <td>${d.toLocaleDateString("vi-VN")} ${d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}</td>
+          <td><button class="del-row" data-del="${r.id}" title="Xóa dòng này">✕</button></td>
+        </tr>`;
+      }).join("");
+    }
+
+    $("histSearch").addEventListener("input", renderHistory);
+    $("histBody").addEventListener("click", async e => {
+      const b = e.target.closest("[data-del]"); if (!b) return;
+      const ok = await confirmBox("Xóa kết quả", "Bạn có chắc muốn xóa kết quả này khỏi lịch sử?", "Xóa");
+      if (!ok) return;
+      saveHistory(loadHistory().filter(r => String(r.id) !== b.dataset.del));
+      renderHistory(); toast("Đã xóa kết quả.");
+    });
+    $("clearBtn").addEventListener("click", async () => {
+      if (!loadHistory().length) return toast("Lịch sử đang trống.");
+      const ok = await confirmBox("Xóa toàn bộ lịch sử", `Tất cả kết quả làm bài của ${cfg.title} sẽ bị xóa và không thể khôi phục.`, "Xóa hết");
+      if (!ok) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      renderHistory(); toast("Đã xóa toàn bộ lịch sử.");
+    });
+    $("exportBtn").addEventListener("click", () => {
+      const list = loadHistory();
+      if (!list.length) return toast("Chưa có dữ liệu để xuất.");
+      const q = v => `"${String(v).replace(/"/g,'""')}"`;
+      const lines = [["STT","Họ tên học viên","Điểm","Số câu đúng","Tổng số câu","Thời gian làm","Ngày nộp"].map(q).join(",")];
+      list.forEach((r, i) => lines.push([i+1, r.name, r.score, r.correct, r.total, fmtTime(r.time||0), new Date(r.date).toLocaleString("vi-VN")].map(q).join(",")));
+      const blob = new Blob(["﻿" + lines.join("\r\n")], {type:"text/csv;charset=utf-8"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = cfg.csvName;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    });
+
+    renderQuiz(); updateProgress(); renderHistory();
+  }
+
+  initLesson({ prefix:"p1-", title:"Bài 1. Làm quen & Tạo bài",        questions:P1_QUESTIONS, storageKey:"ppt2019_lamquen_quiz_history",    csvName:"ket-qua-ppt-bai1-lam-quen.csv" });
+  initLesson({ prefix:"p2-", title:"Bài 2. Thiết kế & Slide Master",   questions:P2_QUESTIONS, storageKey:"ppt2019_thietke_quiz_history",    csvName:"ket-qua-ppt-bai2-thiet-ke.csv" });
+  initLesson({ prefix:"p3-", title:"Bài 3. Đa phương tiện",            questions:P3_QUESTIONS, storageKey:"ppt2019_doituong_quiz_history",   csvName:"ket-qua-ppt-bai3-da-phuong-tien.csv" });
+  initLesson({ prefix:"p4-", title:"Bài 4. Hiệu ứng",                  questions:P4_QUESTIONS, storageKey:"ppt2019_hieuung_quiz_history",    csvName:"ket-qua-ppt-bai4-hieu-ung.csv" });
+  initLesson({ prefix:"p5-", title:"Bài 5. Trình chiếu & Xuất bản",    questions:P5_QUESTIONS, storageKey:"ppt2019_trinhchieu_quiz_history", csvName:"ket-qua-ppt-bai5-trinh-chieu.csv" });
+  // ===== Chuyển bài học =====
+  const LESSON_KEY = "ppt2019_current_lesson";
+  const LESSONS = { p1:"lamquen", p2:"thietke", p3:"doituong", p4:"hieuung", p5:"trinhchieu" };
+  let current = "lamquen";
+  function showLesson(name, scrollTop){
+    current = name;
+    document.querySelectorAll(".lesson").forEach(l => l.classList.toggle("active", l.id === "lesson-" + name));
+    document.querySelectorAll(".lesson-tabs [data-lesson]").forEach(b => b.classList.toggle("active", b.dataset.lesson === name));
+    try { localStorage.setItem(LESSON_KEY, name); } catch(e){}
+    if (scrollTop) window.scrollTo({top:0});
+    onScroll();
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest("button[data-lesson]"); if (!b) return;
+    showLesson(b.dataset.lesson, true);
+    try { history.replaceState(null, "", "#" + b.dataset.lesson); } catch(e){}
+  });
+
+  // ===== Mục lục đang xem + tiến độ đọc + nút lên đầu =====
+  function onScroll(){
+    const root = byId("lesson-" + current);
+    const links = [...root.querySelectorAll("nav.toc a")];
+    const y = window.scrollY + 120;
+    let idx = 0;
+    links.forEach((a, i) => { const s = document.querySelector(a.getAttribute("href")); if (s && s.offsetTop <= y) idx = i; });
+    links.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const h = document.documentElement.scrollHeight - innerHeight;
+    const bar = root.querySelector(".progress-read i");
+    if (bar) bar.style.width = (h > 0 ? window.scrollY / h * 100 : 0) + "%";
+    byId("toTop").style.display = window.scrollY > 600 ? "block" : "none";
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  byId("toTop").addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+  // ===== Khởi động: ưu tiên #tên-bài trên URL, sau đó bài đã xem gần nhất =====
+  let start = "lamquen";
+  const hash = location.hash.slice(1);
+  const names = Object.values(LESSONS);
+  const byHash = names.includes(hash) ? hash : LESSONS[hash.split("-")[0]];
+  if (byHash) start = byHash;
+  else {
+    try { const saved = localStorage.getItem(LESSON_KEY); if (names.includes(saved)) start = saved; } catch(e){}
+  }
+  showLesson(start, false);
+})();
+</script>
+</body>
+</html>

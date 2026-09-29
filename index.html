@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tin học văn phòng Office 2019</title>
+<style>
+:root{
+  --bg:#f4f6fb; --surface:#ffffff; --surface-2:#eef1f8; --text:#1d2433; --muted:#5b6478; --border:#dde2ee;
+  --shadow:0 2px 10px rgba(20,30,60,.07); --shadow-lg:0 14px 34px rgba(20,30,60,.14);
+  --ok:#15803d; --ok-soft:#e6f6ec; --warn:#b45309; --warn-soft:#fff5e5; --bad:#b91c1c; --bad-soft:#fdecec;
+  --word:#2b579a; --word-soft:#e8f0fb; --excel:#217346; --excel-soft:#e6f4ea;
+  --ppt:#b7472a; --ppt-soft:#fbece6; --access:#a4373a; --access-soft:#fbeaea;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11141b; --surface:#1a1f2a; --surface-2:#232937; --text:#e7eaf2; --muted:#9aa3b8; --border:#2e3546;
+    --shadow:0 2px 10px rgba(0,0,0,.35); --shadow-lg:0 14px 34px rgba(0,0,0,.45);
+    --ok:#4ade80; --ok-soft:#173222; --warn:#fbbf24; --warn-soft:#3a2d14; --bad:#f87171; --bad-soft:#3a1c1c;
+    --word:#7aa7ee; --word-soft:#1c2a44; --excel:#5cc38a; --excel-soft:#16301f;
+    --ppt:#f08a64; --ppt-soft:#3b2219; --access:#e0676a; --access-soft:#3a2224;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:16px}
+a{color:inherit}
+
+/* Hero */
+header.hero{background:linear-gradient(120deg,#1e3f73 0%,#2b579a 30%,#217346 55%,#b7472a 80%,#a4373a 100%);color:#fff;padding:44px 16px 70px;position:relative;overflow:hidden}
+header.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(255,255,255,.18),transparent 45%),radial-gradient(circle at 10% 90%,rgba(0,0,0,.18),transparent 50%);pointer-events:none}
+.hero .wrap{max-width:1180px;margin:0 auto;position:relative;z-index:1}
+.hero .badge{display:inline-block;background:rgba(255,255,255,.18);padding:4px 14px;border-radius:99px;font-size:.85rem;letter-spacing:.3px}
+.hero h1{margin:14px 0 8px;font-size:clamp(1.7rem,4.2vw,2.7rem);line-height:1.2}
+.hero p{margin:0;opacity:.94;max-width:760px;font-size:1.05rem}
+.hero .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.hero .stats span{background:rgba(0,0,0,.2);padding:8px 14px;border-radius:12px;font-size:.92rem}
+.hero .stats b{font-size:1.15rem}
+
+main{max-width:1180px;margin:-42px auto 40px;padding:0 16px;position:relative;z-index:2}
+
+/* Cards */
+.suites{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.suite{--c:var(--word);--cs:var(--word-soft);background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.suite:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.suite.word{--c:var(--word);--cs:var(--word-soft)}
+.suite.excel{--c:var(--excel);--cs:var(--excel-soft)}
+.suite.ppt{--c:var(--ppt);--cs:var(--ppt-soft)}
+.suite.access{--c:var(--access);--cs:var(--access-soft)}
+.suite .top{background:var(--c);color:#fff;padding:20px 22px;display:flex;gap:16px;align-items:center}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .suite .top{color:#10131a}}
+.suite .logo{flex:0 0 58px;height:58px;border-radius:14px;background:rgba(255,255,255,.95);color:var(--c);display:grid;place-items:center;font-size:1.9rem;font-weight:800;font-family:"Segoe UI",Arial,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.suite .top h2{margin:0;font-size:1.35rem;line-height:1.25}
+.suite .top p{margin:2px 0 0;opacity:.92;font-size:.92rem}
+.suite .body{padding:18px 22px 20px;display:flex;flex-direction:column;gap:14px;flex:1}
+.suite .desc{margin:0;color:var(--muted);font-size:.95rem}
+.lessons{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.lessons a{display:flex;gap:10px;align-items:center;text-decoration:none;padding:7px 10px;border-radius:10px;background:var(--surface-2);font-size:.93rem;transition:background .15s}
+.lessons a:hover{background:var(--cs)}
+.lessons .n{flex:0 0 26px;height:26px;border-radius:8px;background:var(--c);color:#fff;display:grid;place-items:center;font-size:.8rem;font-weight:700}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lessons .n{color:#10131a}}
+.lessons .t{flex:1}
+.lessons .s{font-size:.8rem;font-weight:700;padding:1px 8px;border-radius:99px;white-space:nowrap}
+.lessons .s.good{background:var(--ok-soft);color:var(--ok)}
+.lessons .s.mid{background:var(--warn-soft);color:var(--warn)}
+.lessons .s.low{background:var(--bad-soft);color:var(--bad)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;font-size:.85rem;color:var(--muted)}
+.meta span{background:var(--surface-2);padding:3px 10px;border-radius:99px}
+.progress{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--muted)}
+.progress .bar{flex:1;height:8px;background:var(--surface-2);border-radius:8px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--c);transition:width .5s}
+.go{margin-top:auto;display:flex;justify-content:center;align-items:center;gap:8px;text-decoration:none;background:var(--c);color:#fff;font-weight:700;padding:12px 18px;border-radius:12px;transition:filter .15s,transform .1s}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .go{color:#10131a}}
+.go:hover{filter:brightness(1.08)}
+.go:active{transform:scale(.98)}
+
+/* Sections */
+section.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:24px 26px;margin-top:24px}
+section.card h2{margin:0 0 6px;font-size:1.35rem}
+.lead{margin:0 0 16px;color:var(--muted)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:0;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;background:var(--surface-2);border-radius:14px;padding:16px 16px 16px 60px;position:relative;font-size:.94rem}
+.steps li::before{content:counter(s);position:absolute;left:16px;top:16px;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#2b579a,#217346);color:#fff;font-weight:700;display:grid;place-items:center}
+.steps b{display:block;margin-bottom:2px}
+
+.lookup{display:flex;gap:10px;flex-wrap:wrap}
+.lookup input{flex:1 1 260px;padding:12px 14px;border:2px solid var(--border);border-radius:12px;font-size:1rem;background:var(--surface);color:var(--text);outline:none}
+.lookup input:focus{border-color:#2b579a;box-shadow:0 0 0 4px var(--word-soft)}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;margin-top:14px}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+th{background:var(--surface-2);font-weight:600}
+tr:last-child td{border-bottom:none}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.chip{display:inline-block;min-width:44px;text-align:center;padding:2px 8px;border-radius:8px;font-weight:700}
+.chip.good{background:var(--ok-soft);color:var(--ok)} .chip.mid{background:var(--warn-soft);color:var(--warn)} .chip.low{background:var(--bad-soft);color:var(--bad)}
+.empty{color:var(--muted);text-align:center;padding:18px}
+.hint{font-size:.85rem;color:var(--muted);margin-top:10px}
+
+footer{text-align:center;color:var(--muted);font-size:.88rem;padding:10px 16px 40px}
+footer .credit{display:inline-block;margin-top:12px;padding:10px 22px;border-radius:99px;background:linear-gradient(120deg,#2b579a,#217346 50%,#b7472a);color:#fff;font-size:1rem;font-weight:600;box-shadow:0 4px 16px rgba(20,30,60,.25);transition:transform .2s}
+footer .credit:hover{transform:translateY(-2px)}
+
+@media (max-width:820px){
+  .suites{grid-template-columns:1fr}
+  section.card{padding:20px 16px}
+  .suite .top{padding:16px}
+  .suite .body{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">🎓 Bài giảng điện tử · Tin học ứng dụng</span>
+    <h1>Tin học văn phòng Microsoft Office 2019</h1>
+    <p>Bộ bài giảng tương tác gồm Word, Excel, PowerPoint và Access 2019 — lý thuyết có minh họa trực quan, kèm bài kiểm tra trắc nghiệm và lưu lịch sử điểm cho từng học viên.</p>
+    <div class="stats">
+      <span>📚 <b>4</b> bộ bài giảng</span>
+      <span>📑 <b>20</b> bài học</span>
+      <span>📝 <b>800</b> câu trắc nghiệm</span>
+      <span>✅ Đã nộp <b id="totalAttempts">0</b> lượt trên máy này</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="suites">
+    <!-- WORD -->
+    <article class="suite word" data-suite="word">
+      <div class="top">
+        <div class="logo" aria-hidden="true">W</div>
+        <div><h2>Microsoft Word 2019</h2><p>Soạn thảo &amp; trình bày văn bản</p></div>
+      </div>
+      <div class="body">
+        <p class="desc">Soạn thảo, định dạng theo chuẩn văn bản hành chính, bảng biểu – đồ họa, tài liệu dài có mục lục, trộn thư và rà soát tài liệu.</p>
+        <ul class="lessons">
+          <li><a href="word.html#soanthao" data-key="word2019_soanthao_quiz_history"><span class="n">1</span><span class="t">Làm quen &amp; soạn thảo cơ bản</span></a></li>
+          <li><a href="word.html#dinhdang" data-key="word2019_dinhdang_quiz_history"><span class="n">2</span><span class="t">Định dạng văn bản</span></a></li>
+          <li><a href="word.html#bangbieu" data-key="word2019_bangbieu_quiz_history"><span class="n">3</span><span class="t">Bảng biểu &amp; đồ họa</span></a></li>
+          <li><a href="word.html#bocuc" data-key="word2019_bocuc_quiz_history"><span class="n">4</span><span class="t">Bố cục trang, tài liệu dài &amp; in ấn</span></a></li>
+          <li><a href="word.html#tronthu" data-key="word2019_tronthu_quiz_history"><span class="n">5</span><span class="t">Trộn thư &amp; rà soát</span></a></li>
+        </ul>
+        <div class="meta"><span>5 bài học</span><span>40 mục lý thuyết</span><span>200 câu hỏi</span></div>
+        <div class="progress"><span>Đã kiểm tra <b class="done">0</b>/5 bài</span><div class="bar"><i></i></div></div>
+        <a class="go" href="word.html">Vào học Word 2019 →</a>
+      </div>
+    </article>
+
+    <!-- EXCEL -->
+    <article class="suite excel" data-suite="excel">
+      <div class="top">
+        <div class="logo" aria-hidden="true">X</div>
+        <div><h2>Microsoft Excel 2019</h2><p>Bảng tính &amp; phân tích dữ liệu</p></div>
+      </div>
+      <div class="body">
+        <p class="desc">Nhập liệu, định dạng, công thức – địa chỉ ô, hàm thống kê, logic, tra cứu VLOOKUP / INDEX–MATCH, sắp xếp – lọc, PivotTable và biểu đồ.</p>
+        <ul class="lessons">
+          <li><a href="excel.html#nhaplieu" data-key="excel2019_nhaplieu_quiz_history"><span class="n">1</span><span class="t">Làm quen &amp; nhập liệu</span></a></li>
+          <li><a href="excel.html#dinhdang" data-key="excel2019_dinhdang_quiz_history"><span class="n">2</span><span class="t">Định dạng bảng tính</span></a></li>
+          <li><a href="excel.html#congthuc" data-key="excel2019_congthuc_quiz_history"><span class="n">3</span><span class="t">Công thức &amp; hàm cơ bản</span></a></li>
+          <li><a href="excel.html#tracuu" data-key="excel2019_tracuu_quiz_history"><span class="n">4</span><span class="t">Hàm tra cứu &amp; có điều kiện</span></a></li>
+          <li><a href="excel.html#dulieu" data-key="excel2019_dulieu_quiz_history"><span class="n">5</span><span class="t">Dữ liệu, biểu đồ &amp; in ấn</span></a></li>
+        </ul>
+        <div class="meta"><span>5 bài học</span><span>40 mục lý thuyết</span><span>200 câu hỏi</span></div>
+        <div class="progress"><span>Đã kiểm tra <b class="done">0</b>/5 bài</span><div class="bar"><i></i></div></div>
+        <a class="go" href="excel.html">Vào học Excel 2019 →</a>
+      </div>
+    </article>
+
+    <!-- POWERPOINT -->
+    <article class="suite ppt" data-suite="ppt">
+      <div class="top">
+        <div class="logo" aria-hidden="true">P</div>
+        <div><h2>Microsoft PowerPoint 2019</h2><p>Thiết kế &amp; trình chiếu</p></div>
+      </div>
+      <div class="body">
+        <p class="desc">Tạo bài trình chiếu, thiết kế với Theme và Slide Master, đa phương tiện, Zoom, hiệu ứng Morph – Animation, trình chiếu và xuất video.</p>
+        <ul class="lessons">
+          <li><a href="powerpoint.html#lamquen" data-key="ppt2019_lamquen_quiz_history"><span class="n">1</span><span class="t">Làm quen &amp; tạo bài trình chiếu</span></a></li>
+          <li><a href="powerpoint.html#thietke" data-key="ppt2019_thietke_quiz_history"><span class="n">2</span><span class="t">Thiết kế &amp; Slide Master</span></a></li>
+          <li><a href="powerpoint.html#doituong" data-key="ppt2019_doituong_quiz_history"><span class="n">3</span><span class="t">Đối tượng đa phương tiện</span></a></li>
+          <li><a href="powerpoint.html#hieuung" data-key="ppt2019_hieuung_quiz_history"><span class="n">4</span><span class="t">Hiệu ứng chuyển trang &amp; hoạt hình</span></a></li>
+          <li><a href="powerpoint.html#trinhchieu" data-key="ppt2019_trinhchieu_quiz_history"><span class="n">5</span><span class="t">Trình chiếu &amp; xuất bản</span></a></li>
+        </ul>
+        <div class="meta"><span>5 bài học</span><span>40 mục lý thuyết</span><span>200 câu hỏi</span></div>
+        <div class="progress"><span>Đã kiểm tra <b class="done">0</b>/5 bài</span><div class="bar"><i></i></div></div>
+        <a class="go" href="powerpoint.html">Vào học PowerPoint 2019 →</a>
+      </div>
+    </article>
+
+    <!-- ACCESS -->
+    <article class="suite access" data-suite="access">
+      <div class="top">
+        <div class="logo" aria-hidden="true">A</div>
+        <div><h2>Microsoft Access 2019</h2><p>Cơ sở dữ liệu</p></div>
+      </div>
+      <div class="body">
+        <p class="desc">Thiết kế bảng và quan hệ, các loại truy vấn, biểu mẫu nhập liệu, báo cáo nhóm – tổng hợp và tự động hóa bằng Macro.</p>
+        <ul class="lessons">
+          <li><a href="access.html#table" data-key="access2019_table_quiz_history"><span class="n">1</span><span class="t">Bảng (Table)</span></a></li>
+          <li><a href="access.html#query" data-key="access2019_query_quiz_history"><span class="n">2</span><span class="t">Các loại Query</span></a></li>
+          <li><a href="access.html#form" data-key="access2019_form_quiz_history"><span class="n">3</span><span class="t">Biểu mẫu (Form)</span></a></li>
+          <li><a href="access.html#report" data-key="access2019_report_quiz_history"><span class="n">4</span><span class="t">Báo cáo (Report)</span></a></li>
+          <li><a href="access.html#macro" data-key="access2019_macro_quiz_history"><span class="n">5</span><span class="t">Xây dựng Macro</span></a></li>
+        </ul>
+        <div class="meta"><span>5 bài học</span><span>40 mục lý thuyết</span><span>200 câu hỏi</span></div>
+        <div class="progress"><span>Đã kiểm tra <b class="done">0</b>/5 bài</span><div class="bar"><i></i></div></div>
+        <a class="go" href="access.html">Vào học Access 2019 →</a>
+      </div>
+    </article>
+  </div>
+
+  <section class="card">
+    <h2>📖 Hướng dẫn học</h2>
+    <p class="lead">Mỗi bộ gồm 5 bài; mỗi bài có 8 mục lý thuyết và 40 câu kiểm tra (0,25 điểm/câu, thang điểm 10).</p>
+    <ol class="steps">
+      <li><b>Chọn bộ bài giảng</b>Nhấp vào thẻ hoặc tên bài học để mở đúng bài cần học.</li>
+      <li><b>Đọc lý thuyết</b>Dùng mục lục bên trái để chuyển nhanh giữa các mục.</li>
+      <li><b>Làm bài kiểm tra</b>Nhập Họ và tên, trả lời 40 câu (thứ tự phương án được xáo trộn) rồi nộp bài.</li>
+      <li><b>Xem kết quả</b>Xem đáp án, giải thích từng câu; lịch sử điểm lưu lại và có thể xuất CSV.</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>🔎 Tra cứu kết quả học viên</h2>
+    <p class="lead">Tìm theo họ tên để xem điểm cao nhất của học viên ở từng bài kiểm tra (dữ liệu lưu trên trình duyệt của máy này).</p>
+    <div class="lookup">
+      <input type="search" id="nameSearch" placeholder="Nhập họ tên học viên, ví dụ: Nguyễn Văn An" autocomplete="off">
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Bộ bài giảng</th><th>Bài kiểm tra</th><th>Học viên</th><th>Số lần làm</th><th>Điểm cao nhất</th><th>Lần gần nhất</th></tr></thead>
+        <tbody id="lookupBody"><tr><td colspan="6" class="empty">Nhập họ tên để tra cứu.</td></tr></tbody>
+      </table>
+    </div>
+    <p class="hint">Mẹo: nhập một phần tên (ví dụ "An") để xem tất cả học viên có tên chứa chuỗi đó.</p>
+  </section>
+</main>
+
+<footer>Bài giảng điện tử · Tin học văn phòng Microsoft Office 2019 · Word · Excel · PowerPoint · Access<br><span class="credit">✨ Bài học được thiết kế nhờ <b>Claude</b> trợ giúp - 2026</span></footer>
+
+<script>
+(function(){
+  "use strict";
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const rankOf = s => s >= 8 ? "good" : s >= 5 ? "mid" : "low";
+  const fmtScore = s => Number(s).toLocaleString("vi-VN");
+  const SUITE_NAME = { word:"Word 2019", excel:"Excel 2019", ppt:"PowerPoint 2019", access:"Access 2019" };
+  const SUITE_COLOR = { word:"var(--word)", excel:"var(--excel)", ppt:"var(--ppt)", access:"var(--access)" };
+
+  function load(key){
+    try { const d = JSON.parse(localStorage.getItem(key)); return Array.isArray(d) ? d : []; }
+    catch(e){ return []; }
+  }
+
+  // Tiến độ từng bộ + điểm cao nhất mỗi bài
+  const index = []; // { suite, lesson, list }
+  let total = 0;
+  document.querySelectorAll(".suite").forEach(card => {
+    const suite = card.dataset.suite;
+    let done = 0;
+    card.querySelectorAll(".lessons a").forEach(a => {
+      const list = load(a.dataset.key);
+      index.push({ suite, lesson: a.querySelector(".t").textContent, n: a.querySelector(".n").textContent, list });
+      total += list.length;
+      if (list.length){
+        done++;
+        const best = Math.max(...list.map(r => Number(r.score) || 0));
+        const chip = document.createElement("span");
+        chip.className = "s " + rankOf(best);
+        chip.title = `Điểm cao nhất trên máy này · ${list.length} lượt làm`;
+        chip.textContent = "★ " + fmtScore(best);
+        a.appendChild(chip);
+      }
+    });
+    card.querySelector(".done").textContent = done;
+    card.querySelector(".progress .bar i").style.width = (done / 5 * 100) + "%";
+  });
+  document.getElementById("totalAttempts").textContent = total.toLocaleString("vi-VN");
+
+  // Tra cứu theo tên học viên
+  const input = document.getElementById("nameSearch");
+  const body = document.getElementById("lookupBody");
+  function lookup(){
+    const kw = input.value.trim().toLowerCase().replace(/\s+/g, " ");
+    if (!kw){ body.innerHTML = `<tr><td colspan="6" class="empty">Nhập họ tên để tra cứu.</td></tr>`; return; }
+    const rows = [];
+    index.forEach(item => {
+      const groups = {};
+      item.list.forEach(r => {
+        const name = String(r.name || "").trim();
+        if (!name.toLowerCase().includes(kw)) return;
+        const g = groups[name.toLowerCase()] || (groups[name.toLowerCase()] = { name, count:0, best:0, last:0 });
+        g.count++;
+        g.best = Math.max(g.best, Number(r.score) || 0);
+        g.last = Math.max(g.last, new Date(r.date).getTime() || 0);
+      });
+      Object.values(groups).forEach(g => rows.push({ ...g, suite:item.suite, lesson:`Bài ${item.n}. ${item.lesson}` }));
+    });
+    if (!rows.length){ body.innerHTML = `<tr><td colspan="6" class="empty">Không tìm thấy kết quả của học viên phù hợp.</td></tr>`; return; }
+    rows.sort((a, b) => a.name.localeCompare(b.name, "vi") || Object.keys(SUITE_NAME).indexOf(a.suite) - Object.keys(SUITE_NAME).indexOf(b.suite));
+    body.innerHTML = rows.map(r => {
+      const d = new Date(r.last);
+      return `<tr>
+        <td><span class="dot" style="background:${SUITE_COLOR[r.suite]}"></span>${SUITE_NAME[r.suite]}</td>
+        <td>${esc(r.lesson)}</td>
+        <td><b>${esc(r.name)}</b></td>
+        <td>${r.count}</td>
+        <td><span class="chip ${rankOf(r.best)}">${fmtScore(r.best)}</span></td>
+        <td>${r.last ? d.toLocaleDateString("vi-VN") + " " + d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"}) : ""}</td>
+      </tr>`;
+    }).join("");
+  }
+  input.addEventListener("input", lookup);
+})();
+</script>
+</body>
+</html>

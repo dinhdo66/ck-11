@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài giảng Word 2019</title>
+<style>
+:root{
+  --bg:#f4f6fb; --surface:#ffffff; --surface-2:#eef1f8; --text:#1d2433; --muted:#5b6478;
+  --border:#dde2ee; --primary:#2b579a; --primary-2:#3a6fc4; --primary-soft:#e8f0fb;
+  --accent:#2563eb; --ok:#15803d; --ok-soft:#e6f6ec; --bad:#b91c1c; --bad-soft:#fdecec;
+  --warn:#b45309; --warn-soft:#fff5e5; --code-bg:#1e2230; --code-text:#e6e9f2;
+  --shadow:0 2px 10px rgba(20,30,60,.07); --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#11141b; --surface:#1a1f2a; --surface-2:#232937; --text:#e7eaf2; --muted:#9aa3b8;
+    --border:#2e3546; --primary:#7aa7ee; --primary-2:#93b9f2; --primary-soft:#1c2a44;
+    --accent:#6ea0ff; --ok:#4ade80; --ok-soft:#173222; --bad:#f87171; --bad-soft:#3a1c1c;
+    --warn:#fbbf24; --warn-soft:#3a2d14; --code-bg:#0c0f15; --code-text:#e6e9f2;
+    --shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65;font-size:16px}
+a{color:var(--accent)}
+code,kbd{font-family:Consolas,"Courier New",monospace;font-size:.92em}
+code{background:var(--surface-2);padding:1px 6px;border-radius:5px}
+kbd{border:1px solid var(--border);border-bottom-width:3px;border-radius:5px;padding:0 6px;background:var(--surface)}
+
+/* Header */
+header.hero{background:linear-gradient(135deg,#1e3f73,#2b579a 55%,#3d7bd6);color:#fff;padding:36px 16px 44px}
+.hero .wrap{max-width:1180px;margin:0 auto}
+.hero .badge{display:inline-block;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:99px;font-size:.85rem;letter-spacing:.3px}
+.hero h1{margin:12px 0 6px;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.25}
+.hero p{margin:0;opacity:.92;max-width:760px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.hero .meta span,.hero .meta a{background:rgba(0,0,0,.18);padding:6px 12px;border-radius:10px;font-size:.9rem;color:#fff;text-decoration:none}
+.hero .meta a:hover{background:rgba(0,0,0,.3)}
+
+/* Layout */
+.layout{max-width:1180px;margin:-22px auto 40px;padding:0 16px;display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
+nav.toc{position:sticky;top:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
+nav.toc h3{margin:4px 8px 10px;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+nav.toc a{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:9px;color:var(--text);text-decoration:none;font-size:.94rem}
+nav.toc a .n{flex:0 0 24px;height:24px;border-radius:7px;background:var(--surface-2);display:grid;place-items:center;font-size:.78rem;font-weight:700;color:var(--muted)}
+nav.toc a:hover,nav.toc a.active{background:var(--primary-soft);color:var(--primary)}
+nav.toc a.active .n{background:var(--primary);color:#fff}
+.progress-read{height:4px;background:var(--surface-2);border-radius:4px;margin:12px 8px 4px;overflow:hidden}
+.progress-read i{display:block;height:100%;width:0;background:var(--primary);transition:width .2s}
+main{min-width:0}
+section.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:22px;scroll-margin-top:16px}
+section.card h2{margin:0 0 14px;font-size:1.45rem;display:flex;align-items:center;gap:12px}
+section.card h2 .num{background:var(--primary);color:#fff;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:1rem;flex:0 0 34px}
+section.card h3{margin:22px 0 8px;font-size:1.1rem;color:var(--primary)}
+.lead{color:var(--muted);margin-top:-4px}
+
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:14px 0}
+.tile{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px}
+.tile h4{margin:0 0 6px;font-size:1rem}
+.tile p{margin:0;color:var(--muted);font-size:.94rem}
+.tile .ic{font-size:1.5rem}
+
+.note{border-left:4px solid var(--accent);background:var(--surface-2);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.note.warn{border-color:var(--warn);background:var(--warn-soft)}
+.note.tip{border-color:var(--ok);background:var(--ok-soft)}
+.note b:first-child{display:block;margin-bottom:2px}
+
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.94rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td code{white-space:nowrap}
+
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+ol.steps li{counter-increment:s;position:relative;padding:4px 0 14px 48px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:32px;height:32px;border-radius:50%;background:var(--primary-soft);color:var(--primary);font-weight:700;display:grid;place-items:center}
+ol.steps li:not(:last-child)::after{content:"";position:absolute;left:15px;top:36px;bottom:0;width:2px;background:var(--border)}
+
+/* Query Design mock */
+.designer{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.9rem}
+.designer .bar{background:var(--primary);color:#fff;padding:7px 12px;font-weight:600;display:flex;justify-content:space-between}
+.designer .tables{background:var(--surface-2);padding:16px;display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;position:relative;border-bottom:1px solid var(--border)}
+.tbox{background:var(--surface);border:1px solid var(--border);border-radius:8px;min-width:140px;box-shadow:var(--shadow)}
+.tbox b{display:block;background:var(--primary-soft);color:var(--primary);padding:5px 10px;border-radius:8px 8px 0 0}
+.tbox div{padding:2px 10px;color:var(--muted)}
+.tbox div:last-child{padding-bottom:8px}
+.tbox .pk{color:var(--text);font-weight:600}
+.join-line{align-self:center;color:var(--muted);font-weight:700}
+.qbe{overflow-x:auto;background:var(--surface)}
+.qbe table{font-size:.86rem;min-width:560px}
+.qbe th{width:90px;text-align:right;color:var(--muted);background:var(--surface-2)}
+.qbe td{border-left:1px solid var(--border);min-width:120px}
+.qbe .hl{color:var(--accent);font-weight:600}
+
+pre.code{background:var(--code-bg);color:var(--code-text);padding:16px 18px;border-radius:12px;overflow-x:auto;font-size:.9rem;line-height:1.6;margin:14px 0}
+pre.code .k{color:#ff9e9e;font-weight:700}
+pre.code .a{color:#8cc8ff;font-weight:700}
+pre.code .c{color:#8fd19e;font-style:italic}
+pre.code .s{color:#f5d38a}
+
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.82rem;font-weight:700;margin-right:6px}
+.chip.sel{background:#e0ecff;color:#1d4ed8}
+.chip.act{background:var(--warn-soft);color:var(--warn)}
+.chip.sql{background:var(--ok-soft);color:var(--ok)}
+@media (prefers-color-scheme: dark){.chip.sel{background:#1b2a48;color:#8fb4ff}}
+
+/* Quiz */
+.student-box{background:linear-gradient(135deg,var(--primary-soft),var(--surface-2));border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin:6px 0 18px}
+.student-box label{display:block;font-weight:700;margin-bottom:8px}
+.student-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.student-row input{flex:1 1 260px;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:1rem;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
+.student-row input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft)}
+.student-row input.invalid{border-color:var(--bad);box-shadow:0 0 0 4px var(--bad-soft);animation:shake .35s}
+.err-msg{color:var(--bad);font-size:.9rem;margin-top:8px;display:none;font-weight:600}
+.err-msg.show{display:block}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.quiz-status{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:16px;box-shadow:var(--shadow)}
+.quiz-status .bar{flex:1 1 160px;height:8px;background:var(--surface-2);border-radius:8px;overflow:hidden}
+.quiz-status .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .25s}
+.quiz-status .pill{font-size:.9rem;background:var(--surface-2);padding:4px 10px;border-radius:99px;white-space:nowrap}
+.qnav{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin-bottom:18px}
+.qnav button{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:6px 0;cursor:pointer;font-weight:600;font-size:.85rem}
+.qnav button.done{background:var(--primary);border-color:var(--primary);color:#fff}
+.qnav button.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.qnav button.wrong{background:var(--bad);border-color:var(--bad);color:#fff}
+
+.q{border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px;scroll-margin-top:80px;transition:border-color .2s}
+.q.answered{border-color:color-mix(in srgb,var(--primary) 45%,var(--border))}
+.q .qt{font-weight:600;margin-bottom:10px}
+.q .qt .qn{color:var(--primary);margin-right:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:1px solid var(--border);border-radius:9px;margin-bottom:7px;cursor:pointer;transition:background .15s,border-color .15s}
+.opt:hover{background:var(--surface-2)}
+.opt input{margin-top:5px;accent-color:var(--primary)}
+.opt .l{font-weight:700;color:var(--muted);min-width:18px}
+.opt.sel{border-color:var(--primary);background:var(--primary-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.incorrect{border-color:var(--bad);background:var(--bad-soft)}
+.q.locked .opt{cursor:default}
+.explain{display:none;margin-top:8px;font-size:.92rem;padding:10px 12px;border-radius:9px;background:var(--surface-2)}
+.q.locked .explain{display:block}
+
+.btn{border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:.98rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .1s,filter .15s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:var(--surface-2);color:var(--text);border:1px solid var(--border)}
+.btn-danger{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+.result{display:none;border-radius:14px;padding:22px;margin:18px 0;text-align:center;border:2px solid var(--border)}
+.result.show{display:block}
+.result .score{font-size:3rem;font-weight:800;line-height:1.1}
+.result .rank{display:inline-block;margin-top:6px;padding:4px 14px;border-radius:99px;font-weight:700}
+.result.good{border-color:var(--ok);background:var(--ok-soft)} .result.good .score{color:var(--ok)}
+.result.mid{border-color:var(--warn);background:var(--warn-soft)} .result.mid .score{color:var(--warn)}
+.result.low{border-color:var(--bad);background:var(--bad-soft)} .result.low .score{color:var(--bad)}
+.result .stats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:12px;color:var(--muted)}
+
+/* History */
+.hist-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.hist-tools input{flex:1 1 220px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-size:.95rem}
+.score-chip{display:inline-block;min-width:48px;text-align:center;padding:2px 8px;border-radius:8px;font-weight:700}
+.score-chip.good{background:var(--ok-soft);color:var(--ok)}
+.score-chip.mid{background:var(--warn-soft);color:var(--warn)}
+.score-chip.low{background:var(--bad-soft);color:var(--bad)}
+.empty{text-align:center;color:var(--muted);padding:22px}
+.del-row{background:none;border:none;color:var(--bad);cursor:pointer;font-size:1rem}
+
+/* Modal + toast */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:var(--surface);border-radius:14px;max-width:440px;width:100%;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.modal h3{margin:0 0 8px}
+.modal .actions{justify-content:flex-end}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:10px;z-index:60;transition:transform .3s;font-weight:600;max-width:calc(100% - 32px)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.to-top{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:none;background:var(--primary);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:var(--shadow);display:none;z-index:20}
+footer{text-align:center;color:var(--muted);font-size:.88rem;padding:10px 16px 40px}
+footer .credit{display:inline-block;margin-top:12px;padding:10px 22px;border-radius:99px;background:linear-gradient(135deg,#1e3f73,#2b579a 55%,#3d7bd6);color:#fff;font-size:1rem;font-weight:600;letter-spacing:.2px;box-shadow:0 4px 16px rgba(43,87,154,.35);transition:transform .2s,box-shadow .2s}
+footer .credit:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(43,87,154,.45)}
+.lesson-nav{max-width:1180px;margin:0 auto 18px;padding:0 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lesson-nav a{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;text-decoration:none;color:var(--text);font-weight:600;box-shadow:var(--shadow)}
+.lesson-nav a:hover{border-color:var(--primary);color:var(--primary)}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav.toc{position:static;display:flex;overflow-x:auto;gap:4px;padding:8px}
+  nav.toc h3,.progress-read{display:none}
+  nav.toc a{white-space:nowrap}
+  section.card{padding:20px 16px}
+}
+@media print{nav.toc,.to-top,.quiz-status,.qnav,.actions,.hist-tools,.lesson-nav{display:none!important}.layout{display:block}}
+/* Macro builder mock */
+.builder{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.92rem}
+.builder .bar{background:var(--primary);color:#fff;padding:7px 12px;font-weight:600;display:flex;justify-content:space-between}
+.builder .body{display:grid;grid-template-columns:1fr 220px;min-height:200px}
+.builder .canvas{padding:14px;background:var(--surface)}
+.builder .catalog{background:var(--surface-2);border-left:1px solid var(--border);padding:12px}
+.builder .catalog b{display:block;margin-bottom:6px}
+.builder .catalog div{padding:3px 0;color:var(--muted)}
+.mblock{border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:8px;background:var(--surface-2)}
+.mblock .act{font-weight:700;color:var(--accent)}
+.mblock .arg{display:grid;grid-template-columns:110px 1fr;gap:4px 10px;margin-top:6px;font-size:.88rem}
+.mblock .arg span:nth-child(odd){color:var(--muted)}
+.mblock.cmt{color:var(--ok);font-style:italic;background:transparent;border-style:dashed}
+.mblock.if{border-color:var(--warn);background:var(--warn-soft)}
+.addnew{border:1px dashed var(--border);border-radius:8px;padding:7px 12px;color:var(--muted)}
+
+
+@media (max-width:900px){
+  .builder .body{grid-template-columns:1fr}
+  .builder .catalog{border-left:none;border-top:1px solid var(--border)}
+}
+
+/* Form Design mock */
+.fsec-h{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3px 12px;font-size:.82rem;font-weight:700;color:var(--muted)}
+.fsec{padding:12px 16px;border-bottom:1px solid var(--border)}
+.frow{display:flex;gap:12px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.fctl{display:inline-block;padding:4px 10px;border-radius:5px;font-size:.88rem}
+.fctl.lbl{min-width:70px;color:var(--text)}
+.fctl.box{border:1px solid var(--border);background:var(--surface-2);min-width:180px;color:var(--accent)}
+.fctl.btn-mock{border:1px solid var(--border);background:var(--surface-2);font-weight:600;margin:2px 4px 2px 0}
+
+
+
+/* Mô phỏng giao diện Word */
+.ribbon{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.85rem}
+.ribbon .wtitle{background:var(--primary);color:#fff;padding:6px 12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ribbon .wtabs{display:flex;gap:2px;background:var(--surface-2);padding:4px 8px 0;flex-wrap:wrap}
+.ribbon .wtabs span{padding:4px 10px;border-radius:6px 6px 0 0;color:var(--muted)}
+.ribbon .wtabs span.on{background:var(--surface);color:var(--primary);font-weight:700}
+.ribbon .wgroups{display:flex;background:var(--surface);padding:8px 4px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.ribbon .wgrp{padding:2px 12px;border-right:1px solid var(--border);text-align:center;display:flex;flex-direction:column;justify-content:space-between;gap:4px}
+.ribbon .wgrp:last-child{border-right:none}
+.ribbon .wgrp .it{font-weight:600}
+.ribbon .wgrp .gn{color:var(--muted);font-size:.72rem}
+.ribbon .wdoc{background:var(--surface-2);padding:16px}
+.ribbon .wpage{background:var(--surface);max-width:520px;margin:0 auto;padding:22px 28px;box-shadow:var(--shadow);border:1px solid var(--border);min-height:120px}
+.ribbon .wstatus{background:var(--primary);color:#fff;padding:3px 12px;font-size:.76rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.callouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:10px 0}
+.callouts div{background:var(--surface-2);border-radius:8px;padding:8px 12px;font-size:.9rem}
+.callouts b{color:var(--primary)}
+.flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin:14px 0}
+.flow .st{flex:1 1 150px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:.9rem}
+.flow .st b{display:block;color:var(--primary)}
+.flow .ar{align-self:center;color:var(--muted);font-weight:700}
+.margin-demo{position:relative;max-width:300px;aspect-ratio:210/297;margin:14px auto;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
+.margin-demo .inner{position:absolute;top:8%;bottom:8%;left:14%;right:7%;border:1px dashed var(--primary);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem;text-align:center;padding:6px}
+.margin-demo span{position:absolute;font-size:.72rem;color:var(--primary);font-weight:700}
+
+/* Thanh chuyển bài học */
+.lesson-tabs{background:#15305a;padding:10px 16px}
+.lesson-tabs .wrap{max-width:1180px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lesson-tabs .brand{color:#fff;font-weight:700;margin-right:auto;opacity:.95}
+.lesson-tabs button{border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:8px 16px;border-radius:99px;font-weight:600;font-size:.94rem;cursor:pointer;transition:background .15s}
+.lesson-tabs button:hover{background:rgba(255,255,255,.12)}
+.lesson-tabs button.active{background:#fff;color:#2b579a;border-color:#fff}
+.lesson{display:none}
+.lesson.active{display:block}
+.lesson-nav button{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;color:var(--primary);font-weight:600;font-size:1rem;box-shadow:var(--shadow);cursor:pointer;font-family:inherit}
+.lesson-nav button:hover{border-color:var(--primary)}
+</style>
+</head>
+<body>
+
+<div class="lesson-tabs">
+  <div class="wrap">
+    <a class="brand" href="index.html" title="Về trang chủ bộ bài giảng" style="text-decoration:none">🏠 📝 Microsoft Word 2019</a>
+    <button type="button" data-lesson="soanthao">Bài 1. Soạn thảo cơ bản</button>
+    <button type="button" data-lesson="dinhdang">Bài 2. Định dạng văn bản</button>
+    <button type="button" data-lesson="bangbieu">Bài 3. Bảng biểu & Đồ họa</button>
+    <button type="button" data-lesson="bocuc">Bài 4. Bố cục trang & In ấn</button>
+    <button type="button" data-lesson="tronthu">Bài 5. Trộn thư & Rà soát</button>
+  </div>
+</div>
+
+<!-- ================= BÀI 1: SOẠN THẢO CƠ BẢN ================= -->
+<div class="lesson" id="lesson-soanthao">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📝 Tin học ứng dụng · Microsoft Word 2019</span>
+    <h1>Bài 1. Làm quen với Word 2019 và soạn thảo cơ bản</h1>
+    <p>Nắm vững giao diện Word 2019, tạo – mở – lưu tài liệu, gõ tiếng Việt chuẩn Unicode, các thao tác chọn, sao chép, tìm kiếm – thay thế và kiểm tra chính tả.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#w1-s1"><span class="n">1</span>Giao diện Word 2019</a>
+    <a href="#w1-s2"><span class="n">2</span>Tạo, mở, lưu tài liệu</a>
+    <a href="#w1-s3"><span class="n">3</span>Gõ tiếng Việt</a>
+    <a href="#w1-s4"><span class="n">4</span>Nhập liệu & di chuyển</a>
+    <a href="#w1-s5"><span class="n">5</span>Chọn văn bản</a>
+    <a href="#w1-s6"><span class="n">6</span>Sao chép, di chuyển, hoàn tác</a>
+    <a href="#w1-s7"><span class="n">7</span>Tìm kiếm & thay thế</a>
+    <a href="#w1-s8"><span class="n">8</span>Chế độ xem & chính tả</a>
+    <a href="#w1-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#w1-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="w1-s1">
+      <h2><span class="num">1</span>Giao diện Word 2019</h2>
+      <p><b>Microsoft Word 2019</b> là phần mềm soạn thảo văn bản thuộc bộ Microsoft Office 2019. Các lệnh được tổ chức trên <b>Ribbon</b> gồm nhiều <b>tab</b>, mỗi tab chia thành các <b>nhóm lệnh (group)</b>.</p>
+      <div class="ribbon" aria-label="Mô phỏng giao diện Word 2019">
+        <div class="wtitle"><span>💾 ↶ ↷ &nbsp;|&nbsp; BaoCao.docx - Word</span><span>🔍 Tell me what you want to do</span><span>— ☐ ✕</span></div>
+        <div class="wtabs"><span>File</span><span class="on">Home</span><span>Insert</span><span>Design</span><span>Layout</span><span>References</span><span>Mailings</span><span>Review</span><span>View</span></div>
+        <div class="wgroups">
+          <div class="wgrp"><span class="it">📋 Paste · ✂ · ⧉ · 🖌</span><span class="gn">Clipboard</span></div>
+          <div class="wgrp"><span class="it">Times New Roman ▾ 13 ▾ <b>B</b> <i>I</i> <u>U</u></span><span class="gn">Font</span></div>
+          <div class="wgrp"><span class="it">• 1. ≡ ≣ ¶</span><span class="gn">Paragraph</span></div>
+          <div class="wgrp"><span class="it">Normal · Heading 1</span><span class="gn">Styles</span></div>
+          <div class="wgrp"><span class="it">🔍 Find · Replace</span><span class="gn">Editing</span></div>
+        </div>
+        <div class="wdoc"><div class="wpage"><b>BÁO CÁO TỔNG KẾT</b><br>Nội dung văn bản được soạn thảo tại đây…|</div></div>
+        <div class="wstatus"><span>Page 1 of 3 · 520 words · Vietnamese</span><span>📖 ▭ 🌐 &nbsp; − ——●—— + 100%</span></div>
+      </div>
+      <div class="callouts">
+        <div><b>Quick Access Toolbar</b> — thanh công cụ truy cập nhanh (Save, Undo, Redo), có thể tùy biến.</div>
+        <div><b>Tell me</b> — ô gõ tên chức năng cần tìm, Word gợi ý lệnh tương ứng.</div>
+        <div><b>Ribbon</b> — dải lệnh; ẩn/hiện bằng <kbd>Ctrl</kbd>+<kbd>F1</kbd>.</div>
+        <div><b>Ruler</b> — thước kẻ (View → Ruler), chỉnh lề đoạn và điểm dừng tab.</div>
+        <div><b>Status bar</b> — số trang, số từ, ngôn ngữ, chế độ xem, thanh Zoom.</div>
+        <div><b>Dialog Box Launcher</b> — mũi tên nhỏ góc dưới nhóm lệnh, mở hộp thoại đầy đủ.</div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tab</th><th>Chức năng chính</th></tr></thead>
+        <tbody>
+          <tr><td><b>File</b> (Backstage)</td><td>New, Open, Save, Save As, Print, Export, Options…</td></tr>
+          <tr><td><b>Home</b></td><td>Clipboard, Font, Paragraph, Styles, Editing</td></tr>
+          <tr><td><b>Insert</b></td><td>Trang bìa, bảng, hình ảnh, biểu tượng, mô hình 3D, SmartArt, biểu đồ, header/footer, ký hiệu, phương trình</td></tr>
+          <tr><td><b>Design</b></td><td>Theme, Style Set, Watermark, Page Color, Page Borders</td></tr>
+          <tr><td><b>Layout</b></td><td>Lề, hướng giấy, khổ giấy, chia cột, ngắt trang, thụt lề và giãn đoạn</td></tr>
+          <tr><td><b>References</b></td><td>Mục lục, chú thích, trích dẫn, chú thích hình, chỉ mục</td></tr>
+          <tr><td><b>Mailings</b></td><td>Trộn thư, phong bì, nhãn</td></tr>
+          <tr><td><b>Review</b></td><td>Chính tả, dịch, chú thích (Comment), theo dõi thay đổi, so sánh, bảo vệ</td></tr>
+          <tr><td><b>View</b></td><td>Chế độ xem, thước, lưới, Navigation Pane, Zoom, cửa sổ, Macro</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Mẹo phím tắt Ribbon</b>Nhấn <kbd>Alt</kbd> để hiện chữ cái gợi ý (KeyTips) trên từng tab và lệnh, sau đó nhấn các chữ cái để chọn lệnh bằng bàn phím.</div>
+    </section>
+
+    <section class="card" id="w1-s2">
+      <h2><span class="num">2</span>Tạo, mở và lưu tài liệu</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác</th><th>Lệnh</th><th>Phím tắt</th></tr></thead>
+        <tbody>
+          <tr><td>Tạo tài liệu mới trống</td><td>File → New → Blank document</td><td><kbd>Ctrl</kbd>+<kbd>N</kbd></td></tr>
+          <tr><td>Mở tài liệu</td><td>File → Open</td><td><kbd>Ctrl</kbd>+<kbd>O</kbd></td></tr>
+          <tr><td>Lưu</td><td>File → Save</td><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td></tr>
+          <tr><td>Lưu với tên / vị trí / định dạng khác</td><td>File → Save As</td><td><kbd>F12</kbd></td></tr>
+          <tr><td>Đóng tài liệu</td><td>File → Close</td><td><kbd>Ctrl</kbd>+<kbd>W</kbd></td></tr>
+          <tr><td>Thoát Word</td><td>Nút ✕</td><td><kbd>Alt</kbd>+<kbd>F4</kbd></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Các định dạng tệp thường gặp</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phần mở rộng</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><code>.docx</code></td><td>Định dạng mặc định của Word 2007 trở về sau</td></tr>
+          <tr><td><code>.doc</code></td><td>Định dạng Word 97–2003; mở trong Word 2019 sẽ hiện <b>[Compatibility Mode]</b></td></tr>
+          <tr><td><code>.dotx</code></td><td>Tệp mẫu (Template)</td></tr>
+          <tr><td><code>.docm</code></td><td>Tài liệu có chứa macro</td></tr>
+          <tr><td><code>.pdf</code></td><td>Tài liệu PDF, giữ nguyên bố cục khi chia sẻ</td></tr>
+          <tr><td><code>.rtf</code>, <code>.txt</code></td><td>Rich Text Format / văn bản thuần không định dạng</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>AutoRecover</b>Word tự động lưu bản khôi phục định kỳ (mặc định 10 phút) — thiết lập tại <b>File → Options → Save</b>. Khi Word bị đóng đột ngột, lần mở sau sẽ hiện khung <b>Document Recovery</b>.</div>
+      <div class="note tip"><b>Chuyển tài liệu cũ</b>Tài liệu <code>.doc</code> mở ở Compatibility Mode có thể dùng <b>File → Info → Convert</b> để chuyển sang định dạng mới và dùng đầy đủ tính năng Word 2019.</div>
+    </section>
+
+    <section class="card" id="w1-s3">
+      <h2><span class="num">3</span>Gõ tiếng Việt</h2>
+      <p>Để gõ tiếng Việt cần một <b>bộ gõ</b> (phổ biến: <b>Unikey</b>, EVKey) và thiết lập đúng <b>bảng mã</b> tương ứng với <b>phông chữ</b>.</p>
+      <div class="grid-2">
+        <div class="tile"><h4>Bảng mã</h4><p>Chọn <b>Unicode</b> (chuẩn quốc gia TCVN 6909:2001, dùng trong văn bản hành chính).</p></div>
+        <div class="tile"><h4>Kiểu gõ</h4><p><b>Telex</b> (aa→â, dd→đ, s f r x j → dấu sắc, huyền, hỏi, ngã, nặng) hoặc <b>VNI</b> (dùng phím số 1–9).</p></div>
+        <div class="tile"><h4>Phông chữ Unicode</h4><p>Times New Roman, Arial, Calibri, Tahoma… Văn bản hành chính dùng <b>Times New Roman</b>.</p></div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Kiểu gõ</th><th>Gõ</th><th>Kết quả</th></tr></thead>
+        <tbody>
+          <tr><td>Telex</td><td><code>Vieetj Nam</code></td><td>Việt Nam</td></tr>
+          <tr><td>Telex</td><td><code>ddaatj</code> · <code>uwow</code> · <code>w</code></td><td>đật · ươ · ư</td></tr>
+          <tr><td>VNI</td><td><code>Vie65t Nam</code></td><td>Việt Nam</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Lỗi font thường gặp</b>Chữ hiển thị sai kiểu "ViÖt Nam" do <b>bảng mã và phông không khớp</b> (ví dụ gõ bảng mã TCVN3 với phông Unicode). Dùng chức năng chuyển mã của Unikey (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F6</kbd>) để chuyển văn bản cũ sang Unicode.</div>
+    </section>
+
+    <section class="card" id="w1-s4">
+      <h2><span class="num">4</span>Nhập liệu và di chuyển con trỏ</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phím</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>Enter</kbd></td><td>Kết thúc đoạn văn (paragraph), tạo đoạn mới — ký hiệu ¶</td></tr>
+          <tr><td><kbd>Shift</kbd>+<kbd>Enter</kbd></td><td>Xuống dòng nhưng <b>vẫn trong cùng đoạn</b> (line break) — ký hiệu ↵</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Enter</kbd></td><td>Ngắt trang (Page Break)</td></tr>
+          <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>Về đầu / cuối dòng</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Home</kbd> / <kbd>Ctrl</kbd>+<kbd>End</kbd></td><td>Về đầu / cuối tài liệu</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>←</kbd> / <kbd>→</kbd></td><td>Di chuyển từng từ</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>↑</kbd> / <kbd>↓</kbd></td><td>Di chuyển từng đoạn</td></tr>
+          <tr><td><kbd>Page Up</kbd> / <kbd>Page Down</kbd></td><td>Lên / xuống một màn hình</td></tr>
+          <tr><td><kbd>Backspace</kbd> / <kbd>Delete</kbd></td><td>Xóa ký tự bên trái / bên phải con trỏ</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Backspace</kbd> / <kbd>Ctrl</kbd>+<kbd>Delete</kbd></td><td>Xóa một từ bên trái / bên phải</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Hiện ký tự ẩn</b>Nút <b>Show/Hide ¶</b> (Home → Paragraph) hoặc <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd> hiển thị dấu đoạn ¶, dấu cách ·, tab →, ngắt dòng ↵ và ngắt trang/section — rất hữu ích khi kiểm tra định dạng.</div>
+      <div class="note warn"><b>Không dùng Enter / dấu cách để căn chỉnh</b>Muốn sang trang mới hãy dùng <kbd>Ctrl</kbd>+<kbd>Enter</kbd>; muốn thụt lề, căn giữa hay giãn đoạn hãy dùng định dạng đoạn văn (Bài 2), không nhấn nhiều lần Enter hoặc dấu cách.</div>
+    </section>
+
+    <section class="card" id="w1-s5">
+      <h2><span class="num">5</span>Chọn (bôi đen) văn bản</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Cần chọn</th><th>Thao tác</th></tr></thead>
+        <tbody>
+          <tr><td>Một từ</td><td>Nhấp đúp chuột vào từ</td></tr>
+          <tr><td>Một câu</td><td>Giữ <kbd>Ctrl</kbd> + nhấp chuột vào câu</td></tr>
+          <tr><td>Một đoạn</td><td>Nhấp chuột <b>ba lần</b> vào đoạn</td></tr>
+          <tr><td>Một dòng</td><td>Nhấp chuột ở <b>lề trái</b> (con trỏ thành mũi tên nghiêng phải)</td></tr>
+          <tr><td>Toàn bộ tài liệu</td><td><kbd>Ctrl</kbd>+<kbd>A</kbd> hoặc nhấp ba lần ở lề trái</td></tr>
+          <tr><td>Một vùng liên tục</td><td>Nhấp tại điểm đầu, giữ <kbd>Shift</kbd> và nhấp tại điểm cuối; hoặc <kbd>Shift</kbd>+phím mũi tên</td></tr>
+          <tr><td>Nhiều vùng rời nhau</td><td>Chọn vùng đầu, giữ <kbd>Ctrl</kbd> và kéo chọn các vùng khác</td></tr>
+          <tr><td>Khối chữ nhật (theo cột)</td><td>Giữ <kbd>Alt</kbd> và kéo chuột</td></tr>
+          <tr><td>Đến cuối dòng / cuối tài liệu</td><td><kbd>Shift</kbd>+<kbd>End</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>End</kbd></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="w1-s6">
+      <h2><span class="num">6</span>Sao chép, di chuyển và hoàn tác</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác</th><th>Phím tắt</th></tr></thead>
+        <tbody>
+          <tr><td>Sao chép (Copy)</td><td><kbd>Ctrl</kbd>+<kbd>C</kbd></td></tr>
+          <tr><td>Cắt (Cut) — dùng để di chuyển</td><td><kbd>Ctrl</kbd>+<kbd>X</kbd></td></tr>
+          <tr><td>Dán (Paste)</td><td><kbd>Ctrl</kbd>+<kbd>V</kbd></td></tr>
+          <tr><td>Hoàn tác (Undo)</td><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td></tr>
+          <tr><td>Làm lại (Redo) / lặp lại thao tác vừa làm</td><td><kbd>Ctrl</kbd>+<kbd>Y</kbd> hoặc <kbd>F4</kbd></td></tr>
+          <tr><td>Sao chép định dạng / dán định dạng</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Tùy chọn dán (Paste Options)</h3>
+      <div class="grid-2">
+        <div class="tile"><h4>Keep Source Formatting</h4><p>Giữ nguyên định dạng gốc của nội dung sao chép.</p></div>
+        <div class="tile"><h4>Merge Formatting</h4><p>Hòa định dạng theo văn bản đích, giữ một số định dạng như in đậm, nghiêng.</p></div>
+        <div class="tile"><h4>Keep Text Only</h4><p>Chỉ dán chữ, bỏ toàn bộ định dạng — hữu ích khi chép từ trang web.</p></div>
+      </div>
+      <h3>Format Painter (chổi quét định dạng)</h3>
+      <ol class="steps">
+        <li>Đặt con trỏ vào đoạn/chữ có định dạng mẫu.</li>
+        <li>Nhấn <b>Format Painter</b> (Home → Clipboard) <b>một lần</b> để áp dụng một lần, hoặc <b>nhấp đúp</b> để áp dụng nhiều lần liên tiếp.</li>
+        <li>Quét chuột lên đoạn cần áp dụng. Nhấn <kbd>Esc</kbd> để tắt khi đã nhấp đúp.</li>
+      </ol>
+      <div class="note"><b>Office Clipboard</b>Mở khung Clipboard (mũi tên nhỏ ở nhóm Clipboard) để xem và dán lại tối đa <b>24 mục</b> đã sao chép gần nhất.</div>
+    </section>
+
+    <section class="card" id="w1-s7">
+      <h2><span class="num">7</span>Tìm kiếm và thay thế</h2>
+      <ul>
+        <li><kbd>Ctrl</kbd>+<kbd>F</kbd>: mở <b>Navigation Pane</b> để tìm nhanh, các kết quả được tô sáng.</li>
+        <li><kbd>Ctrl</kbd>+<kbd>H</kbd>: mở hộp thoại <b>Find and Replace</b> — tab <b>Replace</b>; nhấn <b>Replace</b> (thay từng chỗ) hoặc <b>Replace All</b> (thay tất cả).</li>
+        <li><kbd>Ctrl</kbd>+<kbd>G</kbd> hoặc <kbd>F5</kbd>: tab <b>Go To</b> — đi đến trang, section, dòng, bảng…</li>
+      </ul>
+      <h3>Tùy chọn nâng cao (nút More &gt;&gt;)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tùy chọn</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Match case</b></td><td>Phân biệt chữ hoa, chữ thường</td></tr>
+          <tr><td><b>Find whole words only</b></td><td>Chỉ tìm nguyên từ (tìm "an" không khớp "bàn")</td></tr>
+          <tr><td><b>Use wildcards</b></td><td>Dùng ký tự đại diện <code>?</code>, <code>*</code>…</td></tr>
+          <tr><td><b>Format</b></td><td>Tìm/thay theo định dạng (phông, cỡ, màu, style…)</td></tr>
+          <tr><td><b>Special</b></td><td>Ký tự đặc biệt: <code>^p</code> dấu đoạn, <code>^t</code> tab, <code>^l</code> ngắt dòng, <code>^m</code> ngắt trang</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Ví dụ hữu ích</b>Xóa các dòng trống thừa: Find what <code>^p^p</code> → Replace with <code>^p</code> → Replace All (lặp lại đến khi hết).</div>
+    </section>
+
+    <section class="card" id="w1-s8">
+      <h2><span class="num">8</span>Chế độ xem, thu phóng và kiểm tra chính tả</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Chế độ xem (tab View)</th><th>Đặc điểm</th></tr></thead>
+        <tbody>
+          <tr><td><b>Read Mode</b></td><td>Chế độ đọc toàn màn hình, ẩn Ribbon</td></tr>
+          <tr><td><b>Print Layout</b></td><td>Mặc định — hiển thị như trang in (lề, header/footer, hình ảnh)</td></tr>
+          <tr><td><b>Web Layout</b></td><td>Hiển thị như trang web, không chia trang</td></tr>
+          <tr><td><b>Outline</b></td><td>Hiển thị dạng dàn ý theo cấp tiêu đề, sắp xếp lại đề mục</td></tr>
+          <tr><td><b>Draft</b></td><td>Chỉ hiển thị văn bản, ẩn header/footer và một số đối tượng</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Thu phóng</b>: kéo thanh Zoom trên Status bar, hoặc <kbd>Ctrl</kbd> + lăn chuột, hoặc View → Zoom / 100% / One Page / Multiple Pages / Page Width. Lệnh <b>Split</b> chia cửa sổ để xem hai phần tài liệu cùng lúc; <b>New Window</b> + <b>View Side by Side</b> để so sánh hai tài liệu.</p>
+      <h3>Kiểm tra chính tả và ngữ pháp</h3>
+      <ul>
+        <li>Gạch lượn <b style="color:#d13438">đỏ</b>: lỗi chính tả; gạch đôi <b style="color:#2b579a">xanh</b>: lỗi ngữ pháp/văn phong.</li>
+        <li><b>Review → Spelling &amp; Grammar</b> hoặc <kbd>F7</kbd> để kiểm tra toàn bộ tài liệu.</li>
+        <li>Đặt ngôn ngữ kiểm tra: <b>Review → Language → Set Proofing Language</b>; tắt kiểm tra cho đoạn chọn bằng <i>Do not check spelling or grammar</i>.</li>
+        <li><b>AutoCorrect</b> (File → Options → Proofing → AutoCorrect Options) tự sửa lỗi gõ và cho phép tạo từ gõ tắt, ví dụ gõ <code>cty</code> → "Công ty".</li>
+        <li><b>Word Count</b> (Review hoặc nhấp vào số từ trên Status bar): đếm trang, từ, ký tự, đoạn, dòng.</li>
+      </ul>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="w1-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="w1-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="w1-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="w1-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="w1-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="w1-quizBar"></i></div>
+        <span class="pill">⏱ <b id="w1-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="w1-qnav"></div>
+      <div id="w1-quizBox"></div>
+
+      <div class="result" id="w1-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="w1-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="w1-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="w1-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="w1-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="w1-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="w1-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="w1-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav" style="justify-content:flex-end">
+  <button type="button" data-lesson="dinhdang">Bài tiếp theo: Bài 2. Định dạng văn bản →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 2: ĐỊNH DẠNG VĂN BẢN ================= -->
+<div class="lesson" id="lesson-dinhdang">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📝 Tin học ứng dụng · Microsoft Word 2019</span>
+    <h1>Bài 2. Định dạng văn bản trong Word 2019</h1>
+    <p>Định dạng ký tự, đoạn văn, điểm dừng tab, danh sách, viền – nền, chữ cái lớn đầu đoạn và sử dụng Styles, Themes để trình bày văn bản đẹp, thống nhất.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#w2-s1"><span class="n">1</span>Định dạng ký tự</a>
+    <a href="#w2-s2"><span class="n">2</span>Định dạng đoạn văn</a>
+    <a href="#w2-s3"><span class="n">3</span>Điểm dừng Tab</a>
+    <a href="#w2-s4"><span class="n">4</span>Bullets & Numbering</a>
+    <a href="#w2-s5"><span class="n">5</span>Viền và nền</a>
+    <a href="#w2-s6"><span class="n">6</span>Drop Cap & ký tự đặc biệt</a>
+    <a href="#w2-s7"><span class="n">7</span>Styles</a>
+    <a href="#w2-s8"><span class="n">8</span>Themes & mẹo định dạng</a>
+    <a href="#w2-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#w2-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="w2-s1">
+      <h2><span class="num">1</span>Định dạng ký tự (Font)</h2>
+      <p>Chọn văn bản rồi dùng nhóm <b>Home → Font</b>, hoặc mở hộp thoại <b>Font</b> bằng <kbd>Ctrl</kbd>+<kbd>D</kbd>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Định dạng</th><th>Phím tắt</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td>In đậm (Bold)</td><td><kbd>Ctrl</kbd>+<kbd>B</kbd></td><td><b>Văn bản</b></td></tr>
+          <tr><td>In nghiêng (Italic)</td><td><kbd>Ctrl</kbd>+<kbd>I</kbd></td><td><i>Văn bản</i></td></tr>
+          <tr><td>Gạch chân (Underline)</td><td><kbd>Ctrl</kbd>+<kbd>U</kbd></td><td><u>Văn bản</u></td></tr>
+          <tr><td>Gạch chân từng từ / gạch đôi</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>W</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd></td><td><u>Văn</u> <u>bản</u> / <u style="text-decoration-style:double">Văn bản</u></td></tr>
+          <tr><td>Chỉ số dưới (Subscript)</td><td><kbd>Ctrl</kbd>+<kbd>=</kbd></td><td>H<sub>2</sub>O</td></tr>
+          <tr><td>Chỉ số trên (Superscript)</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>=</kbd></td><td>x<sup>2</sup>, m<sup>3</sup></td></tr>
+          <tr><td>Tăng / giảm cỡ chữ 1 pt</td><td><kbd>Ctrl</kbd>+<kbd>]</kbd> / <kbd>Ctrl</kbd>+<kbd>[</kbd></td><td></td></tr>
+          <tr><td>Tăng / giảm cỡ chữ theo danh sách</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>&gt;</kbd> / <kbd>&lt;</kbd></td><td></td></tr>
+          <tr><td>Đổi kiểu chữ hoa/thường (Change Case)</td><td><kbd>Shift</kbd>+<kbd>F3</kbd></td><td>viết thường → VIẾT HOA → Viết Hoa Đầu Từ</td></tr>
+          <tr><td>Xóa định dạng ký tự</td><td><kbd>Ctrl</kbd>+<kbd>Space</kbd></td><td>Clear All Formatting xóa cả định dạng đoạn</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Hộp thoại Font (Ctrl + D)</h3>
+      <ul>
+        <li>Tab <b>Font</b>: phông, kiểu, cỡ, màu chữ, kiểu gạch chân, hiệu ứng Strikethrough, Small caps, All caps, Hidden.</li>
+        <li>Tab <b>Advanced</b>: <b>Character Spacing</b> — Scale (co giãn bề ngang), Spacing <i>Expanded/Condensed</i> (giãn/nén khoảng cách giữa các ký tự), Position <i>Raised/Lowered</i>.</li>
+        <li>Nút <b>Set As Default</b>: đặt phông/cỡ chữ mặc định cho tài liệu này hoặc mọi tài liệu mới (mẫu Normal).</li>
+      </ul>
+      <div class="note tip"><b>Text Highlight Color</b>Bút đánh dấu tô nền chữ (thường màu vàng) để nhấn mạnh; khác với <b>Font Color</b> là màu của chính ký tự.</div>
+    </section>
+
+    <section class="card" id="w2-s2">
+      <h2><span class="num">2</span>Định dạng đoạn văn (Paragraph)</h2>
+      <p>Định dạng đoạn áp dụng cho <b>cả đoạn</b> chứa con trỏ (không cần bôi đen). Mở hộp thoại <b>Paragraph</b> từ nút mở rộng của nhóm Paragraph (tab Home hoặc Layout).</p>
+      <h3>a) Căn lề (Alignment)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Kiểu căn</th><th>Phím tắt</th></tr></thead>
+        <tbody>
+          <tr><td>Căn trái (Align Left)</td><td><kbd>Ctrl</kbd>+<kbd>L</kbd></td></tr>
+          <tr><td>Căn giữa (Center)</td><td><kbd>Ctrl</kbd>+<kbd>E</kbd></td></tr>
+          <tr><td>Căn phải (Align Right)</td><td><kbd>Ctrl</kbd>+<kbd>R</kbd></td></tr>
+          <tr><td>Căn đều hai bên (Justify)</td><td><kbd>Ctrl</kbd>+<kbd>J</kbd></td></tr>
+        </tbody>
+      </table></div>
+      <h3>b) Thụt lề (Indentation)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Left / Right</b></td><td>Khoảng cách của toàn đoạn so với lề trái / lề phải</td></tr>
+          <tr><td><b>Special: First line</b></td><td>Thụt <b>dòng đầu tiên</b> của đoạn vào trong (thường 1 cm – 1,27 cm)</td></tr>
+          <tr><td><b>Special: Hanging</b></td><td><b>Thụt treo</b>: dòng đầu nhô ra, các dòng sau thụt vào (dùng cho danh mục tài liệu tham khảo)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Trên thước kẻ: tam giác trên = First Line Indent, tam giác dưới = Hanging Indent, hình vuông = Left Indent. <kbd>Ctrl</kbd>+<kbd>M</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> tăng / giảm thụt lề trái.</p>
+      <h3>c) Khoảng cách (Spacing)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thuộc tính</th><th>Ý nghĩa</th><th>Phím tắt</th></tr></thead>
+        <tbody>
+          <tr><td><b>Before / After</b></td><td>Khoảng cách <b>trước / sau đoạn</b> (tính bằng pt)</td><td></td></tr>
+          <tr><td><b>Line spacing: Single</b></td><td>Giãn dòng đơn</td><td><kbd>Ctrl</kbd>+<kbd>1</kbd></td></tr>
+          <tr><td><b>1.5 lines</b></td><td>Giãn dòng 1,5</td><td><kbd>Ctrl</kbd>+<kbd>5</kbd></td></tr>
+          <tr><td><b>Double</b></td><td>Giãn dòng đôi</td><td><kbd>Ctrl</kbd>+<kbd>2</kbd></td></tr>
+          <tr><td><b>Exactly / At least / Multiple</b></td><td>Chính xác một giá trị pt / tối thiểu / bội số tùy chọn (ví dụ 1,15)</td><td></td></tr>
+        </tbody>
+      </table></div>
+      <h3>d) Tab Line and Page Breaks</h3>
+      <ul>
+        <li><b>Widow/Orphan control</b>: tránh để một dòng lẻ của đoạn nằm riêng ở đầu hoặc cuối trang.</li>
+        <li><b>Keep with next</b>: giữ đoạn cùng trang với đoạn kế tiếp (dùng cho tiêu đề).</li>
+        <li><b>Keep lines together</b>: không tách đoạn sang hai trang. <b>Page break before</b>: luôn bắt đầu đoạn ở trang mới.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="w2-s3">
+      <h2><span class="num">3</span>Điểm dừng Tab (Tab stops)</h2>
+      <p>Tab giúp căn thẳng hàng các cột chữ trên cùng dòng mà không cần dùng bảng. Mặc định Word đặt tab cách nhau 1,27 cm (0,5 inch).</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại tab</th><th>Ký hiệu trên thước</th><th>Văn bản được căn</th></tr></thead>
+        <tbody>
+          <tr><td><b>Left Tab</b></td><td>└</td><td>Bắt đầu từ vị trí tab sang phải</td></tr>
+          <tr><td><b>Center Tab</b></td><td>┴</td><td>Căn giữa tại vị trí tab (dùng cho quốc hiệu, chức danh ký)</td></tr>
+          <tr><td><b>Right Tab</b></td><td>┘</td><td>Kết thúc tại vị trí tab (dùng cho số trang trong mục lục)</td></tr>
+          <tr><td><b>Decimal Tab</b></td><td>┴·</td><td>Căn thẳng theo <b>dấu thập phân</b></td></tr>
+          <tr><td><b>Bar Tab</b></td><td>│</td><td>Vẽ một đường kẻ dọc tại vị trí tab</td></tr>
+        </tbody>
+      </table></div>
+      <ol class="steps">
+        <li><b>Cách 1</b>: nhấp vào ô chọn loại tab ở góc trái thước cho đến khi hiện loại cần dùng, rồi nhấp lên thước tại vị trí mong muốn. Kéo tab ra khỏi thước để xóa.</li>
+        <li><b>Cách 2</b>: Paragraph → nút <b>Tabs…</b> → nhập <b>Tab stop position</b>, chọn <b>Alignment</b>, chọn <b>Leader</b> (ký tự dẫn: dấu chấm ....., gạch - - -, gạch liền ___) → <b>Set</b> → OK.</li>
+      </ol>
+      <pre class="code"><span class="c">Ví dụ tab phải có dấu chấm dẫn (Right Tab + Leader 2):</span>
+Chương 1. Tổng quan ........................................ 5
+Chương 2. Cơ sở lý thuyết .................................. 12</pre>
+    </section>
+
+    <section class="card" id="w2-s4">
+      <h2><span class="num">4</span>Danh sách: Bullets, Numbering, Multilevel List</h2>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">•</div><h4>Bullets</h4><p>Danh sách ký hiệu đầu dòng; <b>Define New Bullet</b> để chọn ký hiệu (Symbol) hoặc hình ảnh (Picture).</p></div>
+        <div class="tile"><div class="ic">1.</div><h4>Numbering</h4><p>Đánh số tự động 1, 2, 3 / a, b, c / I, II, III; <b>Define New Number Format</b> để tạo dạng "Điều 1."</p></div>
+        <div class="tile"><div class="ic">1.1</div><h4>Multilevel List</h4><p>Danh sách nhiều cấp 1 → 1.1 → 1.1.1; có thể liên kết với Heading styles.</p></div>
+      </div>
+      <ul>
+        <li><kbd>Tab</kbd>: hạ cấp mục danh sách; <kbd>Shift</kbd>+<kbd>Tab</kbd>: nâng cấp.</li>
+        <li>Nhấn <kbd>Enter</kbd> hai lần ở mục trống để kết thúc danh sách.</li>
+        <li>Nhấp chuột phải vào số → <b>Restart at 1</b> (đánh lại từ 1) hoặc <b>Continue Numbering</b> (tiếp tục số trước); <b>Set Numbering Value</b> để bắt đầu từ số bất kỳ.</li>
+        <li><b>Adjust List Indents</b>: chỉnh vị trí số và khoảng cách đến chữ.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="w2-s5">
+      <h2><span class="num">5</span>Viền (Borders) và nền (Shading)</h2>
+      <ul>
+        <li><b>Home → Paragraph → Borders</b> ▾ → <b>Borders and Shading…</b> mở hộp thoại gồm 3 tab:</li>
+      </ul>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tab</th><th>Chức năng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Borders</b></td><td>Kẻ khung cho đoạn hoặc chữ được chọn: kiểu (Box, Shadow, 3-D, Custom), nét, màu, độ dày; <b>Apply to</b>: Text hoặc Paragraph</td></tr>
+          <tr><td><b>Page Border</b></td><td>Kẻ khung <b>cho trang</b>, có kiểu <b>Art</b> (họa tiết); áp dụng cho cả tài liệu, section, hoặc chỉ trang đầu. Cũng mở được từ <b>Design → Page Borders</b></td></tr>
+          <tr><td><b>Shading</b></td><td>Tô nền: màu nền (Fill), mẫu hoa văn (Pattern)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Mẹo nhanh</b>Gõ ba dấu <code>---</code> rồi Enter → đường kẻ ngang mảnh; <code>===</code> → đường kẻ đôi; <code>***</code> → đường chấm (tính năng AutoFormat As You Type).</div>
+    </section>
+
+    <section class="card" id="w2-s6">
+      <h2><span class="num">6</span>Drop Cap và ký tự đặc biệt</h2>
+      <h3>a) Drop Cap — chữ cái lớn đầu đoạn</h3>
+      <p><b>Insert → Text → Drop Cap</b>: <b>Dropped</b> (chữ lớn thả xuống trong đoạn), <b>In margin</b> (chữ lớn nằm ở lề). <b>Drop Cap Options</b> chọn phông, <b>Lines to drop</b> (số dòng chiếm chỗ, mặc định 3) và <b>Distance from text</b>.</p>
+      <div class="tile" style="margin:12px 0"><p style="color:var(--text)"><span style="float:left;font-size:3.1rem;line-height:.9;font-weight:700;color:var(--primary);margin:4px 8px 0 0;font-family:Georgia,serif">N</span>gày xưa, ở một làng nhỏ ven sông, có một người thợ in chữ rất khéo tay. Mỗi trang sách ông làm ra đều bắt đầu bằng một chữ cái lớn được chạm trổ công phu — đó chính là nguồn gốc của kiểu trình bày Drop Cap ngày nay.</p></div>
+      <h3>b) Ký tự đặc biệt</h3>
+      <ul>
+        <li><b>Insert → Symbol → More Symbols</b>: chọn ký hiệu từ phông <b>Symbol</b>, <b>Wingdings</b>… (☎ ✉ ✓ ✔ ☐ ♥); tab <b>Special Characters</b>: ©, ®, ™, gạch ngang dài —, dấu cách không ngắt.</li>
+        <li><b>Nonbreaking Space</b> <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Space</kbd>: giữ hai từ luôn cùng một dòng (ví dụ "10 kg", "TP. Hồ Chí Minh").</li>
+        <li>Có thể gán phím tắt cho ký hiệu hay dùng bằng nút <b>Shortcut Key</b> trong hộp thoại Symbol.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="w2-s7">
+      <h2><span class="num">7</span>Kiểu định dạng (Styles)</h2>
+      <p><b>Style</b> là tập hợp các định dạng (phông, cỡ, màu, căn lề, giãn đoạn…) được đặt tên. Áp dụng style giúp văn bản <b>thống nhất</b>, sửa một lần là cập nhật toàn bộ, và là <b>nền tảng để tạo mục lục tự động</b>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Style</th><th>Công dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Normal</b></td><td>Style mặc định của văn bản thường</td></tr>
+          <tr><td><b>Heading 1, 2, 3…</b></td><td>Tiêu đề chương, mục, tiểu mục — hiển thị trong <b>Navigation Pane</b> và dùng để tạo <b>mục lục</b> tự động</td></tr>
+          <tr><td><b>Title / Subtitle</b></td><td>Tiêu đề / phụ đề của tài liệu</td></tr>
+          <tr><td><b>Quote, List Paragraph, Caption…</b></td><td>Trích dẫn, đoạn danh sách, chú thích hình/bảng</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>Phím tắt: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd> áp dụng Heading 1 / 2 / 3; <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd> áp dụng Normal.</li>
+        <li><b>Sửa style</b>: nhấp chuột phải vào style trong nhóm Styles → <b>Modify…</b> → đổi phông, cỡ; nút <b>Format</b> để chỉnh Paragraph, Numbering… Chọn <i>New documents based on this template</i> nếu muốn áp dụng cho mọi tài liệu mới.</li>
+        <li><b>Cập nhật theo đoạn mẫu</b>: định dạng một đoạn → chuột phải vào style → <b>Update Heading 1 to Match Selection</b>.</li>
+        <li><b>Tạo style mới</b>: mở khung Styles (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd>) → nút <b>New Style</b>.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="w2-s8">
+      <h2><span class="num">8</span>Themes, Style Set và mẹo định dạng</h2>
+      <ul>
+        <li><b>Design → Themes</b>: đổi đồng loạt bộ màu, phông, hiệu ứng của tài liệu. Có thể chọn riêng <b>Colors</b>, <b>Fonts</b>, <b>Effects</b>.</li>
+        <li><b>Design → Style Set</b>: đổi diện mạo của toàn bộ các style (Heading, Normal…) theo bộ có sẵn.</li>
+        <li><b>Design → Paragraph Spacing</b>: chọn nhanh kiểu giãn dòng/giãn đoạn cho cả tài liệu.</li>
+        <li><b>Set as Default</b> (Design): đặt theme/style set hiện tại làm mặc định cho tài liệu mới.</li>
+        <li><b>Reveal Formatting</b> (<kbd>Shift</kbd>+<kbd>F1</kbd>): xem chi tiết mọi định dạng của đoạn chữ đang chọn.</li>
+      </ul>
+      <h3>Quy chuẩn trình bày văn bản hành chính (tham khảo Nghị định 30/2020/NĐ-CP)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Yếu tố</th><th>Quy định thường áp dụng</th></tr></thead>
+        <tbody>
+          <tr><td>Phông chữ</td><td>Times New Roman, bảng mã Unicode (TCVN 6909:2001), màu đen</td></tr>
+          <tr><td>Cỡ chữ nội dung</td><td>13 – 14</td></tr>
+          <tr><td>Thụt đầu dòng</td><td>1 cm – 1,27 cm</td></tr>
+          <tr><td>Khoảng cách đoạn</td><td>Tối thiểu 6 pt</td></tr>
+          <tr><td>Khoảng cách dòng</td><td>Từ đơn (single) đến 1,5 lines</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="w2-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="w2-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="w2-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="w2-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="w2-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="w2-quizBar"></i></div>
+        <span class="pill">⏱ <b id="w2-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="w2-qnav"></div>
+      <div id="w2-quizBox"></div>
+
+      <div class="result" id="w2-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="w2-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="w2-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="w2-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="w2-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="w2-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="w2-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="w2-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="soanthao">← Bài trước: Bài 1. Soạn thảo cơ bản</button>
+  <button type="button" data-lesson="bangbieu">Bài tiếp theo: Bài 3. Bảng biểu &amp; Đồ họa →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 3: BẢNG BIỂU & ĐỒ HỌA ================= -->
+<div class="lesson" id="lesson-bangbieu">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📝 Tin học ứng dụng · Microsoft Word 2019</span>
+    <h1>Bài 3. Bảng biểu và đối tượng đồ họa trong Word 2019</h1>
+    <p>Tạo và định dạng bảng, sắp xếp – tính toán trong bảng, chèn hình ảnh, Shapes, SmartArt, Icons, 3D Models, biểu đồ, phương trình và thiết lập cách bao quanh văn bản.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#w3-s1"><span class="n">1</span>Chèn bảng</a>
+    <a href="#w3-s2"><span class="n">2</span>Thao tác với bảng</a>
+    <a href="#w3-s3"><span class="n">3</span>Định dạng bảng</a>
+    <a href="#w3-s4"><span class="n">4</span>Sắp xếp & tính toán</a>
+    <a href="#w3-s5"><span class="n">5</span>Hình ảnh & Wrap Text</a>
+    <a href="#w3-s6"><span class="n">6</span>Shapes, SmartArt, Icons</a>
+    <a href="#w3-s7"><span class="n">7</span>Biểu đồ & phương trình</a>
+    <a href="#w3-s8"><span class="n">8</span>Liên kết & chú thích</a>
+    <a href="#w3-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#w3-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="w3-s1">
+      <h2><span class="num">1</span>Chèn bảng (Insert → Table)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Cách</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td><b>Lưới ô vuông</b></td><td>Rê chuột chọn số cột × số dòng trên lưới (tối đa 10 × 8)</td></tr>
+          <tr><td><b>Insert Table…</b></td><td>Nhập <b>Number of columns</b>, <b>Number of rows</b>; chọn AutoFit: Fixed column width / AutoFit to contents / AutoFit to window</td></tr>
+          <tr><td><b>Draw Table</b></td><td>Dùng bút vẽ tự do các đường kẻ của bảng</td></tr>
+          <tr><td><b>Convert Text to Table</b></td><td>Chuyển văn bản được phân cách bởi Tab, dấu phẩy, dấu đoạn… thành bảng</td></tr>
+          <tr><td><b>Excel Spreadsheet</b></td><td>Nhúng một bảng tính Excel vào tài liệu</td></tr>
+          <tr><td><b>Quick Tables</b></td><td>Chèn bảng mẫu có sẵn (lịch, bảng biểu…)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Khi con trỏ nằm trong bảng, Ribbon xuất hiện nhóm <b>Table Tools</b> gồm hai tab: <b>Design</b> (kiểu bảng, viền, tô nền) và <b>Layout</b> (chèn/xóa, trộn/tách ô, kích thước, căn lề, sắp xếp, công thức).</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>STT</th><th>Họ và tên</th><th>Toán</th><th>Văn</th><th>Tổng</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Nguyễn Văn An</td><td>8</td><td>7</td><td>15</td></tr>
+          <tr><td>2</td><td>Trần Thị Bình</td><td>9</td><td>8</td><td>17</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="w3-s2">
+      <h2><span class="num">2</span>Thao tác với bảng</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác</th><th>Cách thực hiện</th></tr></thead>
+        <tbody>
+          <tr><td>Sang ô kế tiếp / ô trước</td><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd>; nhấn <kbd>Tab</kbd> ở <b>ô cuối cùng</b> sẽ thêm một dòng mới</td></tr>
+          <tr><td>Chèn ký tự Tab trong ô</td><td><kbd>Ctrl</kbd>+<kbd>Tab</kbd></td></tr>
+          <tr><td>Chọn ô / dòng / cột / cả bảng</td><td>Layout → Select; hoặc nhấp cạnh trái ô, lề trái dòng, mép trên cột; biểu tượng ✥ ở góc trên trái để chọn cả bảng</td></tr>
+          <tr><td>Chèn dòng / cột</td><td>Layout → <b>Insert Above / Below / Left / Right</b>; hoặc nhấp dấu ⊕ xuất hiện ở mép bảng</td></tr>
+          <tr><td>Xóa</td><td>Layout → <b>Delete</b> → Cells / Columns / Rows / Table. (Phím Delete chỉ xóa <b>nội dung</b>, Backspace khi chọn cả dòng/cột mới xóa dòng/cột)</td></tr>
+          <tr><td>Trộn ô</td><td>Chọn các ô → Layout → <b>Merge Cells</b></td></tr>
+          <tr><td>Tách ô</td><td>Layout → <b>Split Cells</b> → nhập số cột, số dòng</td></tr>
+          <tr><td>Tách bảng</td><td>Đặt con trỏ tại dòng muốn tách → Layout → <b>Split Table</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>)</td></tr>
+          <tr><td>Chuyển bảng thành văn bản</td><td>Layout → <b>Convert to Text</b></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="w3-s3">
+      <h2><span class="num">3</span>Định dạng bảng</h2>
+      <h3>a) Tab Design (Table Tools)</h3>
+      <ul>
+        <li><b>Table Styles</b>: chọn kiểu bảng có sẵn; <b>Table Style Options</b>: Header Row, Total Row, Banded Rows (tô xen kẽ dòng), First/Last Column.</li>
+        <li><b>Shading</b>: tô nền ô; <b>Borders</b>, <b>Border Styles</b>, <b>Border Painter</b>: kẻ khung, chọn nét, độ dày, màu.</li>
+      </ul>
+      <h3>b) Tab Layout (Table Tools)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lệnh</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Height / Width</b></td><td>Chiều cao dòng, độ rộng cột</td></tr>
+          <tr><td><b>Distribute Rows / Distribute Columns</b></td><td>Chia đều chiều cao các dòng / độ rộng các cột đã chọn</td></tr>
+          <tr><td><b>AutoFit</b></td><td>AutoFit Contents (vừa nội dung) · AutoFit Window (vừa lề trang) · Fixed Column Width</td></tr>
+          <tr><td><b>Alignment</b></td><td>9 kiểu căn chữ trong ô (trên/giữa/dưới × trái/giữa/phải)</td></tr>
+          <tr><td><b>Text Direction</b></td><td>Xoay hướng chữ trong ô (dọc)</td></tr>
+          <tr><td><b>Cell Margins</b></td><td>Lề trong ô, khoảng cách giữa các ô</td></tr>
+          <tr><td><b>Repeat Header Rows</b></td><td>Lặp lại dòng tiêu đề ở đầu mỗi trang khi bảng dài nhiều trang</td></tr>
+          <tr><td><b>Properties → Row</b></td><td><i>Allow row to break across pages</i> — cho phép một dòng bị tách sang trang sau</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="w3-s4">
+      <h2><span class="num">4</span>Sắp xếp và tính toán trong bảng</h2>
+      <h3>a) Sắp xếp (Layout → Sort)</h3>
+      <p>Sắp xếp tối đa theo <b>3 khóa</b> (Sort by, Then by, Then by); chọn kiểu dữ liệu (Text, Number, Date) và thứ tự <b>Ascending</b> (tăng) / <b>Descending</b> (giảm). Chọn <b>My list has: Header row</b> để dòng tiêu đề không bị sắp xếp.</p>
+      <h3>b) Công thức (Layout → Formula)</h3>
+      <p>Các ô được đặt tên theo cột (A, B, C…) và dòng (1, 2, 3…) giống Excel: ô đầu tiên là <b>A1</b>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Công thức</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><code>=SUM(ABOVE)</code></td><td>Tổng các ô số <b>phía trên</b> ô hiện tại</td></tr>
+          <tr><td><code>=SUM(LEFT)</code></td><td>Tổng các ô số <b>bên trái</b></td></tr>
+          <tr><td><code>=AVERAGE(LEFT)</code></td><td>Trung bình các ô bên trái (tương tự: RIGHT, BELOW)</td></tr>
+          <tr><td><code>=MAX(ABOVE)</code>, <code>=MIN(...)</code>, <code>=COUNT(...)</code>, <code>=PRODUCT(...)</code></td><td>Lớn nhất, nhỏ nhất, đếm, tích</td></tr>
+          <tr><td><code>=C2+D2</code>, <code>=SUM(C2:D2)</code></td><td>Tham chiếu theo địa chỉ ô</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Công thức không tự cập nhật</b>Kết quả là một <b>trường (field)</b>. Khi số liệu thay đổi, chọn ô kết quả (hoặc cả bảng) và nhấn <kbd>F9</kbd> để cập nhật. <b>Number format</b> trong hộp thoại Formula dùng để định dạng kết quả, ví dụ <code>#,##0</code>.</div>
+    </section>
+
+    <section class="card" id="w3-s5">
+      <h2><span class="num">5</span>Hình ảnh và cách bao quanh văn bản (Wrap Text)</h2>
+      <p><b>Insert → Pictures</b>: <b>This Device</b> (ảnh trên máy) hoặc <b>Online Pictures</b> (tìm ảnh trực tuyến). Chọn ảnh để hiện tab <b>Picture Tools → Format</b>:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lệnh</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Remove Background</b></td><td>Xóa phông nền ảnh</td></tr>
+          <tr><td><b>Corrections / Color / Artistic Effects</b></td><td>Chỉnh độ sáng – tương phản / màu sắc / hiệu ứng nghệ thuật</td></tr>
+          <tr><td><b>Compress Pictures</b></td><td>Nén ảnh để giảm dung lượng tệp</td></tr>
+          <tr><td><b>Reset Picture</b></td><td>Bỏ mọi thay đổi định dạng ảnh</td></tr>
+          <tr><td><b>Picture Styles / Border / Effects</b></td><td>Khung, viền, bóng đổ, phản chiếu…</td></tr>
+          <tr><td><b>Crop</b></td><td>Cắt xén ảnh, cắt theo hình (Crop to Shape), theo tỷ lệ (Aspect Ratio)</td></tr>
+          <tr><td><b>Rotate</b></td><td>Xoay, lật ảnh</td></tr>
+          <tr><td><b>Alt Text</b></td><td>Văn bản thay thế mô tả ảnh cho người khiếm thị</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Wrap Text — vị trí ảnh so với chữ</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Kiểu</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td><b>In Line with Text</b></td><td>Mặc định — ảnh nằm trên dòng như một ký tự</td></tr>
+          <tr><td><b>Square</b></td><td>Chữ bao quanh theo khung hình chữ nhật của ảnh</td></tr>
+          <tr><td><b>Tight / Through</b></td><td>Chữ bao sát theo đường viền của ảnh</td></tr>
+          <tr><td><b>Top and Bottom</b></td><td>Chữ chỉ ở trên và dưới ảnh</td></tr>
+          <tr><td><b>Behind Text</b></td><td>Ảnh nằm <b>sau</b> chữ (làm nền)</td></tr>
+          <tr><td><b>In Front of Text</b></td><td>Ảnh nằm <b>đè lên</b> chữ</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Mẹo</b>Nút <b>Layout Options</b> xuất hiện cạnh ảnh khi chọn giúp đổi Wrap Text nhanh. Muốn kéo ảnh tự do, hãy đổi khỏi kiểu In Line with Text.</div>
+    </section>
+
+    <section class="card" id="w3-s6">
+      <h2><span class="num">6</span>Shapes, SmartArt, Icons, 3D Models, Text Box, WordArt</h2>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">⬠</div><h4>Shapes</h4><p>Hình vẽ: đường thẳng, mũi tên, hình khối, lưu đồ, chú thích. Giữ <kbd>Shift</kbd> khi vẽ để được hình vuông, tròn, đường thẳng.</p></div>
+        <div class="tile"><div class="ic">🔀</div><h4>SmartArt</h4><p>Sơ đồ có sẵn: List, Process, Cycle, <b>Hierarchy</b> (sơ đồ tổ chức), Relationship, Matrix, Pyramid, Picture.</p></div>
+        <div class="tile"><div class="ic">★</div><h4>Icons</h4><p>Biểu tượng dạng vector (tính năng mới của Word 2019), đổi màu không vỡ nét.</p></div>
+        <div class="tile"><div class="ic">🧊</div><h4>3D Models</h4><p>Chèn mô hình 3D và xoay theo mọi hướng (mới trong Word 2019).</p></div>
+        <div class="tile"><div class="ic">▭</div><h4>Text Box</h4><p>Hộp văn bản đặt tự do trên trang; có thể liên kết các hộp để chữ chảy tiếp (Create Link).</p></div>
+        <div class="tile"><div class="ic">𝒜</div><h4>WordArt</h4><p>Chữ nghệ thuật với hiệu ứng màu, viền, bóng, uốn cong (Text Effects → Transform).</p></div>
+      </div>
+      <h3>Sắp xếp các đối tượng (Format → Arrange)</h3>
+      <ul>
+        <li><b>Group</b>: chọn nhiều đối tượng (giữ <kbd>Shift</kbd> hoặc <kbd>Ctrl</kbd>) → Group để di chuyển như một khối; <b>Ungroup</b> để tách.</li>
+        <li><b>Bring Forward / Send Backward</b>: đưa đối tượng lên trên / xuống dưới các đối tượng khác.</li>
+        <li><b>Align</b>: căn thẳng hàng các đối tượng; <b>Selection Pane</b>: liệt kê, ẩn/hiện, đổi tên đối tượng.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="w3-s7">
+      <h2><span class="num">7</span>Biểu đồ, phương trình và ảnh chụp màn hình</h2>
+      <ul>
+        <li><b>Insert → Chart</b>: chọn loại biểu đồ (Column, Line, Pie, Bar, Area…). Word mở một cửa sổ bảng tính kiểu Excel để nhập dữ liệu; sửa lại dữ liệu bằng <b>Chart Tools → Design → Edit Data</b>.</li>
+        <li><b>Chart Elements (+)</b>: tiêu đề, nhãn dữ liệu, chú giải (Legend), trục; <b>Chart Styles (🖌)</b>: kiểu và màu; <b>Chart Filters</b>: lọc dữ liệu hiển thị.</li>
+        <li><b>Insert → Equation</b> (<kbd>Alt</kbd>+<kbd>=</kbd>): chèn công thức toán học — phân số, căn, tích phân, ma trận…; có thể dùng <b>Ink Equation</b> để viết tay.</li>
+        <li><b>Insert → Screenshot</b>: chèn ảnh chụp một cửa sổ đang mở hoặc chụp một vùng màn hình (Screen Clipping).</li>
+      </ul>
+      <pre class="code"><span class="c">Gõ nhanh trong vùng Equation (dạng tuyến tính), rồi nhấn Space:</span>
+x=(-b±√(b^2-4ac))/(2a)     <span class="c">→ công thức nghiệm phương trình bậc hai</span></pre>
+    </section>
+
+    <section class="card" id="w3-s8">
+      <h2><span class="num">8</span>Liên kết, dấu trang và chú thích đối tượng</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Chức năng</th><th>Thao tác</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td><b>Hyperlink</b></td><td>Insert → Link (<kbd>Ctrl</kbd>+<kbd>K</kbd>)</td><td>Liên kết đến trang web, tệp, email hoặc một vị trí trong tài liệu; <kbd>Ctrl</kbd>+nhấp để mở</td></tr>
+          <tr><td><b>Bookmark</b></td><td>Insert → Bookmark</td><td>Đánh dấu một vị trí để nhảy đến hoặc liên kết tới</td></tr>
+          <tr><td><b>Caption</b></td><td>References → Insert Caption</td><td>Chú thích "Hình 1", "Bảng 1"… được đánh số tự động</td></tr>
+          <tr><td><b>Cross-reference</b></td><td>References → Cross-reference</td><td>Tham chiếu chéo "xem Hình 3" tự cập nhật số</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Cập nhật số thứ tự</b>Caption và Cross-reference đều là trường (field). Sau khi thêm/xóa hình, chọn toàn bộ tài liệu (<kbd>Ctrl</kbd>+<kbd>A</kbd>) rồi nhấn <kbd>F9</kbd> để cập nhật.</div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="w3-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="w3-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="w3-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="w3-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="w3-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="w3-quizBar"></i></div>
+        <span class="pill">⏱ <b id="w3-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="w3-qnav"></div>
+      <div id="w3-quizBox"></div>
+
+      <div class="result" id="w3-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="w3-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="w3-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="w3-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="w3-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="w3-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="w3-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="w3-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="dinhdang">← Bài trước: Bài 2. Định dạng văn bản</button>
+  <button type="button" data-lesson="bocuc">Bài tiếp theo: Bài 4. Bố cục trang &amp; In ấn →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 4: BỐ CỤC TRANG & IN ẤN ================= -->
+<div class="lesson" id="lesson-bocuc">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📝 Tin học ứng dụng · Microsoft Word 2019</span>
+    <h1>Bài 4. Bố cục trang, tài liệu dài và in ấn trong Word 2019</h1>
+    <p>Thiết lập trang in, ngắt trang – ngắt section, chia cột, tiêu đề đầu/cuối trang, số trang, mục lục tự động, chú thích, hình mờ và in, xuất PDF, bảo vệ tài liệu.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#w4-s1"><span class="n">1</span>Page Setup</a>
+    <a href="#w4-s2"><span class="n">2</span>Ngắt trang & Section</a>
+    <a href="#w4-s3"><span class="n">3</span>Chia cột</a>
+    <a href="#w4-s4"><span class="n">4</span>Header, Footer, số trang</a>
+    <a href="#w4-s5"><span class="n">5</span>Mục lục tự động</a>
+    <a href="#w4-s6"><span class="n">6</span>Chú thích & trích dẫn</a>
+    <a href="#w4-s7"><span class="n">7</span>Trang bìa, hình mờ, nền</a>
+    <a href="#w4-s8"><span class="n">8</span>In, xuất PDF, bảo vệ</a>
+    <a href="#w4-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#w4-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="w4-s1">
+      <h2><span class="num">1</span>Thiết lập trang (Page Setup)</h2>
+      <p>Các lệnh nằm ở <b>Layout → Page Setup</b>; mở hộp thoại đầy đủ bằng nút mở rộng ở góc nhóm.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lệnh</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Margins</b></td><td>Lề trên (Top), dưới (Bottom), trái (Left), phải (Right); <b>Gutter</b> — phần lề thêm để đóng gáy</td></tr>
+          <tr><td><b>Orientation</b></td><td><b>Portrait</b> (dọc) hoặc <b>Landscape</b> (ngang)</td></tr>
+          <tr><td><b>Size</b></td><td>Khổ giấy: <b>A4 (21 × 29,7 cm)</b>, Letter, A3, A5…</td></tr>
+          <tr><td><b>Apply to</b></td><td>Áp dụng cho <i>Whole document</i>, <i>This section</i> hoặc <i>This point forward</i></td></tr>
+          <tr><td><b>Set As Default</b></td><td>Lưu thiết lập làm mặc định cho các tài liệu mới</td></tr>
+        </tbody>
+      </table></div>
+      <div class="margin-demo" aria-label="Minh họa lề trang A4 theo văn bản hành chính">
+        <span style="top:2%;left:50%;transform:translateX(-50%)">Trên 20–25 mm</span>
+        <span style="bottom:2%;left:50%;transform:translateX(-50%)">Dưới 20–25 mm</span>
+        <span style="left:1%;top:50%;writing-mode:vertical-rl;transform:translateY(-50%) rotate(180deg)">Trái 30–35 mm</span>
+        <span style="right:0;top:50%;writing-mode:vertical-rl;transform:translateY(-50%)">Phải 15–20 mm</span>
+        <div class="inner">Vùng soạn thảo<br>khổ A4 · Portrait</div>
+      </div>
+      <div class="note"><b>Lề văn bản hành chính (Nghị định 30/2020/NĐ-CP)</b>Khổ A4, lề trên và dưới 20–25 mm, lề trái 30–35 mm, lề phải 15–20 mm. Đổi đơn vị đo sang cm tại <b>File → Options → Advanced → Display → Show measurements in units of</b>.</div>
+    </section>
+
+    <section class="card" id="w4-s2">
+      <h2><span class="num">2</span>Ngắt trang và ngắt Section (Layout → Breaks)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại ngắt</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Page</b> (<kbd>Ctrl</kbd>+<kbd>Enter</kbd>)</td><td>Chuyển nội dung sau sang trang mới</td></tr>
+          <tr><td><b>Column</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>)</td><td>Chuyển nội dung sau sang cột kế tiếp</td></tr>
+          <tr><td><b>Text Wrapping</b></td><td>Ngắt dòng văn bản quanh đối tượng</td></tr>
+          <tr><td><b>Section Break: Next Page</b></td><td>Tạo section mới bắt đầu ở <b>trang mới</b></td></tr>
+          <tr><td><b>Section Break: Continuous</b></td><td>Tạo section mới <b>ngay trên cùng trang</b></td></tr>
+          <tr><td><b>Section Break: Even / Odd Page</b></td><td>Section mới bắt đầu ở trang chẵn / trang lẻ kế tiếp</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Khi nào cần Section?</b>Section cho phép các phần của tài liệu có <b>thiết lập trang khác nhau</b>: một trang in ngang giữa tài liệu dọc, số trang kiểu i, ii, iii cho phần mở đầu và 1, 2, 3 cho nội dung, header khác nhau cho từng chương, chia cột cho một đoạn.</div>
+    </section>
+
+    <section class="card" id="w4-s3">
+      <h2><span class="num">3</span>Chia cột báo (Columns)</h2>
+      <ol class="steps">
+        <li>Chọn đoạn văn cần chia cột (nếu không chọn sẽ áp dụng cho cả section).</li>
+        <li><b>Layout → Columns</b> → One, Two, Three, Left, Right hoặc <b>More Columns…</b></li>
+        <li>Trong hộp thoại: <b>Number of columns</b>, <b>Width and spacing</b>, <b>Equal column width</b>, <b>Line between</b> (đường kẻ giữa các cột).</li>
+      </ol>
+      <p>Khi chia cột cho đoạn chọn, Word tự chèn <b>Section Break (Continuous)</b> trước và sau đoạn đó. Dùng <b>Column Break</b> để chủ động đẩy chữ sang cột sau; muốn hai cột cân bằng, chèn Continuous Section Break ở cuối đoạn chia cột.</p>
+    </section>
+
+    <section class="card" id="w4-s4">
+      <h2><span class="num">4</span>Header, Footer và số trang</h2>
+      <ul>
+        <li><b>Insert → Header / Footer</b> chọn mẫu, hoặc <b>nhấp đúp</b> vào vùng lề trên/dưới trang để soạn. Nhấn <b>Close Header and Footer</b> hoặc nhấp đúp vào thân văn bản để thoát.</li>
+        <li><b>Insert → Page Number</b>: Top of Page, Bottom of Page, Page Margins, Current Position; <b>Format Page Numbers</b>: kiểu số (1, 2, 3 · i, ii, iii · a, b, c), <b>Start at</b> (bắt đầu từ số bất kỳ), <b>Continue from previous section</b>.</li>
+      </ul>
+      <h3>Tùy chọn trên tab Header &amp; Footer Tools → Design</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tùy chọn</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Different First Page</b></td><td>Trang đầu (trang bìa) có header/footer riêng hoặc để trống</td></tr>
+          <tr><td><b>Different Odd &amp; Even Pages</b></td><td>Trang chẵn và trang lẻ có header/footer khác nhau (in sách hai mặt)</td></tr>
+          <tr><td><b>Link to Previous</b></td><td>Header/footer của section này <b>giống section trước</b>. Tắt đi để soạn nội dung khác cho từng section</td></tr>
+          <tr><td><b>Date &amp; Time, Document Info, Quick Parts</b></td><td>Chèn ngày giờ, tên tệp, tác giả, trường (field)</td></tr>
+          <tr><td><b>Header from Top / Footer from Bottom</b></td><td>Khoảng cách từ mép giấy đến header/footer</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Mẫu "Trang X / Y"</b>Page Number → Bottom of Page → <b>Page X of Y</b>; hoặc chèn trường PAGE và NUMPAGES bằng Quick Parts → Field.</div>
+    </section>
+
+    <section class="card" id="w4-s5">
+      <h2><span class="num">5</span>Mục lục tự động (Table of Contents)</h2>
+      <ol class="steps">
+        <li>Áp dụng style <b>Heading 1</b> cho tên chương, <b>Heading 2</b> cho mục, <b>Heading 3</b> cho tiểu mục… (hoặc gán <b>Outline Level</b> trong hộp thoại Paragraph).</li>
+        <li>Đặt con trỏ tại vị trí muốn chèn mục lục.</li>
+        <li><b>References → Table of Contents</b> → <b>Automatic Table 1/2</b>, hoặc <b>Custom Table of Contents…</b> để chọn số cấp hiển thị (Show levels), ký tự dẫn (Tab leader), có/không số trang, căn phải số trang.</li>
+        <li>Khi nội dung thay đổi: <b>Update Table</b> (hoặc chọn mục lục nhấn <kbd>F9</kbd>) → <b>Update page numbers only</b> hoặc <b>Update entire table</b>.</li>
+      </ol>
+      <div class="note"><b>Lợi ích của Heading</b>Các tiêu đề Heading hiện trong <b>Navigation Pane</b> (View → Navigation Pane) để di chuyển nhanh và kéo thả sắp xếp lại chương mục. Trong mục lục, giữ <kbd>Ctrl</kbd> + nhấp để nhảy đến mục tương ứng. Lệnh <b>Add Text</b> đặt nhanh cấp mục lục cho đoạn đang chọn.</div>
+    </section>
+
+    <section class="card" id="w4-s6">
+      <h2><span class="num">6</span>Chú thích, trích dẫn và danh mục</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Chức năng (tab References)</th><th>Tác dụng</th><th>Phím tắt</th></tr></thead>
+        <tbody>
+          <tr><td><b>Insert Footnote</b></td><td>Chú thích <b>cuối trang</b>, đánh số tự động</td><td><kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>F</kbd></td></tr>
+          <tr><td><b>Insert Endnote</b></td><td>Chú thích <b>cuối tài liệu</b> (hoặc cuối section)</td><td><kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>D</kbd></td></tr>
+          <tr><td><b>Insert Caption</b></td><td>Chú thích Hình/Bảng đánh số tự động</td><td></td></tr>
+          <tr><td><b>Insert Table of Figures</b></td><td>Danh mục hình, danh mục bảng từ các Caption</td><td></td></tr>
+          <tr><td><b>Insert Citation / Bibliography</b></td><td>Trích dẫn nguồn và tạo danh mục tài liệu tham khảo theo chuẩn (APA, IEEE, Chicago…)</td><td></td></tr>
+          <tr><td><b>Mark Entry / Insert Index</b></td><td>Đánh dấu từ khóa và tạo chỉ mục (Index) cuối sách</td><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="w4-s7">
+      <h2><span class="num">7</span>Trang bìa, hình mờ và nền trang</h2>
+      <ul>
+        <li><b>Insert → Cover Page</b>: chèn trang bìa mẫu, luôn đặt ở đầu tài liệu. <b>Blank Page</b>: chèn một trang trắng.</li>
+        <li><b>Design → Watermark</b>: hình mờ chữ (MẬT, BẢN NHÁP, CONFIDENTIAL) hoặc hình ảnh nằm sau nội dung; <b>Custom Watermark</b> để tự nhập chữ, chọn phông, màu, kiểu chéo/ngang; <b>Remove Watermark</b> để xóa.</li>
+        <li><b>Design → Page Color</b>: màu nền trang (mặc định không in ra — bật tại File → Options → Display → <i>Print background colors and images</i>).</li>
+        <li><b>Design → Page Borders</b>: khung viền trang.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="w4-s8">
+      <h2><span class="num">8</span>In ấn, xuất PDF và bảo vệ tài liệu</h2>
+      <h3>a) In (File → Print, <kbd>Ctrl</kbd>+<kbd>P</kbd>)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tùy chọn</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Copies</b></td><td>Số bản in</td></tr>
+          <tr><td><b>Printer</b></td><td>Chọn máy in, Printer Properties</td></tr>
+          <tr><td><b>Print All Pages / Print Current Page / Print Selection / Custom Print</b></td><td>Phạm vi in; Custom: nhập <code>1-3,5,8</code> (trang 1 đến 3, trang 5 và 8)</td></tr>
+          <tr><td><b>Print One Sided / Manually Print on Both Sides</b></td><td>In một mặt / in hai mặt thủ công (lật giấy khi được nhắc)</td></tr>
+          <tr><td><b>Collated / Uncollated</b></td><td>In theo bộ (1,2,3 – 1,2,3) / theo trang (1,1 – 2,2 – 3,3)</td></tr>
+          <tr><td><b>Orientation, Size, Margins</b></td><td>Chỉnh nhanh thiết lập trang</td></tr>
+          <tr><td><b>1 Page Per Sheet</b></td><td>In nhiều trang trên một tờ giấy (2, 4, 6… pages per sheet)</td></tr>
+        </tbody>
+      </table></div>
+      <h3>b) Xuất PDF</h3>
+      <p><b>File → Export → Create PDF/XPS Document</b>, hoặc <b>File → Save As</b> chọn kiểu <b>PDF (*.pdf)</b>. Tùy chọn <i>Optimize for: Standard / Minimum size</i>; <b>Options</b> cho phép xuất một phần trang và tạo bookmark từ Heading.</p>
+      <h3>c) Bảo vệ và kiểm tra tài liệu (File → Info)</h3>
+      <ul>
+        <li><b>Protect Document → Encrypt with Password</b>: đặt mật khẩu mở tệp (quên mật khẩu sẽ không mở được).</li>
+        <li><b>Restrict Editing</b>: chỉ cho phép <i>No changes (Read only)</i>, <i>Tracked changes</i>, <i>Comments</i> hoặc <i>Filling in forms</i>.</li>
+        <li><b>Mark as Final</b>: đánh dấu bản cuối, mở ở chế độ chỉ đọc (có thể chọn Edit Anyway).</li>
+        <li><b>Check for Issues → Inspect Document</b>: kiểm tra và xóa thông tin ẩn, thông tin cá nhân, chú thích; <b>Check Accessibility</b>, <b>Check Compatibility</b>.</li>
+      </ul>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="w4-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="w4-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="w4-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="w4-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="w4-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="w4-quizBar"></i></div>
+        <span class="pill">⏱ <b id="w4-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="w4-qnav"></div>
+      <div id="w4-quizBox"></div>
+
+      <div class="result" id="w4-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="w4-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="w4-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="w4-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="w4-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="w4-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="w4-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="w4-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="bangbieu">← Bài trước: Bài 3. Bảng biểu &amp; Đồ họa</button>
+  <button type="button" data-lesson="tronthu">Bài tiếp theo: Bài 5. Trộn thư &amp; Rà soát →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 5: TRỘN THƯ & RÀ SOÁT ================= -->
+<div class="lesson" id="lesson-tronthu">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📝 Tin học ứng dụng · Microsoft Word 2019</span>
+    <h1>Bài 5. Trộn thư (Mail Merge), cộng tác và rà soát tài liệu</h1>
+    <p>Tạo hàng loạt giấy mời, thư, phong bì, nhãn từ danh sách dữ liệu; dùng Comment, Track Changes, So sánh tài liệu và các công cụ hỗ trợ rà soát trong Word 2019.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#w5-s1"><span class="n">1</span>Trộn thư là gì?</a>
+    <a href="#w5-s2"><span class="n">2</span>Các bước trộn thư</a>
+    <a href="#w5-s3"><span class="n">3</span>Rules & định dạng trường</a>
+    <a href="#w5-s4"><span class="n">4</span>Phong bì & nhãn</a>
+    <a href="#w5-s5"><span class="n">5</span>Comments</a>
+    <a href="#w5-s6"><span class="n">6</span>Track Changes</a>
+    <a href="#w5-s7"><span class="n">7</span>So sánh & bảo vệ</a>
+    <a href="#w5-s8"><span class="n">8</span>Công cụ hỗ trợ</a>
+    <a href="#w5-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#w5-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="w5-s1">
+      <h2><span class="num">1</span>Trộn thư (Mail Merge) là gì?</h2>
+      <p><b>Trộn thư</b> là kỹ thuật kết hợp một <b>văn bản mẫu</b> với một <b>danh sách dữ liệu</b> để tạo ra <b>hàng loạt văn bản</b> có nội dung chung nhưng thông tin riêng cho từng người: giấy mời, thư cảm ơn, giấy khen, thông báo điểm, phiếu lương, phong bì, nhãn…</p>
+      <div class="flow">
+        <div class="st"><b>① Tài liệu chính</b>(Main document) — phần nội dung chung: "Kính mời Ông/Bà … đến dự …"</div>
+        <div class="ar">＋</div>
+        <div class="st"><b>② Nguồn dữ liệu</b>(Data source) — danh sách: Excel, Access, danh bạ Outlook, bảng Word, danh sách mới</div>
+        <div class="ar">＋</div>
+        <div class="st"><b>③ Trường trộn</b>(Merge fields) — «HoTen», «DonVi»… chèn vào vị trí thay đổi</div>
+        <div class="ar">➜</div>
+        <div class="st"><b>④ Văn bản kết quả</b>(Merged documents) — mỗi bản ghi tạo ra một văn bản</div>
+      </div>
+      <div class="note tip"><b>Chuẩn bị dữ liệu Excel tốt</b>Dòng đầu tiên là <b>tiêu đề cột</b> (tên trường, nên viết liền không dấu: HoTen, GioiTinh, DonVi), mỗi dòng sau là một bản ghi, không có dòng trống hay ô trộn.</div>
+    </section>
+
+    <section class="card" id="w5-s2">
+      <h2><span class="num">2</span>Các bước trộn thư trên tab Mailings</h2>
+      <ol class="steps">
+        <li><b>Start Mail Merge</b>: chọn loại tài liệu — <b>Letters</b> (thư), <b>E-mail Messages</b>, <b>Envelopes</b> (phong bì), <b>Labels</b> (nhãn), <b>Directory</b> (danh sách liên tục trên cùng trang), hoặc <b>Step-by-Step Mail Merge Wizard</b> (hướng dẫn 6 bước).</li>
+        <li><b>Select Recipients</b>: <b>Type a New List</b> (tạo danh sách mới), <b>Use an Existing List</b> (chọn tệp Excel/Access… và sheet chứa dữ liệu), hoặc <b>Choose from Outlook Contacts</b>.</li>
+        <li><b>Edit Recipient List</b>: đánh dấu chọn/bỏ chọn người nhận, <b>Sort</b> sắp xếp, <b>Filter</b> lọc (ví dụ chỉ lớp K20A), <b>Find duplicates</b>.</li>
+        <li><b>Insert Merge Field</b>: đặt con trỏ tại vị trí cần điền và chèn trường, hiển thị dạng <code>«HoTen»</code>. <b>Highlight Merge Fields</b> tô sáng các trường đã chèn.</li>
+        <li><b>Preview Results</b>: xem trước kết quả với dữ liệu thật; dùng các nút ◀ ▶ để duyệt từng bản ghi; <b>Check for Errors</b>.</li>
+        <li><b>Finish &amp; Merge</b>: <b>Edit Individual Documents</b> (tạo tài liệu mới chứa tất cả văn bản đã trộn — có thể chỉnh sửa, lưu), <b>Print Documents</b> (in trực tiếp), <b>Send Email Messages</b> (gửi email qua Outlook).</li>
+      </ol>
+      <div class="ribbon" aria-label="Mô phỏng tab Mailings">
+        <div class="wtabs"><span>File</span><span>Home</span><span>Insert</span><span>Design</span><span>Layout</span><span>References</span><span class="on">Mailings</span><span>Review</span><span>View</span></div>
+        <div class="wgroups">
+          <div class="wgrp"><span class="it">✉ Envelopes · 🏷 Labels</span><span class="gn">Create</span></div>
+          <div class="wgrp"><span class="it">Start Mail Merge ▾ · Select Recipients ▾ · Edit Recipient List</span><span class="gn">Start Mail Merge</span></div>
+          <div class="wgrp"><span class="it">Highlight · Address Block · Greeting Line · Insert Merge Field ▾ · Rules ▾</span><span class="gn">Write &amp; Insert Fields</span></div>
+          <div class="wgrp"><span class="it">Preview Results · ◀ 1 ▶</span><span class="gn">Preview Results</span></div>
+          <div class="wgrp"><span class="it">Finish &amp; Merge ▾</span><span class="gn">Finish</span></div>
+        </div>
+        <div class="wdoc"><div class="wpage">Kính gửi: <b style="color:var(--accent)">«DanhXung»</b> <b style="color:var(--accent)">«HoTen»</b><br>Đơn vị: <b style="color:var(--accent)">«DonVi»</b><br>Trân trọng kính mời đến dự Lễ tổng kết năm học…</div></div>
+      </div>
+      <div class="note warn"><b>Lưu ý</b>Tài liệu chính vẫn giữ liên kết với tệp dữ liệu. Nếu di chuyển/đổi tên tệp Excel, khi mở lại Word sẽ yêu cầu tìm lại nguồn dữ liệu.</div>
+    </section>
+
+    <section class="card" id="w5-s3">
+      <h2><span class="num">3</span>Quy tắc (Rules) và định dạng trường trộn</h2>
+      <h3>a) Mailings → Rules</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Rule</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>If…Then…Else</b></td><td>Chèn nội dung theo điều kiện — ví dụ: nếu <code>GioiTinh = Nam</code> thì "Ông", ngược lại "Bà"</td></tr>
+          <tr><td><b>Next Record</b></td><td>Chuyển sang bản ghi tiếp theo <b>trên cùng một trang</b> (in nhiều người trên một tờ)</td></tr>
+          <tr><td><b>Skip Record If</b></td><td>Bỏ qua bản ghi thỏa điều kiện (không tạo văn bản cho bản ghi đó)</td></tr>
+          <tr><td><b>Fill-in / Ask</b></td><td>Hỏi người dùng nhập giá trị khi trộn</td></tr>
+          <tr><td><b>Merge Record #</b></td><td>Chèn số thứ tự bản ghi đang trộn</td></tr>
+        </tbody>
+      </table></div>
+      <h3>b) Định dạng số và ngày của trường trộn</h3>
+      <p>Dữ liệu số, ngày lấy từ Excel đôi khi hiển thị sai (ví dụ 1500000 thay vì 1.500.000, ngày dạng tháng/ngày). Nhấn <kbd>Alt</kbd>+<kbd>F9</kbd> để hiện <b>mã trường</b> và thêm <b>switch</b> định dạng, sau đó nhấn <kbd>Alt</kbd>+<kbd>F9</kbd> lần nữa và <kbd>F9</kbd> để cập nhật:</p>
+      <pre class="code">{ MERGEFIELD HocPhi <span class="s">\# "#,##0"</span> }            <span class="c">→ 1,500,000</span>
+{ MERGEFIELD NgaySinh <span class="s">\@ "dd/MM/yyyy"</span> }       <span class="c">→ 05/09/2006</span>
+{ IF { MERGEFIELD GioiTinh } = <span class="s">"Nam" "Ông" "Bà"</span> }   <span class="c">→ Ông / Bà</span></pre>
+      <div class="note"><b>Match Fields</b>Dùng khi tên cột trong dữ liệu khác với tên trường Word yêu cầu (ví dụ cho Address Block, Greeting Line) — ghép cột dữ liệu tương ứng với từng trường.</div>
+    </section>
+
+    <section class="card" id="w5-s4">
+      <h2><span class="num">4</span>Phong bì và nhãn</h2>
+      <ul>
+        <li><b>Mailings → Envelopes</b>: nhập <b>Delivery address</b> (người nhận) và <b>Return address</b> (người gửi); <b>Options</b> chọn cỡ phong bì (ví dụ DL, C5) và cách đưa phong bì vào máy in; <b>Add to Document</b> hoặc <b>Print</b>.</li>
+        <li><b>Mailings → Labels</b>: in một nhãn hoặc cả trang cùng một nội dung; <b>Options</b> chọn nhà sản xuất nhãn (Avery…) và mã nhãn.</li>
+        <li>Nhãn/phong bì cho <b>nhiều người</b>: Start Mail Merge → <b>Labels</b> / <b>Envelopes</b> → chọn người nhận → chèn trường vào nhãn đầu tiên → <b>Update Labels</b> để sao chép bố cục sang các nhãn còn lại (Word tự thêm «Next Record») → Preview → Finish &amp; Merge.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="w5-s5">
+      <h2><span class="num">5</span>Chú thích góp ý (Comments)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác</th><th>Cách thực hiện</th></tr></thead>
+        <tbody>
+          <tr><td>Thêm chú thích</td><td>Chọn đoạn chữ → <b>Review → New Comment</b> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>M</kbd>)</td></tr>
+          <tr><td>Trả lời chú thích</td><td>Nhấn <b>Reply</b> trong khung chú thích</td></tr>
+          <tr><td>Đánh dấu đã xử lý</td><td><b>Resolve</b> — chú thích mờ đi nhưng vẫn lưu lại</td></tr>
+          <tr><td>Duyệt chú thích</td><td><b>Previous / Next</b></td></tr>
+          <tr><td>Xóa</td><td><b>Delete</b> → Delete / Delete All Comments in Document</td></tr>
+          <tr><td>Ẩn/hiện</td><td><b>Show Comments</b>; Show Markup → Comments</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Tên người góp ý</b>Chú thích và thay đổi được gắn tên người dùng lấy từ <b>File → Options → General → User name / Initials</b>. Hãy điền đúng họ tên trước khi rà soát.</div>
+    </section>
+
+    <section class="card" id="w5-s6">
+      <h2><span class="num">6</span>Theo dõi thay đổi (Track Changes)</h2>
+      <p>Bật/tắt: <b>Review → Track Changes</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd>). Khi bật, mọi chỉnh sửa được ghi lại: chữ thêm vào hiển thị <u style="color:#c0392b">gạch chân có màu</u>, chữ bị xóa hiển thị <s style="color:#c0392b">gạch ngang</s>, đường kẻ dọc ở lề đánh dấu dòng có thay đổi.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Chế độ hiển thị (Display for Review)</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td><b>Simple Markup</b></td><td>Hiển thị bản sau sửa, chỉ đánh dấu vạch đỏ ở lề nơi có thay đổi</td></tr>
+          <tr><td><b>All Markup</b></td><td>Hiển thị đầy đủ mọi thay đổi và chú thích</td></tr>
+          <tr><td><b>No Markup</b></td><td>Xem trước văn bản như khi đã chấp nhận hết thay đổi</td></tr>
+          <tr><td><b>Original</b></td><td>Xem văn bản gốc trước khi sửa</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>Accept</b> / <b>Reject</b>: chấp nhận / từ chối từng thay đổi hoặc <i>Accept All Changes</i> / <i>Reject All Changes</i>.</li>
+        <li><b>Reviewing Pane</b>: liệt kê tất cả thay đổi theo chiều dọc/ngang.</li>
+        <li><b>Lock Tracking</b>: khóa Track Changes bằng mật khẩu để người khác không tắt được.</li>
+      </ul>
+      <div class="note warn"><b>Chú ý trước khi gửi bản chính thức</b>Tắt Track Changes không xóa các đánh dấu đã có. Phải <b>Accept/Reject</b> hết thay đổi và xóa chú thích, sau đó dùng <b>Inspect Document</b> để kiểm tra.</div>
+    </section>
+
+    <section class="card" id="w5-s7">
+      <h2><span class="num">7</span>So sánh, kết hợp và bảo vệ tài liệu</h2>
+      <ul>
+        <li><b>Review → Compare → Compare</b>: so sánh <b>Original document</b> và <b>Revised document</b>, Word tạo tài liệu thứ ba hiển thị khác biệt dưới dạng Track Changes — hữu ích khi người khác sửa mà không bật theo dõi.</li>
+        <li><b>Review → Compare → Combine</b>: gộp các bản góp ý của nhiều người vào một tài liệu.</li>
+        <li><b>Review → Restrict Editing</b>: giới hạn định dạng (chỉ dùng style cho phép) và giới hạn chỉnh sửa: <i>Tracked changes</i>, <i>Comments</i>, <i>Filling in forms</i>, <i>No changes (Read only)</i> → <b>Yes, Start Enforcing Protection</b> và đặt mật khẩu.</li>
+        <li><b>Review → Block Authors</b> / đồng tác giả: khi lưu trên OneDrive/SharePoint, nhiều người có thể cùng soạn (co-authoring) qua nút <b>Share</b>.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="w5-s8">
+      <h2><span class="num">8</span>Công cụ hỗ trợ rà soát</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Công cụ</th><th>Vị trí</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Spelling &amp; Grammar</b></td><td>Review · <kbd>F7</kbd></td><td>Kiểm tra chính tả, ngữ pháp</td></tr>
+          <tr><td><b>Thesaurus</b></td><td>Review · <kbd>Shift</kbd>+<kbd>F7</kbd></td><td>Tìm từ đồng nghĩa (tiếng Anh)</td></tr>
+          <tr><td><b>Word Count</b></td><td>Review</td><td>Đếm số trang, từ, ký tự, đoạn, dòng</td></tr>
+          <tr><td><b>Read Aloud</b></td><td>Review</td><td>Đọc to nội dung văn bản (mới trong Word 2019)</td></tr>
+          <tr><td><b>Translate</b></td><td>Review</td><td>Dịch đoạn chọn hoặc cả tài liệu sang ngôn ngữ khác</td></tr>
+          <tr><td><b>Language</b></td><td>Review</td><td>Đặt ngôn ngữ kiểm tra chính tả, ngôn ngữ giao diện</td></tr>
+          <tr><td><b>Check Accessibility</b></td><td>Review</td><td>Kiểm tra khả năng tiếp cận (Alt Text, tiêu đề bảng, độ tương phản)</td></tr>
+          <tr><td><b>Learning Tools</b></td><td>View</td><td>Điều chỉnh độ rộng cột chữ, màu trang, giãn chữ, chia âm tiết giúp đọc dễ hơn</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Quy trình rà soát gợi ý</b>Bật Track Changes → gửi cho người góp ý → nhận lại, xem ở All Markup → trả lời/Resolve chú thích → Accept/Reject thay đổi → Spelling &amp; Grammar → Inspect Document → xuất PDF bản chính thức.</div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="w5-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="w5-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="w5-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="w5-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="w5-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="w5-quizBar"></i></div>
+        <span class="pill">⏱ <b id="w5-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="w5-qnav"></div>
+      <div id="w5-quizBox"></div>
+
+      <div class="result" id="w5-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="w5-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="w5-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="w5-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="w5-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="w5-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="w5-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="w5-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="bocuc">← Bài trước: Bài 4. Bố cục trang &amp; In ấn</button>
+</div>
+</div>
+
+
+<footer>Bài giảng điện tử · Microsoft Word 2019 · Bài 1. Soạn thảo cơ bản · Bài 2. Định dạng văn bản · Bài 3. Bảng biểu &amp; Đồ họa · Bài 4. Bố cục trang &amp; In ấn · Bài 5. Trộn thư &amp; Rà soát<br><span class="credit">✨ Bài học được thiết kế nhờ <b>Claude</b> trợ giúp - 2026</span></footer>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">Xác nhận</h3>
+    <p id="modalText"></p>
+    <div class="actions">
+      <button class="btn btn-ghost" id="modalNo">Hủy</button>
+      <button class="btn btn-primary" id="modalYes">Đồng ý</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<button class="to-top" id="toTop" aria-label="Lên đầu trang">↑</button>
+
+<script>
+(function(){
+  "use strict";
+
+  // ===== Ngân hàng câu hỏi (a = chỉ số đáp án đúng trong mảng o) =====
+  // ----- Bài 1: Soạn thảo cơ bản -----
+  const W1_QUESTIONS = [
+    {q:"Trong Word 2019, các lệnh được tổ chức thành các tab và nhóm lệnh trên thành phần nào?", o:["Status bar","Ribbon","Ruler","Navigation Pane"], a:1, e:"Ribbon chứa các tab (Home, Insert…), mỗi tab gồm nhiều nhóm lệnh."},
+    {q:"Thanh công cụ chứa các nút Save, Undo, Redo ở góc trên bên trái cửa sổ Word là:", o:["Quick Access Toolbar","Status bar","Mini Toolbar","Ribbon"], a:0, e:"Quick Access Toolbar có thể tùy biến thêm lệnh hay dùng."},
+    {q:"Phím tắt ẩn/hiện Ribbon trong Word 2019 là:", o:["Ctrl + R","Alt + F1","Ctrl + F1","Shift + F1"], a:2, e:"Ctrl + F1 thu gọn hoặc mở rộng Ribbon."},
+    {q:"Ô \"Tell me what you want to do\" trên Ribbon dùng để:", o:["Gửi phản hồi cho Microsoft","Tìm kiếm văn bản trong tài liệu","Mở trợ giúp trực tuyến","Gõ tên chức năng cần dùng để Word gợi ý lệnh"], a:3, e:"Tell me giúp tìm nhanh lệnh theo tên chức năng."},
+    {q:"Thanh trạng thái (Status bar) KHÔNG hiển thị thông tin nào sau đây?", o:["Số trang hiện tại","Số từ của tài liệu","Tên máy in mặc định","Thanh thu phóng (Zoom)"], a:2, e:"Status bar hiển thị trang, số từ, ngôn ngữ, chế độ xem, Zoom."},
+    {q:"Tab nào chứa các lệnh tạo mục lục, chú thích cuối trang, trích dẫn?", o:["References","Insert","Review","Layout"], a:0, e:"References: Table of Contents, Footnotes, Citations, Captions, Index."},
+    {q:"Tab nào chứa các lệnh trộn thư, tạo phong bì và nhãn?", o:["Review","Insert","Mailings","References"], a:2, e:"Mailings chứa Start Mail Merge, Envelopes, Labels."},
+    {q:"Phím tắt tạo tài liệu mới trống là:", o:["Ctrl + O","Ctrl + N","Ctrl + W","Ctrl + M"], a:1, e:"Ctrl + N = New; Ctrl + O = Open."},
+    {q:"Phím tắt mở hộp thoại Save As là:", o:["F12","F2","Ctrl + S","F7"], a:0, e:"F12 = Save As; Ctrl + S = Save."},
+    {q:"Phím tắt đóng tài liệu đang mở (không thoát Word) là:", o:["Alt + F4","Ctrl + Q","Esc","Ctrl + W"], a:3, e:"Ctrl + W (hoặc Ctrl + F4) đóng tài liệu hiện hành."},
+    {q:"Định dạng tệp mặc định khi lưu tài liệu trong Word 2019 là:", o:[".doc",".docx",".dotx",".rtf"], a:1, e:".docx là định dạng mặc định từ Word 2007."},
+    {q:"Khi mở tệp .doc (Word 97–2003) trong Word 2019, thanh tiêu đề hiển thị:", o:["[Read-Only]","[Protected View]","[Compatibility Mode]","[Draft]"], a:2, e:"Compatibility Mode; có thể dùng File → Info → Convert để chuyển đổi."},
+    {q:"Tệp có phần mở rộng .dotx là:", o:["Tài liệu có chứa macro","Tệp mẫu (Template)","Tệp PDF","Tệp sao lưu tự động"], a:1, e:".dotx là Word Template; .docm là tài liệu chứa macro."},
+    {q:"Chức năng tự động lưu bản khôi phục định kỳ khi Word bị đóng đột ngột là:", o:["AutoCorrect","AutoFormat","AutoText","AutoRecover"], a:3, e:"Thiết lập AutoRecover tại File → Options → Save."},
+    {q:"Để gõ tiếng Việt với phông Times New Roman, trong Unikey cần chọn bảng mã:", o:["Unicode","TCVN3 (ABC)","VNI Windows","VIQR"], a:0, e:"Times New Roman là phông Unicode, cần bảng mã Unicode."},
+    {q:"Với kiểu gõ Telex, để được chữ \"đ\" ta gõ:", o:["d9","dd","dz","d-"], a:1, e:"Telex: dd → đ; VNI: d9 → đ."},
+    {q:"Văn bản hiển thị lỗi dạng \"ViÖt Nam\" thường do nguyên nhân nào?", o:["Máy tính bị virus","Chưa cài Word","Bảng mã và phông chữ không tương thích","Tài liệu bị hỏng"], a:2, e:"Cần dùng đúng cặp bảng mã – phông hoặc chuyển mã bằng Unikey."},
+    {q:"Phím Enter trong Word có tác dụng:", o:["Xuống dòng nhưng vẫn cùng đoạn","Kết thúc đoạn văn hiện tại và tạo đoạn mới","Ngắt trang","Chuyển sang ô kế tiếp"], a:1, e:"Enter tạo đoạn mới (dấu ¶)."},
+    {q:"Tổ hợp phím xuống dòng nhưng vẫn giữ trong cùng một đoạn văn là:", o:["Ctrl + Enter","Alt + Enter","Shift + Enter","Tab"], a:2, e:"Shift + Enter tạo Line Break (↵)."},
+    {q:"Tổ hợp phím Ctrl + Enter có tác dụng:", o:["Ngắt trang","Ngắt cột","Ngắt section","Lưu tài liệu"], a:0, e:"Ctrl + Enter chèn Page Break."},
+    {q:"Để di chuyển con trỏ về đầu tài liệu, ta nhấn:", o:["Home","Page Up","Ctrl + Page Up","Ctrl + Home"], a:3, e:"Ctrl + Home về đầu, Ctrl + End về cuối tài liệu."},
+    {q:"Nút Show/Hide ¶ có tác dụng:", o:["Ẩn/hiện Ribbon","Ẩn/hiện các ký tự điều khiển như dấu đoạn, dấu cách, tab","Ẩn/hiện thước kẻ","Ẩn/hiện đoạn văn được chọn"], a:1, e:"Phím tắt Ctrl + Shift + 8."},
+    {q:"Để chọn một từ, ta thực hiện:", o:["Nhấp chuột một lần","Nhấp đúp chuột vào từ","Nhấp chuột ba lần","Giữ Alt và nhấp chuột"], a:1, e:"Nhấp đúp chọn từ; nhấp ba lần chọn đoạn."},
+    {q:"Để chọn một câu, ta thực hiện:", o:["Giữ Shift + nhấp chuột vào câu","Nhấp đúp chuột","Giữ Ctrl + nhấp chuột vào câu","Giữ Alt + nhấp chuột vào câu"], a:2, e:"Ctrl + nhấp chuột chọn cả câu."},
+    {q:"Nhấp chuột ba lần liên tiếp vào một đoạn văn sẽ:", o:["Chọn cả đoạn văn","Chọn một dòng","Chọn cả tài liệu","Chọn một câu"], a:0, e:"Triple-click chọn toàn bộ đoạn."},
+    {q:"Để chọn một khối văn bản hình chữ nhật (theo cột dọc), ta giữ phím nào khi kéo chuột?", o:["Ctrl","Shift","Tab","Alt"], a:3, e:"Alt + kéo chuột chọn khối dọc."},
+    {q:"Để chọn nhiều vùng văn bản rời nhau, sau khi chọn vùng đầu ta giữ phím:", o:["Shift","Ctrl","Alt","Windows"], a:1, e:"Ctrl để thêm các vùng chọn không liên tục."},
+    {q:"Tổ hợp phím Ctrl + X dùng để:", o:["Sao chép","Dán","Cắt (dùng để di chuyển)","Xóa định dạng"], a:2, e:"Ctrl + X = Cut; kết hợp Ctrl + V để di chuyển."},
+    {q:"Tổ hợp phím hoàn tác thao tác vừa thực hiện là:", o:["Ctrl + Y","Ctrl + Z","Ctrl + U","Ctrl + R"], a:1, e:"Ctrl + Z = Undo; Ctrl + Y = Redo."},
+    {q:"Phím F4 trong Word (khi không ở chế độ đặc biệt) có tác dụng:", o:["Đóng tài liệu","Lặp lại thao tác vừa thực hiện","Mở Find","Chuyển chế độ xem"], a:1, e:"F4 (hoặc Ctrl + Y) lặp lại hành động cuối."},
+    {q:"Tùy chọn dán Keep Text Only có tác dụng:", o:["Giữ nguyên định dạng gốc","Hòa định dạng theo văn bản đích","Chỉ dán chữ, bỏ toàn bộ định dạng","Dán dạng hình ảnh"], a:2, e:"Keep Text Only hữu ích khi chép từ web."},
+    {q:"Để áp dụng Format Painter nhiều lần liên tiếp, ta:", o:["Nhấp đúp vào nút Format Painter","Nhấp một lần vào nút Format Painter","Giữ Ctrl rồi nhấp Format Painter","Nhấn F4"], a:0, e:"Nhấp đúp để khóa; nhấn Esc để tắt."},
+    {q:"Office Clipboard lưu được tối đa bao nhiêu mục sao chép?", o:["10","12","24","Không giới hạn"], a:2, e:"Office Clipboard lưu tối đa 24 mục."},
+    {q:"Phím tắt mở hộp thoại tìm và thay thế (tab Replace) là:", o:["Ctrl + F","Ctrl + R","Ctrl + G","Ctrl + H"], a:3, e:"Ctrl + H = Replace; Ctrl + F = Navigation Pane tìm kiếm."},
+    {q:"Trong hộp thoại Find and Replace, tùy chọn Match case có nghĩa:", o:["Chỉ tìm nguyên từ","Phân biệt chữ hoa, chữ thường","Tìm theo định dạng","Dùng ký tự đại diện"], a:1, e:"Match case phân biệt hoa/thường."},
+    {q:"Trong ô Find what, ký hiệu ^p đại diện cho:", o:["Dấu tab","Ngắt trang","Dấu đoạn (paragraph mark)","Số trang"], a:2, e:"^p dấu đoạn, ^t tab, ^l ngắt dòng, ^m ngắt trang."},
+    {q:"Chế độ xem mặc định, hiển thị tài liệu như khi in ra giấy là:", o:["Print Layout","Web Layout","Draft","Read Mode"], a:0, e:"Print Layout hiển thị lề, header/footer, hình ảnh."},
+    {q:"Chế độ xem Outline dùng để:", o:["Xem tài liệu dạng trang web","Đọc toàn màn hình","Xem và sắp xếp tài liệu dạng dàn ý theo cấp tiêu đề","Xem trước khi in"], a:2, e:"Outline hiển thị cấu trúc đề mục."},
+    {q:"Phím tắt kiểm tra chính tả và ngữ pháp toàn bộ tài liệu là:", o:["F5","F7","F9","F12"], a:1, e:"F7 = Spelling & Grammar."},
+    {q:"Chức năng cho phép gõ tắt \"cty\" để Word tự thay bằng \"Công ty\" là:", o:["Format Painter","Find and Replace","Spelling","AutoCorrect"], a:3, e:"File → Options → Proofing → AutoCorrect Options."}
+  ];
+
+  // ----- Bài 2: Định dạng văn bản -----
+  const W2_QUESTIONS = [
+    {q:"Phím tắt mở hộp thoại Font là:", o:["Ctrl + F","Ctrl + D","Ctrl + T","Ctrl + Shift + F"], a:1, e:"Ctrl + D mở hộp thoại Font."},
+    {q:"Tổ hợp phím định dạng chữ in đậm là:", o:["Ctrl + B","Ctrl + D","Ctrl + E","Ctrl + I"], a:0, e:"B = Bold, I = Italic, U = Underline."},
+    {q:"Để viết chỉ số dưới như H₂O, ta dùng tổ hợp phím:", o:["Ctrl + Shift + =","Ctrl + Shift + -","Ctrl + =","Alt + ="], a:2, e:"Ctrl + = là Subscript; Ctrl + Shift + = là Superscript."},
+    {q:"Để viết số mũ như x², m³, ta dùng tổ hợp phím:", o:["Ctrl + =","Ctrl + Shift + =","Alt + Shift + =","Ctrl + ^"], a:1, e:"Superscript: Ctrl + Shift + =."},
+    {q:"Tổ hợp phím tăng cỡ chữ thêm 1 pt là:", o:["Ctrl + ]","Ctrl + [","Ctrl + +","Alt + ]"], a:0, e:"Ctrl + ] tăng, Ctrl + [ giảm 1 pt."},
+    {q:"Phím tắt chuyển đổi chữ hoa/thường (Change Case) cho đoạn chữ đã chọn là:", o:["Ctrl + F3","Alt + F3","Ctrl + Shift + A","Shift + F3"], a:3, e:"Shift + F3 xoay vòng: thường → HOA → Hoa Đầu Từ."},
+    {q:"Tổ hợp phím xóa định dạng ký tự (trả về định dạng của style) là:", o:["Ctrl + Space","Ctrl + Q","Ctrl + Delete","Ctrl + 0"], a:0, e:"Ctrl + Space xóa định dạng ký tự; Ctrl + Q xóa định dạng đoạn."},
+    {q:"Trong hộp thoại Font, tab Advanced dùng để:", o:["Chọn phông chữ","Tô màu chữ","Điều chỉnh khoảng cách, tỷ lệ và vị trí giữa các ký tự","Đặt kiểu gạch chân"], a:2, e:"Character Spacing: Scale, Spacing, Position."},
+    {q:"Nút Set As Default trong hộp thoại Font dùng để:", o:["Xóa định dạng","Đặt phông, cỡ chữ hiện tại làm mặc định","Áp dụng cho đoạn đang chọn","Lưu tài liệu"], a:1, e:"Có thể áp dụng cho tài liệu này hoặc mọi tài liệu mới (mẫu Normal)."},
+    {q:"Tổ hợp phím căn giữa đoạn văn là:", o:["Ctrl + C","Ctrl + M","Ctrl + J","Ctrl + E"], a:3, e:"Ctrl + E = Center; Ctrl + C là Copy."},
+    {q:"Tổ hợp phím căn đều hai bên (Justify) là:", o:["Ctrl + J","Ctrl + E","Ctrl + B","Ctrl + L"], a:0, e:"Ctrl + J = Justify."},
+    {q:"Kiểu thụt lề First line có tác dụng:", o:["Thụt toàn bộ đoạn vào","Thụt dòng đầu tiên của đoạn vào trong","Dòng đầu nhô ra, các dòng sau thụt vào","Thụt lề phải"], a:1, e:"First line thụt dòng đầu (thường 1 – 1,27 cm)."},
+    {q:"Kiểu thụt lề Hanging (thụt treo) có đặc điểm:", o:["Thụt dòng đầu vào trong","Căn giữa đoạn","Dòng đầu nhô ra, các dòng còn lại thụt vào","Thụt cả hai bên"], a:2, e:"Hanging thường dùng cho danh mục tài liệu tham khảo."},
+    {q:"Thuộc tính Spacing Before/After trong hộp thoại Paragraph là:", o:["Khoảng cách giữa các dòng trong đoạn","Khoảng cách trước và sau đoạn văn","Khoảng cách giữa các ký tự","Khoảng cách lề trái và phải"], a:1, e:"Before/After tính bằng pt."},
+    {q:"Tổ hợp phím đặt giãn dòng 1,5 lines là:", o:["Ctrl + 1","Ctrl + 2","Ctrl + 15","Ctrl + 5"], a:3, e:"Ctrl + 1 đơn, Ctrl + 5 là 1,5, Ctrl + 2 đôi."},
+    {q:"Tổ hợp phím Ctrl + M có tác dụng:", o:["Tăng thụt lề trái của đoạn","Mở hộp thoại Paragraph","Tạo comment","Trộn ô"], a:0, e:"Ctrl + M tăng, Ctrl + Shift + M giảm thụt lề."},
+    {q:"Tùy chọn Keep with next trong tab Line and Page Breaks dùng để:", o:["Nối đoạn với đoạn trước","Giữ đoạn luôn nằm cùng trang với đoạn kế tiếp","Không cho ngắt dòng","Tự động đánh số"], a:1, e:"Hay dùng cho tiêu đề để không bị tách khỏi nội dung."},
+    {q:"Tùy chọn Widow/Orphan control có tác dụng:", o:["Ẩn các dòng trống","Chống lỗi chính tả","Tránh để một dòng lẻ của đoạn nằm riêng ở đầu hoặc cuối trang","Tự động gạch đầu dòng"], a:2, e:"Kiểm soát dòng mồ côi."},
+    {q:"Loại tab căn thẳng các số theo dấu thập phân là:", o:["Left Tab","Center Tab","Right Tab","Decimal Tab"], a:3, e:"Decimal Tab căn theo dấu thập phân."},
+    {q:"Trong mục lục thủ công, số trang được đặt sát lề phải với dấu chấm dẫn. Ta dùng:", o:["Right Tab kèm Leader","Center Tab","Left Tab kèm Leader","Bar Tab"], a:0, e:"Right Tab + Leader (.....)."},
+    {q:"Loại tab vẽ một đường kẻ dọc tại vị trí đặt tab là:", o:["Decimal Tab","Bar Tab","Line Tab","Border Tab"], a:1, e:"Bar Tab tạo đường kẻ dọc."},
+    {q:"Để xóa một điểm dừng tab trên thước kẻ, ta:", o:["Nhấp đúp vào tab","Nhấn Delete","Kéo tab ra khỏi thước","Nhấp chuột phải chọn Delete"], a:2, e:"Kéo tab ra khỏi thước để xóa."},
+    {q:"Trong danh sách nhiều cấp, để hạ một mục xuống cấp thấp hơn ta nhấn:", o:["Tab","Shift + Tab","Enter","Ctrl + Tab"], a:0, e:"Tab hạ cấp, Shift + Tab nâng cấp."},
+    {q:"Muốn danh sách số đánh lại từ 1, ta nhấp chuột phải vào số và chọn:", o:["Continue Numbering","Set Numbering Value","Adjust List Indents","Restart at 1"], a:3, e:"Restart at 1."},
+    {q:"Để tạo kiểu đánh số dạng \"Điều 1.\", \"Điều 2.\", ta dùng:", o:["Define New Bullet","Define New Number Format","Multilevel List","Change Case"], a:1, e:"Define New Number Format cho phép thêm chữ trước số."},
+    {q:"Để tạo khung viền cho cả trang giấy, ta dùng:", o:["Home → Borders → Outside Borders","Insert → Shapes","Design → Page Borders","Layout → Margins"], a:2, e:"Page Borders (tab Page Border trong Borders and Shading)."},
+    {q:"Tab Shading trong hộp thoại Borders and Shading dùng để:", o:["Tô nền cho đoạn văn hoặc chữ","Kẻ khung đoạn văn","Kẻ khung trang","Đổi màu chữ"], a:0, e:"Shading: Fill, Pattern."},
+    {q:"Gõ ba dấu gạch ngang \"---\" rồi nhấn Enter, Word sẽ:", o:["Chèn ký hiệu gạch dài","Tạo danh sách","Tạo một đường kẻ ngang","Không có tác dụng"], a:2, e:"AutoFormat As You Type tạo đường kẻ ngang."},
+    {q:"Lệnh Drop Cap nằm ở tab nào?", o:["Home","Design","Layout","Insert"], a:3, e:"Insert → Text → Drop Cap."},
+    {q:"Trong Drop Cap Options, mục Lines to drop có ý nghĩa:", o:["Số dòng mà chữ cái lớn chiếm chỗ","Số chữ cái được phóng to","Khoảng cách tới chữ","Kiểu phông"], a:0, e:"Mặc định là 3 dòng."},
+    {q:"Tổ hợp phím chèn dấu cách không ngắt (Nonbreaking Space) là:", o:["Ctrl + Space","Ctrl + Shift + Space","Alt + Space","Shift + Space"], a:1, e:"Giữ hai từ luôn cùng một dòng."},
+    {q:"Các ký hiệu như ☎ ✉ ✓ thường được chèn từ phông nào trong hộp thoại Symbol?", o:["Times New Roman","Arial","Wingdings","Calibri"], a:2, e:"Wingdings, Webdings, Symbol chứa nhiều biểu tượng."},
+    {q:"Style (kiểu định dạng) là:", o:["Một phông chữ đặc biệt","Một mẫu tài liệu","Một hình ảnh trang trí","Tập hợp các định dạng được đặt tên để áp dụng nhanh và thống nhất"], a:3, e:"Style giúp định dạng thống nhất, sửa một lần cập nhật tất cả."},
+    {q:"Để tạo mục lục tự động, các tiêu đề chương mục cần được áp dụng style:", o:["Heading 1, Heading 2, Heading 3…","Normal","Title","Quote"], a:0, e:"Heading styles (hoặc Outline Level) là cơ sở của mục lục."},
+    {q:"Phím tắt áp dụng style Heading 1 là:", o:["Ctrl + 1","Ctrl + Alt + 1","Ctrl + Shift + 1","Alt + 1"], a:1, e:"Ctrl + Alt + 1/2/3 cho Heading 1/2/3."},
+    {q:"Để sửa định dạng của một style (ví dụ Heading 1), ta nhấp chuột phải vào style đó và chọn:", o:["Rename","Remove from Style Gallery","Modify…","Select All"], a:2, e:"Modify mở hộp thoại chỉnh style."},
+    {q:"Lệnh \"Update Heading 1 to Match Selection\" có tác dụng:", o:["Áp dụng Heading 1 cho đoạn chọn","Xóa style Heading 1","Tạo style mới","Cập nhật style Heading 1 theo định dạng của đoạn đang chọn"], a:3, e:"Mọi đoạn Heading 1 sẽ đổi theo."},
+    {q:"Design → Themes dùng để:", o:["Đổi đồng loạt bộ màu, phông và hiệu ứng của tài liệu","Đổi hình nền máy tính","Đổi giao diện Word","Chèn trang bìa"], a:0, e:"Theme gồm Colors, Fonts, Effects."},
+    {q:"Phím tắt mở khung Reveal Formatting để xem chi tiết định dạng của đoạn chữ là:", o:["Ctrl + F1","Shift + F1","Alt + F1","F1"], a:1, e:"Shift + F1 = Reveal Formatting."},
+    {q:"Theo Nghị định 30/2020/NĐ-CP, cỡ chữ phần nội dung văn bản hành chính là:", o:["10 – 11","11 – 12","15 – 16","13 – 14"], a:3, e:"Phông Times New Roman, cỡ chữ 13 – 14."}
+  ];
+
+  // ----- Bài 3: Bảng biểu & Đồ họa -----
+  const W3_QUESTIONS = [
+    {q:"Lệnh chèn bảng trong Word 2019 nằm ở:", o:["Home → Table","Insert → Table","Layout → Table","Design → Table"], a:1, e:"Insert → Table."},
+    {q:"Khi chèn bảng bằng lưới ô vuông trong menu Table, kích thước tối đa là:", o:["10 cột × 8 dòng","8 cột × 10 dòng","20 cột × 20 dòng","63 cột × 32 dòng"], a:0, e:"Lưới cho phép tối đa 10 × 8; cần lớn hơn dùng Insert Table…"},
+    {q:"Để chuyển văn bản được phân cách bằng Tab thành bảng, ta dùng lệnh:", o:["Draw Table","Quick Tables","Convert Text to Table","Excel Spreadsheet"], a:2, e:"Insert → Table → Convert Text to Table."},
+    {q:"Khi con trỏ nằm trong bảng, Ribbon xuất hiện nhóm Table Tools gồm hai tab:", o:["Format và Layout","Design và Format","Table và Cell","Design và Layout"], a:3, e:"Design (kiểu, viền, nền) và Layout (cấu trúc)."},
+    {q:"Nhấn phím Tab khi con trỏ đang ở ô cuối cùng của bảng sẽ:", o:["Thêm một dòng mới vào cuối bảng","Chèn ký tự Tab","Thoát khỏi bảng","Không có tác dụng"], a:0, e:"Tab ở ô cuối tự thêm dòng mới."},
+    {q:"Để chèn ký tự Tab bên trong một ô của bảng, ta nhấn:", o:["Tab","Shift + Tab","Alt + Tab","Ctrl + Tab"], a:3, e:"Ctrl + Tab chèn ký tự tab trong ô."},
+    {q:"Để gộp nhiều ô thành một ô, ta chọn các ô và dùng lệnh:", o:["Split Cells","Merge Cells","Split Table","Distribute Rows"], a:1, e:"Layout → Merge Cells."},
+    {q:"Lệnh Split Cells dùng để:", o:["Tách bảng thành hai bảng","Xóa ô","Chia một ô thành nhiều ô","Chia đều độ rộng cột"], a:2, e:"Nhập số cột, số dòng cần tách."},
+    {q:"Tổ hợp phím tách bảng tại vị trí dòng đang chứa con trỏ là:", o:["Ctrl + Shift + Enter","Ctrl + Enter","Shift + Enter","Alt + Enter"], a:0, e:"Tương đương Layout → Split Table."},
+    {q:"Chọn cả một dòng trong bảng rồi nhấn phím Delete sẽ:", o:["Xóa dòng đó khỏi bảng","Xóa nội dung trong dòng, dòng vẫn còn","Xóa cả bảng","Gộp dòng"], a:1, e:"Delete chỉ xóa nội dung; dùng Layout → Delete → Rows để xóa dòng."},
+    {q:"Lệnh Insert Below trong tab Layout (Table Tools) có tác dụng:", o:["Chèn cột bên dưới","Chèn bảng mới","Chèn một dòng bên dưới dòng hiện tại","Chèn hình bên dưới"], a:2, e:"Insert Above/Below chèn dòng; Left/Right chèn cột."},
+    {q:"Lệnh Distribute Columns có tác dụng:", o:["Xóa cột trống","Sắp xếp cột","Gộp cột","Chia đều độ rộng các cột đã chọn"], a:3, e:"Distribute Rows chia đều chiều cao dòng."},
+    {q:"Tùy chọn AutoFit Window có tác dụng:", o:["Điều chỉnh bảng vừa với độ rộng giữa hai lề trang","Điều chỉnh cột vừa nội dung","Cố định độ rộng cột","Phóng to cửa sổ"], a:0, e:"AutoFit Contents vừa nội dung; Window vừa lề trang."},
+    {q:"Khi bảng dài nhiều trang, để dòng tiêu đề tự lặp lại ở đầu mỗi trang ta dùng:", o:["Header Row trong Table Style Options","Repeat Header Rows","Keep with next","Different First Page"], a:1, e:"Layout → Data → Repeat Header Rows."},
+    {q:"Table Style Options → Banded Rows có tác dụng:", o:["Gộp các dòng","Ẩn dòng lẻ","Tô màu xen kẽ các dòng","Kẻ khung dòng đầu"], a:2, e:"Banded Rows/Columns tô sọc xen kẽ."},
+    {q:"Lệnh Text Direction trong tab Layout dùng để:", o:["Căn lề chữ trong ô","Đổi hướng viết của chữ trong ô (xoay dọc)","Đổi ngôn ngữ","Đảo thứ tự các cột"], a:1, e:"Xoay chữ theo chiều dọc."},
+    {q:"Lệnh Sort trong bảng cho phép sắp xếp theo tối đa bao nhiêu khóa?", o:["1","2","5","3"], a:3, e:"Sort by, Then by, Then by — 3 khóa."},
+    {q:"Trong hộp thoại Sort, chọn \"My list has: Header row\" có tác dụng:", o:["Dòng tiêu đề không bị sắp xếp cùng dữ liệu","Sắp xếp cả dòng tiêu đề","Thêm dòng tiêu đề","Xóa dòng tiêu đề"], a:0, e:"Header row được giữ nguyên ở đầu bảng."},
+    {q:"Công thức để tính tổng các ô số phía trên ô hiện tại là:", o:["=SUM(LEFT)","=TOTAL(ABOVE)","=SUM(ABOVE)","=ADD(UP)"], a:2, e:"=SUM(ABOVE)."},
+    {q:"Công thức =AVERAGE(LEFT) trong bảng Word tính:", o:["Tổng các ô bên trái","Trung bình các ô số bên trái ô hiện tại","Trung bình cả bảng","Trung bình các ô bên phải"], a:1, e:"LEFT = các ô bên trái trên cùng dòng."},
+    {q:"Trong bảng Word, ô ở cột thứ 3, dòng thứ 2 có địa chỉ là:", o:["B3","3B","C2","2C"], a:2, e:"Cột đặt tên A, B, C…; dòng 1, 2, 3… → C2."},
+    {q:"Sau khi thay đổi số liệu, để cập nhật kết quả công thức trong bảng ta chọn ô và nhấn:", o:["F5","F7","F12","F9"], a:3, e:"Công thức là field, cập nhật bằng F9."},
+    {q:"Để chèn ảnh có sẵn trên máy tính, ta chọn:", o:["Insert → Pictures → This Device","Insert → Online Pictures","Insert → Screenshot","Insert → Icons"], a:0, e:"Pictures → This Device (Word 2019)."},
+    {q:"Lệnh Remove Background trong tab Picture Format dùng để:", o:["Xóa ảnh","Xóa phông nền của ảnh","Xóa hiệu ứng ảnh","Xóa khung ảnh"], a:1, e:"Tách chủ thể khỏi phông nền."},
+    {q:"Lệnh Compress Pictures có tác dụng:", o:["Thu nhỏ kích thước hiển thị","Cắt xén ảnh","Nén ảnh để giảm dung lượng tệp","Đổi định dạng ảnh"], a:2, e:"Giảm dung lượng tài liệu."},
+    {q:"Để cắt bớt một phần của ảnh, ta dùng lệnh:", o:["Crop","Resize","Trim","Compress"], a:0, e:"Crop, Crop to Shape, Aspect Ratio."},
+    {q:"Kiểu Wrap Text mặc định khi chèn ảnh vào Word là:", o:["Square","Tight","In Front of Text","In Line with Text"], a:3, e:"Ảnh nằm trên dòng như một ký tự."},
+    {q:"Muốn đặt ảnh làm nền nằm phía sau chữ, ta chọn Wrap Text là:", o:["In Front of Text","Behind Text","Top and Bottom","Through"], a:1, e:"Behind Text đặt ảnh dưới lớp chữ."},
+    {q:"Kiểu Wrap Text để chữ chỉ nằm phía trên và phía dưới ảnh là:", o:["Square","Tight","Top and Bottom","Behind Text"], a:2, e:"Top and Bottom."},
+    {q:"Alt Text của hình ảnh dùng để:", o:["Mô tả ảnh cho người dùng trình đọc màn hình","Đặt tên tệp ảnh","Chú thích Hình 1, Hình 2","Chèn chữ lên ảnh"], a:0, e:"Hỗ trợ khả năng tiếp cận."},
+    {q:"Khi vẽ Shapes, giữ phím nào để vẽ được hình vuông, hình tròn hoặc đường thẳng tuyệt đối?", o:["Ctrl","Alt","Shift","Tab"], a:2, e:"Shift giữ tỷ lệ/góc."},
+    {q:"Để vẽ sơ đồ tổ chức (Organization Chart) nhanh, ta dùng SmartArt nhóm:", o:["List","Cycle","Process","Hierarchy"], a:3, e:"Hierarchy chứa các mẫu sơ đồ tổ chức."},
+    {q:"Tính năng nào sau đây là MỚI trong Word 2019 cho phép chèn và xoay mô hình ba chiều?", o:["3D Models","SmartArt","WordArt","Shapes"], a:0, e:"Word 2019 bổ sung 3D Models và Icons."},
+    {q:"Lệnh Group dùng để:", o:["Nhóm các đoạn văn","Gộp nhiều đối tượng đồ họa để di chuyển, định dạng như một khối","Nhóm các ô bảng","Tạo danh sách"], a:1, e:"Ungroup để tách lại."},
+    {q:"Selection Pane dùng để:", o:["Chọn toàn bộ văn bản","Chọn kiểu bảng","Liệt kê, ẩn/hiện và đổi tên các đối tượng trên trang","Chọn màu"], a:2, e:"Format → Arrange → Selection Pane."},
+    {q:"Khi chèn biểu đồ bằng Insert → Chart, dữ liệu của biểu đồ được nhập ở:", o:["Một bảng Word","Hộp thoại Chart Options","Cửa sổ bảng tính kiểu Excel","Khung Navigation"], a:2, e:"Sửa lại bằng Chart Tools → Design → Edit Data."},
+    {q:"Phím tắt chèn phương trình toán học (Equation) là:", o:["Ctrl + =","Alt + =","Ctrl + E","Shift + ="], a:1, e:"Alt + = chèn vùng Equation."},
+    {q:"Phím tắt chèn liên kết (Hyperlink) là:", o:["Ctrl + K","Ctrl + L","Ctrl + H","Ctrl + Shift + K"], a:0, e:"Insert → Link (Ctrl + K)."},
+    {q:"Để chèn chú thích tự động đánh số \"Hình 1\", \"Bảng 1\", ta dùng:", o:["Insert → Text Box","References → Insert Footnote","Insert → Symbol","References → Insert Caption"], a:3, e:"Insert Caption tạo nhãn đánh số tự động."},
+    {q:"Lệnh Insert → Screenshot dùng để:", o:["Lưu tài liệu thành ảnh","Chèn ảnh chụp cửa sổ đang mở hoặc một vùng màn hình","Chụp trang in","Chèn ảnh trực tuyến"], a:1, e:"Screen Clipping chụp một vùng tùy chọn."}
+  ];
+
+  // ----- Bài 4: Bố cục trang & In ấn -----
+  const W4_QUESTIONS = [
+    {q:"Các lệnh Margins, Orientation, Size nằm ở tab nào trong Word 2019?", o:["Design","Layout","Insert","View"], a:1, e:"Layout → Page Setup."},
+    {q:"Để đổi hướng giấy sang ngang, trong Orientation ta chọn:", o:["Landscape","Portrait","Horizontal","Wide"], a:0, e:"Landscape = ngang; Portrait = dọc."},
+    {q:"Khổ giấy A4 có kích thước:", o:["21,59 × 27,94 cm","14,8 × 21 cm","21 × 29,7 cm","29,7 × 42 cm"], a:2, e:"A4 = 210 × 297 mm."},
+    {q:"Thuộc tính Gutter trong Page Setup là:", o:["Khoảng cách giữa hai cột","Lề của header","Lề phải","Phần lề thêm để đóng gáy tài liệu"], a:3, e:"Gutter cộng thêm vào lề đóng gáy."},
+    {q:"Theo Nghị định 30/2020/NĐ-CP, lề trái của văn bản hành chính khổ A4 là:", o:["15 – 20 mm","20 – 25 mm","30 – 35 mm","40 – 45 mm"], a:2, e:"Trên, dưới 20–25 mm; trái 30–35 mm; phải 15–20 mm."},
+    {q:"Để các tài liệu mới luôn dùng thiết lập lề hiện tại, trong hộp thoại Page Setup ta nhấn:", o:["Set As Default","Apply","OK","Save"], a:0, e:"Set As Default lưu vào mẫu Normal."},
+    {q:"Loại ngắt tạo section mới và bắt đầu ngay trên cùng trang là:", o:["Next Page","Continuous","Even Page","Page Break"], a:1, e:"Section Break (Continuous)."},
+    {q:"Muốn một trang in ngang nằm giữa tài liệu in dọc, ta cần:", o:["Chèn Page Break trước và sau trang đó","Đổi toàn bộ tài liệu sang Landscape","Dùng Column Break","Tạo Section Break (Next Page) trước và sau, rồi đặt Landscape cho section đó"], a:3, e:"Mỗi section có thiết lập trang riêng."},
+    {q:"Tổ hợp phím chèn ngắt cột (Column Break) là:", o:["Ctrl + Shift + Enter","Ctrl + Enter","Alt + Enter","Shift + Enter"], a:0, e:"Ctrl + Shift + Enter ngoài bảng chèn Column Break."},
+    {q:"Section Break loại Odd Page có tác dụng:", o:["Bắt đầu section mới ở trang chẵn kế tiếp","Bắt đầu section mới ở trang lẻ kế tiếp","Đánh số trang lẻ","In các trang lẻ"], a:1, e:"Thường dùng để chương mới bắt đầu ở trang phải khi in sách."},
+    {q:"Lệnh chia văn bản thành nhiều cột kiểu báo nằm ở:", o:["Insert → Columns","Home → Columns","Layout → Columns","Design → Columns"], a:2, e:"Layout → Columns."},
+    {q:"Trong hộp thoại Columns, tùy chọn Line between có tác dụng:", o:["Tạo đường kẻ giữa các cột","Giãn dòng giữa các cột","Căn đều các cột","Tạo khung cột"], a:0, e:"Kẻ đường dọc phân cách cột."},
+    {q:"Khi chia cột cho một đoạn văn được chọn, Word tự động chèn:", o:["Page Break","Column Break","Section Break (Next Page)","Section Break (Continuous) trước và sau đoạn"], a:3, e:"Để đoạn đó thành một section riêng."},
+    {q:"Cách nhanh để mở vùng soạn thảo Header là:", o:["Nhấp đúp vào vùng lề trên của trang","Nhấp chuột phải vào văn bản","Nhấn Ctrl + H","Nhấn F4"], a:0, e:"Nhấp đúp vùng header/footer để soạn thảo."},
+    {q:"Tùy chọn Different First Page có tác dụng:", o:["Trang đầu in khổ giấy khác","Trang đầu có header/footer riêng","Trang đầu không được in","Trang đầu có lề khác"], a:1, e:"Thường dùng cho trang bìa."},
+    {q:"Tùy chọn Different Odd & Even Pages dùng khi:", o:["Chỉ in trang lẻ","Đánh số trang chẵn","Trang chẵn và lẻ cần header/footer khác nhau","Tài liệu có nhiều section"], a:2, e:"Phổ biến khi in sách hai mặt."},
+    {q:"Khi nút Link to Previous đang bật, header của section hiện tại sẽ:", o:["Giống với header của section trước","Bị xóa","Khác với header section trước","Chỉ hiện ở trang đầu"], a:0, e:"Tắt Link to Previous để soạn header riêng."},
+    {q:"Để phần mở đầu đánh số trang i, ii, iii và phần nội dung đánh số 1, 2, 3, ta cần:", o:["Hai tài liệu riêng","Dùng Page Break","Dùng Different First Page","Chia hai section và định dạng số trang riêng cho từng section"], a:3, e:"Format Page Numbers cho từng section, Start at 1."},
+    {q:"Trong Format Page Numbers, mục Start at dùng để:", o:["Chọn vị trí số trang","Bắt đầu đánh số trang từ một số bất kỳ","Chọn kiểu số","Tiếp tục từ section trước"], a:1, e:"Ví dụ bắt đầu từ 5."},
+    {q:"Mẫu số trang \"Page X of Y\" hiển thị:", o:["Số section / số trang","Số dòng / số trang","Số trang hiện tại / tổng số trang","Số từ / tổng số từ"], a:2, e:"Dùng trường PAGE và NUMPAGES."},
+    {q:"Để tạo mục lục tự động, trước hết các tiêu đề phải được:", o:["Áp dụng style Heading (hoặc gán Outline Level)","In đậm và căn giữa","Đặt trong bảng","Đánh số thủ công"], a:0, e:"Heading 1/2/3 là cơ sở của mục lục."},
+    {q:"Lệnh chèn mục lục tự động nằm ở:", o:["Insert → Table of Contents","Home → Styles","View → Outline","References → Table of Contents"], a:3, e:"References → Table of Contents."},
+    {q:"Khi chỉ thay đổi số trang mà không đổi tên đề mục, khi cập nhật mục lục nên chọn:", o:["Update entire table","Update page numbers only","Remove Table of Contents","Add Text"], a:1, e:"Update page numbers only giữ nguyên định dạng mục lục."},
+    {q:"Trong Custom Table of Contents, mục Show levels dùng để:", o:["Chọn số cấp tiêu đề hiển thị trong mục lục","Chọn số trang","Chọn phông chữ","Chọn ký tự dẫn"], a:0, e:"Ví dụ hiển thị 3 cấp Heading 1–3."},
+    {q:"Để nhảy đến một mục trong tài liệu từ mục lục, ta:", o:["Nhấp đúp vào mục","Nhấn F9","Giữ Ctrl và nhấp vào mục","Nhấp chuột phải chọn Go"], a:2, e:"Ctrl + Click theo liên kết trong mục lục."},
+    {q:"Để xem cấu trúc tiêu đề và di chuyển nhanh giữa các chương mục, ta mở:", o:["Reviewing Pane","Selection Pane","Clipboard","Navigation Pane"], a:3, e:"View → Navigation Pane (hoặc Ctrl + F)."},
+    {q:"Tổ hợp phím chèn chú thích cuối trang (Footnote) là:", o:["Alt + Ctrl + D","Alt + Ctrl + F","Ctrl + Shift + F","Alt + F"], a:1, e:"Footnote: Alt + Ctrl + F; Endnote: Alt + Ctrl + D."},
+    {q:"Endnote khác Footnote ở điểm:", o:["Endnote đặt ở cuối tài liệu (hoặc cuối section)","Endnote không đánh số","Endnote đặt ở đầu trang","Endnote chỉ dùng cho hình ảnh"], a:0, e:"Footnote ở cuối trang chứa chú thích."},
+    {q:"Để tạo danh mục các hình trong tài liệu, ta dùng:", o:["Insert Index","Table of Contents","Insert Table of Figures","Bibliography"], a:2, e:"Table of Figures được tạo từ các Caption."},
+    {q:"Chức năng tạo danh mục tài liệu tham khảo theo chuẩn APA, IEEE là:", o:["Insert Citation và Bibliography","Footnote","Caption","Cross-reference"], a:0, e:"References → Citations & Bibliography."},
+    {q:"Để chèn chữ \"BẢN NHÁP\" mờ phía sau nội dung mỗi trang, ta dùng:", o:["Page Color","Page Borders","WordArt","Watermark"], a:3, e:"Design → Watermark → Custom Watermark."},
+    {q:"Lệnh chèn trang bìa mẫu (Cover Page) nằm ở tab:", o:["Design","Insert","Layout","References"], a:1, e:"Insert → Pages → Cover Page."},
+    {q:"Màu nền trang (Page Color) mặc định khi in sẽ:", o:["Luôn được in","Chỉ in trang đầu","Không được in, trừ khi bật Print background colors and images","In thành màu xám"], a:2, e:"Bật tại File → Options → Display."},
+    {q:"Phím tắt mở màn hình in (File → Print) là:", o:["Ctrl + P","Ctrl + I","Alt + P","F12"], a:0, e:"Ctrl + P."},
+    {q:"Trong ô Pages của Custom Print, nhập \"1-3,5\" nghĩa là in:", o:["Trang 1 và trang 3,5","Trang 1 đến trang 35","3 bản của trang 1 đến 5","Trang 1, 2, 3 và trang 5"], a:3, e:"Dấu gạch nối là khoảng, dấu phẩy phân tách."},
+    {q:"Tùy chọn Collated khi in nhiều bản có nghĩa:", o:["In theo từng trang (1,1 – 2,2)","In theo bộ (1,2,3 – 1,2,3)","In hai mặt","In đảo ngược"], a:1, e:"Collated = in theo bộ."},
+    {q:"Với máy in không hỗ trợ in hai mặt tự động, ta chọn:", o:["Print One Sided","Collated","Manually Print on Both Sides","Print All Pages"], a:2, e:"Word in mặt lẻ trước rồi nhắc lật giấy."},
+    {q:"Để xuất tài liệu Word thành tệp PDF, ta dùng:", o:["File → Export → Create PDF/XPS Document","File → Print → PDF","Insert → Object → PDF","Review → Protect → PDF"], a:0, e:"Hoặc File → Save As chọn kiểu PDF."},
+    {q:"Lệnh Encrypt with Password (File → Info → Protect Document) dùng để:", o:["Chỉ cho đọc","Đặt mật khẩu để mở tệp","Khóa Track Changes","Đánh dấu bản cuối"], a:1, e:"Quên mật khẩu sẽ không mở được tài liệu."},
+    {q:"Chức năng kiểm tra và xóa thông tin cá nhân, chú thích, dữ liệu ẩn trước khi chia sẻ tài liệu là:", o:["Check Compatibility","Mark as Final","Restrict Editing","Inspect Document"], a:3, e:"File → Info → Check for Issues → Inspect Document."}
+  ];
+
+  // ----- Bài 5: Trộn thư & Rà soát -----
+  const W5_QUESTIONS = [
+    {q:"Trộn thư (Mail Merge) dùng để:", o:["Gộp nhiều tệp Word thành một","Tạo hàng loạt văn bản cùng nội dung chung với thông tin riêng từ danh sách dữ liệu","Gửi tài liệu qua email","So sánh hai tài liệu"], a:1, e:"Ví dụ: giấy mời, thư, giấy khen cho nhiều người."},
+    {q:"Hai thành phần cơ bản cần có khi trộn thư là:", o:["Tài liệu chính (main document) và nguồn dữ liệu (data source)","Bảng và biểu đồ","Header và Footer","Template và Macro"], a:0, e:"Kết hợp với các trường trộn (merge fields)."},
+    {q:"Các lệnh trộn thư nằm ở tab nào?", o:["References","Review","Mailings","Insert"], a:2, e:"Mailings."},
+    {q:"Nguồn dữ liệu nào sau đây KHÔNG dùng trực tiếp được trong Select Recipients?", o:["Bảng tính Excel","Cơ sở dữ liệu Access","Danh bạ Outlook","Tệp ảnh JPG"], a:3, e:"Có thể dùng Excel, Access, Outlook, bảng Word, danh sách mới."},
+    {q:"Khi dùng Excel làm nguồn dữ liệu trộn thư, dòng đầu tiên nên là:", o:["Dòng trống","Tiêu đề cột (tên các trường)","Bản ghi đầu tiên","Tên tệp"], a:1, e:"Tiêu đề cột trở thành tên merge field."},
+    {q:"Để tạo danh sách người nhận mới ngay trong Word, trong Select Recipients ta chọn:", o:["Type a New List","Use an Existing List","Choose from Outlook Contacts","Edit Recipient List"], a:0, e:"Danh sách được lưu dạng tệp Access (.mdb)."},
+    {q:"Lệnh dùng để lọc, sắp xếp, chọn/bỏ chọn người nhận là:", o:["Select Recipients","Match Fields","Preview Results","Edit Recipient List"], a:3, e:"Edit Recipient List có Sort, Filter, Find duplicates."},
+    {q:"Trường trộn khi chèn vào tài liệu chính hiển thị dạng:", o:["[HoTen]","{HoTen}","«HoTen»","#HoTen#"], a:2, e:"Merge field hiển thị trong dấu « »."},
+    {q:"Nút Preview Results trong tab Mailings dùng để:", o:["In thử văn bản","Xem trước văn bản đã điền dữ liệu thật của từng bản ghi","Xem trước trang in","Kiểm tra chính tả"], a:1, e:"Dùng các nút ◀ ▶ để duyệt."},
+    {q:"Trong Finish & Merge, lựa chọn tạo một tài liệu mới chứa tất cả văn bản đã trộn để có thể chỉnh sửa, lưu lại là:", o:["Print Documents","Send Email Messages","Save Merge","Edit Individual Documents"], a:3, e:"Edit Individual Documents."},
+    {q:"Loại tài liệu Directory trong Start Mail Merge dùng để:", o:["Tạo danh sách các bản ghi liên tục trên cùng một trang","Tạo thư mục trên máy","Tạo phong bì","Gửi email"], a:0, e:"Khác Letters (mỗi bản ghi một trang)."},
+    {q:"Để hiển thị \"Ông\" hoặc \"Bà\" tùy theo trường GioiTinh, ta dùng Rule:", o:["Next Record","Fill-in","If…Then…Else","Skip Record If"], a:2, e:"Mailings → Rules → If…Then…Else."},
+    {q:"Rule Next Record dùng để:", o:["Chuyển sang trang mới","Chuyển sang bản ghi kế tiếp trên cùng một trang","Bỏ qua bản ghi","Sắp xếp bản ghi"], a:1, e:"In nhiều người trên một tờ."},
+    {q:"Rule Skip Record If có tác dụng:", o:["Bỏ qua (không tạo văn bản cho) bản ghi thỏa điều kiện","Chèn bản ghi","Xóa bản ghi khỏi Excel","Đánh số bản ghi"], a:0, e:"Tương tự lọc dữ liệu."},
+    {q:"Tổ hợp phím chuyển đổi hiển thị giữa mã trường (field codes) và kết quả là:", o:["Ctrl + F9","Shift + F9","F9","Alt + F9"], a:3, e:"Alt + F9 bật/tắt mã trường toàn tài liệu."},
+    {q:"Để trường HocPhi hiển thị dạng 1,500,000, ta thêm vào mã trường switch:", o:["\\@ \"dd/MM/yyyy\"","\\* Upper","\\# \"#,##0\"","\\# \"0.00%\""], a:2, e:"\\# là switch định dạng số."},
+    {q:"Switch \\@ \"dd/MM/yyyy\" trong mã trường MERGEFIELD dùng để:", o:["Định dạng ngày theo kiểu ngày/tháng/năm","Định dạng số","Viết hoa","Căn giữa"], a:0, e:"\\@ là switch định dạng ngày giờ."},
+    {q:"Match Fields được dùng khi:", o:["Muốn sắp xếp dữ liệu","Tên cột dữ liệu khác với tên trường Word yêu cầu (Address Block, Greeting Line)","Muốn lọc dữ liệu","Muốn in phong bì"], a:1, e:"Ghép cột dữ liệu với trường tương ứng."},
+    {q:"Khi trộn thư dạng Labels, lệnh sao chép bố cục nhãn đầu tiên sang các nhãn còn lại là:", o:["Copy Labels","Next Record","Propagate","Update Labels"], a:3, e:"Update Labels, Word tự thêm «Next Record»."},
+    {q:"Trong hộp thoại Envelopes, mục Return address là:", o:["Địa chỉ người nhận","Địa chỉ người gửi","Địa chỉ bưu điện","Mã bưu chính"], a:1, e:"Delivery address là người nhận."},
+    {q:"Tổ hợp phím thêm chú thích góp ý (New Comment) là:", o:["Ctrl + Alt + M","Ctrl + Shift + C","Alt + C","Ctrl + M"], a:0, e:"Review → New Comment."},
+    {q:"Nút Resolve trên một comment có tác dụng:", o:["Xóa comment","Trả lời comment","Đánh dấu comment đã được xử lý nhưng vẫn lưu lại","Ẩn tất cả comment"], a:2, e:"Comment chuyển sang dạng mờ."},
+    {q:"Tên người hiển thị bên cạnh comment và các thay đổi được lấy từ:", o:["Tên tài khoản Windows luôn luôn","Tên tệp","Tên máy tính","File → Options → General → User name"], a:3, e:"Đặt User name/Initials trước khi rà soát."},
+    {q:"Tổ hợp phím bật/tắt Track Changes là:", o:["Ctrl + Shift + T","Ctrl + Shift + E","Ctrl + Alt + T","Alt + T"], a:1, e:"Review → Track Changes (Ctrl + Shift + E)."},
+    {q:"Khi Track Changes đang bật, phần chữ bị xóa thường hiển thị:", o:["Biến mất hoàn toàn","In đậm","Gạch ngang","Tô nền vàng"], a:2, e:"Chữ thêm vào thường gạch chân, chữ xóa gạch ngang (All Markup)."},
+    {q:"Chế độ hiển thị đầy đủ mọi thay đổi và chú thích trong Track Changes là:", o:["All Markup","Simple Markup","No Markup","Original"], a:0, e:"All Markup."},
+    {q:"Chế độ No Markup cho phép:", o:["Xóa mọi thay đổi","Xem văn bản gốc trước khi sửa","Tắt Track Changes","Xem văn bản như khi đã chấp nhận hết thay đổi"], a:3, e:"Original mới là văn bản gốc."},
+    {q:"Để đồng ý một thay đổi đã được theo dõi, ta dùng lệnh:", o:["Reject","Accept","Resolve","Approve"], a:1, e:"Accept / Accept All Changes."},
+    {q:"Lock Tracking dùng để:", o:["Khóa Track Changes bằng mật khẩu để người khác không tắt được","Khóa tài liệu chỉ đọc","Khóa comment","Khóa định dạng"], a:0, e:"Review → Track Changes ▾ → Lock Tracking."},
+    {q:"Tắt Track Changes sau khi đã có nhiều chỉnh sửa được đánh dấu thì:", o:["Mọi đánh dấu tự động bị xóa","Mọi thay đổi tự động được chấp nhận","Mọi thay đổi bị từ chối","Các đánh dấu cũ vẫn còn, cần Accept/Reject"], a:3, e:"Tắt chỉ ngừng ghi thay đổi mới."},
+    {q:"Reviewing Pane dùng để:", o:["Liệt kê toàn bộ thay đổi và chú thích trong một khung","Xem trước khi in","Tìm kiếm văn bản","Soạn email"], a:0, e:"Hiển thị dọc hoặc ngang."},
+    {q:"Người khác sửa tài liệu mà không bật Track Changes. Để thấy sự khác biệt so với bản gốc, ta dùng:", o:["Combine","Restrict Editing","Compare","Inspect Document"], a:2, e:"Review → Compare → Compare tạo tài liệu đánh dấu khác biệt."},
+    {q:"Lệnh Combine (Review → Compare) dùng để:", o:["Gộp hai đoạn văn","Gộp các bản góp ý của nhiều người vào một tài liệu","Gộp ô bảng","Gộp các tệp PDF"], a:1, e:"Combine revisions from multiple authors."},
+    {q:"Trong Restrict Editing, để người khác chỉ được thêm comment mà không sửa nội dung, ta chọn:", o:["Tracked changes","Filling in forms","No changes (Read only)","Comments"], a:3, e:"Sau đó nhấn Yes, Start Enforcing Protection."},
+    {q:"Để kích hoạt giới hạn chỉnh sửa sau khi chọn các tùy chọn trong Restrict Editing, ta nhấn:", o:["Yes, Start Enforcing Protection","OK","Apply","Protect"], a:0, e:"Có thể đặt mật khẩu bảo vệ."},
+    {q:"Phím tắt mở Thesaurus (từ đồng nghĩa) là:", o:["F7","Ctrl + F7","Shift + F7","Alt + F7"], a:2, e:"Shift + F7."},
+    {q:"Tính năng Read Aloud trong tab Review của Word 2019 dùng để:", o:["Đọc to nội dung văn bản","Ghi âm","Chuyển giọng nói thành chữ","Dịch văn bản"], a:0, e:"Hỗ trợ nghe lại văn bản."},
+    {q:"Lệnh Translate trong tab Review dùng để:", o:["Chuyển mã phông","Đổi ngôn ngữ giao diện","Kiểm tra chính tả","Dịch đoạn chọn hoặc cả tài liệu sang ngôn ngữ khác"], a:3, e:"Translate Selection / Translate Document."},
+    {q:"Check Accessibility dùng để kiểm tra:", o:["Tính tương thích với Word cũ","Khả năng tiếp cận: Alt Text, tiêu đề bảng, độ tương phản…","Lỗi chính tả","Thông tin cá nhân ẩn"], a:1, e:"Giúp người khuyết tật đọc tài liệu dễ hơn."},
+    {q:"Trước khi phát hành bản chính thức của tài liệu đã rà soát, việc nào NÊN làm?", o:["Chỉ cần tắt Track Changes","Xóa tệp dữ liệu","Đổi tên tệp","Accept/Reject hết thay đổi, xóa comment và chạy Inspect Document"], a:3, e:"Tránh lộ nội dung chỉnh sửa và thông tin ẩn."}
+  ];
+
+
+  // ===== Helpers dùng chung =====
+  const byId = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const pad = n => String(n).padStart(2,"0");
+  const fmtTime = sec => pad(Math.floor(sec/60)) + ":" + pad(sec%60);
+  const LETTERS = ["A","B","C","D"];
+  const rankOf = s => s >= 8 ? "good" : s >= 5 ? "mid" : "low";
+  const rankText = s => s >= 9 ? "Xuất sắc" : s >= 8 ? "Giỏi" : s >= 6.5 ? "Khá" : s >= 5 ? "Trung bình" : "Chưa đạt";
+
+  function toast(msg){
+    const t = byId("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2600);
+  }
+  function confirmBox(title, text, yesLabel){
+    return new Promise(resolve => {
+      byId("modalTitle").textContent = title; byId("modalText").textContent = text;
+      byId("modalYes").textContent = yesLabel || "Đồng ý";
+      const m = byId("modal"); m.classList.add("show");
+      const done = v => { m.classList.remove("show"); byId("modalYes").onclick = byId("modalNo").onclick = null; resolve(v); };
+      byId("modalYes").onclick = () => done(true);
+      byId("modalNo").onclick = () => done(false);
+    });
+  }
+
+  // ===== Khởi tạo một bài học (quiz + lịch sử) =====
+  function initLesson(cfg){
+    const P = cfg.prefix, QUESTIONS = cfg.questions, TOTAL = QUESTIONS.length, STORAGE_KEY = cfg.storageKey;
+    const $ = id => byId(P + id);
+
+    function loadHistory(){
+      try { const d = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Array.isArray(d) ? d : []; }
+      catch(e){ return []; }
+    }
+    function saveHistory(list){
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); return true; }
+      catch(e){ toast("⚠ Không thể lưu vào LocalStorage trên trình duyệt này."); return false; }
+    }
+
+    let answers = new Array(TOTAL).fill(null);
+    let submitted = false, seconds = 0, timerId = null, started = false;
+    const navBtn = i => $("qnav").querySelector(`[data-go="${i}"]`);
+
+    function startTimer(){
+      if (started) return; started = true;
+      timerId = setInterval(() => { seconds++; $("timer").textContent = fmtTime(seconds); }, 1000);
+    }
+
+    // Thứ tự hiển thị các phương án được xáo trộn mỗi lần làm bài; giá trị lưu vẫn là chỉ số gốc
+    let orders = [];
+    const shuffle = arr => { for (let k = arr.length - 1; k > 0; k--){ const r = Math.floor(Math.random() * (k + 1)); [arr[k], arr[r]] = [arr[r], arr[k]]; } return arr; };
+    const letterOf = (i, j) => LETTERS[orders[i].indexOf(j)];
+
+    function renderQuiz(){
+      orders = QUESTIONS.map(item => shuffle(item.o.map((_, j) => j)));
+      $("qnav").innerHTML = QUESTIONS.map((_, i) => `<button type="button" data-go="${i}" title="Câu ${i+1}">${i+1}</button>`).join("");
+      $("quizBox").innerHTML = QUESTIONS.map((item, i) => `
+        <div class="q" id="${P}q${i}">
+          <div class="qt"><span class="qn">Câu ${i+1}.</span>${esc(item.q)}</div>
+          ${orders[i].map((j, pos) => `
+            <label class="opt" data-o="${j}">
+              <input type="radio" name="${P}q${i}" value="${j}" data-i="${i}">
+              <span class="l">${LETTERS[pos]}.</span><span>${esc(item.o[j])}</span>
+            </label>`).join("")}
+          <div class="explain"></div>
+        </div>`).join("");
+    }
+
+    function updateProgress(){
+      const n = answers.filter(a => a !== null).length;
+      $("answeredCount").textContent = n;
+      $("quizBar").style.width = (n / TOTAL * 100) + "%";
+    }
+
+    $("quizBox").addEventListener("change", e => {
+      if (submitted || e.target.type !== "radio") return;
+      const qi = +e.target.dataset.i, oi = +e.target.value;
+      answers[qi] = oi; startTimer();
+      const qEl = $("q" + qi);
+      qEl.classList.add("answered");
+      qEl.querySelectorAll(".opt").forEach(o => o.classList.toggle("sel", +o.dataset.o === oi));
+      navBtn(qi).classList.add("done");
+      updateProgress();
+    });
+
+    $("qnav").addEventListener("click", e => {
+      const b = e.target.closest("[data-go]"); if (!b) return;
+      $("q" + b.dataset.go).scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    const nameInput = $("studentName");
+    nameInput.addEventListener("input", () => {
+      if (nameInput.value.trim().length >= 2){ nameInput.classList.remove("invalid"); $("nameErr").classList.remove("show"); }
+    });
+
+    function validateName(){
+      const name = nameInput.value.trim().replace(/\s+/g, " ");
+      if (name.length < 2){
+        nameInput.classList.remove("invalid"); void nameInput.offsetWidth; nameInput.classList.add("invalid");
+        $("nameErr").classList.add("show");
+        nameInput.scrollIntoView({behavior:"smooth", block:"center"});
+        setTimeout(() => nameInput.focus(), 350);
+        toast("⚠ Vui lòng nhập Họ và tên trước khi nộp bài!");
+        return null;
+      }
+      return name;
+    }
+
+    async function submitQuiz(){
+      if (submitted) return;
+      const name = validateName();
+      if (!name) return;
+      const missing = answers.filter(a => a === null).length;
+      if (missing > 0){
+        const ok = await confirmBox("Còn câu chưa làm", `Bạn còn ${missing} câu chưa trả lời. Các câu này sẽ được tính là sai. Bạn vẫn muốn nộp bài?`, "Nộp bài");
+        if (!ok) return;
+      }
+      submitted = true; clearInterval(timerId);
+
+      let correct = 0;
+      QUESTIONS.forEach((item, i) => {
+        const qEl = $("q" + i), chosen = answers[i], isRight = chosen === item.a;
+        if (isRight) correct++;
+        qEl.classList.add("locked");
+        qEl.querySelectorAll("input").forEach(inp => inp.disabled = true);
+        qEl.querySelectorAll(".opt").forEach(o => {
+          const j = +o.dataset.o; o.classList.remove("sel");
+          if (j === item.a) o.classList.add("correct");
+          else if (j === chosen) o.classList.add("incorrect");
+        });
+        const status = chosen === null ? "⚪ Chưa trả lời." : isRight ? "✅ Chính xác!" : `❌ Sai. Bạn chọn ${letterOf(i, chosen)}.`;
+        qEl.querySelector(".explain").innerHTML = `<b>${status}</b> Đáp án đúng: <b>${letterOf(i, item.a)}</b>. ${esc(item.e)}`;
+        const nb = navBtn(i); nb.classList.remove("done"); nb.classList.add(isRight ? "right" : "wrong");
+      });
+
+      const score = Math.round(correct / TOTAL * 10 * 100) / 100;
+      const rk = rankOf(score);
+      const res = $("result");
+      res.className = "result show " + rk;
+      res.innerHTML = `
+        <div>Kết quả của học viên <b>${esc(name)}</b></div>
+        <div class="score">${score.toLocaleString("vi-VN")} / 10</div>
+        <span class="rank score-chip ${rk}">${rankText(score)}</span>
+        <div class="stats"><span>✅ Đúng: <b>${correct}</b></span><span>❌ Sai/bỏ trống: <b>${TOTAL - correct}</b></span><span>⏱ Thời gian: <b>${fmtTime(seconds)}</b></span></div>
+        <p style="margin:12px 0 0;color:var(--muted)">Xem lại đáp án và giải thích bên trên từng câu hỏi.</p>`;
+
+      nameInput.disabled = true;
+      $("submitBtn").disabled = true;
+
+      const list = loadHistory();
+      list.unshift({ id: Date.now(), name, score, correct, total: TOTAL, time: seconds, date: new Date().toISOString() });
+      if (saveHistory(list)) toast("✔ Đã nộp bài và lưu kết quả!");
+      renderHistory();
+      res.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+
+    function resetQuiz(){
+      answers = new Array(TOTAL).fill(null);
+      submitted = false; started = false; seconds = 0; clearInterval(timerId);
+      $("timer").textContent = "00:00";
+      renderQuiz(); updateProgress();
+      $("result").className = "result"; $("result").innerHTML = "";
+      nameInput.disabled = false; $("submitBtn").disabled = false;
+    }
+
+    $("submitBtn").addEventListener("click", submitQuiz);
+    $("resetBtn").addEventListener("click", async () => {
+      if (!submitted && answers.some(a => a !== null)){
+        const ok = await confirmBox("Làm lại bài", "Toàn bộ câu trả lời hiện tại sẽ bị xóa. Tiếp tục?", "Làm lại");
+        if (!ok) return;
+      }
+      resetQuiz();
+      $("quiz").scrollIntoView({behavior:"smooth"});
+    });
+
+    function renderHistory(){
+      const kw = $("histSearch").value.trim().toLowerCase();
+      const list = loadHistory();
+      const rows = list.filter(r => !kw || String(r.name).toLowerCase().includes(kw));
+      const body = $("histBody");
+      if (!rows.length){
+        body.innerHTML = `<tr><td colspan="7" class="empty">${list.length ? "Không tìm thấy học viên phù hợp." : "Chưa có kết quả nào. Hãy làm bài kiểm tra!"}</td></tr>`;
+        return;
+      }
+      body.innerHTML = rows.map((r, i) => {
+        const d = new Date(r.date);
+        return `<tr>
+          <td>${i+1}</td>
+          <td><b>${esc(r.name)}</b></td>
+          <td><span class="score-chip ${rankOf(r.score)}">${Number(r.score).toLocaleString("vi-VN")}</span></td>
+          <td>${r.correct}/${r.total}</td>
+          <td>${fmtTime(r.time || 0)}</td>
+          <td>${d.toLocaleDateString("vi-VN")} ${d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}</td>
+          <td><button class="del-row" data-del="${r.id}" title="Xóa dòng này">✕</button></td>
+        </tr>`;
+      }).join("");
+    }
+
+    $("histSearch").addEventListener("input", renderHistory);
+    $("histBody").addEventListener("click", async e => {
+      const b = e.target.closest("[data-del]"); if (!b) return;
+      const ok = await confirmBox("Xóa kết quả", "Bạn có chắc muốn xóa kết quả này khỏi lịch sử?", "Xóa");
+      if (!ok) return;
+      saveHistory(loadHistory().filter(r => String(r.id) !== b.dataset.del));
+      renderHistory(); toast("Đã xóa kết quả.");
+    });
+    $("clearBtn").addEventListener("click", async () => {
+      if (!loadHistory().length) return toast("Lịch sử đang trống.");
+      const ok = await confirmBox("Xóa toàn bộ lịch sử", `Tất cả kết quả làm bài của ${cfg.title} sẽ bị xóa và không thể khôi phục.`, "Xóa hết");
+      if (!ok) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      renderHistory(); toast("Đã xóa toàn bộ lịch sử.");
+    });
+    $("exportBtn").addEventListener("click", () => {
+      const list = loadHistory();
+      if (!list.length) return toast("Chưa có dữ liệu để xuất.");
+      const q = v => `"${String(v).replace(/"/g,'""')}"`;
+      const lines = [["STT","Họ tên học viên","Điểm","Số câu đúng","Tổng số câu","Thời gian làm","Ngày nộp"].map(q).join(",")];
+      list.forEach((r, i) => lines.push([i+1, r.name, r.score, r.correct, r.total, fmtTime(r.time||0), new Date(r.date).toLocaleString("vi-VN")].map(q).join(",")));
+      const blob = new Blob(["﻿" + lines.join("\r\n")], {type:"text/csv;charset=utf-8"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = cfg.csvName;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    });
+
+    renderQuiz(); updateProgress(); renderHistory();
+  }
+
+  initLesson({ prefix:"w1-", title:"Bài 1. Soạn thảo cơ bản",   questions:W1_QUESTIONS, storageKey:"word2019_soanthao_quiz_history", csvName:"ket-qua-word-bai1-soan-thao.csv" });
+  initLesson({ prefix:"w2-", title:"Bài 2. Định dạng văn bản",  questions:W2_QUESTIONS, storageKey:"word2019_dinhdang_quiz_history", csvName:"ket-qua-word-bai2-dinh-dang.csv" });
+  initLesson({ prefix:"w3-", title:"Bài 3. Bảng biểu & Đồ họa", questions:W3_QUESTIONS, storageKey:"word2019_bangbieu_quiz_history", csvName:"ket-qua-word-bai3-bang-bieu.csv" });
+  initLesson({ prefix:"w4-", title:"Bài 4. Bố cục trang & In ấn", questions:W4_QUESTIONS, storageKey:"word2019_bocuc_quiz_history", csvName:"ket-qua-word-bai4-bo-cuc.csv" });
+  initLesson({ prefix:"w5-", title:"Bài 5. Trộn thư & Rà soát", questions:W5_QUESTIONS, storageKey:"word2019_tronthu_quiz_history", csvName:"ket-qua-word-bai5-tron-thu.csv" });
+
+  // ===== Chuyển bài học =====
+  const LESSON_KEY = "word2019_current_lesson";
+  const LESSONS = { w1:"soanthao", w2:"dinhdang", w3:"bangbieu", w4:"bocuc", w5:"tronthu" };
+  let current = "soanthao";
+  function showLesson(name, scrollTop){
+    current = name;
+    document.querySelectorAll(".lesson").forEach(l => l.classList.toggle("active", l.id === "lesson-" + name));
+    document.querySelectorAll(".lesson-tabs [data-lesson]").forEach(b => b.classList.toggle("active", b.dataset.lesson === name));
+    try { localStorage.setItem(LESSON_KEY, name); } catch(e){}
+    if (scrollTop) window.scrollTo({top:0});
+    onScroll();
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest("button[data-lesson]"); if (!b) return;
+    showLesson(b.dataset.lesson, true);
+    try { history.replaceState(null, "", "#" + b.dataset.lesson); } catch(e){}
+  });
+
+  // ===== Mục lục đang xem + tiến độ đọc + nút lên đầu =====
+  function onScroll(){
+    const root = byId("lesson-" + current);
+    const links = [...root.querySelectorAll("nav.toc a")];
+    const y = window.scrollY + 120;
+    let idx = 0;
+    links.forEach((a, i) => { const s = document.querySelector(a.getAttribute("href")); if (s && s.offsetTop <= y) idx = i; });
+    links.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const h = document.documentElement.scrollHeight - innerHeight;
+    const bar = root.querySelector(".progress-read i");
+    if (bar) bar.style.width = (h > 0 ? window.scrollY / h * 100 : 0) + "%";
+    byId("toTop").style.display = window.scrollY > 600 ? "block" : "none";
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  byId("toTop").addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+  // ===== Khởi động: ưu tiên #tên-bài trên URL, sau đó bài đã xem gần nhất =====
+  let start = "soanthao";
+  const hash = location.hash.slice(1);
+  const names = Object.values(LESSONS);
+  const byHash = names.includes(hash) ? hash : LESSONS[hash.split("-")[0]];
+  if (byHash) start = byHash;
+  else {
+    try { const saved = localStorage.getItem(LESSON_KEY); if (names.includes(saved)) start = saved; } catch(e){}
+  }
+  showLesson(start, false);
+})();
+</script>
+</body>
+</html>

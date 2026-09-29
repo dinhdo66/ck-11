@@ -1,0 +1,2298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài giảng Access 2019</title>
+<style>
+:root{
+  --bg:#f4f6fb; --surface:#ffffff; --surface-2:#eef1f8; --text:#1d2433; --muted:#5b6478;
+  --border:#dde2ee; --primary:#a4373a; --primary-2:#c8494c; --primary-soft:#fbeaea;
+  --accent:#2563eb; --ok:#15803d; --ok-soft:#e6f6ec; --bad:#b91c1c; --bad-soft:#fdecec;
+  --warn:#b45309; --warn-soft:#fff5e5; --code-bg:#1e2230; --code-text:#e6e9f2;
+  --shadow:0 2px 10px rgba(20,30,60,.07); --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#11141b; --surface:#1a1f2a; --surface-2:#232937; --text:#e7eaf2; --muted:#9aa3b8;
+    --border:#2e3546; --primary:#e0676a; --primary-2:#f07f82; --primary-soft:#3a2224;
+    --accent:#6ea0ff; --ok:#4ade80; --ok-soft:#173222; --bad:#f87171; --bad-soft:#3a1c1c;
+    --warn:#fbbf24; --warn-soft:#3a2d14; --code-bg:#0c0f15; --code-text:#e6e9f2;
+    --shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65;font-size:16px}
+a{color:var(--accent)}
+code,kbd{font-family:Consolas,"Courier New",monospace;font-size:.92em}
+code{background:var(--surface-2);padding:1px 6px;border-radius:5px}
+kbd{border:1px solid var(--border);border-bottom-width:3px;border-radius:5px;padding:0 6px;background:var(--surface)}
+
+/* Header */
+header.hero{background:linear-gradient(135deg,#7a2427,#a4373a 55%,#d0584f);color:#fff;padding:36px 16px 44px}
+.hero .wrap{max-width:1180px;margin:0 auto}
+.hero .badge{display:inline-block;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:99px;font-size:.85rem;letter-spacing:.3px}
+.hero h1{margin:12px 0 6px;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.25}
+.hero p{margin:0;opacity:.92;max-width:760px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.hero .meta span,.hero .meta a{background:rgba(0,0,0,.18);padding:6px 12px;border-radius:10px;font-size:.9rem;color:#fff;text-decoration:none}
+.hero .meta a:hover{background:rgba(0,0,0,.3)}
+
+/* Layout */
+.layout{max-width:1180px;margin:-22px auto 40px;padding:0 16px;display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
+nav.toc{position:sticky;top:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
+nav.toc h3{margin:4px 8px 10px;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+nav.toc a{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:9px;color:var(--text);text-decoration:none;font-size:.94rem}
+nav.toc a .n{flex:0 0 24px;height:24px;border-radius:7px;background:var(--surface-2);display:grid;place-items:center;font-size:.78rem;font-weight:700;color:var(--muted)}
+nav.toc a:hover,nav.toc a.active{background:var(--primary-soft);color:var(--primary)}
+nav.toc a.active .n{background:var(--primary);color:#fff}
+.progress-read{height:4px;background:var(--surface-2);border-radius:4px;margin:12px 8px 4px;overflow:hidden}
+.progress-read i{display:block;height:100%;width:0;background:var(--primary);transition:width .2s}
+main{min-width:0}
+section.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:22px;scroll-margin-top:16px}
+section.card h2{margin:0 0 14px;font-size:1.45rem;display:flex;align-items:center;gap:12px}
+section.card h2 .num{background:var(--primary);color:#fff;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:1rem;flex:0 0 34px}
+section.card h3{margin:22px 0 8px;font-size:1.1rem;color:var(--primary)}
+.lead{color:var(--muted);margin-top:-4px}
+
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:14px 0}
+.tile{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px}
+.tile h4{margin:0 0 6px;font-size:1rem}
+.tile p{margin:0;color:var(--muted);font-size:.94rem}
+.tile .ic{font-size:1.5rem}
+
+.note{border-left:4px solid var(--accent);background:var(--surface-2);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.note.warn{border-color:var(--warn);background:var(--warn-soft)}
+.note.tip{border-color:var(--ok);background:var(--ok-soft)}
+.note b:first-child{display:block;margin-bottom:2px}
+
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.94rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td code{white-space:nowrap}
+
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+ol.steps li{counter-increment:s;position:relative;padding:4px 0 14px 48px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:32px;height:32px;border-radius:50%;background:var(--primary-soft);color:var(--primary);font-weight:700;display:grid;place-items:center}
+ol.steps li:not(:last-child)::after{content:"";position:absolute;left:15px;top:36px;bottom:0;width:2px;background:var(--border)}
+
+/* Query Design mock */
+.designer{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.9rem}
+.designer .bar{background:var(--primary);color:#fff;padding:7px 12px;font-weight:600;display:flex;justify-content:space-between}
+.designer .tables{background:var(--surface-2);padding:16px;display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;position:relative;border-bottom:1px solid var(--border)}
+.tbox{background:var(--surface);border:1px solid var(--border);border-radius:8px;min-width:140px;box-shadow:var(--shadow)}
+.tbox b{display:block;background:var(--primary-soft);color:var(--primary);padding:5px 10px;border-radius:8px 8px 0 0}
+.tbox div{padding:2px 10px;color:var(--muted)}
+.tbox div:last-child{padding-bottom:8px}
+.tbox .pk{color:var(--text);font-weight:600}
+.join-line{align-self:center;color:var(--muted);font-weight:700}
+.qbe{overflow-x:auto;background:var(--surface)}
+.qbe table{font-size:.86rem;min-width:560px}
+.qbe th{width:90px;text-align:right;color:var(--muted);background:var(--surface-2)}
+.qbe td{border-left:1px solid var(--border);min-width:120px}
+.qbe .hl{color:var(--accent);font-weight:600}
+
+pre.code{background:var(--code-bg);color:var(--code-text);padding:16px 18px;border-radius:12px;overflow-x:auto;font-size:.9rem;line-height:1.6;margin:14px 0}
+pre.code .k{color:#ff9e9e;font-weight:700}
+pre.code .a{color:#8cc8ff;font-weight:700}
+pre.code .c{color:#8fd19e;font-style:italic}
+pre.code .s{color:#f5d38a}
+
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.82rem;font-weight:700;margin-right:6px}
+.chip.sel{background:#e0ecff;color:#1d4ed8}
+.chip.act{background:var(--warn-soft);color:var(--warn)}
+.chip.sql{background:var(--ok-soft);color:var(--ok)}
+@media (prefers-color-scheme: dark){.chip.sel{background:#1b2a48;color:#8fb4ff}}
+
+/* Quiz */
+.student-box{background:linear-gradient(135deg,var(--primary-soft),var(--surface-2));border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin:6px 0 18px}
+.student-box label{display:block;font-weight:700;margin-bottom:8px}
+.student-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.student-row input{flex:1 1 260px;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:1rem;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
+.student-row input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft)}
+.student-row input.invalid{border-color:var(--bad);box-shadow:0 0 0 4px var(--bad-soft);animation:shake .35s}
+.err-msg{color:var(--bad);font-size:.9rem;margin-top:8px;display:none;font-weight:600}
+.err-msg.show{display:block}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.quiz-status{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:16px;box-shadow:var(--shadow)}
+.quiz-status .bar{flex:1 1 160px;height:8px;background:var(--surface-2);border-radius:8px;overflow:hidden}
+.quiz-status .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .25s}
+.quiz-status .pill{font-size:.9rem;background:var(--surface-2);padding:4px 10px;border-radius:99px;white-space:nowrap}
+.qnav{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin-bottom:18px}
+.qnav button{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:6px 0;cursor:pointer;font-weight:600;font-size:.85rem}
+.qnav button.done{background:var(--primary);border-color:var(--primary);color:#fff}
+.qnav button.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.qnav button.wrong{background:var(--bad);border-color:var(--bad);color:#fff}
+
+.q{border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px;scroll-margin-top:80px;transition:border-color .2s}
+.q.answered{border-color:color-mix(in srgb,var(--primary) 45%,var(--border))}
+.q .qt{font-weight:600;margin-bottom:10px}
+.q .qt .qn{color:var(--primary);margin-right:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:1px solid var(--border);border-radius:9px;margin-bottom:7px;cursor:pointer;transition:background .15s,border-color .15s}
+.opt:hover{background:var(--surface-2)}
+.opt input{margin-top:5px;accent-color:var(--primary)}
+.opt .l{font-weight:700;color:var(--muted);min-width:18px}
+.opt.sel{border-color:var(--primary);background:var(--primary-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.incorrect{border-color:var(--bad);background:var(--bad-soft)}
+.q.locked .opt{cursor:default}
+.explain{display:none;margin-top:8px;font-size:.92rem;padding:10px 12px;border-radius:9px;background:var(--surface-2)}
+.q.locked .explain{display:block}
+
+.btn{border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:.98rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .1s,filter .15s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:var(--surface-2);color:var(--text);border:1px solid var(--border)}
+.btn-danger{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+.result{display:none;border-radius:14px;padding:22px;margin:18px 0;text-align:center;border:2px solid var(--border)}
+.result.show{display:block}
+.result .score{font-size:3rem;font-weight:800;line-height:1.1}
+.result .rank{display:inline-block;margin-top:6px;padding:4px 14px;border-radius:99px;font-weight:700}
+.result.good{border-color:var(--ok);background:var(--ok-soft)} .result.good .score{color:var(--ok)}
+.result.mid{border-color:var(--warn);background:var(--warn-soft)} .result.mid .score{color:var(--warn)}
+.result.low{border-color:var(--bad);background:var(--bad-soft)} .result.low .score{color:var(--bad)}
+.result .stats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:12px;color:var(--muted)}
+
+/* History */
+.hist-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.hist-tools input{flex:1 1 220px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-size:.95rem}
+.score-chip{display:inline-block;min-width:48px;text-align:center;padding:2px 8px;border-radius:8px;font-weight:700}
+.score-chip.good{background:var(--ok-soft);color:var(--ok)}
+.score-chip.mid{background:var(--warn-soft);color:var(--warn)}
+.score-chip.low{background:var(--bad-soft);color:var(--bad)}
+.empty{text-align:center;color:var(--muted);padding:22px}
+.del-row{background:none;border:none;color:var(--bad);cursor:pointer;font-size:1rem}
+
+/* Modal + toast */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:var(--surface);border-radius:14px;max-width:440px;width:100%;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.modal h3{margin:0 0 8px}
+.modal .actions{justify-content:flex-end}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:10px;z-index:60;transition:transform .3s;font-weight:600;max-width:calc(100% - 32px)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.to-top{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:none;background:var(--primary);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:var(--shadow);display:none;z-index:20}
+footer{text-align:center;color:var(--muted);font-size:.88rem;padding:10px 16px 40px}
+footer .credit{display:inline-block;margin-top:12px;padding:10px 22px;border-radius:99px;background:linear-gradient(135deg,#7a2427,#a4373a 55%,#d0584f);color:#fff;font-size:1rem;font-weight:600;letter-spacing:.2px;box-shadow:0 4px 16px rgba(164,55,58,.35);transition:transform .2s,box-shadow .2s}
+footer .credit:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(164,55,58,.45)}
+.lesson-nav{max-width:1180px;margin:0 auto 18px;padding:0 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lesson-nav a{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;text-decoration:none;color:var(--text);font-weight:600;box-shadow:var(--shadow)}
+.lesson-nav a:hover{border-color:var(--primary);color:var(--primary)}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav.toc{position:static;display:flex;overflow-x:auto;gap:4px;padding:8px}
+  nav.toc h3,.progress-read{display:none}
+  nav.toc a{white-space:nowrap}
+  section.card{padding:20px 16px}
+}
+@media print{nav.toc,.to-top,.quiz-status,.qnav,.actions,.hist-tools,.lesson-nav{display:none!important}.layout{display:block}}
+/* Macro builder mock */
+.builder{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.92rem}
+.builder .bar{background:var(--primary);color:#fff;padding:7px 12px;font-weight:600;display:flex;justify-content:space-between}
+.builder .body{display:grid;grid-template-columns:1fr 220px;min-height:200px}
+.builder .canvas{padding:14px;background:var(--surface)}
+.builder .catalog{background:var(--surface-2);border-left:1px solid var(--border);padding:12px}
+.builder .catalog b{display:block;margin-bottom:6px}
+.builder .catalog div{padding:3px 0;color:var(--muted)}
+.mblock{border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:8px;background:var(--surface-2)}
+.mblock .act{font-weight:700;color:var(--accent)}
+.mblock .arg{display:grid;grid-template-columns:110px 1fr;gap:4px 10px;margin-top:6px;font-size:.88rem}
+.mblock .arg span:nth-child(odd){color:var(--muted)}
+.mblock.cmt{color:var(--ok);font-style:italic;background:transparent;border-style:dashed}
+.mblock.if{border-color:var(--warn);background:var(--warn-soft)}
+.addnew{border:1px dashed var(--border);border-radius:8px;padding:7px 12px;color:var(--muted)}
+
+
+@media (max-width:900px){
+  .builder .body{grid-template-columns:1fr}
+  .builder .catalog{border-left:none;border-top:1px solid var(--border)}
+}
+
+/* Form Design mock */
+.fsec-h{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3px 12px;font-size:.82rem;font-weight:700;color:var(--muted)}
+.fsec{padding:12px 16px;border-bottom:1px solid var(--border)}
+.frow{display:flex;gap:12px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.fctl{display:inline-block;padding:4px 10px;border-radius:5px;font-size:.88rem}
+.fctl.lbl{min-width:70px;color:var(--text)}
+.fctl.box{border:1px solid var(--border);background:var(--surface-2);min-width:180px;color:var(--accent)}
+.fctl.btn-mock{border:1px solid var(--border);background:var(--surface-2);font-weight:600;margin:2px 4px 2px 0}
+
+/* Thanh chuyển bài học */
+.lesson-tabs{background:#5e1b1e;padding:10px 16px}
+.lesson-tabs .wrap{max-width:1180px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lesson-tabs .brand{color:#fff;font-weight:700;margin-right:auto;opacity:.95}
+.lesson-tabs button{border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:8px 16px;border-radius:99px;font-weight:600;font-size:.94rem;cursor:pointer;transition:background .15s}
+.lesson-tabs button:hover{background:rgba(255,255,255,.12)}
+.lesson-tabs button.active{background:#fff;color:#a4373a;border-color:#fff}
+.lesson{display:none}
+.lesson.active{display:block}
+.lesson-nav button{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;color:var(--primary);font-weight:600;font-size:1rem;box-shadow:var(--shadow);cursor:pointer;font-family:inherit}
+.lesson-nav button:hover{border-color:var(--primary)}
+</style>
+</head>
+<body>
+
+<div class="lesson-tabs">
+  <div class="wrap">
+    <a class="brand" href="index.html" title="Về trang chủ bộ bài giảng" style="text-decoration:none">🏠 📘 Microsoft Access 2019</a>
+    <button type="button" data-lesson="table">Bài 1. Bảng (Table)</button>
+    <button type="button" data-lesson="query">Bài 2. Các loại Query</button>
+    <button type="button" data-lesson="form">Bài 3. Biểu mẫu (Form)</button>
+    <button type="button" data-lesson="report">Bài 4. Báo cáo (Report)</button>
+    <button type="button" data-lesson="macro">Bài 5. Xây dựng Macro</button>
+  </div>
+</div>
+
+<!-- ================= BÀI 1: TABLE ================= -->
+<div class="lesson" id="lesson-table">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📘 Tin học ứng dụng · Microsoft Access 2019</span>
+    <h1>Bài 1. Bảng (Table) trong Access 2019</h1>
+    <p>Thiết kế bảng dữ liệu chuẩn: chọn kiểu dữ liệu, thiết lập thuộc tính trường, khóa chính, tạo quan hệ giữa các bảng và nhập liệu hiệu quả.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#t-s1"><span class="n">1</span>Bảng là gì?</a>
+    <a href="#t-s2"><span class="n">2</span>Tạo bảng</a>
+    <a href="#t-s3"><span class="n">3</span>Kiểu dữ liệu</a>
+    <a href="#t-s4"><span class="n">4</span>Thuộc tính trường</a>
+    <a href="#t-s5"><span class="n">5</span>Khóa chính & chỉ mục</a>
+    <a href="#t-s6"><span class="n">6</span>Quan hệ giữa các bảng</a>
+    <a href="#t-s7"><span class="n">7</span>Nhập liệu & Datasheet</a>
+    <a href="#t-s8"><span class="n">8</span>Lookup, kiểm tra & nhập dữ liệu</a>
+    <a href="#t-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#t-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <!-- 1 -->
+    <section class="card" id="t-s1">
+      <h2><span class="num">1</span>Bảng (Table) là gì?</h2>
+      <p><b>Bảng</b> là đối tượng cơ bản và quan trọng nhất của Access, dùng để <b>lưu trữ dữ liệu</b>. Mọi đối tượng khác (Query, Form, Report, Macro) đều khai thác dữ liệu từ bảng. Mỗi bảng chứa dữ liệu về <b>một chủ đề</b>, ví dụ: Sinh viên, Lớp, Môn học, Điểm.</p>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">▥</div><h4>Trường (Field)</h4><p>Một <b>cột</b> của bảng, lưu một thuộc tính của đối tượng: Mã SV, Họ tên, Ngày sinh…</p></div>
+        <div class="tile"><div class="ic">▤</div><h4>Bản ghi (Record)</h4><p>Một <b>hàng</b> của bảng, chứa toàn bộ thông tin của một đối tượng cụ thể.</p></div>
+        <div class="tile"><div class="ic">🔑</div><h4>Khóa chính (Primary Key)</h4><p>Trường (hoặc nhóm trường) xác định <b>duy nhất</b> mỗi bản ghi.</p></div>
+        <div class="tile"><div class="ic">🔗</div><h4>Khóa ngoại (Foreign Key)</h4><p>Trường tham chiếu đến khóa chính của bảng khác để tạo quan hệ.</p></div>
+      </div>
+      <h3>Nguyên tắc thiết kế bảng tốt</h3>
+      <ul>
+        <li>Mỗi bảng chỉ mô tả <b>một chủ đề</b>; tránh lặp lại dữ liệu (dư thừa).</li>
+        <li>Mỗi trường chứa giá trị <b>nguyên tố</b> (không gộp nhiều thông tin vào một ô).</li>
+        <li>Không lưu các giá trị có thể tính được từ trường khác (trừ khi cần thiết).</li>
+        <li>Mỗi bảng nên có <b>khóa chính</b>; đặt tên rõ ràng, không dấu, có tiền tố <code>tbl</code>.</li>
+      </ul>
+    </section>
+
+    <!-- 2 -->
+    <section class="card" id="t-s2">
+      <h2><span class="num">2</span>Tạo bảng</h2>
+      <h3>a) Các cách tạo bảng</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Cách</th><th>Thao tác</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td><b>Table Design</b></td><td>Create → Tables → <b>Table Design</b></td><td>Chủ động định nghĩa tên trường, kiểu dữ liệu, thuộc tính (khuyên dùng).</td></tr>
+          <tr><td><b>Table</b> (Datasheet)</td><td>Create → Tables → <b>Table</b></td><td>Nhập dữ liệu trực tiếp, Access tự đoán kiểu dữ liệu.</td></tr>
+          <tr><td><b>Nhập từ nguồn ngoài</b></td><td>External Data → New Data Source</td><td>Tạo bảng từ Excel, tệp văn bản, Access khác…</td></tr>
+        </tbody>
+      </table></div>
+      <h3>b) Các bước tạo bảng bằng Design View</h3>
+      <ol class="steps">
+        <li>Chọn <b>Create → Table Design</b>.</li>
+        <li>Nhập <b>Field Name</b> (tên trường) — tối đa 64 ký tự, nên viết liền, không dấu.</li>
+        <li>Chọn <b>Data Type</b> (kiểu dữ liệu) và nhập <b>Description</b> (mô tả, tùy chọn).</li>
+        <li>Thiết lập <b>Field Properties</b> ở nửa dưới cửa sổ (nhấn <kbd>F6</kbd> để chuyển qua lại).</li>
+        <li>Chọn trường khóa và nhấn <b>Primary Key</b> trên tab Table Design.</li>
+        <li>Nhấn <kbd>Ctrl</kbd>+<kbd>S</kbd> và đặt tên, ví dụ <b>tblSinhVien</b>.</li>
+      </ol>
+      <div class="designer" aria-label="Mô phỏng Table Design">
+        <div class="bar"><span>tblSinhVien</span><span>✕</span></div>
+        <div class="qbe"><table>
+          <tr><th style="text-align:left;width:auto">Field Name</th><th style="text-align:left;width:auto">Data Type</th><th style="text-align:left;width:auto">Description</th></tr>
+          <tr><td class="hl">🔑 MaSV</td><td>Short Text</td><td>Mã sinh viên</td></tr>
+          <tr><td>HoTen</td><td>Short Text</td><td>Họ và tên</td></tr>
+          <tr><td>NgaySinh</td><td>Date/Time</td><td>Ngày sinh</td></tr>
+          <tr><td>GioiTinh</td><td>Yes/No</td><td>Yes = Nam</td></tr>
+          <tr><td>MaLop</td><td>Short Text</td><td>Khóa ngoại → tblLop</td></tr>
+          <tr><td>HocPhi</td><td>Currency</td><td></td></tr>
+          <tr><td>AnhThe</td><td>Attachment</td><td>Ảnh chân dung</td></tr>
+        </table></div>
+      </div>
+      <div class="note"><b>Hai chế độ xem của bảng</b><b>Design View</b> dùng để định nghĩa cấu trúc (trường, kiểu dữ liệu, thuộc tính); <b>Datasheet View</b> dùng để xem và nhập dữ liệu dạng lưới.</div>
+    </section>
+
+    <!-- 3 -->
+    <section class="card" id="t-s3">
+      <h2><span class="num">3</span>Kiểu dữ liệu (Data Type)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Kiểu dữ liệu</th><th>Dùng để lưu</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td><b>Short Text</b></td><td>Chuỗi ngắn: họ tên, mã, số điện thoại</td><td>Tối đa <b>255</b> ký tự (mặc định 255)</td></tr>
+          <tr><td><b>Long Text</b></td><td>Văn bản dài: ghi chú, mô tả</td><td>Tới khoảng 1 GB; hỗ trợ Rich Text</td></tr>
+          <tr><td><b>Number</b></td><td>Số dùng để tính toán</td><td>Field Size: Byte, Integer, Long Integer, Single, Double, Decimal…</td></tr>
+          <tr><td><b>Large Number</b></td><td>Số nguyên rất lớn (BigInt)</td><td>Có từ Access 2016/2019</td></tr>
+          <tr><td><b>Date/Time</b></td><td>Ngày, giờ</td><td>Định dạng Short Date, Long Date…</td></tr>
+          <tr><td><b>Currency</b></td><td>Tiền tệ</td><td>Chính xác 15 chữ số phần nguyên, 4 chữ số thập phân</td></tr>
+          <tr><td><b>AutoNumber</b></td><td>Số tự động tăng, duy nhất</td><td>Không sửa được; thường dùng làm khóa chính</td></tr>
+          <tr><td><b>Yes/No</b></td><td>Giá trị logic: Có/Không, Đúng/Sai</td><td>Hiển thị dạng ô đánh dấu</td></tr>
+          <tr><td><b>OLE Object</b></td><td>Đối tượng nhúng (Word, Excel, ảnh…)</td><td>Kiểu cũ, nên dùng Attachment</td></tr>
+          <tr><td><b>Hyperlink</b></td><td>Địa chỉ web, email, đường dẫn tệp</td><td></td></tr>
+          <tr><td><b>Attachment</b></td><td>Tệp đính kèm (ảnh, tài liệu)</td><td>Một ô có thể chứa <b>nhiều</b> tệp</td></tr>
+          <tr><td><b>Calculated</b></td><td>Giá trị tính từ các trường khác <b>trong cùng bảng</b></td><td>Ví dụ: <code>[SoLuong]*[DonGia]</code></td></tr>
+          <tr><td><b>Lookup Wizard…</b></td><td>Tạo danh sách chọn giá trị</td><td>Không phải kiểu thực sự, là trình hướng dẫn</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Field Size của kiểu Number</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Field Size</th><th>Phạm vi</th><th>Bộ nhớ</th></tr></thead>
+        <tbody>
+          <tr><td>Byte</td><td>0 → 255 (số nguyên)</td><td>1 byte</td></tr>
+          <tr><td>Integer</td><td>−32.768 → 32.767</td><td>2 byte</td></tr>
+          <tr><td><b>Long Integer</b> (mặc định)</td><td>khoảng ±2,1 tỷ</td><td>4 byte</td></tr>
+          <tr><td>Single / Double</td><td>Số thực (có phần thập phân)</td><td>4 / 8 byte</td></tr>
+          <tr><td>Decimal</td><td>Số thập phân chính xác cao</td><td>12 byte</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Mẹo chọn kiểu</b>Số điện thoại, mã số có số 0 ở đầu (0912…) nên dùng <b>Short Text</b>, không dùng Number vì Number sẽ bỏ số 0 đầu và không cần tính toán.</div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card" id="t-s4">
+      <h2><span class="num">4</span>Thuộc tính trường (Field Properties)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thuộc tính</th><th>Ý nghĩa</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td><b>Field Size</b></td><td>Kích thước tối đa của dữ liệu</td><td>MaSV: 10</td></tr>
+          <tr><td><b>Format</b></td><td>Định dạng hiển thị</td><td><code>&gt;</code> hiển thị chữ hoa; <code>&lt;</code> chữ thường; Short Date</td></tr>
+          <tr><td><b>Input Mask</b></td><td>Mặt nạ nhập liệu, quy định khuôn dạng nhập</td><td><code>00/00/0000</code>, <code>0000.000.000</code></td></tr>
+          <tr><td><b>Caption</b></td><td>Nhãn hiển thị làm tiêu đề cột thay cho tên trường</td><td>HoTen → "Họ và tên"</td></tr>
+          <tr><td><b>Default Value</b></td><td>Giá trị mặc định khi thêm bản ghi mới</td><td><code>Date()</code>, <code>"Hà Nội"</code></td></tr>
+          <tr><td><b>Validation Rule</b></td><td>Quy tắc kiểm tra dữ liệu nhập</td><td><code>Between 0 And 10</code></td></tr>
+          <tr><td><b>Validation Text</b></td><td>Thông báo hiển thị khi vi phạm Validation Rule</td><td>"Điểm phải từ 0 đến 10"</td></tr>
+          <tr><td><b>Required</b></td><td>Yes = bắt buộc phải nhập</td><td>HoTen: Yes</td></tr>
+          <tr><td><b>Allow Zero Length</b></td><td>Cho phép chuỗi rỗng "" (kiểu Text)</td><td>No</td></tr>
+          <tr><td><b>Indexed</b></td><td>Tạo chỉ mục giúp tìm kiếm/sắp xếp nhanh</td><td>Yes (No Duplicates)</td></tr>
+          <tr><td><b>Decimal Places</b></td><td>Số chữ số thập phân hiển thị</td><td>2</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Các ký tự thường dùng trong Input Mask</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Ký tự</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><code>0</code></td><td>Chữ số 0–9, <b>bắt buộc</b> nhập</td></tr>
+          <tr><td><code>9</code></td><td>Chữ số hoặc khoảng trắng, <b>không bắt buộc</b></td></tr>
+          <tr><td><code>#</code></td><td>Chữ số, khoảng trắng, dấu + −, không bắt buộc</td></tr>
+          <tr><td><code>L</code> / <code>?</code></td><td>Chữ cái bắt buộc / không bắt buộc</td></tr>
+          <tr><td><code>A</code> / <code>a</code></td><td>Chữ cái hoặc chữ số, bắt buộc / không bắt buộc</td></tr>
+          <tr><td><code>&amp;</code> / <code>C</code></td><td>Ký tự bất kỳ, bắt buộc / không bắt buộc</td></tr>
+          <tr><td><code>&gt;</code> / <code>&lt;</code></td><td>Chuyển các ký tự phía sau thành chữ hoa / chữ thường</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Ví dụ Validation Rule</b><code>&gt;=0 And &lt;=10</code> · <code>In("Nam","Nữ")</code> · <code>Like "SV###"</code> · <code>&lt;=Date()</code> (ngày không vượt quá hôm nay) · <code>Is Not Null</code>.</div>
+    </section>
+
+    <!-- 5 -->
+    <section class="card" id="t-s5">
+      <h2><span class="num">5</span>Khóa chính và chỉ mục</h2>
+      <p><b>Khóa chính (Primary Key)</b> là trường hoặc tập hợp trường có giá trị <b>không trùng lặp</b> và <b>không được để trống (Null)</b>, dùng để xác định duy nhất mỗi bản ghi.</p>
+      <ol class="steps">
+        <li>Mở bảng ở <b>Design View</b>.</li>
+        <li>Chọn trường làm khóa (nhấp vào ô chọn dòng bên trái tên trường).</li>
+        <li>Nhấn nút <b>Primary Key</b> trên tab <b>Table Design</b> — biểu tượng 🔑 xuất hiện bên trái trường.</li>
+      </ol>
+      <div class="grid-2">
+        <div class="tile"><h4>Khóa đơn</h4><p>Gồm một trường, ví dụ <code>MaSV</code> trong tblSinhVien.</p></div>
+        <div class="tile"><h4>Khóa kết hợp (Composite Key)</h4><p>Gồm nhiều trường. Giữ <kbd>Ctrl</kbd> chọn các trường rồi nhấn Primary Key, ví dụ <code>MaSV + MaMH</code> trong tblDiem.</p></div>
+      </div>
+      <h3>Thuộc tính Indexed</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Giá trị</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td>No</td><td>Không tạo chỉ mục</td></tr>
+          <tr><td>Yes (Duplicates OK)</td><td>Có chỉ mục, cho phép giá trị trùng</td></tr>
+          <tr><td>Yes (No Duplicates)</td><td>Có chỉ mục, <b>không cho phép trùng</b> (khóa chính tự động có giá trị này)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Lưu ý</b>Nếu lưu bảng chưa có khóa chính, Access sẽ hỏi có muốn tạo khóa không; chọn Yes sẽ thêm trường <b>ID</b> kiểu AutoNumber làm khóa chính.</div>
+    </section>
+
+    <!-- 6 -->
+    <section class="card" id="t-s6">
+      <h2><span class="num">6</span>Quan hệ giữa các bảng (Relationships)</h2>
+      <p>Mở cửa sổ quan hệ: <b>Database Tools → Relationships</b>. Thêm bảng bằng <b>Add Tables</b>, sau đó kéo trường khóa chính của bảng này thả vào trường khóa ngoại tương ứng của bảng kia; hộp thoại <b>Edit Relationships</b> xuất hiện.</p>
+      <div class="designer" aria-label="Mô phỏng cửa sổ Relationships">
+        <div class="bar"><span>Relationships</span><span>✕</span></div>
+        <div class="tables">
+          <div class="tbox"><b>tblLop</b><div class="pk">🔑 MaLop</div><div>TenLop</div><div>GVCN</div></div>
+          <span class="join-line">1 ── ∞</span>
+          <div class="tbox"><b>tblSinhVien</b><div class="pk">🔑 MaSV</div><div>HoTen</div><div>MaLop</div></div>
+          <span class="join-line">1 ── ∞</span>
+          <div class="tbox"><b>tblDiem</b><div class="pk">🔑 MaSV</div><div class="pk">🔑 MaMH</div><div>Diem</div></div>
+          <span class="join-line">∞ ── 1</span>
+          <div class="tbox"><b>tblMonHoc</b><div class="pk">🔑 MaMH</div><div>TenMH</div><div>SoTC</div></div>
+        </div>
+      </div>
+      <h3>Các loại quan hệ</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại</th><th>Ý nghĩa</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td><b>Một – Một (1–1)</b></td><td>Mỗi bản ghi bảng A liên kết tối đa một bản ghi bảng B và ngược lại</td><td>Sinh viên – Hồ sơ y tế</td></tr>
+          <tr><td><b>Một – Nhiều (1–∞)</b></td><td>Một bản ghi bảng A liên kết với nhiều bản ghi bảng B (phổ biến nhất)</td><td>Lớp – Sinh viên</td></tr>
+          <tr><td><b>Nhiều – Nhiều (∞–∞)</b></td><td>Thực hiện qua <b>bảng trung gian</b> gồm hai quan hệ 1–∞</td><td>Sinh viên – Môn học (qua tblDiem)</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Các tùy chọn trong Edit Relationships</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tùy chọn</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Enforce Referential Integrity</b></td><td>Đảm bảo toàn vẹn tham chiếu: không cho nhập giá trị khóa ngoại không tồn tại ở bảng chính; không cho xóa bản ghi bảng chính khi còn bản ghi liên quan. Đường nối hiện ký hiệu <b>1</b> và <b>∞</b>.</td></tr>
+          <tr><td><b>Cascade Update Related Fields</b></td><td>Sửa giá trị khóa chính → tự động cập nhật khóa ngoại ở bảng liên quan.</td></tr>
+          <tr><td><b>Cascade Delete Related Records</b></td><td>Xóa bản ghi ở bảng chính → tự động xóa các bản ghi liên quan ở bảng phụ.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Điều kiện tạo quan hệ</b>Hai trường liên kết phải có <b>cùng kiểu dữ liệu</b> (và cùng Field Size với Number). Riêng khóa chính kiểu <b>AutoNumber</b> thì khóa ngoại phải là <b>Number – Long Integer</b>.</div>
+    </section>
+
+    <!-- 7 -->
+    <section class="card" id="t-s7">
+      <h2><span class="num">7</span>Nhập liệu và thao tác trên Datasheet</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác</th><th>Cách thực hiện</th></tr></thead>
+        <tbody>
+          <tr><td>Thêm bản ghi mới</td><td>Nhập vào dòng cuối có dấu <b>*</b>, hoặc <kbd>Ctrl</kbd>+<kbd>+</kbd> / Home → New</td></tr>
+          <tr><td>Xóa bản ghi</td><td>Chọn bản ghi → Home → Delete (không Undo được)</td></tr>
+          <tr><td>Chèn ngày hiện tại</td><td><kbd>Ctrl</kbd>+<kbd>;</kbd></td></tr>
+          <tr><td>Chép giá trị ô phía trên</td><td><kbd>Ctrl</kbd>+<kbd>'</kbd></td></tr>
+          <tr><td>Tìm kiếm / Thay thế</td><td><kbd>Ctrl</kbd>+<kbd>F</kbd> / <kbd>Ctrl</kbd>+<kbd>H</kbd></td></tr>
+          <tr><td>Sắp xếp</td><td>Home → Ascending / Descending</td></tr>
+          <tr><td>Lọc</td><td>Filter, <b>Selection</b> (lọc theo giá trị đang chọn), Advanced → <b>Filter By Form</b></td></tr>
+          <tr><td>Dòng tổng cộng</td><td>Home → <b>Totals</b> (Σ) để thêm dòng Total</td></tr>
+          <tr><td>Cố định cột khi cuộn ngang</td><td>Chuột phải tiêu đề cột → <b>Freeze Fields</b></td></tr>
+          <tr><td>Ẩn / hiện cột</td><td>Chuột phải → <b>Hide Fields</b> / <b>Unhide Fields</b></td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Subdatasheet</b>Khi bảng có quan hệ 1–∞, Datasheet của bảng chính hiện dấu <b>＋</b> ở đầu mỗi dòng; nhấn vào để xem các bản ghi liên quan ở bảng phụ.</div>
+      <div class="note"><b>Lưu dữ liệu</b>Access tự động lưu bản ghi khi con trỏ rời khỏi bản ghi đó hoặc khi đóng bảng; <kbd>Shift</kbd>+<kbd>Enter</kbd> để lưu ngay bản ghi đang sửa. Lệnh <kbd>Ctrl</kbd>+<kbd>S</kbd> lưu các thay đổi về <b>bố cục</b> (độ rộng cột, sắp xếp…).</div>
+    </section>
+
+    <!-- 8 -->
+    <section class="card" id="t-s8">
+      <h2><span class="num">8</span>Lookup, kiểm tra mức bảng và nhập dữ liệu ngoài</h2>
+      <h3>a) Lookup Wizard</h3>
+      <p>Chọn <b>Lookup Wizard…</b> ở cột Data Type để tạo ô <b>danh sách chọn (Combo Box)</b>, giá trị lấy từ:</p>
+      <ul>
+        <li><b>Một bảng/truy vấn khác</b> — ví dụ trường MaLop chọn từ tblLop (Access tự tạo quan hệ).</li>
+        <li><b>Danh sách tự nhập</b> — ví dụ Giới tính: "Nam"; "Nữ".</li>
+      </ul>
+      <p>Có thể đánh dấu <b>Limit To List</b> để chỉ cho phép chọn giá trị có trong danh sách, hoặc <b>Allow Multiple Values</b> để chọn nhiều giá trị.</p>
+      <h3>b) Validation Rule mức bảng</h3>
+      <p>Khi cần so sánh <b>giữa hai trường</b> trong cùng bản ghi, phải đặt quy tắc ở <b>Property Sheet của bảng</b> (Table Design → Property Sheet), không đặt ở thuộc tính trường:</p>
+      <pre class="code"><span class="c">-- Table Properties</span>
+<span class="a">Validation Rule</span>:  [NgayKetThuc] &gt;= [NgayBatDau]
+<span class="a">Validation Text</span>:  <span class="s">"Ngày kết thúc phải sau hoặc bằng ngày bắt đầu!"</span></pre>
+      <h3>c) Nhập và liên kết dữ liệu từ Excel</h3>
+      <ol class="steps">
+        <li>Chọn <b>External Data → New Data Source → From File → Excel</b>.</li>
+        <li>Chọn tệp Excel và một trong các tùy chọn: <b>Import</b> vào bảng mới, <b>Append</b> vào bảng có sẵn, hoặc <b>Link</b> (tạo bảng liên kết).</li>
+        <li>Chọn trang tính, đánh dấu <b>First Row Contains Column Headings</b> nếu dòng đầu là tiêu đề.</li>
+        <li>Thiết lập kiểu dữ liệu cho từng cột, chọn khóa chính và đặt tên bảng.</li>
+      </ol>
+      <div class="note"><b>Import hay Link?</b><b>Import</b> sao chép dữ liệu vào Access (độc lập với tệp gốc). <b>Link</b> chỉ tạo liên kết — dữ liệu vẫn nằm ở tệp Excel, thay đổi ở Excel sẽ phản ánh vào Access.</div>
+      <div class="note tip"><b>Quy ước đặt tên</b><code>tbl</code> + tên chủ đề số ít, không dấu: <code>tblSinhVien</code>, <code>tblLop</code>, <code>tblMonHoc</code>. Trường: <code>MaSV</code>, <code>HoTen</code>, <code>NgaySinh</code>.</div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="card" id="t-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10.</p>
+
+      <div class="student-box">
+        <label for="t-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="t-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="t-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="t-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="t-quizBar"></i></div>
+        <span class="pill">⏱ <b id="t-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="t-qnav"></div>
+      <div id="t-quizBox"></div>
+
+      <div class="result" id="t-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="t-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="t-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="t-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="t-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="t-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="t-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="t-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav" style="justify-content:flex-end">
+  <button type="button" data-lesson="query">Bài tiếp theo: Bài 2. Các loại Query trong Access 2019 →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 2: QUERY ================= -->
+<div class="lesson" id="lesson-query">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📘 Tin học ứng dụng · Microsoft Access 2019</span>
+    <h1>Bài 2. Các loại Query (Truy vấn) trong Access 2019</h1>
+    <p>Truy xuất, lọc, tính toán, tổng hợp và cập nhật dữ liệu từ một hoặc nhiều bảng bằng Query Design, Query Wizard và ngôn ngữ SQL.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc" id="q-toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#q-s1"><span class="n">1</span>Query là gì?</a>
+    <a href="#q-s2"><span class="n">2</span>Tạo Query & liên kết bảng</a>
+    <a href="#q-s3"><span class="n">3</span>Select Query & điều kiện</a>
+    <a href="#q-s4"><span class="n">4</span>Trường tính toán</a>
+    <a href="#q-s5"><span class="n">5</span>Totals Query</a>
+    <a href="#q-s6"><span class="n">6</span>Parameter & Crosstab</a>
+    <a href="#q-s7"><span class="n">7</span>Action Query</a>
+    <a href="#q-s8"><span class="n">8</span>SQL Query & Wizard</a>
+    <a href="#q-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#q-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i id="q-readBar"></i></div>
+  </nav>
+
+  <main>
+    <!-- 1 -->
+    <section class="card" id="q-s1">
+      <h2><span class="num">1</span>Query là gì?</h2>
+      <p><b>Query (truy vấn)</b> là đối tượng dùng để đặt câu hỏi với dữ liệu: lấy ra những bản ghi, những trường cần thiết từ một hoặc nhiều bảng/truy vấn khác, sắp xếp, tính toán, tổng hợp — hoặc thực hiện thay đổi hàng loạt trên dữ liệu. Query không lưu dữ liệu mà chỉ lưu <b>câu lệnh SQL</b>; mỗi lần chạy, kết quả được lấy mới từ bảng nguồn.</p>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">🔍</div><h4>Truy xuất & lọc</h4><p>Chọn các trường và bản ghi thỏa điều kiện, sắp xếp theo ý muốn.</p></div>
+        <div class="tile"><div class="ic">🧮</div><h4>Tính toán & tổng hợp</h4><p>Tạo trường tính toán, thống kê Sum, Avg, Count theo nhóm.</p></div>
+        <div class="tile"><div class="ic">🔗</div><h4>Kết hợp nhiều bảng</h4><p>Nối dữ liệu từ các bảng có quan hệ thành một kết quả duy nhất.</p></div>
+        <div class="tile"><div class="ic">✏️</div><h4>Thay đổi dữ liệu</h4><p>Thêm, cập nhật, xóa hàng loạt hoặc tạo bảng mới bằng Action Query.</p></div>
+      </div>
+      <h3>Phân nhóm các loại Query</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nhóm</th><th>Các loại</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip sel">Truy xuất</span></td><td>Select Query, Totals Query, Parameter Query, Crosstab Query</td></tr>
+          <tr><td><span class="chip act">Hành động</span></td><td>Make Table, Append, Update, Delete Query</td></tr>
+          <tr><td><span class="chip sql">SQL riêng</span></td><td>Union, Pass-Through, Data Definition Query</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Các chế độ xem của Query</h3>
+      <ul>
+        <li><b>Design View</b> — thiết kế bằng lưới QBE (Query By Example).</li>
+        <li><b>Datasheet View</b> — xem kết quả dạng bảng.</li>
+        <li><b>SQL View</b> — xem và sửa trực tiếp câu lệnh SQL.</li>
+      </ul>
+    </section>
+
+    <!-- 2 -->
+    <section class="card" id="q-s2">
+      <h2><span class="num">2</span>Tạo Query và liên kết bảng</h2>
+      <h3>a) Tạo bằng Query Design</h3>
+      <ol class="steps">
+        <li>Chọn tab <b>Create</b> → nhóm <b>Queries</b> → <b>Query Design</b>.</li>
+        <li>Trong khung <b>Add Tables</b> (Show Table), chọn các bảng/truy vấn nguồn rồi nhấn <b>Add</b>.</li>
+        <li>Kéo thả (hoặc nhấp đúp) các trường cần lấy xuống lưới QBE.</li>
+        <li>Thiết lập <b>Sort</b>, <b>Show</b>, <b>Criteria</b> cho từng cột.</li>
+        <li>Nhấn <b>Run (!)</b> hoặc chuyển sang Datasheet View để xem kết quả.</li>
+        <li>Nhấn <kbd>Ctrl</kbd>+<kbd>S</kbd>, đặt tên, ví dụ <b>qrySinhVienK20</b>.</li>
+      </ol>
+      <div class="designer" aria-label="Mô phỏng Query Design">
+        <div class="bar"><span>qryDiemSinhVien</span><span>✕</span></div>
+        <div class="tables">
+          <div class="tbox"><b>tblSinhVien</b><div class="pk">🔑 MaSV</div><div>HoTen</div><div>NgaySinh</div><div>MaLop</div></div>
+          <span class="join-line">1 ──── ∞</span>
+          <div class="tbox"><b>tblDiem</b><div class="pk">MaSV</div><div>MaMH</div><div>Diem</div></div>
+        </div>
+        <div class="qbe"><table>
+          <tr><th>Field:</th><td>MaSV</td><td>HoTen</td><td>MaLop</td><td>Diem</td></tr>
+          <tr><th>Table:</th><td>tblSinhVien</td><td>tblSinhVien</td><td>tblSinhVien</td><td>tblDiem</td></tr>
+          <tr><th>Sort:</th><td></td><td>Ascending</td><td></td><td></td></tr>
+          <tr><th>Show:</th><td>☑</td><td>☑</td><td>☐</td><td>☑</td></tr>
+          <tr><th>Criteria:</th><td></td><td></td><td class="hl">"K20A"</td><td class="hl">&gt;=5</td></tr>
+          <tr><th>or:</th><td></td><td></td><td></td><td></td></tr>
+        </table></div>
+      </div>
+      <p>Truy vấn trên lấy sinh viên lớp <b>K20A</b> có điểm từ 5 trở lên, sắp xếp theo họ tên; trường MaLop dùng để lọc nhưng không hiển thị (bỏ chọn <b>Show</b>).</p>
+      <h3>b) Kiểu liên kết (Join Type)</h3>
+      <p>Nhấp đúp đường nối giữa hai bảng để mở hộp thoại <b>Join Properties</b>:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Kiểu</th><th>SQL</th><th>Kết quả</th></tr></thead>
+        <tbody>
+          <tr><td>Tùy chọn 1</td><td><code>INNER JOIN</code></td><td>Chỉ lấy các bản ghi có giá trị khớp ở <b>cả hai</b> bảng (mặc định).</td></tr>
+          <tr><td>Tùy chọn 2</td><td><code>LEFT JOIN</code></td><td>Lấy <b>tất cả</b> bản ghi bảng bên trái và các bản ghi khớp bên phải.</td></tr>
+          <tr><td>Tùy chọn 3</td><td><code>RIGHT JOIN</code></td><td>Lấy <b>tất cả</b> bản ghi bảng bên phải và các bản ghi khớp bên trái.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="card" id="q-s3">
+      <h2><span class="num">3</span>Select Query và biểu thức điều kiện</h2>
+      <p><b>Select Query</b> là loại truy vấn phổ biến nhất, dùng để lấy dữ liệu mà không làm thay đổi bảng nguồn. Điều kiện được nhập ở dòng <b>Criteria</b>.</p>
+      <div class="note"><b>Quy tắc And / Or</b>Các điều kiện nằm <b>trên cùng một dòng</b> Criteria (khác cột) được kết hợp bằng <b>And</b>. Các điều kiện nằm ở <b>các dòng khác nhau</b> (Criteria và or) được kết hợp bằng <b>Or</b>.</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Toán tử / Biểu thức</th><th>Ví dụ trong Criteria</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td>So sánh</td><td><code>&gt;=5</code>, <code>&lt;&gt;"Nam"</code></td><td>Lớn hơn hoặc bằng 5; khác "Nam"</td></tr>
+          <tr><td><code>Between … And</code></td><td><code>Between 5 And 8</code></td><td>Trong khoảng 5 đến 8 (bao gồm hai đầu)</td></tr>
+          <tr><td><code>In( )</code></td><td><code>In("Hà Nội","Huế")</code></td><td>Giá trị thuộc danh sách</td></tr>
+          <tr><td><code>Like</code> + <code>*</code></td><td><code>Like "Nguyễn*"</code></td><td>Bắt đầu bằng "Nguyễn" (<code>*</code> đại diện nhiều ký tự)</td></tr>
+          <tr><td><code>Like</code> + <code>?</code></td><td><code>Like "SV0??"</code></td><td><code>?</code> đại diện đúng một ký tự</td></tr>
+          <tr><td><code>Like</code> + <code>#</code></td><td><code>Like "K2#"</code></td><td><code>#</code> đại diện một chữ số</td></tr>
+          <tr><td><code>Is Null</code> / <code>Is Not Null</code></td><td><code>Is Null</code></td><td>Trường bỏ trống / có dữ liệu</td></tr>
+          <tr><td>Ngày tháng</td><td><code>&gt;=#01/01/2005#</code></td><td>Hằng ngày tháng đặt trong cặp dấu <code>#</code></td></tr>
+          <tr><td><code>Not</code></td><td><code>Not "K20A"</code></td><td>Phủ định điều kiện</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Mẹo</b>Hằng chuỗi đặt trong dấu nháy kép <code>"…"</code>, hằng ngày trong <code>#…#</code>, tên trường trong ngoặc vuông <code>[…]</code>. Thuộc tính <b>Top Values</b> (ô Return trên tab Query Design) giúp lấy nhanh N bản ghi đầu, ví dụ Top 5 sinh viên điểm cao nhất (kết hợp Sort Descending).</div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card" id="q-s4">
+      <h2><span class="num">4</span>Trường tính toán (Calculated Field)</h2>
+      <p>Tại một ô <b>Field</b> trống, nhập theo cú pháp <code>TênTrườngMới: Biểu thức</code>. Có thể dùng <b>Expression Builder</b> (nhấn chuột phải → Build… hoặc <kbd>Ctrl</kbd>+<kbd>F2</kbd>) để xây dựng biểu thức.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Ví dụ</th><th>Giải thích</th></tr></thead>
+        <tbody>
+          <tr><td><code>ThanhTien: [SoLuong]*[DonGia]</code></td><td>Tính thành tiền</td></tr>
+          <tr><td><code>HoTen: [HoLot] &amp; " " &amp; [Ten]</code></td><td>Nối chuỗi bằng toán tử <code>&amp;</code></td></tr>
+          <tr><td><code>Tuoi: Year(Date()) - Year([NgaySinh])</code></td><td><code>Date()</code> trả về ngày hiện tại, <code>Year()</code> lấy năm</td></tr>
+          <tr><td><code>KetQua: IIf([Diem]&gt;=5,"Đạt","Không đạt")</code></td><td>Hàm điều kiện <code>IIf(điều kiện, đúng, sai)</code></td></tr>
+          <tr><td><code>XepLoai: IIf([DTB]&gt;=8,"Giỏi",IIf([DTB]&gt;=6.5,"Khá","TB"))</code></td><td>IIf lồng nhau</td></tr>
+          <tr><td><code>Thang: Month([NgayLap])</code></td><td>Lấy tháng; tương tự <code>Day()</code>, <code>Weekday()</code></td></tr>
+          <tr><td><code>Ten: Right([HoTen],3)</code></td><td>Hàm chuỗi <code>Left</code>, <code>Right</code>, <code>Mid</code>, <code>Len</code></td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Lưu ý</b>Tên trường mới không được trùng với tên trường đã có trong bảng nguồn; dấu hai chấm <code>:</code> dùng để phân cách tên và biểu thức.</div>
+    </section>
+
+    <!-- 5 -->
+    <section class="card" id="q-s5">
+      <h2><span class="num">5</span>Totals Query (Truy vấn tổng hợp)</h2>
+      <p>Nhấn nút <b>Totals (Σ)</b> trên tab <b>Query Design</b> để thêm dòng <b>Total</b> vào lưới QBE, sau đó chọn phép tổng hợp cho từng cột.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tùy chọn Total</th><th>Chức năng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Group By</b></td><td>Nhóm các bản ghi có cùng giá trị</td></tr>
+          <tr><td><b>Sum / Avg</b></td><td>Tính tổng / trung bình</td></tr>
+          <tr><td><b>Min / Max</b></td><td>Giá trị nhỏ nhất / lớn nhất</td></tr>
+          <tr><td><b>Count</b></td><td>Đếm số bản ghi (không đếm giá trị Null)</td></tr>
+          <tr><td><b>StDev / Var</b></td><td>Độ lệch chuẩn / phương sai</td></tr>
+          <tr><td><b>First / Last</b></td><td>Giá trị của bản ghi đầu / cuối trong nhóm</td></tr>
+          <tr><td><b>Expression</b></td><td>Trường tính toán dựa trên các hàm tổng hợp</td></tr>
+          <tr><td><b>Where</b></td><td>Lọc bản ghi <b>trước khi</b> nhóm; cột này không được hiển thị</td></tr>
+        </tbody>
+      </table></div>
+      <pre class="code"><span class="c">-- Số sinh viên và điểm trung bình theo lớp, chỉ lấy lớp có ĐTB &gt;= 6.5</span>
+<span class="k">SELECT</span> MaLop, <span class="a">Count</span>(MaSV) <span class="k">AS</span> SoSV, <span class="a">Avg</span>(Diem) <span class="k">AS</span> DiemTB
+<span class="k">FROM</span> tblSinhVien <span class="k">INNER JOIN</span> tblDiem <span class="k">ON</span> tblSinhVien.MaSV = tblDiem.MaSV
+<span class="k">GROUP BY</span> MaLop
+<span class="k">HAVING</span> <span class="a">Avg</span>(Diem) &gt;= <span class="s">6.5</span>;</pre>
+      <p>Điều kiện đặt ở dòng Criteria của cột có hàm tổng hợp (ví dụ cột Avg) sẽ lọc <b>sau khi</b> nhóm và tương ứng với mệnh đề <code>HAVING</code>; điều kiện ở cột có Total = <b>Where</b> tương ứng với mệnh đề <code>WHERE</code>.</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="card" id="q-s6">
+      <h2><span class="num">6</span>Parameter Query và Crosstab Query</h2>
+      <h3>a) Parameter Query (Truy vấn tham số)</h3>
+      <p>Cho phép người dùng nhập giá trị điều kiện mỗi khi chạy truy vấn. Tại dòng Criteria, nhập câu nhắc đặt trong <b>ngoặc vuông</b>:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Criteria</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><code>[Nhập mã lớp:]</code></td><td>Hiện hộp thoại yêu cầu nhập mã lớp</td></tr>
+          <tr><td><code>Between [Từ ngày:] And [Đến ngày:]</code></td><td>Hai tham số — lọc theo khoảng ngày</td></tr>
+          <tr><td><code>Like "*" &amp; [Nhập một phần họ tên:] &amp; "*"</code></td><td>Tìm gần đúng theo chuỗi nhập vào</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Khai báo kiểu dữ liệu tham số</b>Tab Query Design → <b>Parameters</b> để khai báo kiểu (Date/Time, Number…) cho từng tham số, giúp Access kiểm tra giá trị nhập vào.</div>
+      <h3>b) Crosstab Query (Truy vấn chéo)</h3>
+      <p>Tổng hợp dữ liệu và hiển thị dạng bảng hai chiều giống PivotTable trong Excel. Gồm 3 thành phần:</p>
+      <div class="grid-2">
+        <div class="tile"><h4>Row Heading</h4><p>Tiêu đề dòng — tối đa <b>3</b> trường.</p></div>
+        <div class="tile"><h4>Column Heading</h4><p>Tiêu đề cột — chỉ <b>1</b> trường.</p></div>
+        <div class="tile"><h4>Value</h4><p>Giá trị tổng hợp tại ô giao — chỉ <b>1</b> trường (Sum, Count, Avg…).</p></div>
+      </div>
+      <pre class="code"><span class="c">-- Điểm của từng sinh viên theo từng môn học</span>
+<span class="k">TRANSFORM</span> <span class="a">Sum</span>(Diem)
+<span class="k">SELECT</span> MaSV, HoTen
+<span class="k">FROM</span> qryDiemSinhVien
+<span class="k">GROUP BY</span> MaSV, HoTen
+<span class="k">PIVOT</span> MaMH;</pre>
+      <div class="note warn"><b>Lưu ý khi dùng Crosstab Query Wizard</b>Wizard chỉ lấy dữ liệu từ <b>một</b> bảng hoặc truy vấn. Nếu dữ liệu nằm ở nhiều bảng, hãy tạo một Select Query trung gian trước, hoặc thiết kế crosstab trực tiếp trong Design View (nút <b>Crosstab</b> trên tab Query Design).</div>
+    </section>
+
+    <!-- 7 -->
+    <section class="card" id="q-s7">
+      <h2><span class="num">7</span>Action Query (Truy vấn hành động)</h2>
+      <p>Action Query làm <b>thay đổi dữ liệu</b> hoặc cấu trúc CSDL. Biểu tượng của chúng trong Navigation Pane có kèm <b>dấu chấm than (!)</b>. Chỉ khi nhấn <b>Run (!)</b> truy vấn mới thực thi; Datasheet View chỉ xem trước các bản ghi bị ảnh hưởng.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại</th><th>Chức năng</th><th>Câu lệnh SQL</th></tr></thead>
+        <tbody>
+          <tr><td><b>Make Table</b></td><td>Tạo một bảng mới từ kết quả truy vấn</td><td><code>SELECT … INTO BangMoi FROM …</code></td></tr>
+          <tr><td><b>Append</b></td><td>Thêm bản ghi vào cuối một bảng đã có</td><td><code>INSERT INTO … SELECT …</code></td></tr>
+          <tr><td><b>Update</b></td><td>Sửa giá trị hàng loạt; nhập giá trị mới ở dòng <b>Update To</b></td><td><code>UPDATE … SET … WHERE …</code></td></tr>
+          <tr><td><b>Delete</b></td><td>Xóa các bản ghi thỏa điều kiện</td><td><code>DELETE FROM … WHERE …</code></td></tr>
+        </tbody>
+      </table></div>
+      <pre class="code"><span class="c">-- Update: cộng 0.5 điểm cho môn TH01</span>
+<span class="k">UPDATE</span> tblDiem <span class="k">SET</span> Diem = Diem + <span class="s">0.5</span> <span class="k">WHERE</span> MaMH = <span class="s">"TH01"</span>;
+
+<span class="c">-- Delete: xóa sinh viên đã thôi học</span>
+<span class="k">DELETE FROM</span> tblSinhVien <span class="k">WHERE</span> TrangThai = <span class="s">"Thôi học"</span>;
+
+<span class="c">-- Make Table: lưu danh sách sinh viên giỏi</span>
+<span class="k">SELECT</span> MaSV, HoTen, DTB <span class="k">INTO</span> tblSVGioi <span class="k">FROM</span> qryDTB <span class="k">WHERE</span> DTB &gt;= <span class="s">8</span>;</pre>
+      <div class="note warn"><b>Cẩn thận!</b>Thay đổi do Action Query gây ra <b>không thể hoàn tác (Undo)</b>. Hãy sao lưu CSDL và chạy thử dưới dạng Select Query trước. Nếu CSDL chưa được tin cậy (Disabled Mode), Access sẽ chặn Action Query — nhấn <b>Enable Content</b> để cho phép.</div>
+    </section>
+
+    <!-- 8 -->
+    <section class="card" id="q-s8">
+      <h2><span class="num">8</span>SQL Query và các Query Wizard</h2>
+      <h3>a) Các truy vấn chỉ tạo được bằng SQL</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại</th><th>Công dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Union</b></td><td>Gộp kết quả của nhiều câu SELECT có cùng số cột, kiểu dữ liệu tương thích. <code>UNION</code> loại bản ghi trùng, <code>UNION ALL</code> giữ lại.</td></tr>
+          <tr><td><b>Pass-Through</b></td><td>Gửi câu lệnh trực tiếp đến máy chủ CSDL qua ODBC (SQL Server…) để máy chủ xử lý.</td></tr>
+          <tr><td><b>Data Definition</b></td><td>Tạo/sửa cấu trúc: <code>CREATE TABLE</code>, <code>ALTER TABLE</code>, <code>DROP TABLE</code>, <code>CREATE INDEX</code>.</td></tr>
+        </tbody>
+      </table></div>
+      <pre class="code"><span class="c">-- Union: danh bạ chung của giảng viên và sinh viên</span>
+<span class="k">SELECT</span> HoTen, DienThoai <span class="k">FROM</span> tblGiangVien
+<span class="k">UNION</span>
+<span class="k">SELECT</span> HoTen, DienThoai <span class="k">FROM</span> tblSinhVien;</pre>
+      <h3>b) Query Wizard (Create → Query Wizard)</h3>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">📋</div><h4>Simple Query Wizard</h4><p>Tạo nhanh Select Query, có thể kèm tổng hợp (Summary).</p></div>
+        <div class="tile"><div class="ic">📊</div><h4>Crosstab Query Wizard</h4><p>Tạo truy vấn chéo từ một bảng hoặc truy vấn.</p></div>
+        <div class="tile"><div class="ic">👯</div><h4>Find Duplicates Query Wizard</h4><p>Tìm các bản ghi có giá trị trùng lặp trong một hay nhiều trường.</p></div>
+        <div class="tile"><div class="ic">🧩</div><h4>Find Unmatched Query Wizard</h4><p>Tìm bản ghi ở bảng này không có bản ghi liên quan ở bảng kia (ví dụ khách hàng chưa có đơn hàng).</p></div>
+      </div>
+      <div class="note tip"><b>Quy ước đặt tên</b><code>qry</code> cho Select Query; có thể thêm hậu tố để phân biệt: <code>qryUpd…</code> (Update), <code>qryDel…</code> (Delete), <code>qryApp…</code> (Append), <code>qryMk…</code> (Make Table), <code>qryXtab…</code> (Crosstab).</div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="card" id="q-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10.</p>
+
+      <div class="student-box">
+        <label for="q-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="q-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="q-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="q-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="q-quizBar"></i></div>
+        <span class="pill">⏱ <b id="q-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="q-qnav"></div>
+      <div id="q-quizBox"></div>
+
+      <div class="result" id="q-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="q-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="q-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="q-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="q-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="q-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="q-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="q-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="table">← Bài trước: Bài 1. Bảng (Table) trong Access 2019</button>
+  <button type="button" data-lesson="form">Bài tiếp theo: Bài 3. Biểu mẫu (Form) trong Access 2019 →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 3: FORM ================= -->
+<div class="lesson" id="lesson-form">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📘 Tin học ứng dụng · Microsoft Access 2019</span>
+    <h1>Bài 3. Biểu mẫu (Form) trong Access 2019</h1>
+    <p>Xây dựng giao diện nhập liệu thân thiện: tạo form bằng công cụ và Design View, sử dụng các điều khiển, thiết lập thuộc tính, tạo form chính – form con và nút lệnh điều hướng.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#f-s1"><span class="n">1</span>Form là gì?</a>
+    <a href="#f-s2"><span class="n">2</span>Các cách tạo Form</a>
+    <a href="#f-s3"><span class="n">3</span>Chế độ xem & cấu trúc</a>
+    <a href="#f-s4"><span class="n">4</span>Các điều khiển</a>
+    <a href="#f-s5"><span class="n">5</span>Thuộc tính Form & điều khiển</a>
+    <a href="#f-s6"><span class="n">6</span>Điều khiển tính toán</a>
+    <a href="#f-s7"><span class="n">7</span>Form chính – Form con</a>
+    <a href="#f-s8"><span class="n">8</span>Nút lệnh, sự kiện & khởi động</a>
+    <a href="#f-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#f-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <!-- 1 -->
+    <section class="card" id="f-s1">
+      <h2><span class="num">1</span>Biểu mẫu (Form) là gì?</h2>
+      <p><b>Form (biểu mẫu)</b> là đối tượng tạo <b>giao diện</b> giúp người dùng <b>xem, nhập, sửa, xóa</b> dữ liệu một cách trực quan, thay vì thao tác trực tiếp trên bảng. Form lấy dữ liệu từ một <b>bảng</b> hoặc <b>truy vấn</b> — gọi là <b>nguồn dữ liệu (Record Source)</b>. Form bản thân không lưu dữ liệu; mọi thay đổi được ghi về bảng nguồn.</p>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">⌨️</div><h4>Nhập liệu thuận tiện</h4><p>Bố trí trường hợp lý, có danh sách chọn, kiểm tra dữ liệu, giảm sai sót.</p></div>
+        <div class="tile"><div class="ic">🖥️</div><h4>Giao diện ứng dụng</h4><p>Tạo menu điều hướng, màn hình đăng nhập, hộp thoại tìm kiếm.</p></div>
+        <div class="tile"><div class="ic">🔗</div><h4>Hiển thị dữ liệu liên quan</h4><p>Form chính – form con thể hiện quan hệ 1–nhiều trên cùng màn hình.</p></div>
+        <div class="tile"><div class="ic">🛡️</div><h4>Kiểm soát truy cập</h4><p>Có thể chỉ cho xem, cấm xóa, hoặc chỉ cho nhập mới.</p></div>
+      </div>
+      <h3>Ba loại điều khiển trên Form</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại</th><th>Đặc điểm</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td><b>Bound</b> (liên kết)</td><td>Control Source là một <b>trường</b> của nguồn dữ liệu; sửa trên form sẽ cập nhật vào bảng</td><td>Text Box hiển thị HoTen</td></tr>
+          <tr><td><b>Unbound</b> (không liên kết)</td><td>Không có nguồn dữ liệu</td><td>Label tiêu đề, đường kẻ, hình ảnh logo</td></tr>
+          <tr><td><b>Calculated</b> (tính toán)</td><td>Control Source là <b>biểu thức bắt đầu bằng dấu =</b></td><td><code>=[SoLuong]*[DonGia]</code></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card" id="f-s2">
+      <h2><span class="num">2</span>Các cách tạo Form</h2>
+      <p>Tất cả nằm trong tab <b>Create → nhóm Forms</b>:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Công cụ</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Form</b></td><td>Tạo <b>nhanh</b> form chứa tất cả các trường của bảng/truy vấn đang chọn trong Navigation Pane.</td></tr>
+          <tr><td><b>Form Wizard</b></td><td>Tạo form theo từng bước: chọn trường (có thể từ nhiều bảng/truy vấn), bố cục (Columnar, Tabular, Datasheet, Justified), đặt tiêu đề.</td></tr>
+          <tr><td><b>Form Design</b></td><td>Tạo form trống ở <b>Design View</b>, tự thiết kế hoàn toàn.</td></tr>
+          <tr><td><b>Blank Form</b></td><td>Tạo form trống ở <b>Layout View</b>, kéo trường từ Field List vào.</td></tr>
+          <tr><td><b>Navigation</b></td><td>Tạo <b>Navigation Form</b> dạng các tab điều hướng đến form/báo cáo khác.</td></tr>
+          <tr><td><b>More Forms → Multiple Items</b></td><td>Hiển thị <b>nhiều bản ghi</b> trên một màn hình dạng bảng.</td></tr>
+          <tr><td><b>More Forms → Datasheet</b></td><td>Form hiển thị dạng lưới giống bảng.</td></tr>
+          <tr><td><b>More Forms → Split Form</b></td><td>Chia đôi màn hình: một phần <b>Form View</b>, một phần <b>Datasheet</b>, đồng bộ với nhau.</td></tr>
+          <tr><td><b>More Forms → Modal Dialog</b></td><td>Hộp thoại có sẵn nút OK và Cancel.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Tạo form bằng Form Wizard</h3>
+      <ol class="steps">
+        <li>Chọn <b>Create → Form Wizard</b>.</li>
+        <li>Chọn bảng/truy vấn trong <b>Tables/Queries</b>, chuyển các trường cần dùng sang khung <b>Selected Fields</b> bằng nút <b>&gt;</b> (hoặc <b>&gt;&gt;</b> để chọn tất cả).</li>
+        <li>Chọn bố cục: <b>Columnar</b>, <b>Tabular</b>, <b>Datasheet</b> hoặc <b>Justified</b>.</li>
+        <li>Đặt tiêu đề form, ví dụ <b>frmSinhVien</b>, chọn mở form để xem hoặc sửa thiết kế → <b>Finish</b>.</li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="card" id="f-s3">
+      <h2><span class="num">3</span>Chế độ xem và cấu trúc Form</h2>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">👁️</div><h4>Form View</h4><p>Chế độ sử dụng: xem, nhập, sửa dữ liệu.</p></div>
+        <div class="tile"><div class="ic">📐</div><h4>Layout View</h4><p>Vừa thấy dữ liệu thật vừa chỉnh kích thước, vị trí điều khiển.</p></div>
+        <div class="tile"><div class="ic">🛠️</div><h4>Design View</h4><p>Thiết kế chi tiết nhất: đầy đủ các phần (section), thêm mọi loại điều khiển, không hiển thị dữ liệu.</p></div>
+      </div>
+      <h3>Các phần (Section) của Form trong Design View</h3>
+      <div class="designer" aria-label="Mô phỏng Form ở Design View">
+        <div class="bar"><span>frmSinhVien</span><span>✕</span></div>
+        <div style="background:var(--surface)">
+          <div class="fsec-h">▼ Form Header</div>
+          <div class="fsec"><span class="fctl lbl" style="font-size:1.1rem;font-weight:700">DANH SÁCH SINH VIÊN</span></div>
+          <div class="fsec-h">▼ Detail</div>
+          <div class="fsec">
+            <div class="frow"><span class="fctl lbl">Mã SV</span><span class="fctl box">MaSV</span></div>
+            <div class="frow"><span class="fctl lbl">Họ tên</span><span class="fctl box">HoTen</span></div>
+            <div class="frow"><span class="fctl lbl">Lớp</span><span class="fctl box">MaLop ▾</span></div>
+          </div>
+          <div class="fsec-h">▼ Form Footer</div>
+          <div class="fsec"><span class="fctl btn-mock">➕ Thêm mới</span> <span class="fctl btn-mock">💾 Lưu</span> <span class="fctl btn-mock">✖ Đóng</span></div>
+        </div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Section</th><th>Nội dung</th></tr></thead>
+        <tbody>
+          <tr><td><b>Form Header</b></td><td>Hiển thị <b>một lần</b> ở đầu form: tiêu đề, logo, nút lệnh chung.</td></tr>
+          <tr><td><b>Page Header</b></td><td>Đầu mỗi trang khi <b>in</b> form.</td></tr>
+          <tr><td><b>Detail</b></td><td>Phần chính, hiển thị dữ liệu <b>của từng bản ghi</b>.</td></tr>
+          <tr><td><b>Page Footer</b></td><td>Cuối mỗi trang khi in (số trang…).</td></tr>
+          <tr><td><b>Form Footer</b></td><td>Hiển thị một lần ở cuối form: ô tổng cộng, nút lệnh.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Mẹo</b>Nhấp chuột phải vào vùng form trong Design View → <b>Form Header/Footer</b> hoặc <b>Page Header/Footer</b> để bật/tắt các phần này.</div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card" id="f-s4">
+      <h2><span class="num">4</span>Các điều khiển (Controls)</h2>
+      <p>Các điều khiển nằm trong nhóm <b>Controls</b> của tab <b>Form Design</b>. Khi bật <b>Use Control Wizards</b>, Access sẽ mở trình hướng dẫn khi vẽ Combo Box, List Box, Option Group, Command Button, Subform.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Điều khiển</th><th>Công dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Label</b></td><td>Nhãn văn bản cố định (tiêu đề, chú thích).</td></tr>
+          <tr><td><b>Text Box</b></td><td>Hiển thị/nhập dữ liệu hoặc hiển thị kết quả tính toán.</td></tr>
+          <tr><td><b>Combo Box</b></td><td>Danh sách <b>thả xuống</b>, vừa chọn vừa có thể gõ giá trị.</td></tr>
+          <tr><td><b>List Box</b></td><td>Danh sách <b>luôn hiển thị</b>, chỉ chọn giá trị có sẵn.</td></tr>
+          <tr><td><b>Check Box</b></td><td>Ô đánh dấu cho trường Yes/No.</td></tr>
+          <tr><td><b>Option Group</b></td><td>Nhóm các nút tùy chọn, chỉ chọn <b>một</b> giá trị (lưu dạng số).</td></tr>
+          <tr><td><b>Toggle Button</b></td><td>Nút bật/tắt.</td></tr>
+          <tr><td><b>Command Button</b></td><td>Nút lệnh thực hiện hành động (mở form, lưu, xóa, đóng…).</td></tr>
+          <tr><td><b>Tab Control</b></td><td>Chia form thành nhiều <b>trang (tab)</b> để bố trí nhiều thông tin.</td></tr>
+          <tr><td><b>Subform/Subreport</b></td><td>Nhúng một form/báo cáo khác vào form hiện tại.</td></tr>
+          <tr><td><b>Image / Line / Rectangle</b></td><td>Trang trí: hình ảnh, đường kẻ, khung.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Các công cụ hỗ trợ thiết kế</h3>
+      <ul>
+        <li><b>Add Existing Fields</b> (<kbd>Alt</kbd>+<kbd>F8</kbd>): mở <b>Field List</b>, kéo trường vào form để tạo điều khiển liên kết.</li>
+        <li><b>Property Sheet</b> (<kbd>F4</kbd>): xem và chỉnh thuộc tính của form hoặc điều khiển đang chọn.</li>
+        <li><b>Arrange</b>: căn chỉnh (Align), đặt kích thước bằng nhau (Size/Space), nhóm bố cục (Stacked, Tabular).</li>
+        <li><b>Tab Order</b>: quy định thứ tự con trỏ di chuyển giữa các điều khiển khi nhấn <kbd>Tab</kbd>.</li>
+      </ul>
+    </section>
+
+    <!-- 5 -->
+    <section class="card" id="f-s5">
+      <h2><span class="num">5</span>Thuộc tính của Form và điều khiển</h2>
+      <h3>a) Thuộc tính của Form</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thuộc tính</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Record Source</b></td><td>Bảng/truy vấn/câu lệnh SQL làm nguồn dữ liệu của form.</td></tr>
+          <tr><td><b>Caption</b></td><td>Tiêu đề hiển thị trên thanh tiêu đề (tab) của form.</td></tr>
+          <tr><td><b>Default View</b></td><td><b>Single Form</b> (một bản ghi), <b>Continuous Forms</b> (nhiều bản ghi, lặp lại phần Detail), <b>Datasheet</b>, <b>Split Form</b>.</td></tr>
+          <tr><td><b>Allow Additions / Edits / Deletions</b></td><td>Cho phép thêm / sửa / xóa bản ghi (Yes/No).</td></tr>
+          <tr><td><b>Data Entry</b></td><td>Yes = form mở ra <b>chỉ để nhập mới</b>, không hiển thị bản ghi cũ.</td></tr>
+          <tr><td><b>Navigation Buttons</b></td><td>Ẩn/hiện thanh điều hướng bản ghi ở đáy form.</td></tr>
+          <tr><td><b>Record Selectors</b></td><td>Ẩn/hiện thanh chọn bản ghi bên trái.</td></tr>
+          <tr><td><b>Pop Up / Modal</b></td><td>Form nổi trên cửa sổ khác / buộc người dùng đóng form mới thao tác được nơi khác.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>b) Thuộc tính của điều khiển</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thuộc tính</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Name</b></td><td>Tên điều khiển (dùng trong biểu thức, macro), ví dụ <code>txtHoTen</code>.</td></tr>
+          <tr><td><b>Control Source</b></td><td>Trường hoặc biểu thức mà điều khiển hiển thị.</td></tr>
+          <tr><td><b>Format / Decimal Places</b></td><td>Định dạng hiển thị.</td></tr>
+          <tr><td><b>Default Value / Validation Rule</b></td><td>Giá trị mặc định / quy tắc kiểm tra riêng trên form.</td></tr>
+          <tr><td><b>Enabled</b></td><td>No = điều khiển bị mờ, <b>không thể chọn</b> (không nhận con trỏ).</td></tr>
+          <tr><td><b>Locked</b></td><td>Yes = <b>không sửa được</b> nhưng vẫn chọn và sao chép được.</td></tr>
+          <tr><td><b>Visible</b></td><td>Ẩn/hiện điều khiển.</td></tr>
+          <tr><td><b>Tab Stop / Tab Index</b></td><td>Có dừng khi nhấn Tab không / thứ tự dừng.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>c) Thuộc tính riêng của Combo Box / List Box</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thuộc tính</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Row Source Type</b></td><td>Table/Query, Value List hoặc Field List.</td></tr>
+          <tr><td><b>Row Source</b></td><td>Nguồn các giá trị trong danh sách, ví dụ <code>SELECT MaLop, TenLop FROM tblLop</code>.</td></tr>
+          <tr><td><b>Bound Column</b></td><td>Cột có giá trị được <b>lưu vào trường</b> (Control Source).</td></tr>
+          <tr><td><b>Column Count / Column Widths</b></td><td>Số cột hiển thị / độ rộng từng cột (đặt 0cm để ẩn cột mã).</td></tr>
+          <tr><td><b>Limit To List</b></td><td>Yes = chỉ chấp nhận giá trị có trong danh sách.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 6 -->
+    <section class="card" id="f-s6">
+      <h2><span class="num">6</span>Điều khiển tính toán (Calculated Control)</h2>
+      <p>Tạo một <b>Text Box</b> (unbound), mở Property Sheet và nhập biểu thức vào <b>Control Source</b>, luôn bắt đầu bằng dấu <b>=</b>. Có thể dùng <b>Expression Builder</b> bằng cách nhấn nút <b>…</b>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Biểu thức (Control Source)</th><th>Đặt ở</th><th>Kết quả</th></tr></thead>
+        <tbody>
+          <tr><td><code>=[SoLuong]*[DonGia]</code></td><td>Detail</td><td>Thành tiền của từng bản ghi</td></tr>
+          <tr><td><code>=[HoLot] &amp; " " &amp; [Ten]</code></td><td>Detail</td><td>Ghép họ tên</td></tr>
+          <tr><td><code>=Sum([SoLuong]*[DonGia])</code></td><td>Form Footer</td><td>Tổng tiền của tất cả bản ghi</td></tr>
+          <tr><td><code>=Count(*)</code></td><td>Form Footer</td><td>Đếm số bản ghi</td></tr>
+          <tr><td><code>=Avg([Diem])</code></td><td>Form Footer</td><td>Điểm trung bình</td></tr>
+          <tr><td><code>=Date()</code></td><td>Form Header</td><td>Ngày hiện tại</td></tr>
+          <tr><td><code>=IIf([Diem]&gt;=5,"Đạt","Không đạt")</code></td><td>Detail</td><td>Kết quả theo điều kiện</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Lưu ý quan trọng</b>Các hàm tổng hợp (<code>Sum</code>, <code>Avg</code>, <code>Count</code>) chỉ hoạt động ở <b>Form Header/Footer</b> và phải dùng <b>tên trường</b> hoặc biểu thức từ trường — <b>không</b> dùng được tên của một điều khiển tính toán khác. Ví dụ viết <code>=Sum([SoLuong]*[DonGia])</code> chứ không viết <code>=Sum([txtThanhTien])</code>.</div>
+    </section>
+
+    <!-- 7 -->
+    <section class="card" id="f-s7">
+      <h2><span class="num">7</span>Form chính – Form con (Main form / Subform)</h2>
+      <p>Dùng để hiển thị dữ liệu có <b>quan hệ 1–nhiều</b> trên cùng một màn hình: form chính hiển thị bản ghi phía "1", form con hiển thị các bản ghi liên quan phía "nhiều".</p>
+      <div class="designer" aria-label="Mô phỏng Form chính – Form con">
+        <div class="bar"><span>frmLop (form chính)</span><span>✕</span></div>
+        <div class="fsec" style="border-bottom:none">
+          <div class="frow"><span class="fctl lbl">Mã lớp</span><span class="fctl box">K20A</span></div>
+          <div class="frow"><span class="fctl lbl">Tên lớp</span><span class="fctl box">Tin học ứng dụng K20A</span></div>
+          <div style="margin-top:10px;border:2px dashed var(--accent);border-radius:8px;padding:8px">
+            <div style="font-weight:700;color:var(--accent);margin-bottom:6px">subfrmSinhVien (form con — Datasheet)</div>
+            <div class="qbe"><table style="min-width:0">
+              <tr><th style="text-align:left;width:auto">MaSV</th><th style="text-align:left;width:auto">HoTen</th><th style="text-align:left;width:auto">NgaySinh</th></tr>
+              <tr><td>SV001</td><td>Nguyễn Văn An</td><td>12/03/2005</td></tr>
+              <tr><td>SV002</td><td>Trần Thị Bình</td><td>25/08/2005</td></tr>
+            </table></div>
+          </div>
+        </div>
+      </div>
+      <h3>Các cách tạo</h3>
+      <ol class="steps">
+        <li><b>Form Wizard</b>: chọn trường từ cả hai bảng có quan hệ → chọn xem dữ liệu theo bảng chính → chọn <b>Form with subform(s)</b>.</li>
+        <li>Hoặc mở form chính ở Design View → vẽ điều khiển <b>Subform/Subreport</b> → chọn form con có sẵn trong trình hướng dẫn.</li>
+        <li>Hoặc kéo trực tiếp một form từ Navigation Pane thả vào form chính đang ở Design View.</li>
+      </ol>
+      <div class="note"><b>Liên kết form chính và form con</b>Thiết lập ở Property Sheet của điều khiển Subform: <b>Link Master Fields</b> (trường của form chính, ví dụ <code>MaLop</code>) và <b>Link Child Fields</b> (trường tương ứng của form con, ví dụ <code>MaLop</code>). Form con thường có Default View là <b>Datasheet</b> hoặc <b>Continuous Forms</b>.</div>
+      <p>Tham chiếu điều khiển trong form con: <code>[Forms]![frmLop]![subfrmSinhVien].[Form]![HoTen]</code></p>
+    </section>
+
+    <!-- 8 -->
+    <section class="card" id="f-s8">
+      <h2><span class="num">8</span>Nút lệnh, sự kiện và form khởi động</h2>
+      <h3>a) Command Button Wizard</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nhóm (Categories)</th><th>Hành động tiêu biểu</th></tr></thead>
+        <tbody>
+          <tr><td><b>Record Navigation</b></td><td>Go To First / Previous / Next / Last Record, Find Record</td></tr>
+          <tr><td><b>Record Operations</b></td><td>Add New Record, Delete Record, Save Record, Undo Record</td></tr>
+          <tr><td><b>Form Operations</b></td><td>Open Form, Close Form, Print Current Form</td></tr>
+          <tr><td><b>Report Operations</b></td><td>Open Report, Preview Report, Print Report</td></tr>
+          <tr><td><b>Application</b></td><td>Quit Application</td></tr>
+        </tbody>
+      </table></div>
+      <p>Trình hướng dẫn tự tạo một <b>macro nhúng</b> trong thuộc tính <b>On Click</b> của nút (xem thêm Bài 5. Macro).</p>
+      <h3>b) Các sự kiện (Event) thường dùng</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Sự kiện</th><th>Xảy ra khi</th></tr></thead>
+        <tbody>
+          <tr><td><b>On Open / On Load</b></td><td>Form được mở / nạp dữ liệu xong.</td></tr>
+          <tr><td><b>On Current</b></td><td>Chuyển đến một bản ghi (kể cả bản ghi đầu tiên khi mở form).</td></tr>
+          <tr><td><b>Before Update</b></td><td><b>Trước khi</b> lưu dữ liệu — dùng để kiểm tra và có thể hủy lưu.</td></tr>
+          <tr><td><b>After Update</b></td><td>Sau khi dữ liệu đã được cập nhật.</td></tr>
+          <tr><td><b>On Click / On Dbl Click</b></td><td>Nhấp / nhấp đúp vào điều khiển.</td></tr>
+          <tr><td><b>On Close</b></td><td>Form đóng lại.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>c) Form khởi động và Navigation Form</h3>
+      <ul>
+        <li>Đặt form tự mở khi mở CSDL: <b>File → Options → Current Database → Display Form</b> (hoặc dùng macro <b>AutoExec</b>).</li>
+        <li><b>Navigation Form</b> (Create → Navigation) tạo giao diện menu dạng tab; kéo form/báo cáo từ Navigation Pane thả vào các tab.</li>
+      </ul>
+      <div class="note tip"><b>Quy ước đặt tên</b>Form: <code>frm</code> (<code>frmSinhVien</code>), form con: <code>subfrm</code>; điều khiển: <code>txt</code> (Text Box), <code>cbo</code> (Combo Box), <code>lst</code> (List Box), <code>cmd</code> (Command Button), <code>lbl</code> (Label), <code>chk</code> (Check Box).</div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="card" id="f-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10.</p>
+
+      <div class="student-box">
+        <label for="f-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="f-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="f-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="f-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="f-quizBar"></i></div>
+        <span class="pill">⏱ <b id="f-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="f-qnav"></div>
+      <div id="f-quizBox"></div>
+
+      <div class="result" id="f-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="f-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="f-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="f-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="f-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="f-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="f-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="f-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="query">← Bài trước: Bài 2. Các loại Query trong Access 2019</button>
+  <button type="button" data-lesson="report">Bài tiếp theo: Bài 4. Báo cáo (Report) trong Access 2019 →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 4: REPORT ================= -->
+<div class="lesson" id="lesson-report">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📘 Tin học ứng dụng · Microsoft Access 2019</span>
+    <h1>Bài 4. Báo cáo (Report) trong Access 2019</h1>
+    <p>Trình bày, nhóm, tổng hợp và in dữ liệu chuyên nghiệp: tạo báo cáo bằng Wizard và Design View, sắp xếp – nhóm dữ liệu, tính tổng theo nhóm, đánh số trang, in nhãn và xuất PDF.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#r-s1"><span class="n">1</span>Report là gì?</a>
+    <a href="#r-s2"><span class="n">2</span>Các cách tạo Report</a>
+    <a href="#r-s3"><span class="n">3</span>Chế độ xem & cấu trúc</a>
+    <a href="#r-s4"><span class="n">4</span>Nhóm & sắp xếp</a>
+    <a href="#r-s5"><span class="n">5</span>Tính toán & đánh số</a>
+    <a href="#r-s6"><span class="n">6</span>Định dạng & dàn trang</a>
+    <a href="#r-s7"><span class="n">7</span>Subreport & Labels</a>
+    <a href="#r-s8"><span class="n">8</span>Lọc, sự kiện & xuất file</a>
+    <a href="#r-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#r-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <!-- 1 -->
+    <section class="card" id="r-s1">
+      <h2><span class="num">1</span>Báo cáo (Report) là gì?</h2>
+      <p><b>Report (báo cáo)</b> là đối tượng dùng để <b>trình bày, tổng hợp và in ấn</b> dữ liệu theo khuôn dạng mong muốn: danh sách, bảng điểm, hóa đơn, thống kê theo nhóm, nhãn thư… Báo cáo lấy dữ liệu từ <b>bảng, truy vấn hoặc câu lệnh SQL</b> thông qua thuộc tính <b>Record Source</b>.</p>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">🖨️</div><h4>Tối ưu cho in ấn</h4><p>Điều khiển lề, khổ giấy, hướng trang, ngắt trang, tiêu đề trang.</p></div>
+        <div class="tile"><div class="ic">🗂️</div><h4>Nhóm nhiều cấp</h4><p>Nhóm theo lớp, theo khoa, theo tháng… và tính tổng từng nhóm.</p></div>
+        <div class="tile"><div class="ic">🧮</div><h4>Tổng hợp số liệu</h4><p>Sum, Avg, Count, tổng lũy kế, tỷ lệ phần trăm.</p></div>
+        <div class="tile"><div class="ic">📄</div><h4>Xuất nhiều định dạng</h4><p>PDF, XPS, Excel, Word (RTF), gửi email.</p></div>
+      </div>
+      <div class="note"><b>Report khác Form ở điểm nào?</b>Form dùng để <b>nhập và sửa</b> dữ liệu trên màn hình. Report chỉ dùng để <b>hiển thị và in</b> — <b>không thể</b> nhập hay sửa dữ liệu trên báo cáo, nhưng mạnh hơn nhiều về nhóm, tổng hợp và dàn trang.</div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card" id="r-s2">
+      <h2><span class="num">2</span>Các cách tạo Report</h2>
+      <p>Tất cả nằm trong tab <b>Create → nhóm Reports</b>:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Công cụ</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Report</b></td><td>Tạo <b>nhanh</b> báo cáo dạng bảng chứa tất cả các trường của bảng/truy vấn đang chọn.</td></tr>
+          <tr><td><b>Report Design</b></td><td>Tạo báo cáo trống ở <b>Design View</b>, tự thiết kế.</td></tr>
+          <tr><td><b>Blank Report</b></td><td>Tạo báo cáo trống ở <b>Layout View</b>, kéo trường từ Field List vào.</td></tr>
+          <tr><td><b>Report Wizard</b></td><td>Tạo báo cáo theo từng bước, hỗ trợ <b>nhóm, sắp xếp và tổng hợp</b>.</td></tr>
+          <tr><td><b>Labels</b></td><td>Tạo <b>nhãn</b> (nhãn thư, thẻ tên, nhãn sản phẩm) theo khổ nhãn chuẩn.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Các bước tạo báo cáo bằng Report Wizard</h3>
+      <ol class="steps">
+        <li><b>Chọn trường</b>: chọn bảng/truy vấn và các trường cần đưa vào báo cáo (có thể từ nhiều bảng có quan hệ).</li>
+        <li><b>Grouping levels</b>: chọn trường để nhóm, ví dụ nhóm theo <i>MaLop</i>. Nút <b>Grouping Options</b> cho phép nhóm theo khoảng (chữ cái đầu, tháng, năm…).</li>
+        <li><b>Sort order &amp; Summary Options</b>: sắp xếp tối đa 4 trường; nút <b>Summary Options</b> chọn <b>Sum, Avg, Min, Max</b> cho trường số, chọn <i>Detail and Summary</i> hoặc <i>Summary Only</i>, và <i>Calculate percent of total for sums</i>.</li>
+        <li><b>Layout</b>: <b>Stepped</b>, <b>Block</b> hoặc <b>Outline</b> (khi có nhóm); <b>Columnar / Tabular / Justified</b> (khi không nhóm). Chọn hướng giấy <b>Portrait</b> (dọc) hoặc <b>Landscape</b> (ngang).</li>
+        <li>Đặt tiêu đề, ví dụ <b>rptDiemTheoLop</b> → <b>Finish</b>.</li>
+      </ol>
+    </section>
+
+    <!-- 3 -->
+    <section class="card" id="r-s3">
+      <h2><span class="num">3</span>Chế độ xem và cấu trúc Report</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Chế độ</th><th>Đặc điểm</th></tr></thead>
+        <tbody>
+          <tr><td><b>Report View</b></td><td>Xem báo cáo trên màn hình dạng liên tục, có thể lọc, tìm, sao chép; không chia trang.</td></tr>
+          <tr><td><b>Print Preview</b></td><td>Xem <b>đúng như khi in</b>: chia trang, lề, khổ giấy; phóng to, xem nhiều trang, xuất PDF.</td></tr>
+          <tr><td><b>Layout View</b></td><td>Vừa thấy dữ liệu vừa chỉnh độ rộng cột, định dạng, thêm nhóm.</td></tr>
+          <tr><td><b>Design View</b></td><td>Thiết kế chi tiết với đầy đủ các phần (section).</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Các phần (Section) của Report</h3>
+      <div class="designer" aria-label="Mô phỏng Report ở Design View">
+        <div class="bar"><span>rptDiemTheoLop — Design View</span><span>✕</span></div>
+        <div style="background:var(--surface)">
+          <div class="fsec-h">▼ Report Header</div>
+          <div class="fsec"><span class="fctl lbl" style="font-size:1.1rem;font-weight:700">BẢNG ĐIỂM SINH VIÊN THEO LỚP</span> <span class="fctl box" style="min-width:0">=Date()</span></div>
+          <div class="fsec-h">▼ Page Header</div>
+          <div class="fsec"><span class="fctl lbl"><b>STT</b></span><span class="fctl lbl"><b>Mã SV</b></span><span class="fctl lbl"><b>Họ tên</b></span><span class="fctl lbl"><b>Điểm</b></span></div>
+          <div class="fsec-h">▼ MaLop Header</div>
+          <div class="fsec"><span class="fctl lbl">Lớp:</span><span class="fctl box">MaLop</span></div>
+          <div class="fsec-h">▼ Detail</div>
+          <div class="fsec"><span class="fctl box" style="min-width:50px">=1</span> <span class="fctl box" style="min-width:80px">MaSV</span> <span class="fctl box" style="min-width:140px">HoTen</span> <span class="fctl box" style="min-width:60px">Diem</span></div>
+          <div class="fsec-h">▼ MaLop Footer</div>
+          <div class="fsec"><span class="fctl lbl">Sĩ số:</span><span class="fctl box" style="min-width:90px">=Count(*)</span> <span class="fctl lbl">ĐTB lớp:</span><span class="fctl box" style="min-width:110px">=Avg([Diem])</span></div>
+          <div class="fsec-h">▼ Page Footer</div>
+          <div class="fsec"><span class="fctl box">="Trang " &amp; [Page] &amp; "/" &amp; [Pages]</span></div>
+          <div class="fsec-h">▼ Report Footer</div>
+          <div class="fsec"><span class="fctl lbl">Tổng số SV:</span><span class="fctl box" style="min-width:90px">=Count(*)</span></div>
+        </div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Section</th><th>Xuất hiện</th><th>Thường chứa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Report Header</b></td><td><b>Một lần</b> ở đầu báo cáo</td><td>Tiêu đề, logo, ngày lập</td></tr>
+          <tr><td><b>Page Header</b></td><td>Đầu <b>mỗi trang</b></td><td>Tiêu đề cột</td></tr>
+          <tr><td><b>Group Header</b></td><td>Đầu <b>mỗi nhóm</b></td><td>Tên nhóm (Lớp: K20A)</td></tr>
+          <tr><td><b>Detail</b></td><td>Lặp lại cho <b>mỗi bản ghi</b></td><td>Dữ liệu chi tiết</td></tr>
+          <tr><td><b>Group Footer</b></td><td>Cuối <b>mỗi nhóm</b></td><td>Tổng / trung bình / đếm của nhóm</td></tr>
+          <tr><td><b>Page Footer</b></td><td>Cuối <b>mỗi trang</b></td><td>Số trang, ngày in</td></tr>
+          <tr><td><b>Report Footer</b></td><td><b>Một lần</b> ở cuối báo cáo</td><td>Tổng cộng toàn báo cáo, chữ ký</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card" id="r-s4">
+      <h2><span class="num">4</span>Nhóm và sắp xếp (Group, Sort and Total)</h2>
+      <p>Trong Design View hoặc Layout View, chọn <b>Report Design → Grouping &amp; Totals → Group &amp; Sort</b> để mở ngăn <b>Group, Sort, and Total</b> ở đáy cửa sổ, sau đó nhấn <b>Add a group</b> hoặc <b>Add a sort</b>.</p>
+      <div class="designer" aria-label="Mô phỏng ngăn Group, Sort, and Total">
+        <div class="bar"><span>Group, Sort, and Total</span><span>✕</span></div>
+        <div class="fsec">
+          <div class="mblock" style="margin-bottom:8px"><b>Group on</b> <span style="color:var(--accent)">MaLop</span> · with A on top · <b>More ▸</b>
+            <div style="font-size:.86rem;color:var(--muted);margin-top:4px">by entire value · with <b>Sum of Diem</b> · with title · <b>with a header section</b> · <b>with a footer section</b> · keep whole group together on one page</div>
+          </div>
+          <div class="mblock" style="margin-bottom:8px">&nbsp;&nbsp;&nbsp;<b>Sort by</b> <span style="color:var(--accent)">HoTen</span> · with A on top</div>
+          <div class="addnew">[ Add a group ] &nbsp; [ Add a sort ]</div>
+        </div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tùy chọn (More ▸)</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>with A on top / with Z on top</b></td><td>Sắp xếp tăng dần / giảm dần</td></tr>
+          <tr><td><b>by entire value / by first character / by month…</b></td><td>Khoảng nhóm: toàn bộ giá trị, theo chữ cái đầu, theo ngày/tuần/tháng/quý/năm (với Date)</td></tr>
+          <tr><td><b>with … totals</b></td><td>Thêm tổng (Sum, Avg, Count…) vào Group Footer / Report Footer</td></tr>
+          <tr><td><b>with / without a header section</b></td><td>Bật/tắt Group Header</td></tr>
+          <tr><td><b>with / without a footer section</b></td><td>Bật/tắt Group Footer</td></tr>
+          <tr><td><b>Keep together</b></td><td><i>do not keep together</i> · <i>keep whole group together on one page</i> · <i>keep header and first record together on one page</i></td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Lưu ý</b>Thứ tự sắp xếp trong truy vấn nguồn (Record Source) <b>bị bỏ qua</b> khi báo cáo có thiết lập Group/Sort riêng. Hãy sắp xếp bằng ngăn Group, Sort, and Total của báo cáo.</div>
+    </section>
+
+    <!-- 5 -->
+    <section class="card" id="r-s5">
+      <h2><span class="num">5</span>Tính toán, đánh số thứ tự và số trang</h2>
+      <p>Tạo Text Box và nhập biểu thức (bắt đầu bằng <b>=</b>) vào <b>Control Source</b>. <b>Cùng một biểu thức</b> nhưng đặt ở <b>vị trí khác nhau</b> sẽ cho kết quả khác nhau:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Biểu thức</th><th>Đặt ở</th><th>Kết quả</th></tr></thead>
+        <tbody>
+          <tr><td><code>=[SoLuong]*[DonGia]</code></td><td>Detail</td><td>Thành tiền từng dòng</td></tr>
+          <tr><td><code>=Sum([SoLuong]*[DonGia])</code></td><td><b>Group Footer</b></td><td>Tổng tiền <b>của từng nhóm</b></td></tr>
+          <tr><td><code>=Sum([SoLuong]*[DonGia])</code></td><td><b>Report Footer</b></td><td>Tổng tiền <b>toàn báo cáo</b></td></tr>
+          <tr><td><code>=Count(*)</code></td><td>Group / Report Footer</td><td>Số bản ghi của nhóm / cả báo cáo</td></tr>
+          <tr><td><code>=Avg([Diem])</code></td><td>Group Footer</td><td>Điểm trung bình từng lớp</td></tr>
+          <tr><td><code>="Trang " &amp; [Page] &amp; "/" &amp; [Pages]</code></td><td>Page Footer</td><td>Trang 1/5 — <code>[Page]</code> số trang hiện tại, <code>[Pages]</code> tổng số trang</td></tr>
+          <tr><td><code>=Now()</code> / <code>=Date()</code></td><td>Report Header / Page Footer</td><td>Ngày giờ / ngày lập báo cáo</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Đánh số thứ tự bằng thuộc tính Running Sum</h3>
+      <ol class="steps">
+        <li>Thêm Text Box vào <b>Detail</b>, đặt <b>Control Source</b> = <code>=1</code>.</li>
+        <li>Thuộc tính <b>Running Sum</b>: chọn <b>Over Group</b> để đánh số lại từ 1 trong mỗi nhóm, hoặc <b>Over All</b> để đánh số liên tục cả báo cáo.</li>
+      </ol>
+      <div class="note warn"><b>Lưu ý</b>Các hàm tổng hợp như <code>Sum</code>, <code>Count</code>, <code>Avg</code> <b>không hoạt động</b> trong Page Header/Page Footer; chỉ đặt chúng ở Group Header/Footer hoặc Report Header/Footer.</div>
+    </section>
+
+    <!-- 6 -->
+    <section class="card" id="r-s6">
+      <h2><span class="num">6</span>Định dạng và dàn trang in</h2>
+      <h3>a) Page Setup (tab Page Setup hoặc Print Preview)</h3>
+      <ul>
+        <li><b>Size</b>: khổ giấy A4, Letter… · <b>Margins</b>: lề Normal, Wide, Narrow hoặc tùy chỉnh.</li>
+        <li><b>Portrait / Landscape</b>: hướng giấy dọc / ngang.</li>
+        <li><b>Columns</b>: chia nội dung báo cáo thành nhiều cột (hay dùng cho danh sách ngắn, nhãn).</li>
+        <li><b>Show Margins</b>, <b>Print Data Only</b>: hiển thị lề / chỉ in dữ liệu không in nhãn, đường kẻ.</li>
+      </ul>
+      <h3>b) Thuộc tính định dạng quan trọng</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thuộc tính</th><th>Áp dụng cho</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Can Grow / Can Shrink</b></td><td>Text Box, Section</td><td>Tự <b>giãn</b> / <b>co</b> chiều cao theo độ dài nội dung</td></tr>
+          <tr><td><b>Hide Duplicates</b></td><td>Text Box</td><td>Yes = ẩn giá trị trùng với bản ghi ngay trước</td></tr>
+          <tr><td><b>Force New Page</b></td><td>Section</td><td><i>Before Section</i> / <i>After Section</i> / <i>Before &amp; After</i> — ngắt trang, ví dụ mỗi lớp một trang</td></tr>
+          <tr><td><b>Keep Together</b></td><td>Section</td><td>Yes = không cắt một section sang hai trang</td></tr>
+          <tr><td><b>Repeat Section</b></td><td>Group Header</td><td>Lặp lại tiêu đề nhóm ở đầu trang mới khi nhóm kéo dài nhiều trang</td></tr>
+          <tr><td><b>Alternate Back Color</b></td><td>Detail</td><td>Tô màu xen kẽ các dòng</td></tr>
+        </tbody>
+      </table></div>
+      <h3>c) Định dạng có điều kiện</h3>
+      <p>Chọn điều khiển → <b>Format → Conditional Formatting</b> → <b>New Rule</b>. Ví dụ: tô chữ đỏ khi <code>Diem &lt; 5</code>, tô nền xanh khi <code>Diem &gt;= 8</code>. Có thể dùng <b>Data Bars</b> để so sánh giá trị bằng thanh màu.</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="card" id="r-s7">
+      <h2><span class="num">7</span>Báo cáo con (Subreport) và nhãn (Labels)</h2>
+      <h3>a) Subreport</h3>
+      <p>Dùng điều khiển <b>Subform/Subreport</b> để nhúng một báo cáo khác vào báo cáo chính, thể hiện dữ liệu quan hệ 1–nhiều hoặc thêm bảng thống kê phụ. Liên kết bằng <b>Link Master Fields</b> và <b>Link Child Fields</b> (giống form con).</p>
+      <h3>b) Tạo nhãn bằng Labels Wizard</h3>
+      <ol class="steps">
+        <li>Chọn bảng/truy vấn nguồn → <b>Create → Labels</b>.</li>
+        <li>Chọn <b>kích thước nhãn</b> theo nhà sản xuất (Filter by manufacturer, ví dụ Avery) hoặc tự định nghĩa (<b>Customize</b>); chọn đơn vị Metric/English.</li>
+        <li>Chọn phông chữ, cỡ chữ, màu chữ.</li>
+        <li>Xây dựng <b>Prototype label</b>: đưa các trường vào và gõ thêm chữ cố định, ví dụ <code>Kính gửi: {HoTen}</code>.</li>
+        <li>Chọn trường sắp xếp và đặt tên báo cáo nhãn → <b>Finish</b>.</li>
+      </ol>
+      <div class="note tip"><b>Ứng dụng</b>In phong bì thư mời, thẻ dự thi, nhãn mã sản phẩm, thẻ tên hội nghị… Nhãn thực chất là một báo cáo nhiều cột.</div>
+    </section>
+
+    <!-- 8 -->
+    <section class="card" id="r-s8">
+      <h2><span class="num">8</span>Lọc dữ liệu, sự kiện và xuất báo cáo</h2>
+      <h3>a) Lọc dữ liệu báo cáo</h3>
+      <ul>
+        <li>Dùng <b>truy vấn tham số</b> làm Record Source — báo cáo hỏi giá trị (ví dụ mã lớp) mỗi khi mở.</li>
+        <li>Dùng thuộc tính <b>Filter</b> và <b>Filter On Load = Yes</b>.</li>
+        <li>Mở báo cáo từ form bằng macro <code>OpenReport</code> với <b>Where Condition</b>: <code>[MaLop]=[Forms]![frmLop]![MaLop]</code> — in báo cáo của lớp đang xem.</li>
+        <li>Ở <b>Report View</b>, nhấp chuột phải vào giá trị để lọc nhanh.</li>
+      </ul>
+      <h3>b) Sự kiện thường dùng của Report</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Sự kiện</th><th>Xảy ra khi</th></tr></thead>
+        <tbody>
+          <tr><td><b>On Open</b></td><td>Báo cáo được mở, trước khi in/xem trước</td></tr>
+          <tr><td><b>On No Data</b></td><td>Báo cáo <b>không có dữ liệu</b> — thường hiện thông báo và hủy mở báo cáo (CancelEvent)</td></tr>
+          <tr><td><b>On Format / On Print</b></td><td>Một section được định dạng / được in</td></tr>
+          <tr><td><b>On Close</b></td><td>Báo cáo đóng lại</td></tr>
+        </tbody>
+      </table></div>
+      <h3>c) Xuất và in báo cáo</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mục đích</th><th>Thao tác</th></tr></thead>
+        <tbody>
+          <tr><td>In</td><td><kbd>Ctrl</kbd>+<kbd>P</kbd> hoặc Print Preview → <b>Print</b></td></tr>
+          <tr><td>Xuất PDF / XPS</td><td>Print Preview → <b>PDF or XPS</b>, hoặc <b>External Data → Export → PDF or XPS</b></td></tr>
+          <tr><td>Xuất Excel / Word</td><td>External Data → Export → <b>Excel</b> / <b>Word</b> (định dạng RTF)</td></tr>
+          <tr><td>Gửi email</td><td>External Data → Export → <b>Email</b></td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Quy ước đặt tên</b>Báo cáo: <code>rpt</code> (<code>rptDiemTheoLop</code>), báo cáo con: <code>subrpt</code>, nhãn: <code>rptLbl</code> (<code>rptLblPhongBi</code>).</div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="card" id="r-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10.</p>
+
+      <div class="student-box">
+        <label for="r-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="r-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="r-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="r-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="r-quizBar"></i></div>
+        <span class="pill">⏱ <b id="r-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="r-qnav"></div>
+      <div id="r-quizBox"></div>
+
+      <div class="result" id="r-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="r-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="r-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="r-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="r-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="r-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="r-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="r-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="form">← Bài trước: Bài 3. Biểu mẫu (Form) trong Access 2019</button>
+  <button type="button" data-lesson="macro">Bài tiếp theo: Bài 5. Xây dựng Macro trong Access 2019 →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 5: MACRO ================= -->
+<div class="lesson" id="lesson-macro">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📘 Tin học ứng dụng · Microsoft Access 2019</span>
+    <h1>Bài 5. Xây dựng Macro trong Access 2019</h1>
+    <p>Tự động hóa các thao tác lặp lại trong cơ sở dữ liệu: mở biểu mẫu, in báo cáo, kiểm tra dữ liệu và điều hướng ứng dụng mà không cần viết mã VBA.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc" id="m-toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#m-s1"><span class="n">1</span>Macro là gì?</a>
+    <a href="#m-s2"><span class="n">2</span>Phân loại Macro</a>
+    <a href="#m-s3"><span class="n">3</span>Giao diện Macro Builder</a>
+    <a href="#m-s4"><span class="n">4</span>Các hành động thông dụng</a>
+    <a href="#m-s5"><span class="n">5</span>Tạo & gán Macro</a>
+    <a href="#m-s6"><span class="n">6</span>Điều kiện, Submacro, lỗi</a>
+    <a href="#m-s7"><span class="n">7</span>AutoExec & AutoKeys</a>
+    <a href="#m-s8"><span class="n">8</span>Gỡ lỗi & bảo mật</a>
+    <a href="#m-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#m-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i id="m-readBar"></i></div>
+  </nav>
+
+  <main>
+    <!-- 1 -->
+    <section class="card" id="m-s1">
+      <h2><span class="num">1</span>Macro là gì?</h2>
+      <p><b>Macro</b> là một tập hợp gồm một hoặc nhiều <b>hành động (Action)</b> được sắp xếp theo thứ tự, Access sẽ thực hiện tự động khi macro được chạy. Mỗi hành động thực hiện một tác vụ cụ thể như mở biểu mẫu, chạy truy vấn, in báo cáo hay hiển thị thông báo.</p>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">⚡</div><h4>Tự động hóa</h4><p>Gom nhiều thao tác thủ công lặp lại thành một lần bấm nút.</p></div>
+        <div class="tile"><div class="ic">🧩</div><h4>Không cần lập trình</h4><p>Chọn hành động từ danh sách và điền tham số (Arguments), không phải viết mã.</p></div>
+        <div class="tile"><div class="ic">🛡️</div><h4>An toàn</h4><p>Phần lớn hành động là "an toàn", chạy được cả khi cơ sở dữ liệu chưa được tin cậy.</p></div>
+        <div class="tile"><div class="ic">🧭</div><h4>Xây dựng giao diện</h4><p>Tạo menu điều hướng, nút lệnh, kiểm tra dữ liệu nhập cho ứng dụng.</p></div>
+      </div>
+      <div class="note"><b>Macro hay VBA?</b>Macro phù hợp cho các tác vụ đơn giản và vừa phải. Khi cần xử lý phức tạp (vòng lặp, thao tác với tệp, gọi API…), có thể chuyển macro sang VBA bằng lệnh <i>Convert Macros to Visual Basic</i>.</div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card" id="m-s2">
+      <h2><span class="num">2</span>Phân loại Macro</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại</th><th>Nơi lưu trữ</th><th>Đặc điểm</th></tr></thead>
+        <tbody>
+          <tr><td><b>Macro độc lập</b><br>(Standalone)</td><td>Là một đối tượng riêng, hiển thị trong nhóm <b>Macros</b> của Navigation Pane</td><td>Có thể được gọi từ nhiều biểu mẫu, báo cáo, nút lệnh khác nhau.</td></tr>
+          <tr><td><b>Macro nhúng</b><br>(Embedded)</td><td>Lưu trong thuộc tính sự kiện (On Click, On Load…) của biểu mẫu, báo cáo hoặc điều khiển</td><td>Không hiện trong Navigation Pane; được sao chép/xóa cùng đối tượng chứa nó.</td></tr>
+          <tr><td><b>Macro dữ liệu</b><br>(Data Macro)</td><td>Gắn với <b>bảng (Table)</b></td><td>Chạy khi dữ liệu thay đổi: Before Change, Before Delete, After Insert, After Update, After Delete.</td></tr>
+          <tr><td><b>Submacro</b></td><td>Nằm bên trong một macro độc lập</td><td>Khối có tên riêng, gọi bằng cú pháp <code>TênMacro.TênSubmacro</code>.</td></tr>
+          <tr><td><b>Macro giao diện</b><br>(UI Macro)</td><td>Macro độc lập hoặc nhúng</td><td>Điều khiển giao diện người dùng: mở/đóng form, điều hướng bản ghi, thông báo.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Mẹo nhớ</b>Macro <i>giao diện</i> phản ứng với thao tác của người dùng; Macro <i>dữ liệu</i> phản ứng với sự thay đổi của bản ghi trong bảng — dù thay đổi đến từ form, truy vấn hay nhập trực tiếp.</div>
+    </section>
+
+    <!-- 3 -->
+    <section class="card" id="m-s3">
+      <h2><span class="num">3</span>Giao diện Macro Builder</h2>
+      <p>Mở trình thiết kế bằng: <b>Create → Macros &amp; Code → Macro</b>. Cửa sổ <b>Macro Builder</b> gồm vùng soạn thảo ở giữa và khung <b>Action Catalog</b> bên phải.</p>
+      <div class="builder" aria-label="Mô phỏng Macro Builder">
+        <div class="bar"><span>Macro1</span><span>✕</span></div>
+        <div class="body">
+          <div class="canvas">
+            <div class="mblock cmt">/* Mở danh sách sinh viên và thông báo */</div>
+            <div class="mblock"><span class="act">OpenForm</span>
+              <div class="arg"><span>Form Name</span><span>frmSinhVien</span><span>View</span><span>Form</span><span>Window Mode</span><span>Normal</span></div>
+            </div>
+            <div class="mblock"><span class="act">MessageBox</span>
+              <div class="arg"><span>Message</span><span>Đã mở danh sách sinh viên!</span><span>Type</span><span>Information</span></div>
+            </div>
+            <div class="addnew">＋ Add New Action ▾</div>
+          </div>
+          <div class="catalog">
+            <b>Action Catalog</b>
+            <div>▸ Program Flow<br>&nbsp;&nbsp;Comment · Group · If · Submacro</div>
+            <div>▸ Actions<br>&nbsp;&nbsp;Data Entry Operations<br>&nbsp;&nbsp;Database Objects<br>&nbsp;&nbsp;Filter/Query/Search<br>&nbsp;&nbsp;Macro Commands<br>&nbsp;&nbsp;User Interface Commands<br>&nbsp;&nbsp;Window Management</div>
+          </div>
+        </div>
+      </div>
+      <h3>Các nút lệnh quan trọng trên tab Design</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nút</th><th>Chức năng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Run (!)</b></td><td>Chạy macro đang thiết kế.</td></tr>
+          <tr><td><b>Single Step</b></td><td>Chạy từng hành động một để theo dõi và gỡ lỗi.</td></tr>
+          <tr><td><b>Convert Macros to Visual Basic</b></td><td>Chuyển macro thành mã VBA.</td></tr>
+          <tr><td><b>Expand / Collapse Actions</b></td><td>Mở rộng hoặc thu gọn các khối hành động.</td></tr>
+          <tr><td><b>Action Catalog</b></td><td>Ẩn/hiện khung danh mục hành động.</td></tr>
+          <tr><td><b>Show All Actions</b></td><td>Hiển thị cả các hành động chưa được tin cậy (unsafe), chỉ chạy khi CSDL được tin cậy.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card" id="m-s4">
+      <h2><span class="num">4</span>Các hành động (Action) thông dụng</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hành động</th><th>Công dụng</th><th>Tham số chính</th></tr></thead>
+        <tbody>
+          <tr><td><code>OpenForm</code></td><td>Mở biểu mẫu</td><td>Form Name, View, Filter Name, Where Condition, Data Mode, Window Mode</td></tr>
+          <tr><td><code>OpenReport</code></td><td>Mở / in báo cáo</td><td>Report Name, View (Print, Print Preview, Report…), Where Condition</td></tr>
+          <tr><td><code>OpenQuery</code></td><td>Mở hoặc chạy truy vấn</td><td>Query Name, View, Data Mode</td></tr>
+          <tr><td><code>OpenTable</code></td><td>Mở bảng</td><td>Table Name, View, Data Mode</td></tr>
+          <tr><td><code>CloseWindow</code></td><td>Đóng một đối tượng đang mở</td><td>Object Type, Object Name, Save</td></tr>
+          <tr><td><code>MessageBox</code></td><td>Hiển thị hộp thông báo</td><td>Message, Beep, Type (None, Critical, Warning?, Warning!, Information), Title</td></tr>
+          <tr><td><code>GoToRecord</code></td><td>Di chuyển đến bản ghi</td><td>Record: Previous, Next, First, Last, Go To, New</td></tr>
+          <tr><td><code>FindRecord</code></td><td>Tìm bản ghi thỏa giá trị</td><td>Find What, Match, Search…</td></tr>
+          <tr><td><code>ApplyFilter</code></td><td>Lọc dữ liệu trên form/báo cáo</td><td>Filter Name, Where Condition</td></tr>
+          <tr><td><code>SetProperty</code></td><td>Đổi thuộc tính điều khiển</td><td>Control Name, Property (Enabled, Visible, Locked…), Value</td></tr>
+          <tr><td><code>SetTempVar</code></td><td>Tạo / gán biến tạm</td><td>Name, Expression</td></tr>
+          <tr><td><code>RunMacro</code></td><td>Chạy một macro khác</td><td>Macro Name, Repeat Count, Repeat Expression</td></tr>
+          <tr><td><code>CancelEvent</code></td><td>Hủy sự kiện đã kích hoạt macro</td><td>(không có)</td></tr>
+          <tr><td><code>ImportExportSpreadsheet</code></td><td>Nhập/xuất dữ liệu với Excel</td><td>Transfer Type, Spreadsheet Type, Table Name, File Name</td></tr>
+          <tr><td><code>QuitAccess</code></td><td>Thoát khỏi Access</td><td>Options: Prompt, Save All, Exit</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Tham chiếu điều khiển trên biểu mẫu</b>Dùng cú pháp <code>[Forms]![TênForm]![TênĐiềuKhiển]</code>, ví dụ Where Condition: <code>[MaSV]=[Forms]![frmTraCuu]![txtMaSV]</code>.</div>
+    </section>
+
+    <!-- 5 -->
+    <section class="card" id="m-s5">
+      <h2><span class="num">5</span>Tạo Macro và gán vào nút lệnh</h2>
+      <h3>a) Tạo macro độc lập</h3>
+      <ol class="steps">
+        <li>Chọn tab <b>Create</b> → nhóm <b>Macros &amp; Code</b> → <b>Macro</b>.</li>
+        <li>Tại ô <b>Add New Action</b>, chọn hành động (ví dụ <code>OpenReport</code>) hoặc kéo từ Action Catalog.</li>
+        <li>Điền các tham số: Report Name = <i>rptDiemSV</i>, View = <i>Print Preview</i>.</li>
+        <li>Thêm các hành động tiếp theo nếu cần (MessageBox, CloseWindow…).</li>
+        <li>Nhấn <kbd>Ctrl</kbd>+<kbd>S</kbd>, đặt tên macro, ví dụ <b>mcrInBaoCao</b>.</li>
+        <li>Nhấn <b>Run (!)</b> hoặc nhấp đúp tên macro trong Navigation Pane để chạy thử.</li>
+      </ol>
+      <h3>b) Gán macro cho nút lệnh (Command Button)</h3>
+      <ol class="steps">
+        <li>Mở biểu mẫu ở chế độ <b>Design View</b>, vẽ một nút lệnh (tắt Control Wizards nếu không muốn dùng trình hướng dẫn).</li>
+        <li>Mở <b>Property Sheet</b> (<kbd>F4</kbd>) → tab <b>Event</b>.</li>
+        <li>Tại thuộc tính <b>On Click</b>: chọn tên macro độc lập trong danh sách, <i>hoặc</i> nhấn nút <b>…</b> → <b>Macro Builder</b> để tạo <b>macro nhúng</b>.</li>
+        <li>Lưu biểu mẫu, chuyển sang Form View và nhấn nút để kiểm tra.</li>
+      </ol>
+      <h3>c) Tạo macro dữ liệu (Data Macro)</h3>
+      <ol class="steps">
+        <li>Mở bảng ở chế độ <b>Datasheet View</b>.</li>
+        <li>Chọn tab <b>Table</b> → chọn sự kiện: <b>Before Change</b>, <b>After Insert</b>…</li>
+        <li>Thiết kế logic, ví dụ kiểm tra điểm hợp lệ và dùng <code>RaiseError</code> để chặn dữ liệu sai.</li>
+      </ol>
+      <pre class="code"><span class="c">/* Data macro: Before Change của bảng tblDiem */</span>
+<span class="k">If</span> [Diem] &lt; 0 <span class="k">Or</span> [Diem] &gt; 10 <span class="k">Then</span>
+    <span class="a">RaiseError</span>  Error Number: <span class="s">1001</span>
+                Error Description: <span class="s">"Điểm phải nằm trong khoảng 0 - 10"</span>
+<span class="k">End If</span></pre>
+    </section>
+
+    <!-- 6 -->
+    <section class="card" id="m-s6">
+      <h2><span class="num">6</span>Điều kiện, Submacro và xử lý lỗi</h2>
+      <h3>a) Khối điều kiện If</h3>
+      <p>Chọn <b>If</b> trong Program Flow, nhập biểu thức điều kiện; có thể thêm <b>Else If</b> và <b>Else</b>.</p>
+      <div class="builder"><div class="bar"><span>mcrKiemTraDangNhap</span><span>✕</span></div><div class="body" style="grid-template-columns:1fr"><div class="canvas">
+        <div class="mblock if"><b>If</b> IsNull([Forms]![frmDangNhap]![txtUser]) <b>Then</b>
+          <div class="mblock" style="margin:8px 0 0 18px"><span class="act">MessageBox</span> — "Vui lòng nhập tên đăng nhập!" · Type: Warning!</div>
+          <div class="mblock" style="margin:8px 0 0 18px"><span class="act">GoToControl</span> — txtUser</div>
+          <div style="margin-top:6px"><b>Else</b></div>
+          <div class="mblock" style="margin:8px 0 0 18px"><span class="act">OpenForm</span> — frmMenuChinh</div>
+          <div class="mblock" style="margin:8px 0 0 18px"><span class="act">CloseWindow</span> — Form · frmDangNhap</div>
+          <b>End If</b>
+        </div>
+      </div></div></div>
+      <h3>b) Submacro</h3>
+      <p>Submacro giúp gom nhiều macro nhỏ vào cùng một đối tượng. Gọi bằng <code>mcrMenu.MoSinhVien</code> trong On Click hoặc hành động <code>RunMacro</code>.</p>
+      <pre class="code"><span class="c">/* Macro: mcrMenu */</span>
+<span class="k">Submacro</span>: MoSinhVien
+    <span class="a">OpenForm</span>    Form Name: frmSinhVien
+<span class="k">End Submacro</span>
+
+<span class="k">Submacro</span>: InDiem
+    <span class="a">OpenReport</span>  Report Name: rptDiem   View: Print Preview
+<span class="k">End Submacro</span></pre>
+      <h3>c) Group và Comment</h3>
+      <p><b>Group</b> gom các hành động liên quan thành một khối có thể thu gọn (không ảnh hưởng cách chạy). <b>Comment</b> dùng để ghi chú, giúp macro dễ đọc và bảo trì.</p>
+      <h3>d) Xử lý lỗi với OnError</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Go to</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Next</b></td><td>Bỏ qua lỗi, tiếp tục hành động kế tiếp (ghi thông tin lỗi vào đối tượng MacroError).</td></tr>
+          <tr><td><b>Macro Name</b></td><td>Chuyển đến submacro xử lý lỗi được chỉ định.</td></tr>
+          <tr><td><b>Fail</b></td><td>Dừng macro và hiển thị thông báo lỗi (mặc định).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Biến tạm TempVars</b>Dùng <code>SetTempVar</code> để lưu giá trị (ví dụ tên người đăng nhập) và dùng lại ở nơi khác bằng <code>[TempVars]![TenBien]</code>. Xóa bằng <code>RemoveTempVar</code> / <code>RemoveAllTempVars</code>.</div>
+    </section>
+
+    <!-- 7 -->
+    <section class="card" id="m-s7">
+      <h2><span class="num">7</span>Macro đặc biệt: AutoExec &amp; AutoKeys</h2>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">🚀</div><h4>AutoExec</h4><p>Macro độc lập đặt tên chính xác là <b>AutoExec</b> sẽ tự động chạy khi mở cơ sở dữ liệu — thường dùng để mở form đăng nhập hoặc menu chính.</p></div>
+        <div class="tile"><div class="ic">⌨️</div><h4>AutoKeys</h4><p>Macro tên <b>AutoKeys</b> chứa các submacro đặt tên theo tổ hợp phím, ví dụ <code>^P</code> (Ctrl+P), <code>{F5}</code>, <code>+{F2}</code> (Shift+F2).</p></div>
+      </div>
+      <div class="note warn"><b>Bỏ qua AutoExec</b>Giữ phím <kbd>Shift</kbd> trong khi mở cơ sở dữ liệu để không chạy macro AutoExec (hữu ích khi cần sửa lỗi macro khởi động).</div>
+      <p>Ngoài AutoExec, có thể đặt biểu mẫu khởi động tại <b>File → Options → Current Database → Display Form</b>.</p>
+    </section>
+
+    <!-- 8 -->
+    <section class="card" id="m-s8">
+      <h2><span class="num">8</span>Gỡ lỗi, chuyển đổi VBA và bảo mật</h2>
+      <h3>Gỡ lỗi bằng Single Step</h3>
+      <p>Bật <b>Single Step</b> trên tab Design rồi chạy macro. Hộp thoại <b>Macro Single Step</b> hiện tên macro, điều kiện, hành động, tham số và số lỗi; chọn <b>Step</b> (bước tiếp), <b>Stop All Macros</b> (dừng) hoặc <b>Continue</b> (chạy tiếp bình thường). Có thể nhấn <kbd>Ctrl</kbd>+<kbd>Break</kbd> khi macro đang chạy để vào chế độ từng bước.</p>
+      <h3>Chuyển macro sang VBA</h3>
+      <p>Macro độc lập: mở ở Design View → <b>Design → Tools → Convert Macros to Visual Basic</b>. Macro nhúng trong form: mở form ở Design View → <b>Form Design → Convert Form's Macros to Visual Basic</b>.</p>
+      <h3>Bảo mật macro</h3>
+      <p>Khi mở CSDL chưa tin cậy, Access hiện thanh <b>Security Warning</b>; nhấn <b>Enable Content</b> để cho phép macro/mã chạy. Thiết lập lâu dài tại <b>File → Options → Trust Center → Trust Center Settings</b> (Trusted Locations, Macro Settings).</p>
+      <div class="note tip"><b>Quy tắc đặt tên gợi ý</b>Tiền tố <code>mcr</code> cho macro, <code>frm</code> cho form, <code>rpt</code> cho báo cáo, <code>qry</code> cho truy vấn, <code>tbl</code> cho bảng.</div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="card" id="m-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10.</p>
+
+      <div class="student-box">
+        <label for="m-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="m-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="m-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="m-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="m-quizBar"></i></div>
+        <span class="pill">⏱ <b id="m-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="m-qnav"></div>
+      <div id="m-quizBox"></div>
+
+      <div class="result" id="m-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="m-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="m-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="m-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="m-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="m-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="m-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="m-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="report">← Bài trước: Bài 4. Báo cáo (Report) trong Access 2019</button>
+</div>
+</div>
+
+<footer>Bài giảng điện tử · Microsoft Access 2019 · Bài 1. Bảng (Table) · Bài 2. Các loại Query · Bài 3. Biểu mẫu (Form) · Bài 4. Báo cáo (Report) · Bài 5. Xây dựng Macro<br><span class="credit">✨ Bài học được thiết kế nhờ <b>Claude</b> trợ giúp - 2026</span></footer>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">Xác nhận</h3>
+    <p id="modalText"></p>
+    <div class="actions">
+      <button class="btn btn-ghost" id="modalNo">Hủy</button>
+      <button class="btn btn-primary" id="modalYes">Đồng ý</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<button class="to-top" id="toTop" aria-label="Lên đầu trang">↑</button>
+
+<script>
+(function(){
+  "use strict";
+
+  // ===== Ngân hàng câu hỏi Bài 5: Macro (a = chỉ số đáp án đúng) =====
+  const QUESTIONS = [
+    {q:"Macro trong Microsoft Access là gì?", o:["Một loại bảng đặc biệt lưu dữ liệu tạm","Tập hợp các hành động được thực hiện tự động theo thứ tự","Một truy vấn tổng hợp dữ liệu","Một báo cáo có định dạng sẵn"], a:1, e:"Macro là tập hợp một hoặc nhiều hành động (Action) được Access thực hiện tự động."},
+    {q:"Trong Access 2019, để tạo một macro độc lập mới ta chọn:", o:["Home → Macro","Database Tools → Run Macro","Create → Macros & Code → Macro","External Data → Macro"], a:2, e:"Tab Create, nhóm Macros & Code, nút Macro."},
+    {q:"Cửa sổ dùng để thiết kế macro trong Access 2019 được gọi là:", o:["Macro Builder","Query Designer","Expression Builder","Form Wizard"], a:0, e:"Macro Builder (trình thiết kế macro) gồm vùng soạn thảo và Action Catalog."},
+    {q:"Khung nằm bên phải Macro Builder, liệt kê hành động theo nhóm (Program Flow, Actions…) là:", o:["Property Sheet","Navigation Pane","Field List","Action Catalog"], a:3, e:"Action Catalog chứa danh mục các hành động và khối điều khiển luồng."},
+    {q:"Macro sẽ tự động chạy khi mở cơ sở dữ liệu nếu được đặt tên là:", o:["AutoStart","AutoExec","AutoRun","Startup"], a:1, e:"Macro độc lập tên AutoExec chạy tự động khi mở CSDL."},
+    {q:"Hành động dùng để mở một biểu mẫu là:", o:["OpenForm","OpenTable","ShowForm","RunForm"], a:0, e:"OpenForm mở biểu mẫu với các tham số Form Name, View, Where Condition…"},
+    {q:"Hành động dùng để mở hoặc in một báo cáo là:", o:["PrintOut","OpenQuery","OpenReport","ShowReport"], a:2, e:"OpenReport với tham số View = Print / Print Preview / Report…"},
+    {q:"Để hiển thị một hộp thông báo cho người dùng, ta dùng hành động:", o:["Beep","MessageBox","InputBox","DisplayText"], a:1, e:"MessageBox với các tham số Message, Beep, Type, Title."},
+    {q:"Hành động dùng để đóng một đối tượng đang mở (form, report…) trong Access 2019 là:", o:["QuitAccess","ExitForm","CloseDatabase","CloseWindow"], a:3, e:"CloseWindow đóng đối tượng theo Object Type và Object Name."},
+    {q:"Hành động dùng để thoát hoàn toàn khỏi chương trình Access là:", o:["CloseWindow","QuitAccess","StopMacro","CancelEvent"], a:1, e:"QuitAccess với tùy chọn Prompt, Save All hoặc Exit."},
+    {q:"Để chạy (mở) một truy vấn bằng macro, ta dùng hành động:", o:["OpenQuery","RunQuery","ApplyFilter","RunSQL"], a:0, e:"OpenQuery mở hoặc thực thi truy vấn đã lưu."},
+    {q:"Muốn xem trước báo cáo trên màn hình trước khi in, tham số View của OpenReport chọn:", o:["Print","Design","Print Preview","Layout"], a:2, e:"Print Preview hiển thị báo cáo ở chế độ xem trước khi in; Print sẽ in ngay."},
+    {q:"Macro nhúng (Embedded Macro) có đặc điểm nào sau đây?", o:["Hiển thị trong nhóm Macros của Navigation Pane","Chỉ gắn với bảng dữ liệu","Tự chạy khi mở CSDL","Được lưu trong thuộc tính sự kiện của form, report hoặc điều khiển"], a:3, e:"Macro nhúng lưu trong thuộc tính sự kiện và không hiện trong Navigation Pane."},
+    {q:"Macro độc lập (Standalone Macro) được hiển thị ở đâu?", o:["Trong nhóm Macros của Navigation Pane","Trong Property Sheet","Chỉ trong thuộc tính On Click","Trong tab Table của bảng"], a:0, e:"Macro độc lập là đối tượng riêng, hiển thị trong Navigation Pane."},
+    {q:"Macro dữ liệu (Data Macro) được gắn với đối tượng nào?", o:["Biểu mẫu","Báo cáo","Bảng","Truy vấn"], a:2, e:"Data Macro gắn với bảng và chạy khi dữ liệu thay đổi."},
+    {q:"Để tạo Data Macro cho một bảng, ta mở bảng ở Datasheet View rồi chọn tab:", o:["Create","Table","Fields","Design"], a:1, e:"Tab Table (Table Tools) có các sự kiện Before Change, After Insert…"},
+    {q:"Sự kiện Data Macro nào cho phép kiểm tra và ngăn chặn dữ liệu không hợp lệ trước khi được lưu?", o:["After Insert","After Update","After Delete","Before Change"], a:3, e:"Before Change chạy trước khi bản ghi được lưu, dùng RaiseError để chặn."},
+    {q:"Trong Data Macro, hành động dùng để báo lỗi và hủy thay đổi dữ liệu là:", o:["MessageBox","CancelEvent","RaiseError","StopMacro"], a:2, e:"RaiseError (Error Number, Error Description) hủy thao tác và báo lỗi."},
+    {q:"Submacro được gọi bằng cú pháp nào?", o:["TênMacro.TênSubmacro","TênSubmacro!TênMacro","[TênMacro]![TênSubmacro]","TênMacro_TênSubmacro"], a:0, e:"Ví dụ: mcrMenu.MoSinhVien."},
+    {q:"Khối nào dùng để thực hiện hành động theo điều kiện trong macro?", o:["Group","If","Comment","Submacro"], a:1, e:"If … Then / Else If / Else / End If."},
+    {q:"Khối Group trong macro có tác dụng:", o:["Lặp lại các hành động nhiều lần","Chạy các hành động song song","Gom các hành động liên quan thành khối để dễ quản lý, thu gọn","Tạo biến tạm"], a:2, e:"Group chỉ giúp tổ chức, không làm thay đổi cách thực thi."},
+    {q:"Để ghi chú giải thích trong macro, ta dùng:", o:["Comment","Note","Remark","Label"], a:0, e:"Comment hiển thị dạng /* … */ và không được thực thi."},
+    {q:"Muốn mở cơ sở dữ liệu mà KHÔNG chạy macro AutoExec, ta giữ phím nào khi mở?", o:["Ctrl","Alt","Shift","F11"], a:2, e:"Giữ Shift khi mở CSDL để bỏ qua AutoExec và các tùy chọn khởi động."},
+    {q:"Chức năng Single Step trong Macro Builder dùng để:", o:["Chạy macro nhanh hơn","Chạy từng hành động một để gỡ lỗi","Lưu macro thành tệp riêng","Chuyển macro sang VBA"], a:1, e:"Single Step cho phép theo dõi từng hành động, tham số và lỗi."},
+    {q:"Lệnh chuyển macro độc lập thành mã VBA là:", o:["Compile Macro","Export to VBA","Save As Module","Convert Macros to Visual Basic"], a:3, e:"Design → Tools → Convert Macros to Visual Basic."},
+    {q:"Để gán macro cho nút lệnh, ta đặt tên macro vào thuộc tính nào trong tab Event?", o:["On Click","On Load","After Update","On Current"], a:0, e:"On Click được kích hoạt khi người dùng nhấn nút."},
+    {q:"Phím tắt để mở/đóng Property Sheet khi thiết kế biểu mẫu là:", o:["F2","F4","F5","F11"], a:1, e:"F4 bật/tắt Property Sheet."},
+    {q:"Hành động GoToRecord với tham số Record = New có tác dụng:", o:["Xóa bản ghi hiện tại","Về bản ghi đầu tiên","Chuyển đến bản ghi mới (trống) để nhập","Lưu bản ghi hiện tại"], a:2, e:"Record = New đưa con trỏ đến bản ghi trống cuối để thêm mới."},
+    {q:"Hành động dùng để lọc dữ liệu trên biểu mẫu theo điều kiện là:", o:["FindRecord","SetFilter","ApplyFilter","OpenQuery"], a:2, e:"ApplyFilter với Filter Name hoặc Where Condition."},
+    {q:"Hành động dùng để tìm bản ghi đầu tiên thỏa mãn giá trị cần tìm là:", o:["FindRecord","SearchRecord","GoToControl","LocateRecord"], a:0, e:"FindRecord với các tham số Find What, Match, Search…"},
+    {q:"Cách tham chiếu đúng đến ô txtMaSV trên biểu mẫu frmSinhVien trong biểu thức macro là:", o:["frmSinhVien.txtMaSV","[Forms]![frmSinhVien]![txtMaSV]","[Form]:[frmSinhVien]:[txtMaSV]","Forms(txtMaSV).frmSinhVien"], a:1, e:"Cú pháp chuẩn: [Forms]![TênForm]![TênĐiềuKhiển]."},
+    {q:"Nút Show All Actions trên tab Design có tác dụng:", o:["Mở rộng toàn bộ các khối hành động","Hiện danh sách tất cả macro trong CSDL","Chạy tất cả macro","Hiển thị cả các hành động chưa được tin cậy (unsafe)"], a:3, e:"Mặc định chỉ hiện hành động an toàn; Show All Actions hiện thêm hành động cần CSDL được tin cậy."},
+    {q:"Hành động OnError với tham số Go to = Next có ý nghĩa:", o:["Bỏ qua lỗi và tiếp tục hành động kế tiếp","Dừng macro và báo lỗi","Chạy lại hành động bị lỗi","Thoát Access"], a:0, e:"Next bỏ qua lỗi; Macro Name chuyển đến submacro xử lý; Fail dừng macro."},
+    {q:"Để tạo biến tạm lưu giá trị dùng chung giữa các macro, ta dùng hành động:", o:["SetValue","SetProperty","SetTempVar","DimVar"], a:2, e:"SetTempVar tạo biến; tham chiếu bằng [TempVars]![TênBiến]."},
+    {q:"Hành động dùng để chạy một macro khác từ bên trong macro hiện tại là:", o:["CallMacro","RunMacro","OpenMacro","ExecMacro"], a:1, e:"RunMacro có thể kèm Repeat Count và Repeat Expression."},
+    {q:"Muốn ẩn hoặc vô hiệu hóa một điều khiển trên form bằng macro (Visible, Enabled), ta dùng hành động:", o:["SetProperty","SetTempVar","Requery","RepaintObject"], a:0, e:"SetProperty: Control Name, Property, Value."},
+    {q:"Hành động dùng để hủy sự kiện đã kích hoạt macro (ví dụ hủy việc lưu trong Before Update) là:", o:["StopMacro","QuitAccess","CancelEvent","UndoRecord"], a:2, e:"CancelEvent hủy sự kiện đang xảy ra."},
+    {q:"Macro dùng để định nghĩa phím tắt riêng cho ứng dụng phải có tên là:", o:["HotKeys","ShortcutKeys","KeyMacro","AutoKeys"], a:3, e:"AutoKeys chứa các submacro đặt tên theo phím, ví dụ ^P là Ctrl+P."},
+    {q:"Hành động dùng để nhập/xuất dữ liệu giữa Access và bảng tính Excel là:", o:["OpenTable","ImportExportSpreadsheet","ImportExportText","OutputToExcel"], a:1, e:"ImportExportSpreadsheet với Transfer Type, Spreadsheet Type, Table Name, File Name."},
+    {q:"Khi mở CSDL xuất hiện thanh Security Warning và macro không chạy, cách xử lý nhanh là:", o:["Đổi tên macro thành AutoExec","Giữ phím Shift rồi mở lại","Nhấn nút Enable Content trên thanh cảnh báo","Chuyển macro sang VBA"], a:2, e:"Enable Content cho phép nội dung (macro, mã) chạy; thiết lập lâu dài ở Trust Center."}
+  ];
+  const MACRO_QUESTIONS = QUESTIONS;
+  // ===== Ngân hàng câu hỏi Bài 2: Query =====
+  const QUERY_QUESTIONS = (function(){
+  const QUESTIONS = [
+    {q:"Query (truy vấn) trong Access dùng để làm gì?", o:["Lưu trữ dữ liệu gốc của CSDL","Truy xuất, tính toán, tổng hợp hoặc cập nhật dữ liệu từ một hay nhiều bảng","Thiết kế giao diện nhập liệu","Tự động hóa thao tác bằng hành động"], a:1, e:"Query dùng để hỏi đáp và xử lý dữ liệu; dữ liệu gốc lưu trong bảng."},
+    {q:"Để tạo truy vấn ở chế độ thiết kế trong Access 2019, ta chọn:", o:["Create → Queries → Query Design","Home → Query","Database Tools → Query","External Data → New Query"], a:0, e:"Tab Create, nhóm Queries, nút Query Design."},
+    {q:"Loại truy vấn phổ biến nhất, chỉ lấy dữ liệu mà không làm thay đổi bảng nguồn là:", o:["Update Query","Append Query","Select Query","Make Table Query"], a:2, e:"Select Query truy xuất dữ liệu, không thay đổi dữ liệu nguồn."},
+    {q:"Chế độ xem cho phép xem và chỉnh sửa trực tiếp câu lệnh của truy vấn là:", o:["Design View","Datasheet View","Layout View","SQL View"], a:3, e:"SQL View hiển thị câu lệnh SQL của truy vấn."},
+    {q:"Lưới thiết kế truy vấn trong Design View được gọi là:", o:["Lưới QBE (Query By Example)","Property Sheet","Field List","Relationship Window"], a:0, e:"QBE gồm các dòng Field, Table, Sort, Show, Criteria, or."},
+    {q:"Trong lưới QBE, điều kiện lọc dữ liệu được nhập ở dòng nào?", o:["Field","Sort","Criteria","Table"], a:2, e:"Dòng Criteria (và các dòng or bên dưới)."},
+    {q:"Các điều kiện đặt trên CÙNG một dòng Criteria nhưng ở các cột khác nhau được kết hợp bằng phép toán:", o:["Or","And","Not","Xor"], a:1, e:"Cùng dòng → And; khác dòng → Or."},
+    {q:"Các điều kiện đặt ở dòng Criteria và dòng or (khác dòng) được kết hợp bằng phép toán:", o:["And","Not","Or","Like"], a:2, e:"Điều kiện ở các dòng khác nhau được nối bằng Or."},
+    {q:"Bỏ chọn ô Show của một cột trong lưới QBE có tác dụng:", o:["Xóa trường khỏi bảng nguồn","Trường không hiển thị trong kết quả nhưng vẫn có thể dùng để lọc/sắp xếp","Trường bị khóa không cho sửa","Trường được sắp xếp giảm dần"], a:1, e:"Show chỉ quyết định việc hiển thị trường trong kết quả."},
+    {q:"Trong toán tử Like, ký tự đại diện cho một chuỗi ký tự bất kỳ (nhiều ký tự) là:", o:["*","?","#","!"], a:0, e:"* đại diện cho 0 hoặc nhiều ký tự."},
+    {q:"Trong toán tử Like, ký tự ? đại diện cho:", o:["Một chữ số","Nhiều ký tự bất kỳ","Đúng một ký tự bất kỳ","Ký tự đặc biệt"], a:2, e:"? thay cho đúng một ký tự; # thay cho một chữ số."},
+    {q:"Điều kiện lấy các sinh viên có họ tên bắt đầu bằng \"Nguyễn\" là:", o:["= \"Nguyễn\"","Like \"*Nguyễn\"","In(\"Nguyễn\")","Like \"Nguyễn*\""], a:3, e:"Like \"Nguyễn*\" — chuỗi bắt đầu bằng Nguyễn."},
+    {q:"Hằng giá trị ngày tháng trong biểu thức điều kiện được đặt trong cặp ký tự:", o:["\" \"","# #","[ ]","' '"], a:1, e:"Ví dụ: >=#01/01/2005#."},
+    {q:"Điều kiện lấy điểm từ 5 đến 8 (kể cả 5 và 8) là:", o:["Between 5 And 8","In(5,8)",">5 And <8","Like \"5-8\""], a:0, e:"Between … And bao gồm cả hai giá trị biên."},
+    {q:"Để lọc các bản ghi mà trường Email bị bỏ trống, ta nhập điều kiện:", o:["= 0","= \"\" Or 0","Is Null","Not Null"], a:2, e:"Is Null kiểm tra giá trị rỗng; Is Not Null kiểm tra có dữ liệu."},
+    {q:"Điều kiện In(\"Hà Nội\",\"Huế\",\"Đà Nẵng\") có nghĩa là:", o:["Giá trị chứa cả ba chuỗi","Giá trị khác ba chuỗi này","Giá trị nằm giữa Hà Nội và Đà Nẵng","Giá trị bằng một trong các giá trị của danh sách"], a:3, e:"In() kiểm tra giá trị thuộc danh sách."},
+    {q:"Kiểu liên kết (Join) mặc định, chỉ lấy các bản ghi có giá trị khớp ở cả hai bảng là:", o:["LEFT JOIN","INNER JOIN","RIGHT JOIN","FULL JOIN"], a:1, e:"INNER JOIN là tùy chọn 1 trong Join Properties."},
+    {q:"Cú pháp đúng để tạo trường tính toán Thành tiền trong lưới QBE là:", o:["ThanhTien: [SoLuong]*[DonGia]","ThanhTien = SoLuong*DonGia","[ThanhTien]=[SoLuong]x[DonGia]","ThanhTien; [SoLuong]*[DonGia]"], a:0, e:"TênTrườngMới: Biểu thức — dùng dấu hai chấm."},
+    {q:"Hàm dùng để trả về giá trị theo điều kiện trong biểu thức truy vấn là:", o:["If()","Switch()","IIf()","Case()"], a:2, e:"IIf(điều kiện, giá trị đúng, giá trị sai)."},
+    {q:"Toán tử dùng để nối chuỗi trong biểu thức Access là:", o:["+ (chỉ dùng cho số)","&","||","#"], a:1, e:"Ví dụ: [HoLot] & \" \" & [Ten]."},
+    {q:"Hàm trả về ngày hiện tại của hệ thống là:", o:["Now[]","Today()","Year()","Date()"], a:3, e:"Date() trả về ngày hiện tại; Now() trả về cả ngày và giờ."},
+    {q:"Để hiển thị dòng Total trong lưới QBE, ta nhấn nút:", o:["Totals (Σ)","Sum","Group","Builder"], a:0, e:"Nút Totals trên tab Query Design."},
+    {q:"Trong Totals Query, tùy chọn dùng để nhóm các bản ghi có cùng giá trị là:", o:["Count","Group By","Where","Expression"], a:1, e:"Group By tạo nhóm để tính toán tổng hợp."},
+    {q:"Hàm tổng hợp dùng để đếm số bản ghi trong mỗi nhóm là:", o:["Sum","Avg","Count","Max"], a:2, e:"Count đếm số giá trị (không tính Null)."},
+    {q:"Tùy chọn Where ở dòng Total có đặc điểm:", o:["Lọc sau khi nhóm, tương ứng HAVING","Tính tổng các giá trị","Luôn hiển thị trong kết quả","Lọc bản ghi trước khi nhóm và cột đó không được hiển thị"], a:3, e:"Where lọc trước khi nhóm, tương ứng mệnh đề WHERE."},
+    {q:"Trong Totals Query, điều kiện đặt ở cột có hàm Avg (ví dụ >=6.5) tương ứng với mệnh đề SQL nào?", o:["HAVING","WHERE","ORDER BY","GROUP BY"], a:0, e:"Điều kiện trên giá trị tổng hợp được lọc sau khi nhóm → HAVING."},
+    {q:"Để tạo Parameter Query, tại dòng Criteria ta nhập câu nhắc đặt trong:", o:["Dấu nháy kép \" \"","Dấu # #","Ngoặc vuông [ ]","Ngoặc nhọn { }"], a:2, e:"Ví dụ: [Nhập mã lớp:] — Access hiện hộp thoại nhập giá trị."},
+    {q:"Criteria: Like \"*\" & [Nhập họ tên:] & \"*\" có tác dụng:", o:["Tìm chính xác họ tên","Tìm các bản ghi có họ tên chứa chuỗi người dùng nhập","Chỉ tìm họ tên bắt đầu bằng dấu *","Báo lỗi cú pháp"], a:1, e:"Ghép ký tự đại diện * hai phía để tìm gần đúng."},
+    {q:"Trong Crosstab Query, số trường tối đa được dùng làm Column Heading là:", o:["1","2","3","Không giới hạn"], a:0, e:"Column Heading: 1 trường; Row Heading: tối đa 3; Value: 1."},
+    {q:"Trong Crosstab Query, số trường tối đa được dùng làm Row Heading là:", o:["1","2","3","5"], a:2, e:"Row Heading tối đa 3 trường."},
+    {q:"Câu lệnh SQL của Crosstab Query sử dụng các từ khóa đặc trưng nào?", o:["UNION … ALL","TRANSFORM … PIVOT","SELECT … INTO","INSERT … VALUES"], a:1, e:"TRANSFORM chỉ giá trị tổng hợp, PIVOT chỉ trường làm tiêu đề cột."},
+    {q:"Crosstab Query Wizard có hạn chế nào?", o:["Không tính được Sum","Không sắp xếp được","Chỉ dùng cho trường Text","Chỉ lấy dữ liệu từ một bảng hoặc một truy vấn"], a:3, e:"Nếu dữ liệu ở nhiều bảng, cần tạo query trung gian hoặc dùng Design View."},
+    {q:"Truy vấn dùng để tạo một bảng mới từ kết quả truy vấn là:", o:["Append Query","Make Table Query","Update Query","Union Query"], a:1, e:"Make Table Query tương ứng SELECT … INTO."},
+    {q:"Append Query dùng để làm gì?", o:["Thêm bản ghi vào cuối một bảng đã có","Tạo bảng mới","Xóa bản ghi","Sửa cấu trúc bảng"], a:0, e:"Append Query tương ứng INSERT INTO … SELECT."},
+    {q:"Trong Update Query, giá trị mới cần gán cho trường được nhập ở dòng:", o:["Criteria","Append To","Update To","Field"], a:2, e:"Dòng Update To xuất hiện khi chọn loại Update."},
+    {q:"Phát biểu nào đúng về Delete Query?", o:["Có thể Undo sau khi chạy","Chỉ xóa trường, không xóa bản ghi","Chỉ chạy được trong Datasheet View","Xóa các bản ghi thỏa điều kiện và không thể hoàn tác"], a:3, e:"Thay đổi của Action Query không Undo được — nên sao lưu trước."},
+    {q:"Để thực thi một Action Query trong Design View, ta phải:", o:["Chuyển sang Datasheet View","Nhấn nút Run (!)","Nhấn Ctrl+S","Nhấn F4"], a:1, e:"Datasheet View chỉ xem trước; Run mới thực hiện thay đổi."},
+    {q:"Wizard dùng để tìm các bản ghi ở bảng này không có bản ghi liên quan ở bảng kia là:", o:["Find Duplicates Query Wizard","Simple Query Wizard","Crosstab Query Wizard","Find Unmatched Query Wizard"], a:3, e:"Ví dụ: khách hàng chưa có đơn hàng nào."},
+    {q:"Wizard dùng để tìm các bản ghi có giá trị trùng lặp trong một trường là:", o:["Find Duplicates Query Wizard","Find Unmatched Query Wizard","Simple Query Wizard","Crosstab Query Wizard"], a:0, e:"Find Duplicates tìm các giá trị trùng lặp."},
+    {q:"Union Query có đặc điểm nào sau đây?", o:["Tạo được bằng lưới QBE","Gộp kết quả nhiều câu SELECT có cùng số cột; UNION loại bản ghi trùng","Chỉ dùng để xóa dữ liệu","Gửi lệnh trực tiếp tới SQL Server"], a:1, e:"Union chỉ tạo trong SQL View; UNION ALL giữ lại bản ghi trùng."}
+  ];
+  return QUESTIONS;
+  })();
+
+  // ===== Helpers dùng chung =====
+  const byId = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const pad = n => String(n).padStart(2,"0");
+  const fmtTime = sec => pad(Math.floor(sec/60)) + ":" + pad(sec%60);
+  const LETTERS = ["A","B","C","D"];
+  const rankOf = s => s >= 8 ? "good" : s >= 5 ? "mid" : "low";
+  const rankText = s => s >= 9 ? "Xuất sắc" : s >= 8 ? "Giỏi" : s >= 6.5 ? "Khá" : s >= 5 ? "Trung bình" : "Chưa đạt";
+
+  function toast(msg){
+    const t = byId("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2600);
+  }
+  function confirmBox(title, text, yesLabel){
+    return new Promise(resolve => {
+      byId("modalTitle").textContent = title; byId("modalText").textContent = text;
+      byId("modalYes").textContent = yesLabel || "Đồng ý";
+      const m = byId("modal"); m.classList.add("show");
+      const done = v => { m.classList.remove("show"); byId("modalYes").onclick = byId("modalNo").onclick = null; resolve(v); };
+      byId("modalYes").onclick = () => done(true);
+      byId("modalNo").onclick = () => done(false);
+    });
+  }
+
+  // ===== Khởi tạo một bài học (quiz + lịch sử) =====
+  function initLesson(cfg){
+    const P = cfg.prefix, QUESTIONS = cfg.questions, TOTAL = QUESTIONS.length, STORAGE_KEY = cfg.storageKey;
+    const $ = id => byId(P + id);
+
+    function loadHistory(){
+      try { const d = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Array.isArray(d) ? d : []; }
+      catch(e){ return []; }
+    }
+    function saveHistory(list){
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); return true; }
+      catch(e){ toast("⚠ Không thể lưu vào LocalStorage trên trình duyệt này."); return false; }
+    }
+
+    let answers = new Array(TOTAL).fill(null);
+    let submitted = false, seconds = 0, timerId = null, started = false;
+    const navBtn = i => $("qnav").querySelector(`[data-go="${i}"]`);
+
+    function startTimer(){
+      if (started) return; started = true;
+      timerId = setInterval(() => { seconds++; $("timer").textContent = fmtTime(seconds); }, 1000);
+    }
+
+    // Thứ tự hiển thị các phương án được xáo trộn mỗi lần làm bài; giá trị lưu vẫn là chỉ số gốc
+    let orders = [];
+    const shuffle = arr => { for (let k = arr.length - 1; k > 0; k--){ const r = Math.floor(Math.random() * (k + 1)); [arr[k], arr[r]] = [arr[r], arr[k]]; } return arr; };
+    const letterOf = (i, j) => LETTERS[orders[i].indexOf(j)];
+
+    function renderQuiz(){
+      orders = QUESTIONS.map(item => shuffle(item.o.map((_, j) => j)));
+      $("qnav").innerHTML = QUESTIONS.map((_, i) => `<button type="button" data-go="${i}" title="Câu ${i+1}">${i+1}</button>`).join("");
+      $("quizBox").innerHTML = QUESTIONS.map((item, i) => `
+        <div class="q" id="${P}q${i}">
+          <div class="qt"><span class="qn">Câu ${i+1}.</span>${esc(item.q)}</div>
+          ${orders[i].map((j, pos) => `
+            <label class="opt" data-o="${j}">
+              <input type="radio" name="${P}q${i}" value="${j}" data-i="${i}">
+              <span class="l">${LETTERS[pos]}.</span><span>${esc(item.o[j])}</span>
+            </label>`).join("")}
+          <div class="explain"></div>
+        </div>`).join("");
+    }
+
+    function updateProgress(){
+      const n = answers.filter(a => a !== null).length;
+      $("answeredCount").textContent = n;
+      $("quizBar").style.width = (n / TOTAL * 100) + "%";
+    }
+
+    $("quizBox").addEventListener("change", e => {
+      if (submitted || e.target.type !== "radio") return;
+      const qi = +e.target.dataset.i, oi = +e.target.value;
+      answers[qi] = oi; startTimer();
+      const qEl = $("q" + qi);
+      qEl.classList.add("answered");
+      qEl.querySelectorAll(".opt").forEach(o => o.classList.toggle("sel", +o.dataset.o === oi));
+      navBtn(qi).classList.add("done");
+      updateProgress();
+    });
+
+    $("qnav").addEventListener("click", e => {
+      const b = e.target.closest("[data-go]"); if (!b) return;
+      $("q" + b.dataset.go).scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    const nameInput = $("studentName");
+    nameInput.addEventListener("input", () => {
+      if (nameInput.value.trim().length >= 2){ nameInput.classList.remove("invalid"); $("nameErr").classList.remove("show"); }
+    });
+
+    function validateName(){
+      const name = nameInput.value.trim().replace(/\s+/g, " ");
+      if (name.length < 2){
+        nameInput.classList.remove("invalid"); void nameInput.offsetWidth; nameInput.classList.add("invalid");
+        $("nameErr").classList.add("show");
+        nameInput.scrollIntoView({behavior:"smooth", block:"center"});
+        setTimeout(() => nameInput.focus(), 350);
+        toast("⚠ Vui lòng nhập Họ và tên trước khi nộp bài!");
+        return null;
+      }
+      return name;
+    }
+
+    async function submitQuiz(){
+      if (submitted) return;
+      const name = validateName();
+      if (!name) return;
+      const missing = answers.filter(a => a === null).length;
+      if (missing > 0){
+        const ok = await confirmBox("Còn câu chưa làm", `Bạn còn ${missing} câu chưa trả lời. Các câu này sẽ được tính là sai. Bạn vẫn muốn nộp bài?`, "Nộp bài");
+        if (!ok) return;
+      }
+      submitted = true; clearInterval(timerId);
+
+      let correct = 0;
+      QUESTIONS.forEach((item, i) => {
+        const qEl = $("q" + i), chosen = answers[i], isRight = chosen === item.a;
+        if (isRight) correct++;
+        qEl.classList.add("locked");
+        qEl.querySelectorAll("input").forEach(inp => inp.disabled = true);
+        qEl.querySelectorAll(".opt").forEach(o => {
+          const j = +o.dataset.o; o.classList.remove("sel");
+          if (j === item.a) o.classList.add("correct");
+          else if (j === chosen) o.classList.add("incorrect");
+        });
+        const status = chosen === null ? "⚪ Chưa trả lời." : isRight ? "✅ Chính xác!" : `❌ Sai. Bạn chọn ${letterOf(i, chosen)}.`;
+        qEl.querySelector(".explain").innerHTML = `<b>${status}</b> Đáp án đúng: <b>${letterOf(i, item.a)}</b>. ${esc(item.e)}`;
+        const nb = navBtn(i); nb.classList.remove("done"); nb.classList.add(isRight ? "right" : "wrong");
+      });
+
+      const score = Math.round(correct / TOTAL * 10 * 100) / 100;
+      const rk = rankOf(score);
+      const res = $("result");
+      res.className = "result show " + rk;
+      res.innerHTML = `
+        <div>Kết quả của học viên <b>${esc(name)}</b></div>
+        <div class="score">${score.toLocaleString("vi-VN")} / 10</div>
+        <span class="rank score-chip ${rk}">${rankText(score)}</span>
+        <div class="stats"><span>✅ Đúng: <b>${correct}</b></span><span>❌ Sai/bỏ trống: <b>${TOTAL - correct}</b></span><span>⏱ Thời gian: <b>${fmtTime(seconds)}</b></span></div>
+        <p style="margin:12px 0 0;color:var(--muted)">Xem lại đáp án và giải thích bên trên từng câu hỏi.</p>`;
+
+      nameInput.disabled = true;
+      $("submitBtn").disabled = true;
+
+      const list = loadHistory();
+      list.unshift({ id: Date.now(), name, score, correct, total: TOTAL, time: seconds, date: new Date().toISOString() });
+      if (saveHistory(list)) toast("✔ Đã nộp bài và lưu kết quả!");
+      renderHistory();
+      res.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+
+    function resetQuiz(){
+      answers = new Array(TOTAL).fill(null);
+      submitted = false; started = false; seconds = 0; clearInterval(timerId);
+      $("timer").textContent = "00:00";
+      renderQuiz(); updateProgress();
+      $("result").className = "result"; $("result").innerHTML = "";
+      nameInput.disabled = false; $("submitBtn").disabled = false;
+    }
+
+    $("submitBtn").addEventListener("click", submitQuiz);
+    $("resetBtn").addEventListener("click", async () => {
+      if (!submitted && answers.some(a => a !== null)){
+        const ok = await confirmBox("Làm lại bài", "Toàn bộ câu trả lời hiện tại sẽ bị xóa. Tiếp tục?", "Làm lại");
+        if (!ok) return;
+      }
+      resetQuiz();
+      $("quiz").scrollIntoView({behavior:"smooth"});
+    });
+
+    function renderHistory(){
+      const kw = $("histSearch").value.trim().toLowerCase();
+      const list = loadHistory();
+      const rows = list.filter(r => !kw || String(r.name).toLowerCase().includes(kw));
+      const body = $("histBody");
+      if (!rows.length){
+        body.innerHTML = `<tr><td colspan="7" class="empty">${list.length ? "Không tìm thấy học viên phù hợp." : "Chưa có kết quả nào. Hãy làm bài kiểm tra!"}</td></tr>`;
+        return;
+      }
+      body.innerHTML = rows.map((r, i) => {
+        const d = new Date(r.date);
+        return `<tr>
+          <td>${i+1}</td>
+          <td><b>${esc(r.name)}</b></td>
+          <td><span class="score-chip ${rankOf(r.score)}">${Number(r.score).toLocaleString("vi-VN")}</span></td>
+          <td>${r.correct}/${r.total}</td>
+          <td>${fmtTime(r.time || 0)}</td>
+          <td>${d.toLocaleDateString("vi-VN")} ${d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}</td>
+          <td><button class="del-row" data-del="${r.id}" title="Xóa dòng này">✕</button></td>
+        </tr>`;
+      }).join("");
+    }
+
+    $("histSearch").addEventListener("input", renderHistory);
+    $("histBody").addEventListener("click", async e => {
+      const b = e.target.closest("[data-del]"); if (!b) return;
+      const ok = await confirmBox("Xóa kết quả", "Bạn có chắc muốn xóa kết quả này khỏi lịch sử?", "Xóa");
+      if (!ok) return;
+      saveHistory(loadHistory().filter(r => String(r.id) !== b.dataset.del));
+      renderHistory(); toast("Đã xóa kết quả.");
+    });
+    $("clearBtn").addEventListener("click", async () => {
+      if (!loadHistory().length) return toast("Lịch sử đang trống.");
+      const ok = await confirmBox("Xóa toàn bộ lịch sử", `Tất cả kết quả làm bài của ${cfg.title} sẽ bị xóa và không thể khôi phục.`, "Xóa hết");
+      if (!ok) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      renderHistory(); toast("Đã xóa toàn bộ lịch sử.");
+    });
+    $("exportBtn").addEventListener("click", () => {
+      const list = loadHistory();
+      if (!list.length) return toast("Chưa có dữ liệu để xuất.");
+      const q = v => `"${String(v).replace(/"/g,'""')}"`;
+      const lines = [["STT","Họ tên học viên","Điểm","Số câu đúng","Tổng số câu","Thời gian làm","Ngày nộp"].map(q).join(",")];
+      list.forEach((r, i) => lines.push([i+1, r.name, r.score, r.correct, r.total, fmtTime(r.time||0), new Date(r.date).toLocaleString("vi-VN")].map(q).join(",")));
+      const blob = new Blob(["﻿" + lines.join("\r\n")], {type:"text/csv;charset=utf-8"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = cfg.csvName;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    });
+
+    renderQuiz(); updateProgress(); renderHistory();
+  }
+
+  initLesson({ prefix:"m-", title:"Bài 5. Macro", questions:MACRO_QUESTIONS, storageKey:"access2019_macro_quiz_history", csvName:"ket-qua-macro-access2019.csv" });
+  initLesson({ prefix:"q-", title:"Bài 2. Query", questions:QUERY_QUESTIONS, storageKey:"access2019_query_quiz_history", csvName:"ket-qua-query-access2019.csv" });
+
+  // ===== Ngân hàng câu hỏi Bài 1: Table =====
+  const TABLE_QUESTIONS = [
+    {q:"Bảng (Table) trong Access dùng để làm gì?", o:["Lưu trữ dữ liệu","Tự động hóa thao tác","Trình bày dữ liệu để in","Tạo giao diện nhập liệu"], a:0, e:"Table là nơi lưu trữ dữ liệu; các đối tượng khác khai thác dữ liệu từ bảng."},
+    {q:"Một hàng trong bảng được gọi là:", o:["Trường (Field)","Bản ghi (Record)","Khóa (Key)","Thuộc tính (Property)"], a:1, e:"Record là một hàng, chứa thông tin của một đối tượng."},
+    {q:"Một cột trong bảng được gọi là:", o:["Bản ghi (Record)","Chỉ mục (Index)","Trường (Field)","Quan hệ (Relationship)"], a:2, e:"Field là một cột, lưu một thuộc tính của đối tượng."},
+    {q:"Để tạo bảng ở chế độ thiết kế trong Access 2019, ta chọn:", o:["Home → Table","External Data → Table","Database Tools → Table","Create → Tables → Table Design"], a:3, e:"Create → Table Design mở bảng mới ở Design View."},
+    {q:"Chế độ xem dùng để định nghĩa tên trường, kiểu dữ liệu và thuộc tính của bảng là:", o:["Design View","Datasheet View","Layout View","Print Preview"], a:0, e:"Design View dùng để định nghĩa cấu trúc; Datasheet View để nhập dữ liệu."},
+    {q:"Kiểu dữ liệu Short Text lưu được tối đa bao nhiêu ký tự?", o:["50","127","255","65.535"], a:2, e:"Short Text tối đa 255 ký tự."},
+    {q:"Để lưu nội dung ghi chú dài, mô tả chi tiết, ta dùng kiểu dữ liệu:", o:["Short Text","Long Text","Hyperlink","Number"], a:1, e:"Long Text lưu văn bản dài, hỗ trợ Rich Text."},
+    {q:"Kiểu dữ liệu tự động tăng giá trị và duy nhất cho mỗi bản ghi mới là:", o:["Number","Calculated","Large Number","AutoNumber"], a:3, e:"AutoNumber tự sinh giá trị, không sửa được, thường dùng làm khóa chính."},
+    {q:"Trường Học phí nên chọn kiểu dữ liệu nào?", o:["Currency","Short Text","Yes/No","Date/Time"], a:0, e:"Currency dành cho giá trị tiền tệ, tính toán chính xác."},
+    {q:"Kiểu dữ liệu chỉ nhận một trong hai giá trị (Đúng/Sai, Có/Không) là:", o:["Number","Short Text","Yes/No","Lookup"], a:2, e:"Yes/No hiển thị dạng ô đánh dấu."},
+    {q:"Kiểu dữ liệu cho phép một ô chứa nhiều tệp đính kèm (ảnh, tài liệu) là:", o:["OLE Object","Attachment","Hyperlink","Long Text"], a:1, e:"Attachment lưu được nhiều tệp trong một ô."},
+    {q:"Kiểu dữ liệu Calculated có đặc điểm:", o:["Lấy giá trị từ bảng khác","Người dùng nhập tay giá trị","Luôn là số nguyên","Giá trị được tính từ các trường khác trong cùng bảng"], a:3, e:"Calculated chỉ dùng được các trường trong cùng bảng."},
+    {q:"Field Size mặc định của kiểu Number là:", o:["Long Integer","Integer","Byte","Double"], a:0, e:"Mặc định Number là Long Integer."},
+    {q:"Field Size Byte của kiểu Number lưu được phạm vi giá trị:", o:["−128 → 127","0 → 255","0 → 65.535","−32.768 → 32.767"], a:1, e:"Byte: số nguyên từ 0 đến 255."},
+    {q:"Số điện thoại như 0912345678 nên được lưu bằng kiểu dữ liệu nào?", o:["Number","Currency","Short Text","AutoNumber"], a:2, e:"Short Text giữ được số 0 đầu và không cần tính toán."},
+    {q:"Thuộc tính quy định giá trị tự động điền khi thêm bản ghi mới là:", o:["Format","Caption","Input Mask","Default Value"], a:3, e:"Default Value, ví dụ Date() hoặc \"Hà Nội\"."},
+    {q:"Thuộc tính Validation Rule dùng để:", o:["Quy định điều kiện kiểm tra dữ liệu nhập vào","Định dạng hiển thị dữ liệu","Đặt nhãn cho trường","Tạo chỉ mục"], a:0, e:"Validation Rule là quy tắc kiểm tra tính hợp lệ của dữ liệu."},
+    {q:"Thuộc tính Validation Text dùng để:", o:["Kiểm tra dữ liệu","Hiển thị thông báo khi dữ liệu vi phạm Validation Rule","Nhập dữ liệu mặc định","Ẩn dữ liệu"], a:1, e:"Validation Text là câu thông báo lỗi khi vi phạm quy tắc."},
+    {q:"Validation Rule nào đúng để điểm chỉ được nhập từ 0 đến 10?", o:["0 To 10","In(0,10)","Between 0 And 10","Like \"0-10\""], a:2, e:"Between 0 And 10 hoặc >=0 And <=10."},
+    {q:"Thuộc tính Required = Yes có ý nghĩa:", o:["Trường là khóa chính","Không cho phép trùng","Trường chỉ đọc","Bắt buộc phải nhập dữ liệu cho trường"], a:3, e:"Required = Yes: không được để trống."},
+    {q:"Thuộc tính Caption dùng để:", o:["Đặt nhãn hiển thị làm tiêu đề cột thay cho tên trường","Đổi tên trường","Định dạng chữ hoa","Mô tả kiểu dữ liệu"], a:0, e:"Caption chỉ thay đổi nhãn hiển thị, không đổi tên trường."},
+    {q:"Trong Input Mask, ký tự 0 có ý nghĩa:", o:["Chữ cái bắt buộc","Chữ số bắt buộc nhập","Chữ số không bắt buộc","Ký tự bất kỳ"], a:1, e:"0 = chữ số 0–9, bắt buộc."},
+    {q:"Trong Input Mask, ký tự 9 có ý nghĩa:", o:["Chữ số bắt buộc","Chữ cái không bắt buộc","Chữ số hoặc khoảng trắng, không bắt buộc","Chuyển thành chữ hoa"], a:2, e:"9 = chữ số hoặc khoảng trắng, không bắt buộc nhập."},
+    {q:"Trong thuộc tính Format của trường Text, ký tự > có tác dụng:", o:["Hiển thị dữ liệu dạng chữ thường","Chỉ nhận giá trị lớn hơn 0","Căn phải dữ liệu","Hiển thị dữ liệu dạng chữ hoa"], a:3, e:"> chuyển thành chữ hoa; < chuyển thành chữ thường."},
+    {q:"Thuộc tính Indexed = Yes (No Duplicates) có ý nghĩa:", o:["Tạo chỉ mục và không cho phép giá trị trùng","Tạo chỉ mục, cho phép trùng","Không tạo chỉ mục","Bắt buộc nhập"], a:0, e:"No Duplicates: giá trị trong trường phải duy nhất."},
+    {q:"Phát biểu nào đúng về khóa chính (Primary Key)?", o:["Được phép trùng nhưng không được rỗng","Không được trùng lặp và không được để trống","Chỉ được là kiểu AutoNumber","Mỗi bảng phải có nhiều khóa chính"], a:1, e:"Khóa chính xác định duy nhất bản ghi: không trùng, không Null."},
+    {q:"Để tạo khóa chính gồm nhiều trường (khóa kết hợp), ta:", o:["Nhấn Primary Key nhiều lần cho từng trường","Đặt Indexed = Yes cho các trường","Giữ Ctrl chọn các trường rồi nhấn Primary Key","Không thể tạo khóa nhiều trường"], a:2, e:"Giữ Ctrl để chọn nhiều dòng trường, sau đó nhấn Primary Key."},
+    {q:"Để mở cửa sổ tạo quan hệ giữa các bảng, ta chọn:", o:["Create → Relationships","Home → Relationships","External Data → Relationships","Database Tools → Relationships"], a:3, e:"Database Tools → Relationships."},
+    {q:"Loại quan hệ phổ biến nhất giữa các bảng trong Access là:", o:["Một – Nhiều (1–∞)","Một – Một (1–1)","Nhiều – Nhiều (∞–∞)","Không có quan hệ"], a:0, e:"Ví dụ: một lớp có nhiều sinh viên."},
+    {q:"Quan hệ Nhiều – Nhiều (Sinh viên – Môn học) được thực hiện bằng cách:", o:["Nối trực tiếp hai bảng","Tạo bảng trung gian với hai quan hệ Một – Nhiều","Dùng khóa chính AutoNumber","Gộp hai bảng thành một"], a:1, e:"Bảng trung gian (ví dụ tblDiem) chứa khóa của hai bảng."},
+    {q:"Tùy chọn Enforce Referential Integrity có tác dụng:", o:["Tự động xóa dữ liệu trùng","Sắp xếp dữ liệu theo khóa","Đảm bảo toàn vẹn tham chiếu: không cho nhập khóa ngoại không có trong bảng chính","Tạo chỉ mục cho khóa ngoại"], a:2, e:"Không cho tạo bản ghi 'mồ côi' ở bảng phụ."},
+    {q:"Tùy chọn Cascade Delete Related Records có tác dụng:", o:["Không cho xóa bản ghi bảng chính","Xóa bảng phụ","Xóa quan hệ giữa hai bảng","Khi xóa bản ghi ở bảng chính, tự động xóa các bản ghi liên quan ở bảng phụ"], a:3, e:"Xóa theo dây chuyền các bản ghi liên quan."},
+    {q:"Tùy chọn Cascade Update Related Fields có tác dụng:", o:["Khi sửa khóa chính ở bảng chính, tự động cập nhật khóa ngoại ở bảng liên quan","Tự động cập nhật mọi trường","Cập nhật kiểu dữ liệu","Tự động thêm bản ghi mới"], a:0, e:"Cập nhật theo dây chuyền giá trị khóa."},
+    {q:"Khóa chính kiểu AutoNumber thì trường khóa ngoại tương ứng ở bảng liên quan phải có kiểu:", o:["AutoNumber","Number – Long Integer","Short Text","Number – Byte"], a:1, e:"AutoNumber tương thích với Number – Long Integer."},
+    {q:"Khi bật Enforce Referential Integrity cho quan hệ Một – Nhiều, đường nối hiển thị ký hiệu:", o:["A và B","← và →","1 và ∞","PK và FK"], a:2, e:"Đầu bảng chính là 1, đầu bảng phụ là ∞."},
+    {q:"Lookup Wizard dùng để:", o:["Tìm kiếm bản ghi","Nhập dữ liệu từ Excel","Tạo khóa chính","Tạo danh sách chọn giá trị từ bảng khác hoặc danh sách tự nhập"], a:3, e:"Lookup Wizard tạo Combo Box chọn giá trị cho trường."},
+    {q:"Trong Datasheet View, phím tắt để chèn ngày hiện tại vào ô là:", o:["Ctrl + ;","Ctrl + D","Ctrl + '","Ctrl + T"], a:0, e:"Ctrl + ; chèn ngày hiện tại; Ctrl + ' chép giá trị ô phía trên."},
+    {q:"Lệnh Freeze Fields trong Datasheet View có tác dụng:", o:["Khóa không cho sửa dữ liệu","Cố định cột để luôn hiển thị khi cuộn ngang","Ẩn cột","Sắp xếp cột"], a:1, e:"Freeze Fields giữ cột cố định bên trái khi cuộn."},
+    {q:"Để nhập dữ liệu từ tệp Excel vào Access 2019, ta chọn:", o:["File → Open → Excel","Create → Table → Excel","External Data → New Data Source → From File → Excel","Home → Paste Excel"], a:2, e:"Có thể Import, Append hoặc Link dữ liệu Excel."},
+    {q:"Muốn kiểm tra Ngày kết thúc phải lớn hơn hoặc bằng Ngày bắt đầu, Validation Rule [NgayKetThuc]>=[NgayBatDau] được đặt ở đâu?", o:["Validation Rule của trường NgayKetThuc","Input Mask của trường NgayBatDau","Default Value của trường","Validation Rule trong Property Sheet của bảng"], a:3, e:"So sánh giữa hai trường phải đặt ở quy tắc mức bảng (Table Properties)."}
+  ];
+  initLesson({ prefix:"t-", title:"Bài 1. Table", questions:TABLE_QUESTIONS, storageKey:"access2019_table_quiz_history", csvName:"ket-qua-table-access2019.csv" });
+
+  // ===== Ngân hàng câu hỏi Bài 3: Form =====
+  const FORM_QUESTIONS = [
+    {q:"Biểu mẫu (Form) trong Access chủ yếu dùng để:", o:["Lưu trữ dữ liệu gốc","Tạo giao diện giúp người dùng xem, nhập, sửa dữ liệu","Tổng hợp dữ liệu để in ấn","Định nghĩa quan hệ giữa các bảng"], a:1, e:"Form là giao diện làm việc với dữ liệu; dữ liệu vẫn lưu trong bảng."},
+    {q:"Để tạo nhanh một form chứa tất cả các trường của bảng đang chọn, ta dùng:", o:["Create → Form","Create → Form Design","Create → Blank Form","Create → Navigation"], a:0, e:"Nút Form tạo form tự động từ bảng/truy vấn đang chọn."},
+    {q:"Công cụ tạo form theo từng bước, cho phép chọn trường từ nhiều bảng/truy vấn là:", o:["Blank Form","Split Form","Form Wizard","Modal Dialog"], a:2, e:"Form Wizard hướng dẫn chọn trường, bố cục và tiêu đề."},
+    {q:"Blank Form tạo form trống và mở ở chế độ:", o:["Form View","Design View","Datasheet View","Layout View"], a:3, e:"Blank Form mở ở Layout View; Form Design mở ở Design View."},
+    {q:"Loại form hiển thị đồng thời dạng Form View và Datasheet trên cùng màn hình là:", o:["Split Form","Multiple Items","Continuous Form","Navigation Form"], a:0, e:"Split Form chia đôi màn hình, hai phần đồng bộ với nhau."},
+    {q:"More Forms → Multiple Items tạo form có đặc điểm:", o:["Chỉ hiển thị một bản ghi","Hiển thị nhiều bản ghi trên một màn hình dạng bảng","Hộp thoại có nút OK/Cancel","Form chứa các tab điều hướng"], a:1, e:"Multiple Items hiển thị nhiều bản ghi cùng lúc."},
+    {q:"Chế độ xem cho phép vừa thấy dữ liệu thật vừa điều chỉnh kích thước, vị trí điều khiển là:", o:["Form View","Design View","Layout View","Print Preview"], a:2, e:"Layout View kết hợp hiển thị dữ liệu và chỉnh bố cục."},
+    {q:"Chế độ xem thiết kế chi tiết nhất, hiển thị đầy đủ các phần (section) của form là:", o:["Layout View","Form View","Datasheet View","Design View"], a:3, e:"Design View cho phép thêm mọi loại điều khiển và chỉnh các section."},
+    {q:"Phần (section) của form hiển thị dữ liệu của từng bản ghi là:", o:["Detail","Form Header","Page Footer","Form Footer"], a:0, e:"Detail là phần chính chứa các điều khiển của bản ghi."},
+    {q:"Form Header thường dùng để đặt:", o:["Dữ liệu của từng bản ghi","Tiêu đề, logo — hiển thị một lần ở đầu form","Số trang khi in","Các bản ghi con"], a:1, e:"Form Header hiển thị một lần ở đầu form."},
+    {q:"Thuộc tính xác định bảng/truy vấn làm nguồn dữ liệu cho form là:", o:["Control Source","Row Source","Record Source","Data Source"], a:2, e:"Record Source của form."},
+    {q:"Thuộc tính liên kết một điều khiển (Text Box) với một trường dữ liệu là:", o:["Record Source","Row Source","Bound Column","Control Source"], a:3, e:"Control Source của điều khiển."},
+    {q:"Điều khiển liên kết (Bound Control) là điều khiển:", o:["Có Control Source là một trường của nguồn dữ liệu","Không có nguồn dữ liệu","Chỉ hiển thị văn bản cố định","Có Control Source là biểu thức"], a:0, e:"Bound control hiển thị và cập nhật dữ liệu của trường."},
+    {q:"Control Source của một điều khiển tính toán luôn bắt đầu bằng ký tự:", o:["#","=","@","&"], a:1, e:"Ví dụ: =[SoLuong]*[DonGia]."},
+    {q:"Điều khiển nào sau đây là điều khiển không liên kết (Unbound)?", o:["Text Box hiển thị trường HoTen","Check Box gắn với trường Yes/No","Label chứa tiêu đề form","Combo Box gắn với trường MaLop"], a:2, e:"Label, Line, Image thường là điều khiển không liên kết."},
+    {q:"Phím tắt để mở/đóng Property Sheet khi thiết kế form là:", o:["F2","F6","F11","F4"], a:3, e:"F4 bật/tắt Property Sheet."},
+    {q:"Nút Add Existing Fields (Alt + F8) có tác dụng:", o:["Mở Field List để kéo trường vào form","Thêm trường mới vào bảng","Thêm bản ghi mới","Thêm form con"], a:0, e:"Kéo trường từ Field List vào form tạo điều khiển liên kết."},
+    {q:"Điều khiển hiển thị danh sách thả xuống, vừa cho chọn vừa có thể gõ giá trị là:", o:["List Box","Combo Box","Option Group","Tab Control"], a:1, e:"Combo Box = danh sách thả xuống + ô nhập."},
+    {q:"Điểm khác biệt của List Box so với Combo Box là:", o:["List Box không có danh sách","List Box chỉ dùng cho trường số","List Box luôn hiển thị danh sách và chỉ chọn giá trị có sẵn","List Box cho phép gõ giá trị mới"], a:2, e:"List Box hiển thị sẵn danh sách, không gõ giá trị mới."},
+    {q:"Điều khiển nhóm các nút tùy chọn mà người dùng chỉ được chọn một giá trị là:", o:["Check Box","Toggle Button","Tab Control","Option Group"], a:3, e:"Option Group lưu giá trị số của lựa chọn."},
+    {q:"Điều khiển dùng để chia form thành nhiều trang (tab) là:", o:["Tab Control","Subform","Page Break","Rectangle"], a:0, e:"Tab Control giúp bố trí nhiều thông tin gọn gàng."},
+    {q:"Thuộc tính của Combo Box xác định nguồn các giá trị trong danh sách là:", o:["Control Source","Row Source","Record Source","Default Value"], a:1, e:"Row Source, ví dụ SELECT MaLop, TenLop FROM tblLop."},
+    {q:"Thuộc tính Bound Column của Combo Box cho biết:", o:["Số cột hiển thị","Độ rộng các cột","Cột có giá trị được lưu vào trường","Cột dùng để sắp xếp"], a:2, e:"Giá trị của Bound Column được ghi vào Control Source."},
+    {q:"Thuộc tính Limit To List = Yes của Combo Box có tác dụng:", o:["Giới hạn số dòng hiển thị","Ẩn danh sách","Sắp xếp danh sách","Chỉ chấp nhận giá trị có trong danh sách"], a:3, e:"Không cho nhập giá trị ngoài danh sách."},
+    {q:"Default View = Continuous Forms có nghĩa là:", o:["Hiển thị nhiều bản ghi, mỗi bản ghi lặp lại phần Detail","Chỉ hiển thị một bản ghi","Hiển thị dạng lưới giống bảng","Chia đôi màn hình"], a:0, e:"Continuous Forms lặp lại Detail cho từng bản ghi."},
+    {q:"Thuộc tính Data Entry = Yes của form có tác dụng:", o:["Cho phép sửa dữ liệu cũ","Form mở ra chỉ để nhập bản ghi mới, không hiển thị bản ghi cũ","Không cho nhập dữ liệu","Tự động lưu dữ liệu"], a:1, e:"Data Entry = Yes: form nhập mới."},
+    {q:"Muốn người dùng không thể xóa bản ghi trên form, ta đặt thuộc tính:", o:["Allow Edits = No","Data Entry = Yes","Allow Deletions = No","Locked = Yes"], a:2, e:"Allow Deletions = No."},
+    {q:"Thuộc tính Navigation Buttons = No có tác dụng:", o:["Ẩn các nút lệnh trên form","Không cho chuyển bản ghi","Ẩn thanh cuộn","Ẩn thanh điều hướng bản ghi ở đáy form"], a:3, e:"Navigation Buttons điều khiển thanh điều hướng bản ghi."},
+    {q:"Thuộc tính Locked = Yes của điều khiển có nghĩa là:", o:["Không sửa được dữ liệu nhưng vẫn chọn và sao chép được","Điều khiển bị ẩn","Điều khiển bị mờ, không chọn được","Điều khiển bị xóa"], a:0, e:"Locked chặn sửa; Enabled = No mới làm mờ và không chọn được."},
+    {q:"Để tính tổng thành tiền của tất cả bản ghi và đặt ở Form Footer, Control Source đúng là:", o:["=Sum([txtThanhTien])","=Sum([SoLuong]*[DonGia])","Sum([SoLuong]*[DonGia])","=Total([ThanhTien])"], a:1, e:"Hàm tổng hợp phải dùng trường/biểu thức từ trường, không dùng tên điều khiển tính toán."},
+    {q:"Biểu thức đếm số bản ghi hiển thị trên form (đặt ở Form Footer) là:", o:["=Sum(*)","=Records()","=Count(*)","Count[*]"], a:2, e:"=Count(*) đếm số bản ghi."},
+    {q:"Form chính – form con (Main form/Subform) thường dùng để thể hiện dữ liệu có quan hệ:", o:["Một – Một","Không có quan hệ","Nhiều – Nhiều trực tiếp","Một – Nhiều"], a:3, e:"Form chính phía '1', form con phía 'nhiều'."},
+    {q:"Hai thuộc tính liên kết dữ liệu giữa form chính và form con là:", o:["Link Master Fields và Link Child Fields","Record Source và Control Source","Row Source và Bound Column","Parent Field và Child Field"], a:0, e:"Đặt ở Property Sheet của điều khiển Subform."},
+    {q:"Default View thường dùng cho form con (Subform) là:", o:["Split Form","Datasheet","Single Form","Pivot Table"], a:1, e:"Form con thường là Datasheet hoặc Continuous Forms."},
+    {q:"Trong Command Button Wizard, các hành động Add New Record, Delete Record, Save Record thuộc nhóm:", o:["Record Navigation","Form Operations","Record Operations","Application"], a:2, e:"Record Operations; nhóm Record Navigation gồm Go To First/Next…"},
+    {q:"Chức năng Tab Order trong Design View dùng để:", o:["Sắp xếp các tab của Tab Control","Sắp xếp bản ghi","Đổi thứ tự các form trong Navigation Pane","Quy định thứ tự con trỏ di chuyển giữa các điều khiển khi nhấn Tab"], a:3, e:"Tab Order xác định thứ tự Tab Index."},
+    {q:"Sự kiện của form xảy ra mỗi khi chuyển đến một bản ghi khác là:", o:["On Current","On Load","On Open","After Update"], a:0, e:"On Current xảy ra khi bản ghi hiện hành thay đổi."},
+    {q:"Sự kiện dùng để kiểm tra dữ liệu và có thể hủy việc lưu bản ghi là:", o:["After Update","Before Update","On Click","On Close"], a:1, e:"Before Update xảy ra trước khi lưu; có thể hủy bằng CancelEvent."},
+    {q:"Để form tự động mở khi mở cơ sở dữ liệu (không dùng macro), ta thiết lập tại:", o:["Create → Form → Startup","Database Tools → Startup Form","File → Options → Current Database → Display Form","Home → Options → Start Form"], a:2, e:"Display Form trong Current Database; hoặc dùng macro AutoExec."},
+    {q:"Navigation Form dùng để:", o:["Nhập dữ liệu mới","Hiển thị dữ liệu dạng Datasheet","Điều hướng bản ghi trong bảng","Tạo giao diện menu dạng tab mở các form/báo cáo khác"], a:3, e:"Navigation Form (Create → Navigation) tạo menu điều hướng ứng dụng."}
+  ];
+  initLesson({ prefix:"f-", title:"Bài 3. Form", questions:FORM_QUESTIONS, storageKey:"access2019_form_quiz_history", csvName:"ket-qua-form-access2019.csv" });
+
+  // ===== Ngân hàng câu hỏi Bài 4: Report =====
+  const REPORT_QUESTIONS = [
+    {q:"Báo cáo (Report) trong Access chủ yếu dùng để:", o:["Nhập và sửa dữ liệu","Trình bày, tổng hợp và in ấn dữ liệu","Lưu trữ dữ liệu gốc","Tự động hóa thao tác"], a:1, e:"Report tối ưu cho việc trình bày, tổng hợp và in dữ liệu."},
+    {q:"Phát biểu nào đúng về Report?", o:["Không thể nhập hay sửa dữ liệu trên báo cáo","Có thể sửa dữ liệu trực tiếp như Form","Report lưu dữ liệu riêng, độc lập với bảng","Report chỉ lấy dữ liệu từ một bảng"], a:0, e:"Report chỉ hiển thị/in dữ liệu, không cho nhập hay sửa."},
+    {q:"Để tạo nhanh báo cáo chứa tất cả các trường của bảng đang chọn, ta dùng:", o:["Create → Report Design","Create → Labels","Create → Report","Create → Blank Report"], a:2, e:"Nút Report tạo báo cáo dạng bảng tự động."},
+    {q:"Công cụ tạo báo cáo theo từng bước, hỗ trợ nhóm, sắp xếp và tổng hợp là:", o:["Blank Report","Report Design","Labels","Report Wizard"], a:3, e:"Report Wizard có các bước Grouping levels, Sort và Summary Options."},
+    {q:"Công cụ Labels trong nhóm Reports dùng để:", o:["Tạo nhãn thư, thẻ tên theo khổ nhãn chuẩn","Đặt nhãn cho các trường","Tạo tiêu đề báo cáo","Đánh số trang"], a:0, e:"Labels Wizard tạo báo cáo nhãn nhiều cột."},
+    {q:"Blank Report tạo báo cáo trống và mở ở chế độ:", o:["Design View","Layout View","Print Preview","Report View"], a:1, e:"Blank Report mở Layout View; Report Design mở Design View."},
+    {q:"Chế độ xem hiển thị báo cáo đúng như khi in ra giấy (chia trang, lề, khổ giấy) là:", o:["Report View","Layout View","Print Preview","Design View"], a:2, e:"Print Preview cho thấy bố cục trang in thực tế."},
+    {q:"Report View có đặc điểm:", o:["Hiển thị chính xác từng trang in","Cho phép sửa dữ liệu","Chỉ hiển thị cấu trúc, không có dữ liệu","Xem liên tục trên màn hình, có thể lọc, tìm, sao chép; không chia trang"], a:3, e:"Report View dùng để xem tương tác trên màn hình."},
+    {q:"Phần (section) xuất hiện một lần duy nhất ở đầu báo cáo là:", o:["Report Header","Page Header","Group Header","Detail"], a:0, e:"Report Header chứa tiêu đề, logo, ngày lập."},
+    {q:"Phần xuất hiện ở đầu mỗi trang in, thường chứa tiêu đề cột là:", o:["Report Header","Page Header","Group Header","Detail"], a:1, e:"Page Header lặp lại ở đầu mỗi trang."},
+    {q:"Phần xuất hiện ở đầu mỗi nhóm dữ liệu là:", o:["Page Header","Detail","Group Header","Report Header"], a:2, e:"Group Header hiển thị tên nhóm, ví dụ Lớp: K20A."},
+    {q:"Phần được lặp lại cho mỗi bản ghi trong báo cáo là:", o:["Group Footer","Page Footer","Report Footer","Detail"], a:3, e:"Detail hiển thị dữ liệu chi tiết từng bản ghi."},
+    {q:"Để hiển thị tổng cộng của toàn bộ báo cáo, ta đặt ô tính toán ở:", o:["Report Footer","Page Footer","Detail","Page Header"], a:0, e:"Report Footer xuất hiện một lần ở cuối báo cáo."},
+    {q:"Để mở ngăn Group, Sort, and Total trong Design View, ta chọn:", o:["Home → Sort","Report Design → Group & Sort","Create → Group","Arrange → Group"], a:1, e:"Report Design → Grouping & Totals → Group & Sort."},
+    {q:"Trong Report Wizard, nút Summary Options cho phép chọn các phép tính nào cho trường số?", o:["Count, First, Last","IIf, Switch","Sum, Avg, Min, Max","Group By, Where"], a:2, e:"Summary Options: Sum, Avg, Min, Max."},
+    {q:"Khi có nhóm, Report Wizard cung cấp các kiểu bố cục (Layout) nào?", o:["Columnar, Tabular, Justified","Single, Continuous, Datasheet","Portrait, Landscape","Stepped, Block, Outline"], a:3, e:"Stepped, Block, Outline dùng cho báo cáo có nhóm."},
+    {q:"Ô có Control Source =Sum([ThanhTien]) đặt ở Group Footer sẽ hiển thị:", o:["Tổng thành tiền của từng nhóm","Tổng thành tiền toàn báo cáo","Thành tiền của từng bản ghi","Tổng thành tiền của từng trang"], a:0, e:"Ở Group Footer, hàm tổng hợp tính trên phạm vi nhóm."},
+    {q:"Cũng biểu thức =Sum([ThanhTien]) nhưng đặt ở Report Footer sẽ cho kết quả:", o:["Tổng của nhóm cuối cùng","Tổng thành tiền của toàn bộ báo cáo","Báo lỗi #Error","Tổng của trang cuối"], a:1, e:"Report Footer tính trên toàn bộ bản ghi của báo cáo."},
+    {q:"Biểu thức hiển thị số trang dạng \"Trang 1/5\" là:", o:["=\"Trang \" & [Pages] & \"/\" & [Page]","=Page() & \"/\" & Pages()","=\"Trang \" & [Page] & \"/\" & [Pages]","=\"Trang \" + Page + \"/\" + Pages"], a:2, e:"[Page] là trang hiện tại, [Pages] là tổng số trang."},
+    {q:"Trong biểu thức số trang, [Pages] trả về:", o:["Số trang hiện tại","Số bản ghi trên trang","Số nhóm","Tổng số trang của báo cáo"], a:3, e:"[Pages] = tổng số trang."},
+    {q:"Để đánh số thứ tự bắt đầu lại từ 1 trong mỗi nhóm, ta đặt Text Box có Control Source =1 và thuộc tính Running Sum bằng:", o:["Over Group","Over All","No","Yes"], a:0, e:"Running Sum Over Group đánh số lại theo từng nhóm."},
+    {q:"Để đánh số thứ tự liên tục trên toàn báo cáo, thuộc tính Running Sum chọn:", o:["No","Over All","Over Group","Over Page"], a:1, e:"Over All cộng dồn trên toàn báo cáo."},
+    {q:"Các hàm tổng hợp như Sum, Count, Avg KHÔNG hoạt động khi đặt ở phần nào?", o:["Group Footer","Report Footer","Page Header / Page Footer","Group Header"], a:2, e:"Hàm tổng hợp không dùng được ở Page Header/Footer."},
+    {q:"Tùy chọn \"keep whole group together on one page\" có tác dụng:", o:["Gộp tất cả nhóm vào một trang","Ẩn các nhóm nhỏ","Sắp xếp nhóm theo thứ tự","Cố gắng in trọn một nhóm trên cùng một trang"], a:3, e:"Tránh việc một nhóm bị cắt sang hai trang."},
+    {q:"Muốn mỗi nhóm (mỗi lớp) được in bắt đầu ở một trang mới, ta đặt Force New Page của Group Footer là:", o:["After Section","None","Before Section của Detail","Keep Together"], a:0, e:"Force New Page = After Section ở Group Footer (hoặc Before Section ở Group Header)."},
+    {q:"Thuộc tính Can Grow = Yes của Text Box có tác dụng:", o:["Phóng to chữ","Tự giãn chiều cao theo độ dài nội dung","Tự tăng giá trị số","Cho phép sửa dữ liệu"], a:1, e:"Can Grow giãn, Can Shrink co theo nội dung."},
+    {q:"Thuộc tính Hide Duplicates = Yes của Text Box có tác dụng:", o:["Xóa bản ghi trùng khỏi bảng","Ẩn toàn bộ cột","Ẩn giá trị trùng với giá trị của bản ghi ngay trước đó","Không cho nhập trùng"], a:2, e:"Chỉ ẩn khi hiển thị, dữ liệu không bị xóa."},
+    {q:"Để tô chữ màu đỏ cho các điểm nhỏ hơn 5 trên báo cáo, ta dùng:", o:["Validation Rule","Input Mask","Alternate Back Color","Conditional Formatting"], a:3, e:"Format → Conditional Formatting → New Rule."},
+    {q:"Để in báo cáo theo chiều ngang của trang giấy, ta chọn:", o:["Landscape","Portrait","Columns","Margins"], a:0, e:"Landscape = ngang; Portrait = dọc."},
+    {q:"Chức năng Columns trong Page Setup dùng để:", o:["Thêm cột vào bảng","Chia nội dung báo cáo thành nhiều cột trên trang","Đặt độ rộng cột dữ liệu","Sắp xếp cột"], a:1, e:"Hay dùng cho danh sách ngắn và nhãn."},
+    {q:"Trong Group options, \"by first character\" có nghĩa là:", o:["Nhóm theo toàn bộ giá trị","Sắp xếp theo ký tự cuối","Nhóm các bản ghi theo chữ cái đầu tiên","Chỉ hiển thị ký tự đầu"], a:2, e:"Ví dụ danh bạ nhóm theo A, B, C…"},
+    {q:"Với trường Date/Time, khoảng nhóm có thể chọn là:", o:["Chỉ theo toàn bộ giá trị","Theo chữ cái đầu","Theo số ký tự","Theo ngày, tuần, tháng, quý, năm"], a:3, e:"Ví dụ nhóm doanh thu theo tháng."},
+    {q:"Để nhúng một báo cáo khác vào báo cáo chính, ta dùng điều khiển:", o:["Subform/Subreport","Tab Control","Option Group","Combo Box"], a:0, e:"Liên kết bằng Link Master Fields / Link Child Fields."},
+    {q:"Trong Labels Wizard, bước đầu tiên là chọn:", o:["Trường sắp xếp","Kích thước nhãn (theo nhà sản xuất như Avery hoặc tự định nghĩa)","Màu nền báo cáo","Kiểu nhóm dữ liệu"], a:1, e:"Chọn kích thước nhãn, sau đó font, prototype label, sắp xếp."},
+    {q:"Để xuất báo cáo ra tệp PDF, ta chọn:", o:["File → Save As → Excel","Home → Export PDF","External Data → Export → PDF or XPS (hoặc trong Print Preview)","Create → PDF"], a:2, e:"PDF or XPS có trong External Data và Print Preview."},
+    {q:"Muốn in báo cáo chỉ của lớp đang xem trên form frmLop, trong macro OpenReport ta đặt Where Condition là:", o:["[Forms]![frmLop]","MaLop = frmLop","[Reports]![MaLop]","[MaLop]=[Forms]![frmLop]![MaLop]"], a:3, e:"Where Condition lọc báo cáo theo giá trị trên form."},
+    {q:"Record Source của báo cáo có thể là:", o:["Bảng, truy vấn hoặc câu lệnh SQL","Chỉ bảng","Chỉ truy vấn","Một form khác"], a:0, e:"Report lấy dữ liệu từ bảng, truy vấn hoặc SQL."},
+    {q:"Khi báo cáo dựa trên một truy vấn tham số, lúc mở báo cáo sẽ:", o:["Báo lỗi","Hiện hộp thoại yêu cầu nhập giá trị tham số","Hiển thị tất cả dữ liệu","Tự động in ra máy in"], a:1, e:"Parameter Query hỏi giá trị trước khi lấy dữ liệu."},
+    {q:"Sự kiện của báo cáo xảy ra khi báo cáo không có bản ghi nào để hiển thị là:", o:["On Open","On Format","On No Data","On Close"], a:2, e:"On No Data — thường hiện thông báo và hủy mở báo cáo."},
+    {q:"Thứ tự sắp xếp của truy vấn nguồn và báo cáo có Group/Sort riêng: phát biểu nào đúng?", o:["Báo cáo luôn giữ thứ tự của truy vấn nguồn","Phải sắp xếp ở cả hai nơi mới có hiệu lực","Báo cáo không sắp xếp được dữ liệu","Thứ tự trong truy vấn nguồn bị bỏ qua; báo cáo sắp xếp theo thiết lập Group/Sort của nó"], a:3, e:"Hãy sắp xếp bằng ngăn Group, Sort, and Total của báo cáo."}
+  ];
+  initLesson({ prefix:"r-", title:"Bài 4. Report", questions:REPORT_QUESTIONS, storageKey:"access2019_report_quiz_history", csvName:"ket-qua-report-access2019.csv" });
+
+  // ===== Chuyển bài học =====
+  const LESSON_KEY = "access2019_current_lesson";
+  let current = "table";
+  function showLesson(name, scrollTop){
+    current = name;
+    document.querySelectorAll(".lesson").forEach(l => l.classList.toggle("active", l.id === "lesson-" + name));
+    document.querySelectorAll(".lesson-tabs [data-lesson]").forEach(b => b.classList.toggle("active", b.dataset.lesson === name));
+    try { localStorage.setItem(LESSON_KEY, name); } catch(e){}
+    if (scrollTop) window.scrollTo({top:0});
+    onScroll();
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest("button[data-lesson]"); if (!b) return;
+    showLesson(b.dataset.lesson, true);
+    try { history.replaceState(null, "", "#" + b.dataset.lesson); } catch(e){}
+  });
+
+  // ===== Mục lục đang xem + tiến độ đọc + nút lên đầu =====
+  function onScroll(){
+    const root = byId("lesson-" + current);
+    const links = [...root.querySelectorAll("nav.toc a")];
+    const y = window.scrollY + 120;
+    let idx = 0;
+    links.forEach((a, i) => { const s = document.querySelector(a.getAttribute("href")); if (s && s.offsetTop <= y) idx = i; });
+    links.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const h = document.documentElement.scrollHeight - innerHeight;
+    const bar = root.querySelector(".progress-read i");
+    if (bar) bar.style.width = (h > 0 ? window.scrollY / h * 100 : 0) + "%";
+    byId("toTop").style.display = window.scrollY > 600 ? "block" : "none";
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  byId("toTop").addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+  // ===== Khởi động: ưu tiên #macro/#query/#table trên URL, sau đó bài đã xem gần nhất =====
+  let start = "table";
+  const hash = location.hash.slice(1);
+  const LESSONS = { t:"table", q:"query", f:"form", r:"report", m:"macro" };
+  const byHash = Object.values(LESSONS).includes(hash) ? hash : LESSONS[hash.split("-")[0]];
+  if (byHash) start = byHash;
+  else {
+    try { const saved = localStorage.getItem(LESSON_KEY); if (Object.values(LESSONS).includes(saved)) start = saved; } catch(e){}
+  }
+  showLesson(start, false);
+})();
+</script>
+</body>
+</html>

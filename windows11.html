@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài giảng Windows 11</title>
+<style>
+:root{
+  --bg:#f4f6fb; --surface:#ffffff; --surface-2:#eef1f8; --text:#1d2433; --muted:#5b6478;
+  --border:#dde2ee; --primary:#0067c0; --primary-2:#1a7fd4; --primary-soft:#e5f1fb;
+  --accent:#2563eb; --ok:#15803d; --ok-soft:#e6f6ec; --bad:#b91c1c; --bad-soft:#fdecec;
+  --warn:#b45309; --warn-soft:#fff5e5; --code-bg:#1e2230; --code-text:#e6e9f2;
+  --shadow:0 2px 10px rgba(20,30,60,.07); --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#11141b; --surface:#1a1f2a; --surface-2:#232937; --text:#e7eaf2; --muted:#9aa3b8;
+    --border:#2e3546; --primary:#60cdff; --primary-2:#8bdcff; --primary-soft:#102a43;
+    --accent:#6ea0ff; --ok:#4ade80; --ok-soft:#173222; --bad:#f87171; --bad-soft:#3a1c1c;
+    --warn:#fbbf24; --warn-soft:#3a2d14; --code-bg:#0c0f15; --code-text:#e6e9f2;
+    --shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65;font-size:16px}
+a{color:var(--accent)}
+code,kbd{font-family:Consolas,"Courier New",monospace;font-size:.92em}
+code{background:var(--surface-2);padding:1px 6px;border-radius:5px}
+kbd{border:1px solid var(--border);border-bottom-width:3px;border-radius:5px;padding:0 6px;background:var(--surface)}
+
+/* Header */
+header.hero{background:linear-gradient(135deg,#003e92,#0067c0 55%,#3a96dd);color:#fff;padding:36px 16px 44px}
+.hero .wrap{max-width:1180px;margin:0 auto}
+.hero .badge{display:inline-block;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:99px;font-size:.85rem;letter-spacing:.3px}
+.hero h1{margin:12px 0 6px;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.25}
+.hero p{margin:0;opacity:.92;max-width:760px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.hero .meta span,.hero .meta a{background:rgba(0,0,0,.18);padding:6px 12px;border-radius:10px;font-size:.9rem;color:#fff;text-decoration:none}
+.hero .meta a:hover{background:rgba(0,0,0,.3)}
+
+/* Layout */
+.layout{max-width:1180px;margin:-22px auto 40px;padding:0 16px;display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
+nav.toc{position:sticky;top:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
+nav.toc h3{margin:4px 8px 10px;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+nav.toc a{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:9px;color:var(--text);text-decoration:none;font-size:.94rem}
+nav.toc a .n{flex:0 0 24px;height:24px;border-radius:7px;background:var(--surface-2);display:grid;place-items:center;font-size:.78rem;font-weight:700;color:var(--muted)}
+nav.toc a:hover,nav.toc a.active{background:var(--primary-soft);color:var(--primary)}
+nav.toc a.active .n{background:var(--primary);color:#fff}
+.progress-read{height:4px;background:var(--surface-2);border-radius:4px;margin:12px 8px 4px;overflow:hidden}
+.progress-read i{display:block;height:100%;width:0;background:var(--primary);transition:width .2s}
+main{min-width:0}
+section.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:22px;scroll-margin-top:16px}
+section.card h2{margin:0 0 14px;font-size:1.45rem;display:flex;align-items:center;gap:12px}
+section.card h2 .num{background:var(--primary);color:#fff;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:1rem;flex:0 0 34px}
+section.card h3{margin:22px 0 8px;font-size:1.1rem;color:var(--primary)}
+.lead{color:var(--muted);margin-top:-4px}
+
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:14px 0}
+.tile{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px}
+.tile h4{margin:0 0 6px;font-size:1rem}
+.tile p{margin:0;color:var(--muted);font-size:.94rem}
+.tile .ic{font-size:1.5rem}
+
+.note{border-left:4px solid var(--accent);background:var(--surface-2);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.note.warn{border-color:var(--warn);background:var(--warn-soft)}
+.note.tip{border-color:var(--ok);background:var(--ok-soft)}
+.note b:first-child{display:block;margin-bottom:2px}
+
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.94rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td code{white-space:nowrap}
+
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+ol.steps li{counter-increment:s;position:relative;padding:4px 0 14px 48px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:32px;height:32px;border-radius:50%;background:var(--primary-soft);color:var(--primary);font-weight:700;display:grid;place-items:center}
+ol.steps li:not(:last-child)::after{content:"";position:absolute;left:15px;top:36px;bottom:0;width:2px;background:var(--border)}
+
+/* Query Design mock */
+.designer{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.9rem}
+.designer .bar{background:var(--primary);color:#fff;padding:7px 12px;font-weight:600;display:flex;justify-content:space-between}
+.designer .tables{background:var(--surface-2);padding:16px;display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;position:relative;border-bottom:1px solid var(--border)}
+.tbox{background:var(--surface);border:1px solid var(--border);border-radius:8px;min-width:140px;box-shadow:var(--shadow)}
+.tbox b{display:block;background:var(--primary-soft);color:var(--primary);padding:5px 10px;border-radius:8px 8px 0 0}
+.tbox div{padding:2px 10px;color:var(--muted)}
+.tbox div:last-child{padding-bottom:8px}
+.tbox .pk{color:var(--text);font-weight:600}
+.join-line{align-self:center;color:var(--muted);font-weight:700}
+.qbe{overflow-x:auto;background:var(--surface)}
+.qbe table{font-size:.86rem;min-width:560px}
+.qbe th{width:90px;text-align:right;color:var(--muted);background:var(--surface-2)}
+.qbe td{border-left:1px solid var(--border);min-width:120px}
+.qbe .hl{color:var(--accent);font-weight:600}
+
+pre.code{background:var(--code-bg);color:var(--code-text);padding:16px 18px;border-radius:12px;overflow-x:auto;font-size:.9rem;line-height:1.6;margin:14px 0}
+pre.code .k{color:#ff9e9e;font-weight:700}
+pre.code .a{color:#8cc8ff;font-weight:700}
+pre.code .c{color:#8fd19e;font-style:italic}
+pre.code .s{color:#f5d38a}
+
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.82rem;font-weight:700;margin-right:6px}
+.chip.sel{background:#e0ecff;color:#1d4ed8}
+.chip.act{background:var(--warn-soft);color:var(--warn)}
+.chip.sql{background:var(--ok-soft);color:var(--ok)}
+@media (prefers-color-scheme: dark){.chip.sel{background:#1b2a48;color:#8fb4ff}}
+
+/* Quiz */
+.student-box{background:linear-gradient(135deg,var(--primary-soft),var(--surface-2));border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin:6px 0 18px}
+.student-box label{display:block;font-weight:700;margin-bottom:8px}
+.student-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.student-row input{flex:1 1 260px;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:1rem;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
+.student-row input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft)}
+.student-row input.invalid{border-color:var(--bad);box-shadow:0 0 0 4px var(--bad-soft);animation:shake .35s}
+.err-msg{color:var(--bad);font-size:.9rem;margin-top:8px;display:none;font-weight:600}
+.err-msg.show{display:block}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.quiz-status{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:16px;box-shadow:var(--shadow)}
+.quiz-status .bar{flex:1 1 160px;height:8px;background:var(--surface-2);border-radius:8px;overflow:hidden}
+.quiz-status .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .25s}
+.quiz-status .pill{font-size:.9rem;background:var(--surface-2);padding:4px 10px;border-radius:99px;white-space:nowrap}
+.qnav{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin-bottom:18px}
+.qnav button{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:6px 0;cursor:pointer;font-weight:600;font-size:.85rem}
+.qnav button.done{background:var(--primary);border-color:var(--primary);color:#fff}
+.qnav button.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.qnav button.wrong{background:var(--bad);border-color:var(--bad);color:#fff}
+
+.q{border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px;scroll-margin-top:80px;transition:border-color .2s}
+.q.answered{border-color:color-mix(in srgb,var(--primary) 45%,var(--border))}
+.q .qt{font-weight:600;margin-bottom:10px}
+.q .qt .qn{color:var(--primary);margin-right:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:1px solid var(--border);border-radius:9px;margin-bottom:7px;cursor:pointer;transition:background .15s,border-color .15s}
+.opt:hover{background:var(--surface-2)}
+.opt input{margin-top:5px;accent-color:var(--primary)}
+.opt .l{font-weight:700;color:var(--muted);min-width:18px}
+.opt.sel{border-color:var(--primary);background:var(--primary-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.incorrect{border-color:var(--bad);background:var(--bad-soft)}
+.q.locked .opt{cursor:default}
+.explain{display:none;margin-top:8px;font-size:.92rem;padding:10px 12px;border-radius:9px;background:var(--surface-2)}
+.q.locked .explain{display:block}
+
+.btn{border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:.98rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .1s,filter .15s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:var(--surface-2);color:var(--text);border:1px solid var(--border)}
+.btn-danger{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+.result{display:none;border-radius:14px;padding:22px;margin:18px 0;text-align:center;border:2px solid var(--border)}
+.result.show{display:block}
+.result .score{font-size:3rem;font-weight:800;line-height:1.1}
+.result .rank{display:inline-block;margin-top:6px;padding:4px 14px;border-radius:99px;font-weight:700}
+.result.good{border-color:var(--ok);background:var(--ok-soft)} .result.good .score{color:var(--ok)}
+.result.mid{border-color:var(--warn);background:var(--warn-soft)} .result.mid .score{color:var(--warn)}
+.result.low{border-color:var(--bad);background:var(--bad-soft)} .result.low .score{color:var(--bad)}
+.result .stats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:12px;color:var(--muted)}
+
+/* History */
+.hist-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.hist-tools input{flex:1 1 220px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-size:.95rem}
+.score-chip{display:inline-block;min-width:48px;text-align:center;padding:2px 8px;border-radius:8px;font-weight:700}
+.score-chip.good{background:var(--ok-soft);color:var(--ok)}
+.score-chip.mid{background:var(--warn-soft);color:var(--warn)}
+.score-chip.low{background:var(--bad-soft);color:var(--bad)}
+.empty{text-align:center;color:var(--muted);padding:22px}
+.del-row{background:none;border:none;color:var(--bad);cursor:pointer;font-size:1rem}
+
+/* Modal + toast */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:var(--surface);border-radius:14px;max-width:440px;width:100%;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.modal h3{margin:0 0 8px}
+.modal .actions{justify-content:flex-end}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:10px;z-index:60;transition:transform .3s;font-weight:600;max-width:calc(100% - 32px)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.to-top{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:none;background:var(--primary);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:var(--shadow);display:none;z-index:20}
+footer{text-align:center;color:var(--muted);font-size:.88rem;padding:10px 16px 40px}
+footer .credit{display:inline-block;margin-top:12px;padding:10px 22px;border-radius:99px;background:linear-gradient(135deg,#003e92,#0067c0 55%,#3a96dd);color:#fff;font-size:1rem;font-weight:600;letter-spacing:.2px;box-shadow:0 4px 16px rgba(0,103,192,.35);transition:transform .2s,box-shadow .2s}
+footer .credit:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,103,192,.45)}
+.lesson-nav{max-width:1180px;margin:0 auto 18px;padding:0 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lesson-nav a{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;text-decoration:none;color:var(--text);font-weight:600;box-shadow:var(--shadow)}
+.lesson-nav a:hover{border-color:var(--primary);color:var(--primary)}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav.toc{position:static;display:flex;overflow-x:auto;gap:4px;padding:8px}
+  nav.toc h3,.progress-read{display:none}
+  nav.toc a{white-space:nowrap}
+  section.card{padding:20px 16px}
+}
+@media print{nav.toc,.to-top,.quiz-status,.qnav,.actions,.hist-tools,.lesson-nav{display:none!important}.layout{display:block}}
+/* Macro builder mock */
+.builder{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.92rem}
+.builder .bar{background:var(--primary);color:#fff;padding:7px 12px;font-weight:600;display:flex;justify-content:space-between}
+.builder .body{display:grid;grid-template-columns:1fr 220px;min-height:200px}
+.builder .canvas{padding:14px;background:var(--surface)}
+.builder .catalog{background:var(--surface-2);border-left:1px solid var(--border);padding:12px}
+.builder .catalog b{display:block;margin-bottom:6px}
+.builder .catalog div{padding:3px 0;color:var(--muted)}
+.mblock{border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:8px;background:var(--surface-2)}
+.mblock .act{font-weight:700;color:var(--accent)}
+.mblock .arg{display:grid;grid-template-columns:110px 1fr;gap:4px 10px;margin-top:6px;font-size:.88rem}
+.mblock .arg span:nth-child(odd){color:var(--muted)}
+.mblock.cmt{color:var(--ok);font-style:italic;background:transparent;border-style:dashed}
+.mblock.if{border-color:var(--warn);background:var(--warn-soft)}
+.addnew{border:1px dashed var(--border);border-radius:8px;padding:7px 12px;color:var(--muted)}
+
+
+@media (max-width:900px){
+  .builder .body{grid-template-columns:1fr}
+  .builder .catalog{border-left:none;border-top:1px solid var(--border)}
+}
+
+/* Form Design mock */
+.fsec-h{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3px 12px;font-size:.82rem;font-weight:700;color:var(--muted)}
+.fsec{padding:12px 16px;border-bottom:1px solid var(--border)}
+.frow{display:flex;gap:12px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.fctl{display:inline-block;padding:4px 10px;border-radius:5px;font-size:.88rem}
+.fctl.lbl{min-width:70px;color:var(--text)}
+.fctl.box{border:1px solid var(--border);background:var(--surface-2);min-width:180px;color:var(--accent)}
+.fctl.btn-mock{border:1px solid var(--border);background:var(--surface-2);font-weight:600;margin:2px 4px 2px 0}
+
+
+
+/* Mô phỏng giao diện Word */
+.ribbon{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.85rem}
+.ribbon .wtitle{background:var(--primary);color:#fff;padding:6px 12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ribbon .wtabs{display:flex;gap:2px;background:var(--surface-2);padding:4px 8px 0;flex-wrap:wrap}
+.ribbon .wtabs span{padding:4px 10px;border-radius:6px 6px 0 0;color:var(--muted)}
+.ribbon .wtabs span.on{background:var(--surface);color:var(--primary);font-weight:700}
+.ribbon .wgroups{display:flex;background:var(--surface);padding:8px 4px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.ribbon .wgrp{padding:2px 12px;border-right:1px solid var(--border);text-align:center;display:flex;flex-direction:column;justify-content:space-between;gap:4px}
+.ribbon .wgrp:last-child{border-right:none}
+.ribbon .wgrp .it{font-weight:600}
+.ribbon .wgrp .gn{color:var(--muted);font-size:.72rem}
+.ribbon .wdoc{background:var(--surface-2);padding:16px}
+.ribbon .wpage{background:var(--surface);max-width:520px;margin:0 auto;padding:22px 28px;box-shadow:var(--shadow);border:1px solid var(--border);min-height:120px}
+.ribbon .wstatus{background:var(--primary);color:#fff;padding:3px 12px;font-size:.76rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.callouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:10px 0}
+.callouts div{background:var(--surface-2);border-radius:8px;padding:8px 12px;font-size:.9rem}
+.callouts b{color:var(--primary)}
+.flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin:14px 0}
+.flow .st{flex:1 1 150px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:.9rem}
+.flow .st b{display:block;color:var(--primary)}
+.flow .ar{align-self:center;color:var(--muted);font-weight:700}
+.margin-demo{position:relative;max-width:300px;aspect-ratio:210/297;margin:14px auto;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
+.margin-demo .inner{position:absolute;top:8%;bottom:8%;left:14%;right:7%;border:1px dashed var(--primary);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem;text-align:center;padding:6px}
+.margin-demo span{position:absolute;font-size:.72rem;color:var(--primary);font-weight:700}
+
+/* Mô phỏng Windows 11 */
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:14px 0;align-items:start}
+.win11{border-radius:12px;overflow:hidden;margin:14px 0;border:1px solid var(--border);font-family:"Segoe UI",Arial,sans-serif;font-size:.8rem}
+.win11 .wall{position:relative;min-height:330px;background:radial-gradient(ellipse at 30% 40%,#8fc4ff 0%,#3b82d6 35%,#1d4fa0 65%,#0c2a63 100%);padding:12px}
+.win11 .icons{display:flex;flex-direction:column;gap:12px;width:72px}
+.win11 .ico{color:#fff;text-align:center;font-size:.72rem;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.win11 .ico span{display:block;font-size:1.7rem}
+.win11 .startmenu{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;width:min(430px,78%);background:rgba(243,243,243,.94);color:#1b1b1b;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.35);padding:12px 14px 0}
+.win11 .srch{background:#fff;border:1px solid #d6d6d6;border-radius:18px;padding:5px 12px;color:#666;margin-bottom:10px}
+.win11 .sm-h{display:flex;justify-content:space-between;margin:6px 2px}
+.win11 .sm-h span{background:#fff;border:1px solid #ddd;border-radius:4px;padding:0 6px;font-size:.72rem}
+.win11 .pins{display:grid;grid-template-columns:repeat(6,1fr);gap:6px 4px;text-align:center;font-size:.68rem}
+.win11 .pins span{display:block;font-size:1.3rem}
+.win11 .rec{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:.72rem;margin-bottom:8px}
+.win11 .rec small{display:block;color:#777}
+.win11 .sm-foot{display:flex;justify-content:space-between;border-top:1px solid #ddd;margin:0 -14px;padding:8px 18px;background:rgba(235,235,235,.95);border-radius:0 0 10px 10px}
+.win11 .taskbar{display:flex;align-items:center;justify-content:space-between;background:rgba(238,240,246,.96);color:#1b1b1b;padding:4px 10px;min-height:42px;gap:8px}
+.win11 .tb-center{display:flex;gap:6px}
+.win11 .tb-center span{width:30px;height:30px;display:grid;place-items:center;border-radius:6px;font-size:1rem}
+.win11 .tb-center .on{background:#fff;color:#0067c0;font-weight:700;box-shadow:inset 0 -2px 0 #0067c0}
+.win11 .tb-right{text-align:right;font-size:.7rem;line-height:1.2}
+.winwin{max-width:520px;margin:14px auto;border:1px solid var(--border);border-radius:9px;overflow:hidden;box-shadow:var(--shadow);font-family:"Segoe UI",Arial,sans-serif;font-size:.85rem;background:var(--surface)}
+.winwin .ww-title{display:flex;justify-content:space-between;align-items:center;background:var(--surface-2);padding:0 0 0 12px}
+.winwin .ww-btns{display:flex}
+.winwin .ww-btns i{font-style:normal;width:40px;text-align:center;padding:6px 0}
+.winwin .ww-btns i.x:hover{background:#c42b1c;color:#fff}
+.winwin .ww-menu{display:flex;gap:14px;padding:4px 12px;border-bottom:1px solid var(--border)}
+.winwin .ww-body{padding:18px 12px;min-height:80px}
+.winwin .caret{animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.winwin .ww-status{display:flex;justify-content:space-between;padding:3px 12px;border-top:1px solid var(--border);font-size:.74rem;color:var(--muted)}
+.snapdemo{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:var(--surface-2);padding:14px;border-radius:12px;border:1px solid var(--border)}
+.snapdemo .sl{display:grid;grid-template-columns:1fr 1fr;gap:3px;aspect-ratio:16/10;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:4px}
+.snapdemo .sl i{display:block;background:#cfd8e3;border-radius:3px}
+.snapdemo .sl i.hl{background:var(--primary)}
+.snapdemo .cap{grid-column:1/-1;margin:0;font-size:.82rem;color:var(--muted)}
+.explorer{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:14px 0;font-family:"Segoe UI",Arial,sans-serif;font-size:.78rem;background:var(--surface);box-shadow:var(--shadow)}
+.explorer .ex-tabs{display:flex;gap:4px;background:var(--surface-2);padding:6px 8px 0}
+.explorer .ex-tabs span{padding:4px 12px;border-radius:6px 6px 0 0}
+.explorer .ex-tabs .on{background:var(--surface);font-weight:600}
+.explorer .ex-cmd{display:flex;gap:14px;padding:6px 12px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.explorer .ex-addr{display:flex;gap:8px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.explorer .ex-addr .bar{flex:1 1 240px;background:var(--surface-2);border-radius:5px;padding:3px 10px}
+.explorer .ex-addr .sb{background:var(--surface-2);border-radius:5px;padding:3px 10px;color:var(--muted)}
+.explorer .ex-main{display:grid;grid-template-columns:170px 1fr}
+.explorer .ex-nav{border-right:1px solid var(--border);padding:6px 4px;line-height:1.85}
+.explorer .ex-nav div{padding:0 8px;border-radius:4px;white-space:nowrap}
+.explorer .ex-nav .on{background:var(--primary-soft)}
+.explorer .ex-nav .sep{border-top:1px solid var(--border);margin:4px 6px;height:0}
+.explorer .ex-files{overflow-x:auto}
+.explorer .row{display:grid;grid-template-columns:2fr 1.3fr 1.6fr .6fr;gap:6px;padding:5px 10px;white-space:nowrap;min-width:470px}
+.explorer .row.h{color:var(--muted);border-bottom:1px solid var(--border)}
+.explorer .row.sel{background:var(--primary-soft)}
+.explorer .ex-status{padding:3px 12px;border-top:1px solid var(--border);color:var(--muted);font-size:.72rem}
+.settings{display:grid;grid-template-columns:220px 1fr;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:14px 0;font-family:"Segoe UI",Arial,sans-serif;font-size:.8rem;background:var(--surface-2)}
+.settings .st-nav{padding:10px 8px;line-height:2}
+.settings .st-nav div{padding:0 10px;border-radius:5px}
+.settings .st-nav .on{background:var(--surface);box-shadow:inset 3px 0 0 var(--primary);font-weight:600}
+.settings .me{line-height:1.3;margin-bottom:6px}
+.settings .me small{display:block;color:var(--muted);padding-left:22px}
+.settings .st-find{background:var(--surface);border:1px solid var(--border);border-radius:5px;color:var(--muted);margin-bottom:6px}
+.settings .st-main{padding:12px 16px}
+.settings .st-main h4{margin:0 0 10px;font-size:1.2rem}
+.settings .st-row{display:flex;justify-content:space-between;align-items:center;background:var(--surface);border-radius:6px;padding:8px 12px;margin-bottom:4px}
+.settings .st-row small{display:block;color:var(--muted);padding-left:22px}
+@media (max-width:640px){
+  .settings{grid-template-columns:1fr}
+  .explorer .ex-main{grid-template-columns:1fr}
+  .explorer .ex-nav{display:none}
+  .win11 .pins{grid-template-columns:repeat(4,1fr)}
+  .win11 .startmenu{width:92%}
+  .win11 .icons{display:none}
+}
+
+/* Thanh chuyển bài học */
+.lesson-tabs{background:#0a2a52;padding:10px 16px}
+.lesson-tabs .wrap{max-width:1180px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lesson-tabs .brand{color:#fff;font-weight:700;margin-right:auto;opacity:.95}
+.lesson-tabs button{border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:8px 16px;border-radius:99px;font-weight:600;font-size:.94rem;cursor:pointer;transition:background .15s}
+.lesson-tabs button:hover{background:rgba(255,255,255,.12)}
+.lesson-tabs button.active{background:#fff;color:#0067c0;border-color:#fff}
+.lesson{display:none}
+.lesson.active{display:block}
+.lesson-nav button{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;color:var(--primary);font-weight:600;font-size:1rem;box-shadow:var(--shadow);cursor:pointer;font-family:inherit}
+.lesson-nav button:hover{border-color:var(--primary)}
+</style>
+</head>
+<body>
+
+<div class="lesson-tabs">
+  <div class="wrap">
+    <a class="brand" href="index.html" title="Về trang chủ bộ bài giảng" style="text-decoration:none">🏠 🪟 Windows 11</a>
+    <button type="button" data-lesson="giaodien">Bài 1. Giao diện &amp; thao tác</button>
+    <button type="button" data-lesson="danhiem">Bài 2. Cửa sổ &amp; đa nhiệm</button>
+    <button type="button" data-lesson="tepthumuc">Bài 3. Tệp &amp; thư mục</button>
+    <button type="button" data-lesson="caidat">Bài 4. Cài đặt &amp; cá nhân hóa</button>
+    <button type="button" data-lesson="baomat">Bài 5. Bảo mật &amp; bảo trì</button>
+  </div>
+</div>
+
+<!-- ================= BÀI 1: GIAO DIỆN & THAO TÁC CƠ BẢN ================= -->
+<div class="lesson" id="lesson-giaodien">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">🪟 Tin học ứng dụng · Microsoft Windows 11</span>
+    <h1>Bài 1. Làm quen với Windows 11 và thao tác cơ bản</h1>
+    <p>Hệ điều hành Windows 11, yêu cầu phần cứng, đăng nhập, màn hình Desktop, Start menu, Taskbar, Widgets, Quick Settings, trung tâm thông báo và các chế độ tắt máy.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#n1-s1"><span class="n">1</span>Hệ điều hành Windows 11</a>
+    <a href="#n1-s2"><span class="n">2</span>Khởi động & đăng nhập</a>
+    <a href="#n1-s3"><span class="n">3</span>Màn hình Desktop</a>
+    <a href="#n1-s4"><span class="n">4</span>Start menu & tìm kiếm</a>
+    <a href="#n1-s5"><span class="n">5</span>Taskbar</a>
+    <a href="#n1-s6"><span class="n">6</span>Widgets, Quick Settings, thông báo</a>
+    <a href="#n1-s7"><span class="n">7</span>Chuột, bàn phím, cảm ứng</a>
+    <a href="#n1-s8"><span class="n">8</span>Khóa máy & tắt máy</a>
+    <a href="#n1-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#n1-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="n1-s1">
+      <h2><span class="num">1</span>Hệ điều hành Windows 11</h2>
+      <p><b>Hệ điều hành (Operating System)</b> là phần mềm quản lý phần cứng và tài nguyên máy tính, cung cấp giao diện để người dùng làm việc và là nền tảng để chạy các <b>phần mềm ứng dụng</b> (Word, Excel, trình duyệt…). <b>Windows 11</b> do Microsoft phát hành tháng 10/2021, kế nhiệm Windows 10.</p>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">🎨</div><h4>Giao diện mới</h4><p>Taskbar và Start menu căn giữa, góc cửa sổ bo tròn, hiệu ứng trong mờ, chế độ sáng/tối.</p></div>
+        <div class="tile"><div class="ic">🧩</div><h4>Đa nhiệm tốt hơn</h4><p>Snap Layouts, Snap Groups, nhiều màn hình ảo (Desktops).</p></div>
+        <div class="tile"><div class="ic">🛡️</div><h4>Bảo mật cao</h4><p>Yêu cầu chip bảo mật TPM 2.0, Secure Boot; tích hợp Windows Security.</p></div>
+        <div class="tile"><div class="ic">📰</div><h4>Widgets &amp; Store mới</h4><p>Bảng tin tức, thời tiết; Microsoft Store thiết kế lại.</p></div>
+      </div>
+      <h3>Yêu cầu phần cứng tối thiểu</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thành phần</th><th>Yêu cầu</th></tr></thead>
+        <tbody>
+          <tr><td>Bộ xử lý (CPU)</td><td>1 GHz trở lên, <b>tối thiểu 2 nhân</b>, <b>64-bit</b>, thuộc danh sách CPU được hỗ trợ</td></tr>
+          <tr><td>Bộ nhớ RAM</td><td><b>4 GB</b></td></tr>
+          <tr><td>Ổ lưu trữ</td><td><b>64 GB</b> trở lên</td></tr>
+          <tr><td>Firmware</td><td>UEFI, hỗ trợ <b>Secure Boot</b></td></tr>
+          <tr><td>Chip bảo mật</td><td><b>TPM 2.0</b> (Trusted Platform Module)</td></tr>
+          <tr><td>Màn hình</td><td>Trên 9 inch, độ phân giải HD (720p)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Các phiên bản thường gặp</b><b>Home</b> (gia đình), <b>Pro</b> (doanh nghiệp nhỏ, có BitLocker, Remote Desktop, Hyper-V), <b>Education</b>, <b>Enterprise</b>. Windows 11 chỉ có bản <b>64-bit</b>. Xem phiên bản: <b>Settings → System → About</b> hoặc gõ <code>winver</code>.</div>
+    </section>
+
+    <section class="card" id="n1-s2">
+      <h2><span class="num">2</span>Khởi động và đăng nhập</h2>
+      <ul>
+        <li>Nhấn nút nguồn → máy khởi động → <b>màn hình khóa (Lock screen)</b> hiển thị giờ, ngày → nhấp chuột, nhấn phím hoặc vuốt lên để hiện màn hình đăng nhập.</li>
+        <li>Chọn tài khoản và đăng nhập bằng: <b>mật khẩu</b>, <b>mã PIN</b>, hoặc <b>Windows Hello</b> (nhận diện khuôn mặt, vân tay — nếu máy hỗ trợ).</li>
+        <li>Có hai loại tài khoản: <b>Microsoft account</b> (email Outlook/Hotmail… — đồng bộ cài đặt, OneDrive, Store) và <b>Local account</b> (tài khoản cục bộ chỉ trên máy).</li>
+      </ul>
+      <div class="note tip"><b>Mã PIN an toàn hơn bạn nghĩ</b>PIN của Windows Hello chỉ gắn với <b>thiết bị này</b> (lưu bảo vệ bằng TPM); nếu bị lộ PIN, kẻ gian vẫn không đăng nhập được tài khoản Microsoft của bạn từ máy khác.</div>
+    </section>
+
+    <section class="card" id="n1-s3">
+      <h2><span class="num">3</span>Màn hình nền (Desktop)</h2>
+      <div class="win11" aria-label="Mô phỏng màn hình Windows 11">
+        <div class="wall">
+          <div class="icons">
+            <div class="ico"><span>🗑️</span>Recycle Bin</div>
+            <div class="ico"><span>📁</span>Tài liệu</div>
+            <div class="ico"><span>🌐</span>Edge</div>
+          </div>
+          <div class="startmenu">
+            <div class="srch">🔍 Search for apps, settings, and documents</div>
+            <div class="sm-h"><b>Pinned</b><span>All apps ›</span></div>
+            <div class="pins">
+              <div><span>🌐</span>Edge</div><div><span>📝</span>Word</div><div><span>📊</span>Excel</div><div><span>📽️</span>PowerPoint</div><div><span>🛍️</span>Store</div><div><span>⚙️</span>Settings</div>
+              <div><span>📁</span>Explorer</div><div><span>🧮</span>Calculator</div><div><span>🖌️</span>Paint</div><div><span>🗒️</span>Notepad</div><div><span>🖼️</span>Photos</div><div><span>✂️</span>Snipping</div>
+            </div>
+            <div class="sm-h"><b>Recommended</b><span>More ›</span></div>
+            <div class="rec"><div>📄 BaoCao.docx<small>Vừa mở</small></div><div>📊 BangDiem.xlsx<small>Hôm qua</small></div></div>
+            <div class="sm-foot"><span>👤 Nguyễn Văn An</span><span>⏻</span></div>
+          </div>
+        </div>
+        <div class="taskbar">
+          <span class="tb-left">⛅ 31°C</span>
+          <div class="tb-center"><span class="on">⊞</span><span>🔍</span><span>⧉</span><span>📁</span><span>🌐</span><span>🛍️</span><span>📝</span></div>
+          <span class="tb-right">ˆ &nbsp;ENG &nbsp;📶 🔊 🔋 &nbsp;<b>10:25<br>25/09/2026</b></span>
+        </div>
+      </div>
+      <div class="callouts">
+        <div><b>Desktop</b> — màn hình nền chứa hình nền và các <b>biểu tượng</b> (icon), <b>lối tắt (shortcut)</b> có mũi tên nhỏ ở góc.</div>
+        <div><b>Recycle Bin</b> — thùng rác chứa tệp đã xóa, có thể khôi phục.</div>
+        <div><b>Start</b> (⊞) — mở Start menu: ứng dụng ghim, gợi ý, tài khoản, nguồn.</div>
+        <div><b>Taskbar</b> — thanh tác vụ căn giữa ở đáy màn hình; khu vực bên phải là <b>khay hệ thống</b> và đồng hồ.</div>
+      </div>
+      <ul>
+        <li>Chuột phải vào vùng trống Desktop: <b>View</b> (cỡ biểu tượng, Auto arrange, <i>Show desktop icons</i>), <b>Sort by</b>, <b>Refresh</b>, <b>New</b> (Folder, Shortcut, tệp văn bản…), <b>Display settings</b>, <b>Personalize</b>.</li>
+        <li>Tạo lối tắt: chuột phải vào tệp/ứng dụng → <b>Show more options → Send to → Desktop (create shortcut)</b>. Xóa lối tắt <b>không</b> xóa tệp gốc.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="n1-s4">
+      <h2><span class="num">4</span>Start menu và tìm kiếm</h2>
+      <p>Mở Start bằng nút <b>⊞ Start</b> hoặc phím <kbd>⊞ Win</kbd>. Start menu gồm:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Khu vực</th><th>Chức năng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Ô tìm kiếm</b></td><td>Gõ tên ứng dụng, cài đặt, tệp — có thể gõ ngay sau khi nhấn phím Win</td></tr>
+          <tr><td><b>Pinned</b></td><td>Các ứng dụng được ghim; kéo thả để sắp xếp; chuột phải → <b>Unpin from Start</b> / <b>Pin to taskbar</b> / Move to top</td></tr>
+          <tr><td><b>All apps</b></td><td>Danh sách tất cả ứng dụng theo thứ tự A–Z</td></tr>
+          <tr><td><b>Recommended</b></td><td>Tệp mới mở, ứng dụng mới cài</td></tr>
+          <tr><td><b>Tài khoản / Nguồn</b></td><td>Góc dưới: đổi tài khoản, khóa, đăng xuất; nút ⏻: Sleep, Shut down, Restart</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Tìm kiếm</b>: nút 🔍 trên Taskbar hoặc <kbd>Win</kbd>+<kbd>S</kbd>. Kết quả chia theo nhóm Apps, Documents, Settings, Web…; chọn <b>Run as administrator</b> để chạy ứng dụng với quyền quản trị.</p>
+      <div class="note"><b>Menu Power User (chuột phải Start / <kbd>Win</kbd>+<kbd>X</kbd>)</b>Truy cập nhanh: Installed apps, Power Options, Device Manager, Disk Management, Terminal, <b>Task Manager</b>, Settings, File Explorer, Search, Run, Shut down or sign out, Desktop.</div>
+    </section>
+
+    <section class="card" id="n1-s5">
+      <h2><span class="num">5</span>Thanh tác vụ (Taskbar)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thành phần</th><th>Chức năng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Start, Search, Task View, Widgets</b></td><td>Các nút hệ thống (ẩn/hiện tại Settings → Personalization → Taskbar)</td></tr>
+          <tr><td><b>Ứng dụng ghim / đang chạy</b></td><td>Ứng dụng đang chạy có <b>gạch nhỏ bên dưới</b>; ứng dụng đang dùng gạch dài hơn. Rê chuột để xem ảnh thu nhỏ các cửa sổ</td></tr>
+          <tr><td><b>Jump List</b></td><td>Chuột phải vào biểu tượng: tệp gần đây, <b>Pin to taskbar / Unpin</b>, Close window</td></tr>
+          <tr><td><b>Khay hệ thống (System tray)</b></td><td>Mũi tên ˆ (biểu tượng ẩn), ngôn ngữ nhập (ENG/VIE), mạng, âm lượng, pin</td></tr>
+          <tr><td><b>Đồng hồ, lịch</b></td><td>Nhấp để mở trung tâm thông báo và lịch</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><kbd>Win</kbd>+<kbd>1</kbd>…<kbd>9</kbd>: mở/chuyển đến ứng dụng thứ 1…9 trên Taskbar.</li>
+        <li><b>Taskbar behaviors</b>: <i>Taskbar alignment</i> (Center/Left), <i>Automatically hide the taskbar</i>, hiển thị trên nhiều màn hình.</li>
+        <li>Chuột phải Taskbar → <b>Task Manager</b> / <b>Taskbar settings</b>.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="n1-s6">
+      <h2><span class="num">6</span>Widgets, Quick Settings và trung tâm thông báo</h2>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">📰</div><h4>Widgets — <kbd>Win</kbd>+<kbd>W</kbd></h4><p>Bảng tin: thời tiết, tin tức, lịch, chứng khoán…; mở từ góc trái Taskbar. Có thể thêm/bớt widget.</p></div>
+        <div class="tile"><div class="ic">🎛️</div><h4>Quick Settings — <kbd>Win</kbd>+<kbd>A</kbd></h4><p>Nhấp cụm mạng – loa – pin: bật/tắt Wi-Fi, Bluetooth, Airplane mode, Energy saver, Night light, Accessibility; thanh độ sáng, âm lượng. Nút bút chì để thêm/bớt nút.</p></div>
+        <div class="tile"><div class="ic">🔔</div><h4>Thông báo &amp; lịch — <kbd>Win</kbd>+<kbd>N</kbd></h4><p>Nhấp đồng hồ: danh sách thông báo từ ứng dụng và lịch tháng; nút <b>Do not disturb</b> (tắt tiếng thông báo) và <b>Focus</b>.</p></div>
+      </div>
+      <div class="note tip"><b>Focus (tập trung)</b>Bật phiên tập trung từ lịch hoặc Settings → System → Focus: đặt thời gian, tự bật Do not disturb, ẩn huy hiệu ứng dụng — hữu ích khi học tập, làm việc.</div>
+    </section>
+
+    <section class="card" id="n1-s7">
+      <h2><span class="num">7</span>Thao tác chuột, bàn phím, bàn di và cảm ứng</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác chuột</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Nhấp trái (click)</b></td><td>Chọn đối tượng, nhấn nút</td></tr>
+          <tr><td><b>Nhấp đúp (double-click)</b></td><td>Mở tệp, thư mục, chạy ứng dụng</td></tr>
+          <tr><td><b>Nhấp phải (right-click)</b></td><td>Mở <b>menu ngữ cảnh</b>; trên Windows 11 menu rút gọn, chọn <b>Show more options</b> (hoặc <kbd>Shift</kbd>+<kbd>F10</kbd>) để xem menu đầy đủ</td></tr>
+          <tr><td><b>Kéo thả (drag &amp; drop)</b></td><td>Di chuyển/sao chép tệp, di chuyển cửa sổ</td></tr>
+          <tr><td><b>Cuộn (scroll)</b></td><td>Cuộn nội dung; <kbd>Ctrl</kbd> + cuộn để phóng to/thu nhỏ</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>Bàn di chuột (touchpad)</b>: chạm 2 ngón để cuộn/chụm để phóng; vuốt <b>3 ngón lên</b> — Task View, <b>3 ngón xuống</b> — hiện Desktop; <b>4 ngón trái/phải</b> — chuyển Desktop ảo.</li>
+        <li><b>Màn hình cảm ứng</b>: chạm = nhấp; chạm giữ = nhấp phải; vuốt từ cạnh trái — Widgets, cạnh phải — thông báo.</li>
+        <li>Phím <b>⊞ Win</b> dùng kết hợp với nhiều phím tắt (Bài 2); phím <b>≣ Menu</b> tương đương nhấp phải.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="n1-s8">
+      <h2><span class="num">8</span>Khóa máy, đăng xuất và tắt máy</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Chế độ</th><th>Mô tả</th><th>Cách thực hiện</th></tr></thead>
+        <tbody>
+          <tr><td><b>Lock</b> (khóa)</td><td>Về màn hình khóa, ứng dụng vẫn chạy; phải đăng nhập lại để dùng</td><td><kbd>Win</kbd>+<kbd>L</kbd></td></tr>
+          <tr><td><b>Sign out</b> (đăng xuất)</td><td>Đóng mọi ứng dụng của tài khoản, cho người khác đăng nhập</td><td>Start → tài khoản → Sign out</td></tr>
+          <tr><td><b>Switch user</b></td><td>Chuyển sang tài khoản khác, giữ nguyên phiên làm việc hiện tại</td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> → Switch user</td></tr>
+          <tr><td><b>Sleep</b> (ngủ)</td><td>Lưu trạng thái vào RAM, tiêu thụ rất ít điện, mở lại rất nhanh</td><td>Start → ⏻ → Sleep</td></tr>
+          <tr><td><b>Hibernate</b> (ngủ đông)</td><td>Lưu trạng thái ra ổ đĩa và tắt nguồn (cần bật trong Power Options)</td><td>Start → ⏻ → Hibernate</td></tr>
+          <tr><td><b>Shut down</b></td><td>Đóng mọi ứng dụng và tắt máy</td><td>Start → ⏻ → Shut down; <kbd>Alt</kbd>+<kbd>F4</kbd> trên Desktop</td></tr>
+          <tr><td><b>Restart</b></td><td>Khởi động lại (thường cần sau khi cập nhật)</td><td>Start → ⏻ → Restart</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Không tắt máy bằng cách rút điện, giữ nút nguồn</b>Có thể gây mất dữ liệu chưa lưu, hỏng tệp hệ thống. Chỉ giữ nút nguồn khoảng 5–10 giây khi máy bị treo hoàn toàn. Khi máy treo, thử trước <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> → Task Manager.</div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="n1-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="n1-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="n1-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="n1-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="n1-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="n1-quizBar"></i></div>
+        <span class="pill">⏱ <b id="n1-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="n1-qnav"></div>
+      <div id="n1-quizBox"></div>
+
+      <div class="result" id="n1-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="n1-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="n1-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="n1-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="n1-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="n1-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="n1-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="n1-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav" style="justify-content:flex-end">
+  <button type="button" data-lesson="danhiem">Bài tiếp theo: Bài 2. Cửa sổ, đa nhiệm &amp; phím tắt →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 2: CỬA SỔ, ĐA NHIỆM & PHÍM TẮT ================= -->
+<div class="lesson" id="lesson-danhiem">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">🪟 Tin học ứng dụng · Microsoft Windows 11</span>
+    <h1>Bài 2. Quản lý cửa sổ, đa nhiệm và phím tắt</h1>
+    <p>Các thành phần của cửa sổ, Snap Layouts, chuyển đổi ứng dụng, Task View và màn hình ảo, Task Manager, lịch sử Clipboard, chụp màn hình và bảng phím tắt Windows 11 quan trọng.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#n2-s1"><span class="n">1</span>Thành phần cửa sổ</a>
+    <a href="#n2-s2"><span class="n">2</span>Snap Layouts</a>
+    <a href="#n2-s3"><span class="n">3</span>Chuyển đổi ứng dụng</a>
+    <a href="#n2-s4"><span class="n">4</span>Task View & màn hình ảo</a>
+    <a href="#n2-s5"><span class="n">5</span>Task Manager</a>
+    <a href="#n2-s6"><span class="n">6</span>Clipboard & chụp màn hình</a>
+    <a href="#n2-s7"><span class="n">7</span>Gõ tiếng Việt, emoji, đọc chính tả</a>
+    <a href="#n2-s8"><span class="n">8</span>Bảng phím tắt Windows</a>
+    <a href="#n2-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#n2-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="n2-s1">
+      <h2><span class="num">1</span>Các thành phần của cửa sổ</h2>
+      <div class="winwin" aria-label="Mô phỏng cửa sổ ứng dụng Windows 11">
+        <div class="ww-title"><span>🗒️ Ghi chú.txt - Notepad</span><span class="ww-btns"><i title="Minimize">─</i><i title="Maximize">☐</i><i class="x" title="Close">✕</i></span></div>
+        <div class="ww-menu"><span>File</span><span>Edit</span><span>View</span></div>
+        <div class="ww-body">Nội dung cửa sổ — vùng làm việc của ứng dụng…<span class="caret">|</span></div>
+        <div class="ww-status"><span>Ln 1, Col 42</span><span>100% · Windows (CRLF) · UTF-8</span></div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thành phần / thao tác</th><th>Chức năng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Thanh tiêu đề (Title bar)</b></td><td>Tên tệp và ứng dụng; kéo để di chuyển cửa sổ; <b>nhấp đúp</b> để phóng to/khôi phục</td></tr>
+          <tr><td><b>Minimize</b> (─)</td><td>Thu nhỏ xuống Taskbar</td></tr>
+          <tr><td><b>Maximize / Restore</b> (☐)</td><td>Phóng to toàn màn hình / trở lại kích thước cũ; rê chuột lên nút này để mở <b>Snap Layouts</b></td></tr>
+          <tr><td><b>Close</b> (✕)</td><td>Đóng cửa sổ (<kbd>Alt</kbd>+<kbd>F4</kbd>); ứng dụng hỏi lưu nếu có thay đổi chưa lưu</td></tr>
+          <tr><td><b>Viền cửa sổ</b></td><td>Kéo cạnh/góc để thay đổi kích thước</td></tr>
+          <tr><td><b>Thanh cuộn, thanh trạng thái</b></td><td>Cuộn nội dung; thông tin trạng thái (dòng, cột, tỷ lệ phóng…)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Hộp thoại (Dialog box)</b>Cửa sổ nhỏ yêu cầu xác nhận hoặc nhập thông tin (Open, Save As, Print…) với các nút <b>OK</b>, <b>Cancel</b>, <b>Apply</b>; thường phải đóng hộp thoại mới làm việc tiếp với cửa sổ chính.</div>
+    </section>
+
+    <section class="card" id="n2-s2">
+      <h2><span class="num">2</span>Sắp xếp cửa sổ với Snap Layouts</h2>
+      <div class="figs">
+        <div class="snapdemo" aria-label="Các bố cục Snap Layouts">
+          <div class="sl"><i style="grid-column:1/2"></i><i style="grid-column:2/3"></i></div>
+          <div class="sl" style="grid-template-columns:2fr 1fr"><i></i><i></i></div>
+          <div class="sl" style="grid-template-columns:1fr 1fr 1fr"><i></i><i class="hl"></i><i></i></div>
+          <div class="sl" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr"><i style="grid-row:1/3"></i><i></i><i></i></div>
+          <div class="sl" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr"><i></i><i></i><i></i><i></i></div>
+          <div class="sl" style="grid-template-columns:1fr 2fr 1fr"><i></i><i></i><i></i></div>
+          <p class="cap">Rê chuột lên nút Maximize (hoặc <kbd>Win</kbd>+<kbd>Z</kbd>) để hiện các bố cục; nhấp một ô để đặt cửa sổ vào vị trí đó.</p>
+        </div>
+        <div>
+          <ul>
+            <li><b>Snap Layouts</b>: chọn bố cục 2, 3, 4 cửa sổ; sau khi đặt cửa sổ đầu tiên, <b>Snap Assist</b> hiện các cửa sổ còn lại để chọn điền vào ô trống.</li>
+            <li><b>Kéo cửa sổ</b> chạm cạnh trái/phải màn hình → chiếm nửa màn hình; chạm góc → một phần tư; kéo lên cạnh trên → phóng to (hoặc hiện bảng Snap ở cạnh trên).</li>
+            <li><b>Snap Groups</b>: nhóm các cửa sổ đã sắp xếp; rê chuột vào ứng dụng trên Taskbar để mở lại cả nhóm.</li>
+            <li>Phím: <kbd>Win</kbd>+<kbd>←</kbd>/<kbd>→</kbd> (nửa trái/phải), <kbd>Win</kbd>+<kbd>↑</kbd> (phóng to), <kbd>Win</kbd>+<kbd>↓</kbd> (khôi phục/thu nhỏ).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="n2-s3">
+      <h2><span class="num">3</span>Chuyển đổi giữa các ứng dụng</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phím / thao tác</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>Alt</kbd>+<kbd>Tab</kbd></td><td>Giữ Alt, nhấn Tab liên tiếp để chọn cửa sổ cần chuyển đến; thả phím để chọn</td></tr>
+          <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Chuyển theo chiều ngược lại</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>D</kbd></td><td><b>Hiện Desktop</b> / khôi phục lại các cửa sổ (nhấn lần nữa)</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>M</kbd></td><td>Thu nhỏ tất cả cửa sổ</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>Home</kbd></td><td>Thu nhỏ tất cả trừ cửa sổ đang dùng</td></tr>
+          <tr><td>Góc phải cùng Taskbar</td><td>Nhấp vào dải mỏng bên phải đồng hồ để hiện Desktop</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>←</kbd>/<kbd>→</kbd></td><td>Chuyển cửa sổ sang màn hình (monitor) khác</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>P</kbd></td><td>Chế độ trình chiếu: PC screen only, Duplicate (nhân bản), Extend (mở rộng), Second screen only — dùng khi nối máy chiếu</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="n2-s4">
+      <h2><span class="num">4</span>Task View và màn hình ảo (Virtual Desktops)</h2>
+      <p><b>Task View</b> (nút ⧉ trên Taskbar hoặc <kbd>Win</kbd>+<kbd>Tab</kbd>) hiển thị tất cả cửa sổ đang mở và các <b>màn hình ảo</b>. Màn hình ảo giúp tách các nhóm công việc: Desktop 1 cho học tập, Desktop 2 cho giải trí…</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phím tắt</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>D</kbd></td><td><b>Tạo</b> màn hình ảo mới</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>←</kbd>/<kbd>→</kbd></td><td>Chuyển qua lại giữa các màn hình ảo</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>F4</kbd></td><td><b>Đóng</b> màn hình ảo hiện tại (cửa sổ được chuyển sang màn hình bên cạnh)</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>Trong Task View: kéo cửa sổ sang màn hình ảo khác; chuột phải màn hình ảo để <b>Rename</b>, <b>Choose background</b> (mỗi desktop một hình nền).</li>
+        <li>Chuột phải cửa sổ trong Task View → <b>Show this window on all desktops</b>.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="n2-s5">
+      <h2><span class="num">5</span>Trình quản lý tác vụ (Task Manager)</h2>
+      <p>Mở bằng <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>, chuột phải Taskbar / Start → Task Manager, hoặc <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> → Task Manager.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Trang</th><th>Chức năng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Processes</b></td><td>Danh sách ứng dụng, tiến trình và mức dùng CPU, Memory, Disk, Network; chọn ứng dụng bị treo (<i>Not responding</i>) → <b>End task</b></td></tr>
+          <tr><td><b>Performance</b></td><td>Biểu đồ hiệu năng CPU, RAM, ổ đĩa, Wi-Fi, GPU; thông tin phần cứng</td></tr>
+          <tr><td><b>App history</b></td><td>Thời gian dùng CPU, mạng của từng ứng dụng</td></tr>
+          <tr><td><b>Startup apps</b></td><td>Ứng dụng tự chạy khi khởi động — <b>Disable</b> bớt để máy khởi động nhanh hơn</td></tr>
+          <tr><td><b>Users, Details, Services</b></td><td>Phiên người dùng, chi tiết tiến trình, dịch vụ hệ thống</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Cẩn thận khi End task</b>Kết thúc tác vụ sẽ mất dữ liệu chưa lưu của ứng dụng đó. Không kết thúc các tiến trình hệ thống lạ (Windows processes) nếu không rõ chức năng.</div>
+    </section>
+
+    <section class="card" id="n2-s6">
+      <h2><span class="num">6</span>Lịch sử Clipboard và chụp màn hình</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phím tắt</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>X</kbd> / <kbd>V</kbd></td><td>Sao chép / cắt / dán</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>V</kbd></td><td><b>Lịch sử Clipboard</b>: xem và dán lại các mục đã sao chép trước đó (lần đầu cần bật); ghim mục hay dùng</td></tr>
+          <tr><td><kbd>PrtScn</kbd></td><td>Chụp toàn màn hình vào Clipboard (hoặc mở Snipping Tool — tùy thiết lập)</td></tr>
+          <tr><td><kbd>Alt</kbd>+<kbd>PrtScn</kbd></td><td>Chụp cửa sổ đang dùng vào Clipboard</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>PrtScn</kbd></td><td>Chụp toàn màn hình và <b>tự lưu tệp ảnh</b> vào <code>Pictures\Screenshots</code></td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td><b>Snipping Tool</b>: chụp vùng chữ nhật, vùng tự do, cửa sổ hoặc toàn màn hình; có thể ghi chú, lưu tệp</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Snipping Tool</b>Ứng dụng Snipping Tool còn có chế độ <b>quay video màn hình</b> (Record) và nút hẹn giờ chụp (delay) để chụp menu đang mở.</div>
+    </section>
+
+    <section class="card" id="n2-s7">
+      <h2><span class="num">7</span>Gõ tiếng Việt, emoji và nhập bằng giọng nói</h2>
+      <ul>
+        <li><b>Bộ gõ tiếng Việt tích hợp</b>: Settings → Time &amp; language → Language &amp; region → thêm <b>Tiếng Việt</b> → Keyboards: <i>Vietnamese Telex</i> hoặc <i>Vietnamese Number Key-based (VNI)</i>. Chuyển ngôn ngữ nhập: <kbd>Win</kbd>+<kbd>Space</kbd> (ENG ↔ VIE trên khay hệ thống).</li>
+        <li>Nhiều người vẫn dùng bộ gõ <b>Unikey</b> / EVKey với bảng mã <b>Unicode</b>; khi đó để ngôn ngữ nhập của Windows là ENG để tránh xung đột.</li>
+        <li><kbd>Win</kbd>+<kbd>.</kbd> (dấu chấm) hoặc <kbd>Win</kbd>+<kbd>;</kbd>: bảng <b>emoji</b> 😀, ký hiệu, kaomoji, GIF.</li>
+        <li><kbd>Win</kbd>+<kbd>H</kbd>: <b>nhập bằng giọng nói</b> (Voice typing) — đọc để máy gõ chữ vào ô đang nhập (tùy ngôn ngữ được hỗ trợ).</li>
+      </ul>
+    </section>
+
+    <section class="card" id="n2-s8">
+      <h2><span class="num">8</span>Bảng phím tắt Windows 11 quan trọng</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phím tắt</th><th>Tác dụng</th><th>Phím tắt</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>Win</kbd></td><td>Mở/đóng Start</td><td><kbd>Win</kbd>+<kbd>E</kbd></td><td>Mở <b>File Explorer</b></td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>I</kbd></td><td>Mở <b>Settings</b></td><td><kbd>Win</kbd>+<kbd>R</kbd></td><td>Hộp thoại <b>Run</b></td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>S</kbd></td><td>Tìm kiếm</td><td><kbd>Win</kbd>+<kbd>L</kbd></td><td><b>Khóa máy</b></td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>D</kbd></td><td>Hiện Desktop</td><td><kbd>Win</kbd>+<kbd>X</kbd></td><td>Menu Power User</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>A</kbd></td><td>Quick Settings</td><td><kbd>Win</kbd>+<kbd>N</kbd></td><td>Thông báo &amp; lịch</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>W</kbd></td><td>Widgets</td><td><kbd>Win</kbd>+<kbd>Z</kbd></td><td>Snap Layouts</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>Tab</kbd></td><td>Task View</td><td><kbd>Win</kbd>+<kbd>V</kbd></td><td>Lịch sử Clipboard</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td>Chụp vùng màn hình</td><td><kbd>Win</kbd>+<kbd>.</kbd></td><td>Emoji</td></tr>
+          <tr><td><kbd>Win</kbd>+<kbd>+</kbd> / <kbd>Esc</kbd></td><td>Kính lúp (Magnifier) bật / tắt</td><td><kbd>Win</kbd>+<kbd>K</kbd></td><td>Kết nối màn hình không dây, âm thanh</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd></td><td>Task Manager</td><td><kbd>Alt</kbd>+<kbd>F4</kbd></td><td>Đóng cửa sổ / hộp thoại Shut down</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Y</kbd></td><td>Hoàn tác / làm lại</td><td><kbd>Ctrl</kbd>+<kbd>A</kbd></td><td>Chọn tất cả</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="n2-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="n2-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="n2-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="n2-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="n2-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="n2-quizBar"></i></div>
+        <span class="pill">⏱ <b id="n2-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="n2-qnav"></div>
+      <div id="n2-quizBox"></div>
+
+      <div class="result" id="n2-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="n2-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="n2-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="n2-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="n2-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="n2-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="n2-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="n2-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="giaodien">← Bài trước: Bài 1. Giao diện &amp; thao tác cơ bản</button>
+  <button type="button" data-lesson="tepthumuc">Bài tiếp theo: Bài 3. Quản lý tệp &amp; thư mục →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 3: QUẢN LÝ TỆP & THƯ MỤC ================= -->
+<div class="lesson" id="lesson-tepthumuc">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">🪟 Tin học ứng dụng · Microsoft Windows 11</span>
+    <h1>Bài 3. Quản lý tệp và thư mục với File Explorer</h1>
+    <p>Khái niệm ổ đĩa – thư mục – tệp – đường dẫn, giao diện File Explorer, tạo – đổi tên – sao chép – di chuyển – xóa – khôi phục, tìm kiếm, nén ZIP, thuộc tính tệp và lưu trữ đám mây OneDrive.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#n3-s1"><span class="n">1</span>Ổ đĩa, thư mục, tệp</a>
+    <a href="#n3-s2"><span class="n">2</span>Giao diện File Explorer</a>
+    <a href="#n3-s3"><span class="n">3</span>Chế độ xem & sắp xếp</a>
+    <a href="#n3-s4"><span class="n">4</span>Tạo, đổi tên, chọn</a>
+    <a href="#n3-s5"><span class="n">5</span>Sao chép & di chuyển</a>
+    <a href="#n3-s6"><span class="n">6</span>Xóa & Recycle Bin</a>
+    <a href="#n3-s7"><span class="n">7</span>Tìm kiếm, nén, thuộc tính</a>
+    <a href="#n3-s8"><span class="n">8</span>OneDrive & USB</a>
+    <a href="#n3-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#n3-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="n3-s1">
+      <h2><span class="num">1</span>Ổ đĩa, thư mục, tệp và đường dẫn</h2>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">💽</div><h4>Ổ đĩa (Drive)</h4><p>Ký hiệu bằng chữ cái: <b>C:</b> (thường chứa Windows), D:, E:…; USB, thẻ nhớ được gán chữ cái khi cắm.</p></div>
+        <div class="tile"><div class="ic">📁</div><h4>Thư mục (Folder)</h4><p>Nơi chứa tệp và thư mục con, tổ chức theo <b>cấu trúc cây</b>.</p></div>
+        <div class="tile"><div class="ic">📄</div><h4>Tệp (File)</h4><p>Đơn vị lưu trữ dữ liệu, có <b>tên</b> và <b>phần mở rộng</b> cho biết loại tệp: <code>BaoCao.docx</code>.</p></div>
+      </div>
+      <p><b>Đường dẫn (path)</b> chỉ vị trí tệp: <code>C:\Users\An\Documents\HocTap\BaoCao.docx</code> — các cấp phân cách bằng dấu <code>\</code>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phần mở rộng</th><th>Loại tệp</th><th>Phần mở rộng</th><th>Loại tệp</th></tr></thead>
+        <tbody>
+          <tr><td><code>.docx</code> <code>.xlsx</code> <code>.pptx</code></td><td>Word, Excel, PowerPoint</td><td><code>.pdf</code></td><td>Tài liệu PDF</td></tr>
+          <tr><td><code>.jpg</code> <code>.png</code></td><td>Hình ảnh</td><td><code>.mp3</code> <code>.mp4</code></td><td>Âm thanh / video</td></tr>
+          <tr><td><code>.txt</code></td><td>Văn bản thuần</td><td><code>.zip</code> <code>.rar</code></td><td>Tệp nén</td></tr>
+          <tr><td><code>.exe</code> <code>.msi</code></td><td>Chương trình / bộ cài đặt</td><td><code>.lnk</code></td><td>Lối tắt (shortcut)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Quy tắc đặt tên</b>Tên tệp/thư mục <b>không được chứa</b> các ký tự <code>\ / : * ? " &lt; &gt; |</code>; trong cùng một thư mục không có hai tệp trùng tên (không phân biệt hoa thường). Nên đặt tên ngắn gọn, có nghĩa, ví dụ <code>2026-09_BaoCao_Nhom1.docx</code>.</div>
+    </section>
+
+    <section class="card" id="n3-s2">
+      <h2><span class="num">2</span>Giao diện File Explorer (<kbd>Win</kbd>+<kbd>E</kbd>)</h2>
+      <div class="explorer" aria-label="Mô phỏng File Explorer Windows 11">
+        <div class="ex-tabs"><span class="on">📁 HocTap ✕</span><span>📁 Downloads ✕</span><span>＋</span></div>
+        <div class="ex-cmd"><span>⊕ New ▾</span><span>✂</span><span>⧉</span><span>📋</span><span>✎</span><span>↗</span><span>🗑</span><span>⇅ Sort ▾</span><span>☰ View ▾</span><span>⋯</span></div>
+        <div class="ex-addr"><span>← → ↑ ⟳</span><span class="bar">This PC › Local Disk (C:) › Users › An › Documents › <b>HocTap</b></span><span class="sb">🔍 Search HocTap</span></div>
+        <div class="ex-main">
+          <div class="ex-nav">
+            <div>🏠 Home</div><div>🖼️ Gallery</div><div>☁️ OneDrive</div><div class="sep"></div>
+            <div>🖥️ Desktop 📌</div><div>⬇️ Downloads 📌</div><div class="on">📄 Documents 📌</div><div>🖼️ Pictures 📌</div><div class="sep"></div>
+            <div>💻 This PC</div><div>&nbsp;&nbsp;💽 Local Disk (C:)</div><div>&nbsp;&nbsp;💽 Data (D:)</div><div>&nbsp;&nbsp;🔌 USB (E:)</div>
+          </div>
+          <div class="ex-files">
+            <div class="row h"><span>Name</span><span>Date modified</span><span>Type</span><span>Size</span></div>
+            <div class="row"><span>📁 TinHoc</span><span>20/09/2026 08:15</span><span>File folder</span><span></span></div>
+            <div class="row sel"><span>📝 BaoCao.docx</span><span>24/09/2026 21:40</span><span>Microsoft Word Document</span><span>48 KB</span></div>
+            <div class="row"><span>📊 BangDiem.xlsx</span><span>23/09/2026 10:02</span><span>Microsoft Excel Worksheet</span><span>22 KB</span></div>
+            <div class="row"><span>🗜️ TaiLieu.zip</span><span>18/09/2026 16:30</span><span>Compressed (zipped) Folder</span><span>3.2 MB</span></div>
+          </div>
+        </div>
+        <div class="ex-status">4 items · 1 item selected 48 KB</div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thành phần</th><th>Chức năng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Tabs</b></td><td>Mở nhiều thư mục trong một cửa sổ (<kbd>Ctrl</kbd>+<kbd>T</kbd> mở tab mới, <kbd>Ctrl</kbd>+<kbd>W</kbd> đóng tab)</td></tr>
+          <tr><td><b>Thanh lệnh (Command bar)</b></td><td>New, Cut, Copy, Paste, Rename, Share, Delete, Sort, View, ⋯ (See more: Select all, Properties, Options)</td></tr>
+          <tr><td><b>Thanh địa chỉ (Address bar)</b></td><td>Hiển thị đường dẫn dạng <b>breadcrumb</b>; nhấp vào một cấp để về cấp đó; nhấp vào vùng trống để thấy/gõ đường dẫn đầy đủ (<kbd>Alt</kbd>+<kbd>D</kbd>)</td></tr>
+          <tr><td><b>← → ↑</b></td><td>Quay lại, tiến tới, lên thư mục cha (<kbd>Alt</kbd>+<kbd>↑</kbd>)</td></tr>
+          <tr><td><b>Ô tìm kiếm</b></td><td>Tìm trong thư mục hiện tại và thư mục con (<kbd>Ctrl</kbd>+<kbd>E</kbd> / <kbd>Ctrl</kbd>+<kbd>F</kbd>)</td></tr>
+          <tr><td><b>Ngăn điều hướng (Navigation pane)</b></td><td>Home, OneDrive, thư mục ghim (Quick access), This PC (các ổ đĩa), Network</td></tr>
+          <tr><td><b>Vùng nội dung, Status bar</b></td><td>Danh sách tệp; số mục và dung lượng mục đang chọn</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Ghim thư mục hay dùng</b>: chuột phải thư mục → <b>Pin to Quick access</b>. <b>Home</b> hiển thị thư mục ghim, tệp gần đây và tệp yêu thích (Favorites).</p>
+    </section>
+
+    <section class="card" id="n3-s3">
+      <h2><span class="num">3</span>Chế độ xem, sắp xếp và hiện tệp ẩn</h2>
+      <ul>
+        <li><b>View</b>: Extra large / Large / Medium / Small icons, <b>List</b>, <b>Details</b> (xem tên, ngày sửa, loại, kích thước), Tiles, Content; <b>Compact view</b>.</li>
+        <li><b>View → Show</b>: <b>Navigation pane</b>, <b>Details pane</b>, <b>Preview pane</b> (<kbd>Alt</kbd>+<kbd>P</kbd> — xem trước nội dung tệp), <b>Item check boxes</b>, <b>File name extensions</b> (hiện phần mở rộng), <b>Hidden items</b> (hiện tệp ẩn).</li>
+        <li><b>Sort</b>: theo Name, Date modified, Type, Size; Ascending/Descending. <b>Group by</b>: nhóm theo loại, ngày… (trong ⋯ hoặc chuột phải vùng trống).</li>
+        <li>Chế độ Details: nhấp tiêu đề cột để sắp xếp; kéo biên để đổi độ rộng cột.</li>
+      </ul>
+      <div class="note tip"><b>Nên bật hiện phần mở rộng tệp</b>Giúp nhận biết đúng loại tệp và phát hiện tệp giả mạo nguy hiểm như <code>HoaDon.pdf.exe</code> (thực chất là chương trình, không phải tài liệu PDF).</div>
+    </section>
+
+    <section class="card" id="n3-s4">
+      <h2><span class="num">4</span>Tạo thư mục, đổi tên và chọn nhiều tệp</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác</th><th>Cách thực hiện</th></tr></thead>
+        <tbody>
+          <tr><td>Tạo thư mục mới</td><td><b>New → Folder</b>, chuột phải vùng trống → New → Folder, hoặc <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd>; gõ tên → Enter</td></tr>
+          <tr><td>Tạo tệp mới</td><td>New → Microsoft Word Document, Text Document…</td></tr>
+          <tr><td>Đổi tên</td><td>Chọn → <kbd>F2</kbd> (hoặc nút Rename, nhấp chậm 2 lần vào tên) → gõ tên mới → Enter; <kbd>Esc</kbd> để hủy</td></tr>
+          <tr><td>Đổi tên hàng loạt</td><td>Chọn nhiều tệp → F2 → gõ tên chung, ví dụ <code>Anh</code> → Windows đặt <code>Anh (1)</code>, <code>Anh (2)</code>…</td></tr>
+          <tr><td>Chọn nhiều tệp liên tiếp</td><td>Nhấp tệp đầu, giữ <kbd>Shift</kbd> nhấp tệp cuối; hoặc kéo khung chọn</td></tr>
+          <tr><td>Chọn nhiều tệp rời rạc</td><td>Giữ <kbd>Ctrl</kbd> và nhấp từng tệp (nhấp lại để bỏ chọn)</td></tr>
+          <tr><td>Chọn tất cả</td><td><kbd>Ctrl</kbd>+<kbd>A</kbd>; <b>Invert selection</b> để đảo vùng chọn</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Không đổi phần mở rộng tùy tiện</b>Khi đổi tên có hiện phần mở rộng, Windows cảnh báo nếu bạn sửa đuôi tệp: đổi <code>.docx</code> thành <code>.pdf</code> <b>không</b> chuyển đổi được định dạng mà có thể làm tệp không mở được.</div>
+    </section>
+
+    <section class="card" id="n3-s5">
+      <h2><span class="num">5</span>Sao chép và di chuyển</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Cách</th><th>Sao chép (Copy)</th><th>Di chuyển (Move)</th></tr></thead>
+        <tbody>
+          <tr><td>Phím tắt</td><td><kbd>Ctrl</kbd>+<kbd>C</kbd> → đến thư mục đích → <kbd>Ctrl</kbd>+<kbd>V</kbd></td><td><kbd>Ctrl</kbd>+<kbd>X</kbd> → đến thư mục đích → <kbd>Ctrl</kbd>+<kbd>V</kbd></td></tr>
+          <tr><td>Kéo thả <b>cùng ổ đĩa</b></td><td>Giữ <kbd>Ctrl</kbd> khi thả</td><td>Kéo thả bình thường</td></tr>
+          <tr><td>Kéo thả <b>khác ổ đĩa</b> (ví dụ C: → USB)</td><td>Kéo thả bình thường</td><td>Giữ <kbd>Shift</kbd> khi thả</td></tr>
+          <tr><td>Kéo bằng chuột phải</td><td colspan="2">Thả ra → chọn <b>Copy here</b>, <b>Move here</b> hoặc <b>Create shortcuts here</b></td></tr>
+        </tbody>
+      </table></div>
+      <p>Khi thư mục đích đã có tệp cùng tên, Windows hỏi: <b>Replace the file in the destination</b> (ghi đè), <b>Skip this file</b> (bỏ qua), <b>Let me decide for each file</b> (chọn từng tệp, có thể giữ cả hai — tệp mới được đặt tên kèm số (2)).</p>
+      <div class="note"><b>Lệnh "Copy as path"</b>Chuột phải tệp → <b>Copy as path</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>) để sao chép đường dẫn đầy đủ của tệp, dán vào hộp thoại mở tệp hoặc gửi cho người khác.</div>
+    </section>
+
+    <section class="card" id="n3-s6">
+      <h2><span class="num">6</span>Xóa tệp và thùng rác (Recycle Bin)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác</th><th>Kết quả</th></tr></thead>
+        <tbody>
+          <tr><td>Chọn → <kbd>Delete</kbd> (hoặc nút 🗑 Delete)</td><td>Tệp được chuyển vào <b>Recycle Bin</b> — còn khôi phục được</td></tr>
+          <tr><td><kbd>Shift</kbd>+<kbd>Delete</kbd></td><td><b>Xóa vĩnh viễn</b>, không qua thùng rác (có hộp thoại xác nhận)</td></tr>
+          <tr><td>Mở Recycle Bin → chọn tệp → <b>Restore the selected items</b></td><td>Khôi phục tệp về <b>vị trí ban đầu</b></td></tr>
+          <tr><td>Recycle Bin → <b>Empty Recycle Bin</b></td><td>Xóa vĩnh viễn toàn bộ tệp trong thùng rác, giải phóng dung lượng</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Tệp xóa từ USB, thẻ nhớ, ổ mạng</b>Thường <b>không</b> vào Recycle Bin mà bị xóa vĩnh viễn ngay — hãy cẩn thận. Tệp quá lớn so với dung lượng thùng rác cũng bị xóa vĩnh viễn (Windows sẽ cảnh báo).</div>
+    </section>
+
+    <section class="card" id="n3-s7">
+      <h2><span class="num">7</span>Tìm kiếm, nén – giải nén, thuộc tính tệp</h2>
+      <h3>a) Tìm kiếm trong File Explorer</h3>
+      <ul>
+        <li>Gõ từ khóa vào ô Search (tìm trong thư mục hiện tại và thư mục con). Ký tự đại diện: <code>*</code> — nhiều ký tự (<code>*.pdf</code> tìm mọi tệp PDF), <code>?</code> — một ký tự.</li>
+        <li>Bộ lọc nâng cao: <code>kind:document</code>, <code>datemodified:this week</code>, <code>size:&gt;100MB</code>, <code>ext:.xlsx</code>.</li>
+      </ul>
+      <h3>b) Nén và giải nén ZIP</h3>
+      <ul>
+        <li><b>Nén</b>: chọn tệp/thư mục → chuột phải → <b>Compress to ZIP file</b> → tạo tệp <code>.zip</code> (gộp nhiều tệp, giảm dung lượng để gửi email).</li>
+        <li><b>Giải nén</b>: chuột phải tệp .zip → <b>Extract All…</b> → chọn thư mục đích. Các bản cập nhật mới của Windows 11 hỗ trợ mở cả .rar, .7z.</li>
+      </ul>
+      <h3>c) Thuộc tính (Properties — <kbd>Alt</kbd>+<kbd>Enter</kbd>)</h3>
+      <p>Tab <b>General</b>: loại tệp, <b>Opens with</b> (ứng dụng mặc định — nút Change), vị trí, <b>kích thước</b> (Size / Size on disk), ngày tạo, sửa, truy cập, thuộc tính <b>Read-only</b> (chỉ đọc), <b>Hidden</b> (ẩn). Với thư mục: số tệp, thư mục con. Với ổ đĩa: dung lượng đã dùng/còn trống.</p>
+      <div class="note tip"><b>Mở tệp bằng ứng dụng khác</b>Chuột phải → <b>Open with</b> → chọn ứng dụng; đánh dấu <i>Always</i> để đặt làm ứng dụng mặc định cho loại tệp đó.</div>
+    </section>
+
+    <section class="card" id="n3-s8">
+      <h2><span class="num">8</span>OneDrive, USB và thư mục người dùng</h2>
+      <ul>
+        <li>Các <b>thư mục người dùng</b> (Desktop, Documents, Downloads, Pictures, Music, Videos) nằm trong <code>C:\Users\TênTàiKhoản</code>. Tệp tải từ trình duyệt mặc định lưu vào <b>Downloads</b>.</li>
+        <li><b>OneDrive</b>: lưu trữ đám mây của Microsoft (gói miễn phí 5 GB), đồng bộ tệp giữa các thiết bị. Biểu tượng trạng thái: ☁️ <i>chỉ có trên mạng</i> (Online-only), ✅ <i>có trên máy</i>, 🔄 đang đồng bộ. Chuột phải → <b>Always keep on this device</b> / <b>Free up space</b>.</li>
+        <li><b>USB</b>: cắm vào → xuất hiện trong This PC với chữ cái ổ đĩa; trước khi rút, nhấp biểu tượng USB trên khay hệ thống (hoặc chuột phải ổ USB) → <b>Eject</b> để tránh hỏng dữ liệu.</li>
+        <li><b>Định dạng (Format)</b> USB: chuột phải ổ → Format → chọn hệ thống tệp (FAT32, exFAT, NTFS) — <b>xóa toàn bộ dữ liệu</b> trên ổ.</li>
+      </ul>
+      <div class="note"><b>Tổ chức thư mục khoa học</b>Tạo cây thư mục theo môn học / dự án / năm, ví dụ <code>Documents\HocTap\2026-2027\TinHoc\BaiTap</code>; không để tệp lung tung trên Desktop; sao lưu định kỳ (Bài 5).</div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="n3-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="n3-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="n3-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="n3-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="n3-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="n3-quizBar"></i></div>
+        <span class="pill">⏱ <b id="n3-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="n3-qnav"></div>
+      <div id="n3-quizBox"></div>
+
+      <div class="result" id="n3-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="n3-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="n3-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="n3-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="n3-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="n3-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="n3-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="n3-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="danhiem">← Bài trước: Bài 2. Cửa sổ, đa nhiệm &amp; phím tắt</button>
+  <button type="button" data-lesson="caidat">Bài tiếp theo: Bài 4. Cài đặt &amp; cá nhân hóa →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 4: CÀI ĐẶT & CÁ NHÂN HÓA ================= -->
+<div class="lesson" id="lesson-caidat">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">🪟 Tin học ứng dụng · Microsoft Windows 11</span>
+    <h1>Bài 4. Cài đặt hệ thống và cá nhân hóa Windows 11</h1>
+    <p>Ứng dụng Settings, màn hình – âm thanh – nguồn điện, mạng Wi-Fi, thiết bị Bluetooth – máy in, cá nhân hóa giao diện, cài đặt – gỡ ứng dụng, tài khoản người dùng, ngôn ngữ – ngày giờ và trợ năng.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#n4-s1"><span class="n">1</span>Ứng dụng Settings</a>
+    <a href="#n4-s2"><span class="n">2</span>Màn hình, âm thanh, nguồn</a>
+    <a href="#n4-s3"><span class="n">3</span>Mạng & Internet</a>
+    <a href="#n4-s4"><span class="n">4</span>Bluetooth, máy in</a>
+    <a href="#n4-s5"><span class="n">5</span>Cá nhân hóa</a>
+    <a href="#n4-s6"><span class="n">6</span>Cài đặt & gỡ ứng dụng</a>
+    <a href="#n4-s7"><span class="n">7</span>Tài khoản người dùng</a>
+    <a href="#n4-s8"><span class="n">8</span>Ngôn ngữ, giờ, trợ năng</a>
+    <a href="#n4-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#n4-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="n4-s1">
+      <h2><span class="num">1</span>Ứng dụng Settings (<kbd>Win</kbd>+<kbd>I</kbd>)</h2>
+      <div class="settings" aria-label="Mô phỏng ứng dụng Settings Windows 11">
+        <div class="st-nav">
+          <div class="me">👤 <b>Nguyễn Văn An</b><small>Local Account</small></div>
+          <div class="st-find">🔍 Find a setting</div>
+          <div class="on">🖥️ System</div><div>🔷 Bluetooth &amp; devices</div><div>🌐 Network &amp; internet</div><div>🖌️ Personalization</div><div>📦 Apps</div><div>👤 Accounts</div><div>🕒 Time &amp; language</div><div>🎮 Gaming</div><div>♿ Accessibility</div><div>🔒 Privacy &amp; security</div><div>🔄 Windows Update</div>
+        </div>
+        <div class="st-main">
+          <h4>System</h4>
+          <div class="st-row"><span>🖥️ <b>Display</b><small>Monitors, brightness, night light, display profile</small></span>›</div>
+          <div class="st-row"><span>🔊 <b>Sound</b><small>Volume levels, output, input, sound devices</small></span>›</div>
+          <div class="st-row"><span>🔔 <b>Notifications</b><small>Alerts from apps and system, do not disturb</small></span>›</div>
+          <div class="st-row"><span>🎯 <b>Focus</b><small>Reduce distractions</small></span>›</div>
+          <div class="st-row"><span>🔋 <b>Power &amp; battery</b><small>Sleep, battery usage, energy saver</small></span>›</div>
+          <div class="st-row"><span>💾 <b>Storage</b><small>Storage space, drives, configuration rules</small></span>›</div>
+        </div>
+      </div>
+      <p>Settings là nơi cấu hình chính của Windows 11, gồm các nhóm ở ngăn bên trái. Dùng ô <b>Find a setting</b> để tìm nhanh. <b>Control Panel</b> truyền thống vẫn còn (gõ "Control Panel" trong Search) cho một số thiết lập nâng cao.</p>
+    </section>
+
+    <section class="card" id="n4-s2">
+      <h2><span class="num">2</span>Màn hình, âm thanh và nguồn điện (System)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mục</th><th>Thiết lập chính</th></tr></thead>
+        <tbody>
+          <tr><td><b>Display</b></td><td>Độ sáng; <b>Night light</b> (giảm ánh sáng xanh buổi tối); <b>Scale</b> (phóng to chữ, ứng dụng: 100%, 125%, 150%…); <b>Display resolution</b> (nên để mức <i>Recommended</i>); Display orientation; <b>Multiple displays</b> (Duplicate/Extend, Identify)</td></tr>
+          <tr><td><b>Sound</b></td><td>Chọn thiết bị phát (loa, tai nghe) và thu (micro); âm lượng; <b>Volume mixer</b> chỉnh âm lượng từng ứng dụng</td></tr>
+          <tr><td><b>Notifications</b></td><td>Bật/tắt thông báo từng ứng dụng; <b>Do not disturb</b></td></tr>
+          <tr><td><b>Power &amp; battery</b></td><td>Thời gian tắt màn hình và <b>ngủ (Sleep)</b> khi không dùng; chế độ nguồn (Best power efficiency / Balanced / Best performance); <b>Energy saver</b> (tiết kiệm pin)</td></tr>
+          <tr><td><b>Storage</b></td><td>Dung lượng đã dùng theo loại; <b>Storage Sense</b> tự dọn tệp tạm, thùng rác; <b>Cleanup recommendations</b></td></tr>
+          <tr><td><b>About</b></td><td>Tên máy (Rename this PC), cấu hình (CPU, RAM), phiên bản Windows, bản quyền</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Chữ trên màn hình quá nhỏ?</b>Tăng <b>Scale</b> (ví dụ 125%) thay vì giảm độ phân giải — hình ảnh sẽ sắc nét hơn. Chỉ phóng to chữ: Accessibility → <b>Text size</b>.</div>
+    </section>
+
+    <section class="card" id="n4-s3">
+      <h2><span class="num">3</span>Mạng và Internet (Network &amp; internet)</h2>
+      <ul>
+        <li><b>Kết nối Wi-Fi</b>: nhấp biểu tượng mạng trên Taskbar (Quick Settings) → mũi tên cạnh Wi-Fi → chọn mạng → <b>Connect</b> → nhập mật khẩu. Đánh dấu <i>Connect automatically</i> để tự kết nối lần sau.</li>
+        <li><b>Network profile type</b>: <b>Public network</b> (mạng công cộng — máy bị ẩn với thiết bị khác, an toàn, nên dùng ở quán cà phê, trường học) và <b>Private network</b> (mạng tin cậy ở nhà — cho phép chia sẻ tệp, máy in).</li>
+        <li>Xem mật khẩu Wi-Fi đã lưu, quên mạng (<b>Forget</b>), bật <b>Mobile hotspot</b> (phát Wi-Fi từ máy tính), <b>Airplane mode</b> (tắt mọi kết nối không dây).</li>
+        <li><b>Advanced network settings → Network reset</b>: đặt lại toàn bộ bộ điều hợp mạng khi gặp sự cố. Công cụ khắc phục: chuột phải biểu tượng mạng → <b>Diagnose network problems</b>.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="n4-s4">
+      <h2><span class="num">4</span>Bluetooth, thiết bị và máy in (Bluetooth &amp; devices)</h2>
+      <ul>
+        <li><b>Kết nối Bluetooth</b>: bật Bluetooth → <b>Add device</b> → Bluetooth → bật chế độ ghép đôi (pairing) trên tai nghe/chuột → chọn thiết bị.</li>
+        <li><b>Printers &amp; scanners → Add device</b>: Windows tự tìm máy in trong mạng hoặc qua USB và cài driver. Chọn máy in → <b>Set as default</b> (máy in mặc định), <b>Print test page</b>, <b>Open print queue</b> (xem, hủy lệnh in bị kẹt).</li>
+        <li><b>Mouse</b>, <b>Touchpad</b>: tốc độ con trỏ, đổi nút chính trái/phải, hướng cuộn, cử chỉ vuốt.</li>
+        <li><b>AutoPlay</b>: hành động mặc định khi cắm USB, thẻ nhớ (nên chọn <i>Ask me every time</i> hoặc <i>Take no action</i> để an toàn).</li>
+        <li><b>Device Manager</b> (<kbd>Win</kbd>+<kbd>X</kbd>): xem thiết bị phần cứng, cập nhật/gỡ <b>driver</b>; thiết bị lỗi có dấu chấm than vàng ⚠.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="n4-s5">
+      <h2><span class="num">5</span>Cá nhân hóa (Personalization)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mục</th><th>Thiết lập</th></tr></thead>
+        <tbody>
+          <tr><td><b>Background</b></td><td>Hình nền: Picture, Solid color, <b>Slideshow</b>, <b>Windows spotlight</b> (ảnh thay đổi hằng ngày); kiểu vừa màn hình Fill/Fit/Stretch/Center</td></tr>
+          <tr><td><b>Colors</b></td><td><b>Choose your mode: Light / Dark / Custom</b>; hiệu ứng trong suốt; màu nhấn (Accent color)</td></tr>
+          <tr><td><b>Themes</b></td><td>Bộ chủ đề gồm hình nền, màu, âm thanh, con trỏ chuột; tải thêm từ Microsoft Store</td></tr>
+          <tr><td><b>Lock screen</b></td><td>Ảnh màn hình khóa, thông tin trạng thái; Screen saver</td></tr>
+          <tr><td><b>Start</b></td><td>Bố cục <i>More pins / More recommendations</i>; hiện ứng dụng mới cài, tệp gần đây; thư mục cạnh nút nguồn (Settings, File Explorer, Downloads…)</td></tr>
+          <tr><td><b>Taskbar</b></td><td>Ẩn/hiện Search, Task View, Widgets; biểu tượng khay hệ thống; <b>Taskbar alignment: Center / Left</b>; tự động ẩn Taskbar</td></tr>
+          <tr><td><b>Fonts</b></td><td>Xem, cài đặt phông chữ (kéo thả tệp .ttf/.otf vào)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Mẹo nhanh</b>Chuột phải Desktop → <b>Personalize</b> để mở trang cá nhân hóa; chuột phải một ảnh → <b>Set as desktop background</b>.</div>
+    </section>
+
+    <section class="card" id="n4-s6">
+      <h2><span class="num">6</span>Cài đặt, gỡ bỏ và thiết lập ứng dụng (Apps)</h2>
+      <ul>
+        <li><b>Microsoft Store</b>: nguồn cài đặt ứng dụng <b>an toàn</b>, được kiểm duyệt; tự cập nhật ứng dụng (Library → Get updates).</li>
+        <li><b>Tệp cài đặt</b> (.exe, .msi) tải từ <b>trang chủ chính thức</b> của nhà phát triển → chạy → làm theo trình hướng dẫn (đọc kỹ để bỏ chọn phần mềm quảng cáo đi kèm). Hộp thoại <b>User Account Control (UAC)</b> hỏi quyền quản trị — chỉ chọn Yes khi tin cậy nguồn phần mềm.</li>
+        <li><b>Gỡ ứng dụng</b>: Settings → <b>Apps → Installed apps</b> → nút ⋯ cạnh ứng dụng → <b>Uninstall</b>; hoặc chuột phải ứng dụng trong Start → Uninstall. Không xóa thư mục chương trình bằng tay.</li>
+        <li><b>Default apps</b>: chọn ứng dụng mặc định cho trình duyệt, PDF, ảnh, nhạc, theo từng phần mở rộng (.pdf, .jpg…).</li>
+        <li><b>Startup</b>: bật/tắt ứng dụng tự chạy khi khởi động (tương tự Task Manager → Startup apps).</li>
+      </ul>
+      <div class="note warn"><b>Không cài phần mềm "bẻ khóa" (crack)</b>Phần mềm lậu, crack, keygen là nguồn lây mã độc, mã hóa tống tiền phổ biến và vi phạm bản quyền. Ưu tiên phần mềm có bản quyền hoặc phần mềm miễn phí, mã nguồn mở hợp pháp (LibreOffice, 7-Zip, VLC…).</div>
+    </section>
+
+    <section class="card" id="n4-s7">
+      <h2><span class="num">7</span>Tài khoản người dùng (Accounts)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mục</th><th>Nội dung</th></tr></thead>
+        <tbody>
+          <tr><td><b>Your info</b></td><td>Ảnh đại diện; chuyển giữa Microsoft account và Local account</td></tr>
+          <tr><td><b>Sign-in options</b></td><td>Thiết lập <b>PIN</b>, <b>Facial recognition / Fingerprint</b> (Windows Hello), <b>Password</b>; <b>Dynamic lock</b> (tự khóa máy khi điện thoại ghép Bluetooth rời xa)</td></tr>
+          <tr><td><b>Other users</b> (Family)</td><td>Thêm tài khoản cho người khác dùng chung máy; đổi loại tài khoản <b>Administrator</b> / <b>Standard user</b></td></tr>
+          <tr><td><b>Windows backup</b></td><td>Sao lưu thư mục lên OneDrive, ghi nhớ ứng dụng và thiết lập</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Dùng tài khoản Standard cho công việc hằng ngày</b>Tài khoản <b>Standard</b> không thể thay đổi thiết lập hệ thống hay cài phần mềm cho toàn máy nếu không có mật khẩu quản trị — hạn chế mã độc và thao tác nhầm. Mỗi người dùng chung máy nên có tài khoản riêng.</div>
+    </section>
+
+    <section class="card" id="n4-s8">
+      <h2><span class="num">8</span>Ngôn ngữ, ngày giờ và trợ năng</h2>
+      <h3>a) Time &amp; language</h3>
+      <ul>
+        <li><b>Date &amp; time</b>: <i>Set time automatically</i>, múi giờ <b>(UTC+07:00) Bangkok, Hanoi, Jakarta</b>; <i>Sync now</i> khi giờ bị sai.</li>
+        <li><b>Language &amp; region</b>: ngôn ngữ hiển thị (Windows display language — có thể cài gói <b>Tiếng Việt</b>), bàn phím nhập liệu, <b>Regional format</b> (định dạng ngày dd/MM/yyyy, dấu thập phân — ảnh hưởng đến cách nhập số, ngày trong Excel).</li>
+      </ul>
+      <h3>b) Accessibility (trợ năng)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tính năng</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Text size</b></td><td>Phóng to cỡ chữ toàn hệ thống</td></tr>
+          <tr><td><b>Magnifier</b> (<kbd>Win</kbd>+<kbd>+</kbd>)</td><td>Kính lúp phóng to vùng màn hình</td></tr>
+          <tr><td><b>Narrator</b> (<kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>Enter</kbd>)</td><td>Trình đọc màn hình cho người khiếm thị</td></tr>
+          <tr><td><b>Color filters, Contrast themes</b></td><td>Bộ lọc màu cho người mù màu, chế độ tương phản cao</td></tr>
+          <tr><td><b>Mouse pointer and touch</b></td><td>Phóng to, đổi màu con trỏ chuột</td></tr>
+          <tr><td><b>Live captions</b></td><td>Phụ đề trực tiếp cho âm thanh phát trên máy (tùy ngôn ngữ hỗ trợ)</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="n4-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="n4-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="n4-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="n4-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="n4-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="n4-quizBar"></i></div>
+        <span class="pill">⏱ <b id="n4-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="n4-qnav"></div>
+      <div id="n4-quizBox"></div>
+
+      <div class="result" id="n4-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="n4-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="n4-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="n4-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="n4-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="n4-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="n4-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="n4-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="tepthumuc">← Bài trước: Bài 3. Quản lý tệp &amp; thư mục</button>
+  <button type="button" data-lesson="baomat">Bài tiếp theo: Bài 5. Bảo mật, bảo trì &amp; ứng dụng →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 5: BẢO MẬT, BẢO TRÌ & ỨNG DỤNG ================= -->
+<div class="lesson" id="lesson-baomat">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">🪟 Tin học ứng dụng · Microsoft Windows 11</span>
+    <h1>Bài 5. Bảo mật, bảo trì hệ thống và các ứng dụng đi kèm</h1>
+    <p>Windows Update, Windows Security – Microsoft Defender – tường lửa, an toàn thông tin khi dùng máy tính và Internet, sao lưu – khôi phục, dọn dẹp – tối ưu ổ đĩa và các ứng dụng tiện ích có sẵn trong Windows 11.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#n5-s1"><span class="n">1</span>Windows Update</a>
+    <a href="#n5-s2"><span class="n">2</span>Windows Security</a>
+    <a href="#n5-s3"><span class="n">3</span>An toàn thông tin</a>
+    <a href="#n5-s4"><span class="n">4</span>Sao lưu dữ liệu</a>
+    <a href="#n5-s5"><span class="n">5</span>Khôi phục hệ thống</a>
+    <a href="#n5-s6"><span class="n">6</span>Dọn dẹp & tối ưu</a>
+    <a href="#n5-s7"><span class="n">7</span>Ứng dụng đi kèm</a>
+    <a href="#n5-s8"><span class="n">8</span>Microsoft Edge</a>
+    <a href="#n5-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#n5-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="n5-s1">
+      <h2><span class="num">1</span>Cập nhật hệ thống (Windows Update)</h2>
+      <p><b>Settings → Windows Update</b>: kiểm tra và cài các bản cập nhật bảo mật, sửa lỗi, tính năng mới và driver.</p>
+      <ul>
+        <li><b>Check for updates</b>: kiểm tra thủ công. Nhiều bản cập nhật cần <b>Restart</b> để hoàn tất.</li>
+        <li><b>Pause updates</b>: tạm dừng cập nhật trong một khoảng thời gian (ví dụ 1–5 tuần).</li>
+        <li><b>Advanced options → Active hours</b>: khung giờ làm việc — Windows không tự khởi động lại trong khoảng này.</li>
+        <li><b>Update history</b>: lịch sử các bản cập nhật; <b>Uninstall updates</b> khi một bản cập nhật gây lỗi. <b>Optional updates</b>: driver, bản xem trước.</li>
+        <li>Hằng năm Microsoft phát hành bản cập nhật tính năng lớn (ví dụ 23H2, 24H2).</li>
+      </ul>
+      <div class="note warn"><b>Vì sao phải cập nhật?</b>Bản cập nhật vá các <b>lỗ hổng bảo mật</b> mà mã độc khai thác. Máy không cập nhật lâu ngày rất dễ bị tấn công. Không tắt máy khi màn hình đang báo "Working on updates".</div>
+    </section>
+
+    <section class="card" id="n5-s2">
+      <h2><span class="num">2</span>Windows Security — bảo vệ máy tính</h2>
+      <p>Mở: Settings → Privacy &amp; security → <b>Windows Security</b>, hoặc biểu tượng khiên 🛡️ trên khay hệ thống.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mục</th><th>Chức năng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Virus &amp; threat protection</b></td><td><b>Microsoft Defender Antivirus</b> — phần mềm diệt virus tích hợp, bảo vệ thời gian thực (Real-time protection); <b>Quick scan</b>, <b>Full scan</b>, <b>Custom scan</b>, <b>Microsoft Defender Offline scan</b>; Protection history; <b>Ransomware protection</b> (Controlled folder access)</td></tr>
+          <tr><td><b>Account protection</b></td><td>Bảo vệ đăng nhập, Windows Hello, Dynamic lock</td></tr>
+          <tr><td><b>Firewall &amp; network protection</b></td><td><b>Tường lửa</b> kiểm soát kết nối mạng vào/ra theo từng loại mạng (Domain, Private, Public) — luôn nên bật</td></tr>
+          <tr><td><b>App &amp; browser control</b></td><td><b>SmartScreen</b> cảnh báo ứng dụng, tệp tải về và trang web độc hại</td></tr>
+          <tr><td><b>Device security</b></td><td>Core isolation, Security processor (TPM), Secure boot</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Quét một tệp/USB cụ thể</b>Chuột phải tệp, thư mục hoặc ổ USB → <b>Show more options → Scan with Microsoft Defender</b>. Nên quét USB lạ trước khi mở tệp.</div>
+    </section>
+
+    <section class="card" id="n5-s3">
+      <h2><span class="num">3</span>An toàn thông tin khi sử dụng máy tính và Internet</h2>
+      <div class="grid-2">
+        <div class="tile"><div class="ic">🔑</div><h4>Mật khẩu mạnh</h4><p>Dài từ 12 ký tự, kết hợp chữ hoa, thường, số, ký hiệu; <b>mỗi tài khoản một mật khẩu</b>; dùng trình quản lý mật khẩu; bật <b>xác thực hai yếu tố (2FA)</b>.</p></div>
+        <div class="tile"><div class="ic">🎣</div><h4>Cảnh giác lừa đảo (phishing)</h4><p>Không nhấp liên kết, mở tệp đính kèm lạ trong email, tin nhắn; kiểm tra kỹ địa chỉ trang web; không cung cấp mật khẩu, mã OTP cho bất kỳ ai.</p></div>
+        <div class="tile"><div class="ic">🦠</div><h4>Phòng chống mã độc</h4><p>Cập nhật Windows, bật Defender và tường lửa, chỉ cài phần mềm từ nguồn tin cậy, quét USB, hiện phần mở rộng tệp.</p></div>
+        <div class="tile"><div class="ic">🔒</div><h4>Bảo vệ khi rời máy</h4><p>Khóa máy (<kbd>Win</kbd>+<kbd>L</kbd>) mỗi khi rời chỗ; đăng xuất tài khoản trên máy dùng chung; không lưu mật khẩu trên máy công cộng.</p></div>
+      </div>
+      <div class="note warn"><b>Mã độc tống tiền (Ransomware)</b>Mã hóa toàn bộ dữ liệu và đòi tiền chuộc. Cách phòng hiệu quả nhất: <b>sao lưu định kỳ</b> (mục 4), không mở tệp lạ, cập nhật hệ thống, bật <i>Controlled folder access</i>.</div>
+    </section>
+
+    <section class="card" id="n5-s4">
+      <h2><span class="num">4</span>Sao lưu dữ liệu</h2>
+      <ul>
+        <li><b>Windows Backup</b> (ứng dụng / Settings → Accounts → Windows backup): sao lưu các thư mục Desktop, Documents, Pictures… lên <b>OneDrive</b>, ghi nhớ ứng dụng, thiết lập để khôi phục sang máy mới.</li>
+        <li><b>File History</b> (Control Panel → File History): tự động lưu các <b>phiên bản cũ</b> của tệp ra ổ cứng ngoài; khôi phục bằng chuột phải tệp → Properties → Previous Versions / Restore.</li>
+        <li>Sao chép thủ công ra ổ cứng ngoài, USB; lưu tài liệu quan trọng trên dịch vụ đám mây (OneDrive, Google Drive).</li>
+      </ul>
+      <div class="flow">
+        <div class="st"><b>3</b>bản sao dữ liệu (1 bản chính + 2 bản sao lưu)</div>
+        <div class="ar">·</div>
+        <div class="st"><b>2</b>loại phương tiện lưu trữ khác nhau (ổ máy + ổ ngoài)</div>
+        <div class="ar">·</div>
+        <div class="st"><b>1</b>bản lưu ở nơi khác (đám mây hoặc địa điểm khác)</div>
+      </div>
+      <p class="lead" style="text-align:center;margin-top:0">Quy tắc sao lưu <b>3 – 2 – 1</b></p>
+    </section>
+
+    <section class="card" id="n5-s5">
+      <h2><span class="num">5</span>Khôi phục hệ thống khi gặp sự cố</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Công cụ</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>System Restore</b> (tìm "Create a restore point")</td><td>Tạo <b>điểm khôi phục</b> và đưa cài đặt hệ thống, driver, phần mềm về thời điểm trước khi lỗi; <b>không ảnh hưởng tệp cá nhân</b></td></tr>
+          <tr><td><b>Settings → System → Recovery → Reset this PC</b></td><td>Cài lại Windows: <b>Keep my files</b> (giữ tệp cá nhân, xóa ứng dụng) hoặc <b>Remove everything</b> (xóa sạch)</td></tr>
+          <tr><td><b>Advanced startup</b> (Recovery → Restart now; hoặc giữ <kbd>Shift</kbd> khi bấm Restart)</td><td>Môi trường khôi phục WinRE: Startup Repair, System Restore, Uninstall Updates, Safe Mode (Startup Settings), Command Prompt</td></tr>
+          <tr><td><b>Troubleshoot</b> (System → Troubleshoot)</td><td>Các trình khắc phục sự cố tự động: âm thanh, mạng, máy in, Windows Update…</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Safe Mode</b>Khởi động Windows với driver và dịch vụ tối thiểu — dùng để gỡ phần mềm, driver gây lỗi hoặc quét mã độc khi Windows không khởi động bình thường được.</div>
+    </section>
+
+    <section class="card" id="n5-s6">
+      <h2><span class="num">6</span>Dọn dẹp và tối ưu hệ thống</h2>
+      <ul>
+        <li><b>Storage Sense</b> (Settings → System → Storage): tự động xóa tệp tạm, làm trống Recycle Bin, dọn thư mục Downloads theo lịch. <b>Cleanup recommendations</b> gợi ý tệp lớn, ứng dụng ít dùng.</li>
+        <li><b>Disk Cleanup</b> (tìm "Disk Cleanup"): xóa Temporary files, Recycle Bin, tệp cập nhật cũ (<i>Clean up system files</i>).</li>
+        <li><b>Defragment and Optimize Drives</b>: chống phân mảnh ổ HDD; với ổ SSD Windows thực hiện <b>TRIM</b> — để chế độ tự động theo lịch.</li>
+        <li><b>Tắt ứng dụng khởi động cùng Windows</b> không cần thiết (Task Manager → Startup apps).</li>
+        <li><b>Task Manager → Performance</b>: theo dõi CPU, RAM, ổ đĩa khi máy chạy chậm.</li>
+      </ul>
+      <div class="note tip"><b>Máy chạy chậm — kiểm tra theo thứ tự</b>① Khởi động lại máy → ② Task Manager xem ứng dụng chiếm tài nguyên → ③ tắt Startup apps thừa → ④ dọn ổ C: còn trống ít nhất 15–20% → ⑤ quét mã độc → ⑥ cập nhật Windows và driver.</div>
+    </section>
+
+    <section class="card" id="n5-s7">
+      <h2><span class="num">7</span>Các ứng dụng đi kèm Windows 11</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Ứng dụng</th><th>Công dụng</th></tr></thead>
+        <tbody>
+          <tr><td>🗒️ <b>Notepad</b></td><td>Soạn văn bản thuần (.txt), hỗ trợ nhiều tab, tự lưu phiên làm việc</td></tr>
+          <tr><td>🖌️ <b>Paint</b></td><td>Vẽ, chỉnh sửa ảnh đơn giản; xóa phông nền (Remove background), lớp (Layers)</td></tr>
+          <tr><td>✂️ <b>Snipping Tool</b></td><td>Chụp ảnh và quay video màn hình (<kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd>)</td></tr>
+          <tr><td>🧮 <b>Calculator</b></td><td>Máy tính: Standard, <b>Scientific</b>, Programmer, Graphing, Date calculation, chuyển đổi đơn vị, tiền tệ</td></tr>
+          <tr><td>🖼️ <b>Photos</b></td><td>Xem, sắp xếp ảnh, chỉnh sửa cơ bản (cắt, xoay, bộ lọc)</td></tr>
+          <tr><td>🎬 <b>Clipchamp</b></td><td>Biên tập video: cắt ghép, chèn chữ, nhạc, xuất MP4</td></tr>
+          <tr><td>📅 <b>Clock</b></td><td>Báo thức, hẹn giờ, bấm giờ, <b>Focus sessions</b></td></tr>
+          <tr><td>🎙️ <b>Sound Recorder</b></td><td>Ghi âm</td></tr>
+          <tr><td>💻 <b>Terminal</b></td><td>Dòng lệnh Command Prompt, PowerShell (dành cho người dùng nâng cao)</td></tr>
+          <tr><td>🔍 <b>Run</b> (<kbd>Win</kbd>+<kbd>R</kbd>)</td><td>Chạy nhanh: <code>notepad</code>, <code>calc</code>, <code>mspaint</code>, <code>control</code> (Control Panel), <code>taskmgr</code>, <code>msinfo32</code> (thông tin hệ thống), <code>winver</code></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="n5-s8">
+      <h2><span class="num">8</span>Trình duyệt Microsoft Edge</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tính năng / phím tắt</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>T</kbd> / <kbd>Ctrl</kbd>+<kbd>W</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd></td><td>Mở tab mới / đóng tab / mở lại tab vừa đóng</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd></td><td>Cửa sổ <b>InPrivate</b> — không lưu lịch sử, cookie sau khi đóng (dùng trên máy công cộng)</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>D</kbd> / <kbd>Ctrl</kbd>+<kbd>H</kbd> / <kbd>Ctrl</kbd>+<kbd>J</kbd></td><td>Lưu trang vào Favorites / xem lịch sử (History) / xem tệp tải về (Downloads)</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>F</kbd></td><td>Tìm chữ trong trang</td></tr>
+          <tr><td><b>Collections</b>, <b>Vertical tabs</b>, <b>Immersive Reader</b></td><td>Lưu nhóm trang theo chủ đề; tab dọc; chế độ đọc dễ nhìn, đọc to trang web</td></tr>
+          <tr><td>Đọc tệp PDF</td><td>Edge là trình đọc PDF mặc định: ghi chú, tô sáng, đọc to</td></tr>
+          <tr><td>Settings → <b>Privacy, search, and services</b></td><td>Xóa dữ liệu duyệt web (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Delete</kbd>), mức ngăn theo dõi, Microsoft Defender SmartScreen</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Nhận biết trang web an toàn</b>Địa chỉ bắt đầu bằng <b>https://</b> và có biểu tượng ổ khóa; tên miền đúng chính tả (cẩn thận các trang giả mạo thay chữ o bằng số 0, thêm gạch nối hoặc đuôi lạ, ví dụ <code>micros0ft-login.xyz</code>). Không tải phần mềm từ các trang quảng cáo "tải miễn phí bản full".</div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="n5-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="n5-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="n5-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="n5-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="n5-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="n5-quizBar"></i></div>
+        <span class="pill">⏱ <b id="n5-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="n5-qnav"></div>
+      <div id="n5-quizBox"></div>
+
+      <div class="result" id="n5-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="n5-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="n5-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="n5-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="n5-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="n5-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="n5-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="n5-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="caidat">← Bài trước: Bài 4. Cài đặt &amp; cá nhân hóa</button>
+</div>
+</div>
+
+
+<footer>Bài giảng điện tử · Sử dụng Microsoft Windows 11 · Bài 1. Giao diện &amp; thao tác · Bài 2. Cửa sổ &amp; đa nhiệm · Bài 3. Tệp &amp; thư mục · Bài 4. Cài đặt &amp; cá nhân hóa · Bài 5. Bảo mật &amp; bảo trì<br><span class="credit">✨ Bài học được thiết kế nhờ <b>Claude</b> trợ giúp - 2026</span></footer>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">Xác nhận</h3>
+    <p id="modalText"></p>
+    <div class="actions">
+      <button class="btn btn-ghost" id="modalNo">Hủy</button>
+      <button class="btn btn-primary" id="modalYes">Đồng ý</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<button class="to-top" id="toTop" aria-label="Lên đầu trang">↑</button>
+
+<script>
+(function(){
+  "use strict";
+
+  // ===== Ngân hàng câu hỏi (a = chỉ số đáp án đúng trong mảng o) =====
+  // ----- Bài 1: Giao diện & thao tác cơ bản -----
+  const N1_QUESTIONS = [
+    {q:"Hệ điều hành là:", o:["Phần mềm soạn thảo văn bản","Phần mềm quản lý phần cứng, tài nguyên máy tính và là nền tảng chạy các ứng dụng","Thiết bị phần cứng của máy tính","Trình duyệt web"], a:1, e:"Windows, macOS, Linux là các hệ điều hành."},
+    {q:"Windows 11 được Microsoft phát hành chính thức vào năm:", o:["2021","2015","2019","2023"], a:0, e:"Tháng 10/2021, kế nhiệm Windows 10."},
+    {q:"Dung lượng RAM tối thiểu để cài Windows 11 là:", o:["1 GB","2 GB","4 GB","8 GB"], a:2, e:"Ổ lưu trữ tối thiểu 64 GB."},
+    {q:"Chip bảo mật bắt buộc để cài đặt Windows 11 là:", o:["BIOS 2.0","GPU","SSD NVMe","TPM 2.0"], a:3, e:"Cùng với UEFI Secure Boot."},
+    {q:"Phát biểu nào đúng về Windows 11?", o:["Có cả bản 32-bit và 64-bit","Chỉ có bản 64-bit","Chỉ chạy trên máy tính bảng","Không cần UEFI"], a:1, e:"CPU phải là 64-bit."},
+    {q:"Lệnh gõ trong Run/Search để xem phiên bản Windows đang dùng là:", o:["winver","version","sysver","about"], a:0, e:"Hoặc Settings → System → About."},
+    {q:"Phiên bản Windows 11 nào có tính năng mã hóa ổ đĩa BitLocker và Remote Desktop (máy chủ)?", o:["Home","Home Single Language","Pro","S mode"], a:2, e:"Pro, Education, Enterprise."},
+    {q:"Windows Hello cho phép đăng nhập bằng:", o:["Chỉ mật khẩu","Tin nhắn SMS","Tài khoản Facebook","Khuôn mặt, vân tay hoặc mã PIN"], a:3, e:"Cần phần cứng hỗ trợ cho khuôn mặt, vân tay."},
+    {q:"Loại tài khoản giúp đồng bộ thiết lập, dùng OneDrive và Microsoft Store là:", o:["Local account","Microsoft account","Guest account","Administrator mặc định"], a:1, e:"Đăng nhập bằng email Microsoft."},
+    {q:"Biểu tượng lối tắt (shortcut) trên Desktop có đặc điểm:", o:["Có mũi tên nhỏ ở góc dưới trái biểu tượng","Có dấu chấm than","Có ổ khóa","Màu xám"], a:0, e:"Xóa lối tắt không xóa tệp gốc."},
+    {q:"Recycle Bin trên Desktop là:", o:["Thư mục tải về","Nơi lưu tệp tạm","Thùng rác chứa tệp đã xóa, có thể khôi phục","Công cụ diệt virus"], a:2, e:"Empty Recycle Bin để xóa vĩnh viễn."},
+    {q:"Mặc định, Taskbar của Windows 11 có các biểu tượng được căn:", o:["Trái","Phải","Trên cùng màn hình","Giữa"], a:3, e:"Đổi tại Taskbar behaviors → Taskbar alignment."},
+    {q:"Phím dùng để mở Start menu là:", o:["Alt","Phím ⊞ Windows","Ctrl","Tab"], a:1, e:"Hoặc nhấp nút Start trên Taskbar."},
+    {q:"Trong Start menu, khu vực chứa các ứng dụng được ghim là:", o:["Pinned","Recommended","All apps","Quick access"], a:0, e:"Recommended hiện tệp gần đây."},
+    {q:"Để xem danh sách tất cả ứng dụng đã cài theo thứ tự A–Z trong Start, ta nhấp:", o:["Recommended","Pinned","All apps","More"], a:2, e:"All apps ở góc trên phải phần Pinned."},
+    {q:"Tổ hợp phím mở menu Power User (Device Manager, Task Manager, Terminal…) là:", o:["Win + P","Win + A","Win + Z","Win + X"], a:3, e:"Hoặc chuột phải nút Start."},
+    {q:"Tổ hợp phím mở ô tìm kiếm là:", o:["Win + F","Win + S","Ctrl + S","Alt + S"], a:1, e:"Có thể gõ ngay sau khi nhấn phím Win."},
+    {q:"Trên Taskbar, ứng dụng đang chạy được nhận biết bằng:", o:["Một gạch nhỏ bên dưới biểu tượng","Biểu tượng màu đỏ","Dấu tích xanh","Biểu tượng nhấp nháy"], a:0, e:"Ứng dụng đang dùng có gạch dài hơn."},
+    {q:"Nhấp chuột phải vào biểu tượng ứng dụng trên Taskbar sẽ mở:", o:["Task Manager","Settings","Jump List (tệp gần đây, Pin/Unpin, Close window)","Start menu"], a:2, e:"Jump List."},
+    {q:"Tổ hợp phím Win + 1 có tác dụng:", o:["Mở Settings","Khóa máy","Mở Desktop 1","Mở/chuyển đến ứng dụng thứ nhất trên Taskbar"], a:3, e:"Win + 1…9."},
+    {q:"Khu vực bên phải Taskbar chứa biểu tượng mạng, loa, pin, ngôn ngữ nhập gọi là:", o:["Start","Khay hệ thống (System tray)","Widgets","Task View"], a:1, e:"Mũi tên ˆ chứa các biểu tượng ẩn."},
+    {q:"Tổ hợp phím mở Widgets (tin tức, thời tiết) là:", o:["Win + W","Win + N","Win + A","Win + G"], a:0, e:"Mở từ góc trái Taskbar."},
+    {q:"Tổ hợp phím mở Quick Settings (Wi-Fi, Bluetooth, âm lượng, độ sáng) là:", o:["Win + Q","Win + I","Win + A","Win + K"], a:2, e:"Win + I mở Settings."},
+    {q:"Tổ hợp phím mở trung tâm thông báo và lịch là:", o:["Win + C","Win + L","Win + D","Win + N"], a:3, e:"Hoặc nhấp vào đồng hồ."},
+    {q:"Chế độ Do not disturb có tác dụng:", o:["Tắt máy","Tắt tiếng và ẩn thông báo bật lên","Tắt mạng","Khóa màn hình"], a:1, e:"Thông báo vẫn được lưu trong trung tâm thông báo."},
+    {q:"Trên Windows 11, để xem đầy đủ menu chuột phải kiểu cũ, ta chọn:", o:["Show more options (hoặc Shift + F10)","Properties","Refresh","More apps"], a:0, e:"Menu chuột phải được rút gọn."},
+    {q:"Thao tác nhấp đúp chuột thường dùng để:", o:["Mở menu ngữ cảnh","Chọn nhiều tệp","Mở tệp, thư mục hoặc chạy ứng dụng","Di chuyển cửa sổ"], a:2, e:"Nhấp phải mở menu ngữ cảnh."},
+    {q:"Trên bàn di chuột (touchpad), vuốt 3 ngón xuống có tác dụng:", o:["Mở Task View","Chuyển Desktop ảo","Cuộn trang","Hiện Desktop (thu nhỏ các cửa sổ)"], a:3, e:"Vuốt 3 ngón lên mở Task View."},
+    {q:"Giữ Ctrl và lăn nút cuộn chuột thường có tác dụng:", o:["Chuyển tab","Phóng to/thu nhỏ nội dung","Cuộn ngang","Chọn nhiều đối tượng"], a:1, e:"Trong trình duyệt, File Explorer, Word…"},
+    {q:"Tổ hợp phím khóa máy tính nhanh khi rời chỗ ngồi là:", o:["Win + L","Win + K","Ctrl + L","Alt + L"], a:0, e:"Các ứng dụng vẫn tiếp tục chạy."},
+    {q:"Chế độ Sleep có đặc điểm:", o:["Tắt hẳn máy","Đóng mọi ứng dụng","Lưu trạng thái vào RAM, tiêu thụ ít điện, mở lại rất nhanh","Lưu trạng thái ra ổ cứng và tắt nguồn"], a:2, e:"Hibernate lưu ra ổ đĩa."},
+    {q:"Chế độ lưu toàn bộ trạng thái làm việc ra ổ đĩa rồi tắt nguồn hoàn toàn là:", o:["Sleep","Lock","Sign out","Hibernate"], a:3, e:"Cần bật trong Power Options."},
+    {q:"Sign out (đăng xuất) có tác dụng:", o:["Tắt máy","Đóng mọi ứng dụng của tài khoản hiện tại để người khác đăng nhập","Khóa màn hình, ứng dụng vẫn chạy","Khởi động lại"], a:1, e:"Nên lưu công việc trước khi đăng xuất."},
+    {q:"Khi đang ở Desktop (không có cửa sổ được chọn), nhấn Alt + F4 sẽ:", o:["Mở hộp thoại Shut Down Windows","Đóng Desktop","Mở Task Manager","Không có tác dụng"], a:0, e:"Chọn Shut down, Restart, Sleep…"},
+    {q:"Khi máy bị treo, trước khi nhấn giữ nút nguồn, nên thử:", o:["Rút điện ngay","Nhấn F5 nhiều lần","Ctrl + Alt + Del rồi mở Task Manager để đóng ứng dụng treo","Nhấn Win + L"], a:2, e:"Tránh mất dữ liệu, hỏng tệp."},
+    {q:"Chuột phải vào vùng trống trên Desktop → New → Folder dùng để:", o:["Mở File Explorer","Tạo lối tắt","Đổi hình nền","Tạo thư mục mới trên Desktop"], a:3, e:"Gõ tên rồi Enter."},
+    {q:"Để tạo lối tắt của một tệp ra Desktop, ta chọn:", o:["Copy → Paste","Show more options → Send to → Desktop (create shortcut)","Cut → Paste","Pin to Start"], a:1, e:"Lối tắt trỏ đến tệp gốc."},
+    {q:"Focus (phiên tập trung) trong Windows 11 giúp:", o:["Giảm phân tâm: hẹn giờ làm việc, tự bật Do not disturb","Phóng to cửa sổ","Tăng tốc CPU","Khóa bàn phím"], a:0, e:"Bật từ lịch hoặc Settings → System → Focus."},
+    {q:"Nhấn Enter trên ô tìm kiếm ứng dụng và chọn Run as administrator có nghĩa là:", o:["Chạy ở chế độ an toàn","Chạy ứng dụng ở chế độ ẩn","Chạy ứng dụng với quyền quản trị","Chạy thử nghiệm"], a:2, e:"Cần thiết cho một số tác vụ hệ thống."},
+    {q:"Để ẩn/hiện các nút Search, Task View, Widgets trên Taskbar, ta vào:", o:["Control Panel → Programs","Start → All apps","File Explorer → View","Settings → Personalization → Taskbar"], a:3, e:"Taskbar items."}
+  ];
+
+  // ----- Bài 2: Cửa sổ, đa nhiệm & phím tắt -----
+  const N2_QUESTIONS = [
+    {q:"Nhấp đúp vào thanh tiêu đề của cửa sổ có tác dụng:", o:["Đóng cửa sổ","Phóng to hoặc khôi phục kích thước cửa sổ","Thu nhỏ xuống Taskbar","Di chuyển cửa sổ"], a:1, e:"Kéo thanh tiêu đề để di chuyển."},
+    {q:"Nút ─ ở góc trên phải cửa sổ dùng để:", o:["Thu nhỏ cửa sổ xuống Taskbar","Đóng cửa sổ","Phóng to","Chia đôi màn hình"], a:0, e:"Minimize."},
+    {q:"Tổ hợp phím đóng cửa sổ ứng dụng đang dùng là:", o:["Ctrl + Q","Alt + Tab","Alt + F4","Win + D"], a:2, e:"Ứng dụng hỏi lưu nếu có thay đổi."},
+    {q:"Để thay đổi kích thước cửa sổ bằng chuột, ta:", o:["Nhấp đúp vùng nội dung","Kéo thanh tiêu đề","Nhấn nút ─","Kéo cạnh hoặc góc của cửa sổ"], a:3, e:"Con trỏ đổi thành mũi tên hai chiều."},
+    {q:"Để hiển thị bảng Snap Layouts, ta:", o:["Nhấp đúp thanh tiêu đề","Rê chuột lên nút Maximize hoặc nhấn Win + Z","Nhấn Win + L","Nhấn Alt + Tab"], a:1, e:"Chọn bố cục 2, 3, 4 cửa sổ."},
+    {q:"Kéo một cửa sổ chạm vào cạnh trái màn hình sẽ:", o:["Cửa sổ chiếm nửa trái màn hình","Đóng cửa sổ","Thu nhỏ cửa sổ","Chuyển sang Desktop khác"], a:0, e:"Kéo vào góc để chiếm 1/4 màn hình."},
+    {q:"Sau khi đặt cửa sổ đầu tiên vào một ô của bố cục Snap, Windows hiện các cửa sổ còn lại để chọn điền vào ô trống. Tính năng này gọi là:", o:["Task View","Snap Groups","Snap Assist","Aero Shake"], a:2, e:"Snap Groups nhớ nhóm cửa sổ đã sắp xếp."},
+    {q:"Tổ hợp phím đưa cửa sổ hiện tại chiếm nửa phải màn hình là:", o:["Alt + →","Ctrl + →","Shift + →","Win + →"], a:3, e:"Win + ← cho nửa trái."},
+    {q:"Tổ hợp phím Win + ↑ có tác dụng:", o:["Thu nhỏ cửa sổ","Phóng to cửa sổ","Mở Start","Tăng âm lượng"], a:1, e:"Win + ↓ khôi phục/thu nhỏ."},
+    {q:"Tổ hợp phím chuyển nhanh giữa các cửa sổ đang mở (giữ phím đầu, nhấn phím sau liên tiếp) là:", o:["Alt + Tab","Ctrl + Tab","Win + Tab","Shift + Tab"], a:0, e:"Win + Tab mở Task View."},
+    {q:"Tổ hợp phím hiện màn hình Desktop (nhấn lần nữa để khôi phục các cửa sổ) là:", o:["Win + M","Win + E","Win + D","Win + H"], a:2, e:"Win + M thu nhỏ tất cả cửa sổ."},
+    {q:"Tổ hợp phím chọn chế độ hiển thị khi nối máy chiếu (Duplicate, Extend…) là:", o:["Win + K","Win + D","Win + O","Win + P"], a:3, e:"Duplicate: nhân bản; Extend: mở rộng."},
+    {q:"Khi nối máy chiếu, muốn khán giả thấy đúng nội dung như màn hình máy tính, ta chọn:", o:["Extend","Duplicate","Second screen only","PC screen only"], a:1, e:"Extend dùng khi muốn hai màn hình khác nội dung."},
+    {q:"Tổ hợp phím mở Task View là:", o:["Win + Tab","Alt + Tab","Ctrl + Alt + Tab","Win + T"], a:0, e:"Hoặc nút ⧉ trên Taskbar."},
+    {q:"Tổ hợp phím tạo một màn hình ảo (virtual desktop) mới là:", o:["Win + N","Ctrl + Shift + N","Win + Ctrl + D","Win + Alt + D"], a:2, e:"Win + Ctrl + F4 để đóng."},
+    {q:"Tổ hợp phím chuyển qua lại giữa các màn hình ảo là:", o:["Alt + ← / →","Ctrl + ← / →","Win + ← / →","Win + Ctrl + ← / →"], a:3, e:"Win + ← / → dùng cho Snap."},
+    {q:"Tổ hợp phím đóng màn hình ảo hiện tại là:", o:["Alt + F4","Win + Ctrl + F4","Ctrl + W","Win + Esc"], a:1, e:"Các cửa sổ được chuyển sang màn hình bên cạnh."},
+    {q:"Trong Task View, có thể thực hiện thao tác nào với màn hình ảo?", o:["Đổi tên và chọn hình nền riêng cho từng màn hình","Đổi độ phân giải từng màn hình","Đặt mật khẩu riêng","Cài phần mềm riêng"], a:0, e:"Chuột phải màn hình ảo → Rename / Choose background."},
+    {q:"Tổ hợp phím mở trực tiếp Task Manager là:", o:["Ctrl + Alt + T","Win + T","Ctrl + Shift + Esc","Alt + Esc"], a:2, e:"Hoặc Ctrl + Alt + Del → Task Manager."},
+    {q:"Để đóng một ứng dụng bị treo (Not responding) trong Task Manager, ta chọn ứng dụng và nhấn:", o:["Restart","Disable","Open file location","End task"], a:3, e:"Dữ liệu chưa lưu sẽ mất."},
+    {q:"Trong Task Manager, trang dùng để tắt bớt ứng dụng tự khởi động cùng Windows là:", o:["Processes","Startup apps","Performance","Services"], a:1, e:"Giúp máy khởi động nhanh hơn."},
+    {q:"Trang Performance trong Task Manager hiển thị:", o:["Biểu đồ mức sử dụng CPU, RAM, ổ đĩa, mạng, GPU","Danh sách người dùng","Lịch sử cập nhật","Các dịch vụ Windows"], a:0, e:"Hữu ích khi máy chạy chậm."},
+    {q:"Tổ hợp phím mở lịch sử Clipboard (xem và dán lại các mục đã sao chép) là:", o:["Ctrl + V","Ctrl + Shift + V","Win + V","Alt + V"], a:2, e:"Lần đầu cần bật Clipboard history."},
+    {q:"Tổ hợp phím chụp toàn màn hình và tự lưu thành tệp ảnh vào Pictures\\Screenshots là:", o:["PrtScn","Alt + PrtScn","Ctrl + PrtScn","Win + PrtScn"], a:3, e:"PrtScn thường chỉ chép vào Clipboard hoặc mở Snipping Tool."},
+    {q:"Tổ hợp phím Alt + PrtScn dùng để:", o:["Chụp toàn màn hình","Chụp cửa sổ đang dùng vào Clipboard","Mở Snipping Tool","Quay video màn hình"], a:1, e:"Dán vào Word, Paint bằng Ctrl + V."},
+    {q:"Tổ hợp phím mở công cụ chụp một vùng màn hình (Snipping Tool) là:", o:["Win + Shift + S","Win + S","Ctrl + Shift + S","Alt + S"], a:0, e:"Vùng chữ nhật, tự do, cửa sổ, toàn màn hình."},
+    {q:"Ngoài chụp ảnh, Snipping Tool trên Windows 11 còn có thể:", o:["Chỉnh sửa video chuyên nghiệp","Nén tệp","Quay video màn hình (Record)","Diệt virus"], a:2, e:"Chế độ Record."},
+    {q:"Tổ hợp phím mở bảng emoji, ký hiệu trên Windows 11 là:", o:["Win + E","Win + ,","Ctrl + .","Win + . (dấu chấm)"], a:3, e:"Hoặc Win + ;"},
+    {q:"Tổ hợp phím bật nhập văn bản bằng giọng nói (Voice typing) là:", o:["Win + V","Win + H","Win + M","Win + T"], a:1, e:"Đọc để máy gõ chữ."},
+    {q:"Tổ hợp phím chuyển đổi ngôn ngữ/bàn phím nhập liệu (ENG ↔ VIE) của Windows là:", o:["Win + Space","Ctrl + Space","Alt + Space","Shift + Space"], a:0, e:"Hoặc nhấp vào ENG/VIE trên khay hệ thống."},
+    {q:"Kiểu gõ tiếng Việt tích hợp trong Windows 11 gồm:", o:["Chỉ Telex","Chỉ VNI","Vietnamese Telex và Vietnamese Number Key-based (VNI)","VIQR và TCVN3"], a:2, e:"Thêm tại Language & region → Keyboards."},
+    {q:"Tổ hợp phím mở File Explorer là:", o:["Win + F","Ctrl + E","Win + X","Win + E"], a:3, e:"Win + I mở Settings."},
+    {q:"Tổ hợp phím mở hộp thoại Run là:", o:["Win + U","Win + R","Ctrl + R","Alt + R"], a:1, e:"Gõ lệnh như notepad, calc, control."},
+    {q:"Tổ hợp phím mở ứng dụng Settings là:", o:["Win + I","Win + S","Win + C","Ctrl + I"], a:0, e:"Win + S mở tìm kiếm."},
+    {q:"Tổ hợp phím bật kính lúp (Magnifier) là:", o:["Win + M","Win + Z","Win + dấu +","Ctrl + dấu +"], a:2, e:"Win + Esc để tắt."},
+    {q:"Tổ hợp phím chuyển cửa sổ hiện tại sang màn hình (monitor) thứ hai là:", o:["Alt + Shift + →","Ctrl + Win + →","Win + P","Win + Shift + → hoặc ←"], a:3, e:"Dùng khi có nhiều màn hình."},
+    {q:"Hộp thoại (dialog box) thường có các nút:", o:["Minimize, Maximize","OK, Cancel, Apply","Back, Forward","Start, Search"], a:1, e:"Ví dụ hộp thoại Open, Save As, Print."},
+    {q:"Tổ hợp phím thu nhỏ tất cả cửa sổ trừ cửa sổ đang dùng là:", o:["Win + Home","Win + End","Win + M","Win + D"], a:0, e:"Tương đương thao tác lắc thanh tiêu đề cửa sổ (Shake), nếu được bật."},
+    {q:"Tổ hợp phím Ctrl + Alt + Del mở màn hình với các lựa chọn:", o:["Chỉ Shut down","Settings và Store","Lock, Switch user, Sign out, Change a password, Task Manager","Snipping Tool"], a:2, e:"Có nút nguồn ở góc dưới phải."},
+    {q:"Nhấp vào dải hẹp ở góc phải cùng của Taskbar (bên phải đồng hồ) có tác dụng:", o:["Mở thông báo","Mở Widgets","Mở Settings","Hiện Desktop"], a:3, e:"Tương tự Win + D."}
+  ];
+
+  // ----- Bài 3: Quản lý tệp & thư mục -----
+  const N3_QUESTIONS = [
+    {q:"Trong đường dẫn C:\\Users\\An\\Documents\\BaoCao.docx, phần \"C:\" là:", o:["Tên thư mục","Tên ổ đĩa","Tên tệp","Phần mở rộng"], a:1, e:"Ổ đĩa ký hiệu bằng chữ cái."},
+    {q:"Trong đường dẫn Windows, các cấp thư mục được phân cách bằng ký tự:", o:["\\ (gạch chéo ngược)","/","|",":"], a:0, e:"Ví dụ C:\\Users\\An."},
+    {q:"Phần mở rộng của tệp cho biết:", o:["Kích thước tệp","Ngày tạo tệp","Loại tệp và ứng dụng mở nó","Người tạo tệp"], a:2, e:".docx là Word, .xlsx là Excel…"},
+    {q:"Ký tự nào KHÔNG được phép dùng trong tên tệp Windows?", o:["_ (gạch dưới)","- (gạch ngang)",". (dấu chấm)","? (dấu hỏi)"], a:3, e:"Cấm \\ / : * ? \" < > |"},
+    {q:"Tệp có phần mở rộng .exe là:", o:["Tệp văn bản","Tệp chương trình (thực thi)","Tệp hình ảnh","Tệp nén"], a:1, e:"Cẩn thận với tệp .exe lạ."},
+    {q:"Tệp có phần mở rộng .zip là:", o:["Tệp nén","Tệp nhạc","Tệp PDF","Tệp lối tắt"], a:0, e:"Giải nén bằng Extract All."},
+    {q:"Tổ hợp phím mở tab mới trong File Explorer Windows 11 là:", o:["Ctrl + N","Ctrl + Shift + T","Ctrl + T","Alt + T"], a:2, e:"Ctrl + W đóng tab."},
+    {q:"Nút ↑ bên trái thanh địa chỉ File Explorer (hoặc Alt + ↑) dùng để:", o:["Cuộn lên","Sắp xếp tăng dần","Quay lại thư mục trước","Lên thư mục cha"], a:3, e:"← quay lại, → tiến tới."},
+    {q:"Để ghim một thư mục hay dùng vào ngăn điều hướng, ta chuột phải thư mục và chọn:", o:["Pin to Start","Pin to Quick access","Add to favorites bar","Send to Desktop"], a:1, e:"Hiện ở Home và Navigation pane."},
+    {q:"Tổ hợp phím đưa con trỏ vào thanh địa chỉ để gõ đường dẫn là:", o:["Alt + D","Ctrl + D","Alt + A","Ctrl + L bắt buộc"], a:0, e:"Hoặc nhấp vào vùng trống của thanh địa chỉ."},
+    {q:"Chế độ xem hiển thị các cột Name, Date modified, Type, Size là:", o:["Large icons","List","Details","Tiles"], a:2, e:"Nhấp tiêu đề cột để sắp xếp."},
+    {q:"Để hiển thị phần mở rộng của tệp, trong File Explorer ta chọn:", o:["Sort → Type","View → Details","⋯ → Properties","View → Show → File name extensions"], a:3, e:"Giúp nhận biết tệp giả mạo."},
+    {q:"Tệp có tên \"HoaDon.pdf.exe\" thực chất là:", o:["Tài liệu PDF","Tệp chương trình (có thể là mã độc)","Tệp nén","Tệp ảnh"], a:1, e:"Phần mở rộng thật là phần cuối cùng: .exe."},
+    {q:"Để xem các tệp, thư mục bị ẩn, ta chọn:", o:["View → Show → Hidden items","Sort → Name","View → Compact view","Group by → Type"], a:0, e:"Tệp hệ thống thường bị ẩn."},
+    {q:"Preview pane (Alt + P) trong File Explorer dùng để:", o:["Xem thuộc tính tệp","Xem cây thư mục","Xem trước nội dung tệp đang chọn","Xem tệp đã xóa"], a:2, e:"Details pane hiện thông tin chi tiết."},
+    {q:"Tổ hợp phím tạo thư mục mới trong File Explorer là:", o:["Ctrl + N","Ctrl + F","Ctrl + Alt + N","Ctrl + Shift + N"], a:3, e:"Ctrl + N mở cửa sổ Explorer mới."},
+    {q:"Phím dùng để đổi tên tệp hoặc thư mục đang chọn là:", o:["F1","F2","F5","F10"], a:1, e:"Esc để hủy đổi tên."},
+    {q:"Chọn nhiều tệp rồi nhấn F2 và gõ \"Anh\" → Enter, kết quả là:", o:["Các tệp được đổi tên thành Anh (1), Anh (2)…","Chỉ tệp đầu được đổi tên","Báo lỗi trùng tên","Các tệp bị gộp lại"], a:0, e:"Đổi tên hàng loạt."},
+    {q:"Để chọn nhiều tệp liên tiếp, ta nhấp tệp đầu và giữ phím nào khi nhấp tệp cuối?", o:["Ctrl","Alt","Shift","Tab"], a:2, e:"Ctrl để chọn rời rạc."},
+    {q:"Để chọn nhiều tệp rời rạc (không liên tiếp), ta giữ phím:", o:["Shift","Alt","Win","Ctrl"], a:3, e:"Nhấp lại để bỏ chọn."},
+    {q:"Đổi phần mở rộng tệp từ .docx thành .pdf sẽ:", o:["Chuyển đổi tệp sang PDF","Có thể làm tệp không mở được vì không thực sự chuyển đổi định dạng","Nén tệp","Bảo vệ tệp"], a:1, e:"Muốn chuyển PDF phải dùng Save As/Export."},
+    {q:"Để di chuyển tệp sang thư mục khác bằng phím tắt, ta dùng:", o:["Ctrl + X rồi Ctrl + V","Ctrl + C rồi Ctrl + V","Ctrl + M","Ctrl + D"], a:0, e:"Ctrl + C là sao chép."},
+    {q:"Kéo thả một tệp từ ổ C: sang ổ USB (khác ổ đĩa) mặc định sẽ:", o:["Di chuyển tệp","Tạo lối tắt","Sao chép tệp","Xóa tệp"], a:2, e:"Giữ Shift khi thả để di chuyển."},
+    {q:"Kéo thả tệp giữa hai thư mục trên CÙNG một ổ đĩa, muốn sao chép thay vì di chuyển, ta giữ phím:", o:["Shift","Alt","Win","Ctrl"], a:3, e:"Mặc định cùng ổ đĩa là di chuyển."},
+    {q:"Khi dán tệp vào thư mục đã có tệp cùng tên, lựa chọn ghi đè tệp cũ là:", o:["Skip this file","Replace the file in the destination","Let me decide for each file","Cancel"], a:1, e:"Let me decide cho phép giữ cả hai."},
+    {q:"Tổ hợp phím sao chép đường dẫn đầy đủ của tệp (Copy as path) là:", o:["Ctrl + Shift + C","Ctrl + Alt + C","Alt + C","Win + C"], a:0, e:"Hoặc chuột phải → Copy as path."},
+    {q:"Chọn tệp và nhấn phím Delete, tệp sẽ:", o:["Bị xóa vĩnh viễn","Được nén lại","Được chuyển vào Recycle Bin","Bị ẩn"], a:2, e:"Còn khôi phục được."},
+    {q:"Tổ hợp phím xóa vĩnh viễn tệp không qua thùng rác là:", o:["Ctrl + Delete","Alt + Delete","Ctrl + D","Shift + Delete"], a:3, e:"Có hộp thoại xác nhận."},
+    {q:"Để khôi phục tệp đã xóa về vị trí ban đầu, ta mở Recycle Bin, chọn tệp và chọn:", o:["Empty Recycle Bin","Restore the selected items","Copy","Open"], a:1, e:"Tệp trở về thư mục gốc."},
+    {q:"Tệp bị xóa từ ổ USB thường:", o:["Bị xóa vĩnh viễn, không vào Recycle Bin","Được chuyển vào Recycle Bin của máy","Được chuyển lên OneDrive","Được giữ lại 30 ngày"], a:0, e:"Cẩn thận khi xóa tệp trên USB, thẻ nhớ."},
+    {q:"Trong ô tìm kiếm File Explorer, gõ *.pdf sẽ tìm:", o:["Tệp tên là *.pdf","Thư mục pdf","Mọi tệp có phần mở rộng .pdf","Tệp PDF mới nhất"], a:2, e:"* đại diện cho nhiều ký tự."},
+    {q:"Để nén nhiều tệp thành một tệp ZIP, ta chọn các tệp, nhấp chuột phải và chọn:", o:["Extract All","Send to Desktop","Properties","Compress to ZIP file"], a:3, e:"Thuận tiện để gửi email."},
+    {q:"Để giải nén tệp .zip, ta nhấp chuột phải vào tệp và chọn:", o:["Open with Notepad","Extract All…","Compress","Rename"], a:1, e:"Chọn thư mục đích."},
+    {q:"Tổ hợp phím mở hộp thoại Properties (thuộc tính) của tệp đang chọn là:", o:["Alt + Enter","Ctrl + Enter","Shift + Enter","Ctrl + P"], a:0, e:"Hoặc chuột phải → Properties."},
+    {q:"Thuộc tính Read-only của tệp có nghĩa:", o:["Tệp bị ẩn","Tệp bị nén","Tệp chỉ đọc, không cho lưu đè thay đổi","Tệp đã mã hóa"], a:2, e:"Hidden là ẩn tệp."},
+    {q:"Để luôn mở tệp .pdf bằng một ứng dụng cụ thể, ta chuột phải tệp → Open with → chọn ứng dụng và chọn:", o:["Just once","Search the Store","Properties","Always"], a:3, e:"Đặt làm ứng dụng mặc định."},
+    {q:"Tệp tải về từ trình duyệt mặc định được lưu vào thư mục:", o:["Documents","Downloads","Desktop","Pictures"], a:1, e:"Có thể đổi trong cài đặt trình duyệt."},
+    {q:"Trên OneDrive, biểu tượng đám mây ☁️ cạnh tệp cho biết:", o:["Tệp chỉ có trên mạng (Online-only), cần Internet để mở","Tệp đã có trên máy","Tệp đang đồng bộ","Tệp bị lỗi"], a:0, e:"Always keep on this device để tải về máy."},
+    {q:"Trước khi rút USB khỏi máy, để tránh hỏng dữ liệu ta nên:", o:["Tắt máy","Format USB","Chọn Eject (tháo an toàn)","Xóa các tệp trên USB"], a:2, e:"Nhấp biểu tượng USB trên khay hệ thống."},
+    {q:"Thao tác Format một ổ USB sẽ:", o:["Sao lưu dữ liệu trên USB","Tăng dung lượng USB","Chỉ xóa tệp tạm","Xóa toàn bộ dữ liệu trên USB"], a:3, e:"Chọn hệ thống tệp FAT32, exFAT, NTFS."}
+  ];
+
+  // ----- Bài 4: Cài đặt & cá nhân hóa -----
+  const N4_QUESTIONS = [
+    {q:"Ứng dụng cấu hình chính của Windows 11 được mở bằng tổ hợp phím Win + I là:", o:["Control Panel","Settings","Task Manager","Device Manager"], a:1, e:"Control Panel vẫn còn cho một số thiết lập nâng cao."},
+    {q:"Để phóng to chữ và ứng dụng trên màn hình độ phân giải cao, cách được khuyến nghị là tăng:", o:["Scale (ví dụ 125%)","Giảm độ phân giải xuống thấp","Độ sáng màn hình","Night light"], a:0, e:"Settings → System → Display → Scale."},
+    {q:"Tính năng giảm ánh sáng xanh của màn hình vào buổi tối là:", o:["Dark mode","HDR","Night light","Energy saver"], a:2, e:"Có thể đặt lịch tự bật."},
+    {q:"Độ phân giải màn hình (Display resolution) nên để ở mức:", o:["Thấp nhất","Cao nhất có thể","Tùy ý","Recommended (khuyến nghị)"], a:3, e:"Độ phân giải gốc cho hình ảnh sắc nét."},
+    {q:"Để chỉnh riêng âm lượng từng ứng dụng, ta dùng:", o:["Sound → Output","Volume mixer","Quick Settings → Bluetooth","Device Manager"], a:1, e:"Settings → System → Sound → Volume mixer."},
+    {q:"Thiết lập thời gian tắt màn hình và cho máy ngủ khi không sử dụng nằm ở:", o:["System → Power & battery","Personalization → Lock screen","Accounts → Sign-in options","Apps → Startup"], a:0, e:"Screen and sleep."},
+    {q:"Tính năng Storage Sense có tác dụng:", o:["Mã hóa ổ đĩa","Tăng dung lượng ổ đĩa vật lý","Tự động dọn tệp tạm, thùng rác theo lịch","Chống phân mảnh ổ đĩa"], a:2, e:"Settings → System → Storage."},
+    {q:"Để đổi tên máy tính, ta vào:", o:["Accounts → Your info","Personalization → Themes","Network → Properties","System → About → Rename this PC"], a:3, e:"Cần khởi động lại để áp dụng."},
+    {q:"Khi kết nối Wi-Fi ở quán cà phê, trường học, nên chọn kiểu mạng (Network profile):", o:["Private","Public","Domain","Metered"], a:1, e:"Public ẩn máy với các thiết bị khác."},
+    {q:"Tính năng biến máy tính thành điểm phát Wi-Fi cho thiết bị khác là:", o:["Mobile hotspot","Airplane mode","Network reset","Proxy"], a:0, e:"Network & internet → Mobile hotspot."},
+    {q:"Airplane mode (chế độ máy bay) có tác dụng:", o:["Tăng tốc Internet","Tắt màn hình","Tắt mọi kết nối không dây (Wi-Fi, Bluetooth…)","Khóa máy"], a:2, e:"Bật nhanh trong Quick Settings."},
+    {q:"Khi gặp sự cố mạng kéo dài, tính năng đặt lại toàn bộ bộ điều hợp mạng là:", o:["Forget network","Mobile hotspot","Proxy settings","Network reset"], a:3, e:"Advanced network settings → Network reset."},
+    {q:"Để kết nối tai nghe Bluetooth, ta vào Bluetooth & devices, bật Bluetooth và chọn:", o:["Printers & scanners","Add device","AutoPlay","Mouse"], a:1, e:"Bật chế độ ghép đôi trên tai nghe."},
+    {q:"Để đặt một máy in làm máy in mặc định, trong Printers & scanners ta chọn máy in và chọn:", o:["Set as default","Print test page","Remove","Open print queue"], a:0, e:"Print queue để xem, hủy lệnh in."},
+    {q:"Lệnh in bị kẹt, không in được. Để xem và hủy lệnh in, ta mở:", o:["Task View","Device Manager","Open print queue của máy in","Windows Update"], a:2, e:"Chuột phải lệnh in → Cancel."},
+    {q:"Công cụ xem thiết bị phần cứng, cập nhật hoặc gỡ driver là:", o:["Task Manager","Disk Management","Control Panel → Fonts","Device Manager"], a:3, e:"Thiết bị lỗi có dấu chấm than vàng."},
+    {q:"Thiết lập AutoPlay quy định:", o:["Ứng dụng tự khởi động cùng Windows","Hành động mặc định khi cắm USB, thẻ nhớ, thiết bị","Tự động phát nhạc nền","Tự động cập nhật"], a:1, e:"Nên chọn Ask me every time hoặc Take no action."},
+    {q:"Để chuyển Windows sang giao diện tối (Dark mode), ta vào:", o:["Personalization → Colors → Choose your mode","System → Display → HDR","Accessibility → Contrast themes","Personalization → Fonts"], a:0, e:"Light / Dark / Custom."},
+    {q:"Kiểu hình nền tự thay đổi ảnh đẹp hằng ngày do Microsoft cung cấp là:", o:["Slideshow","Solid color","Windows spotlight","Picture"], a:2, e:"Slideshow dùng ảnh trong thư mục của bạn."},
+    {q:"Để đưa các biểu tượng Taskbar về căn trái như Windows 10, ta vào:", o:["Personalization → Start","System → Multitasking","Personalization → Themes","Personalization → Taskbar → Taskbar behaviors → Taskbar alignment: Left"], a:3, e:"Mặc định là Center."},
+    {q:"Để cài thêm phông chữ vào Windows, ta:", o:["Chép vào Desktop","Kéo thả tệp .ttf/.otf vào Personalization → Fonts (hoặc chuột phải tệp → Install)","Đổi tên tệp thành .exe","Chép vào thư mục Downloads"], a:1, e:"Phông mới dùng được trong Word, Excel…"},
+    {q:"Nguồn cài đặt ứng dụng an toàn, được Microsoft kiểm duyệt và tự cập nhật là:", o:["Microsoft Store","Trang web chia sẻ phần mềm crack","Tệp đính kèm email lạ","Diễn đàn không rõ nguồn gốc"], a:0, e:"Hoặc trang chủ chính thức của nhà phát triển."},
+    {q:"Hộp thoại hỏi \"Do you want to allow this app to make changes to your device?\" khi cài phần mềm gọi là:", o:["SmartScreen","Windows Hello","User Account Control (UAC)","Firewall"], a:2, e:"Chỉ chọn Yes khi tin cậy nguồn phần mềm."},
+    {q:"Cách gỡ bỏ ứng dụng đúng trên Windows 11 là:", o:["Xóa thư mục chương trình trong Program Files","Xóa lối tắt trên Desktop","Unpin khỏi Taskbar","Settings → Apps → Installed apps → ⋯ → Uninstall"], a:3, e:"Hoặc chuột phải ứng dụng trong Start → Uninstall."},
+    {q:"Để chọn trình duyệt mặc định hoặc ứng dụng mặc định mở tệp PDF, ta vào:", o:["Apps → Startup","Apps → Default apps","System → About","Accounts → Other users"], a:1, e:"Có thể chọn theo từng phần mở rộng."},
+    {q:"Vì sao không nên cài phần mềm crack?", o:["Là nguồn lây mã độc phổ biến và vi phạm bản quyền","Chạy chậm hơn bản thường","Không có tiếng Việt","Không cài được trên Windows 11"], a:0, e:"Ưu tiên phần mềm bản quyền hoặc miễn phí hợp pháp."},
+    {q:"Thiết lập mã PIN, nhận diện khuôn mặt, vân tay nằm ở:", o:["Accounts → Your info","Privacy & security → Windows Security","Accounts → Sign-in options","System → About"], a:2, e:"Windows Hello."},
+    {q:"Tính năng Dynamic lock có tác dụng:", o:["Khóa bàn phím","Tự đổi mật khẩu","Khóa ứng dụng","Tự động khóa máy khi điện thoại đã ghép Bluetooth rời xa máy"], a:3, e:"Accounts → Sign-in options → Dynamic lock."},
+    {q:"Loại tài khoản không thể thay đổi thiết lập hệ thống hay cài phần mềm cho toàn máy nếu không có mật khẩu quản trị là:", o:["Administrator","Standard user","Microsoft account","Guest bắt buộc"], a:1, e:"Nên dùng cho công việc hằng ngày."},
+    {q:"Để thêm tài khoản cho người khác dùng chung máy, ta vào:", o:["Accounts → Other users (Family & other users)","System → Multitasking","Apps → Installed apps","Personalization → Lock screen"], a:0, e:"Mỗi người nên có tài khoản riêng."},
+    {q:"Múi giờ đúng cho Việt Nam trong Date & time là:", o:["(UTC+08:00) Beijing","(UTC+09:00) Tokyo","(UTC+07:00) Bangkok, Hanoi, Jakarta","(UTC+00:00) London"], a:2, e:"Bật Set time automatically."},
+    {q:"Thiết lập Regional format (định dạng vùng) ảnh hưởng đến:", o:["Hình nền","Âm lượng","Tốc độ mạng","Cách hiển thị và nhập ngày tháng, dấu thập phân (ví dụ trong Excel)"], a:3, e:"Ví dụ dd/MM/yyyy hay MM/dd/yyyy."},
+    {q:"Để hiển thị giao diện Windows bằng tiếng Việt, ta:", o:["Cài Unikey","Cài gói ngôn ngữ Tiếng Việt và đặt làm Windows display language","Đổi phông chữ","Đổi múi giờ"], a:1, e:"Time & language → Language & region."},
+    {q:"Tính năng đọc to nội dung màn hình cho người khiếm thị là:", o:["Narrator","Magnifier","Live captions","Color filters"], a:0, e:"Win + Ctrl + Enter."},
+    {q:"Để phóng to cỡ chữ toàn hệ thống mà không đổi kích thước hình ảnh khác, ta dùng:", o:["Scale","Magnifier","Accessibility → Text size","Display resolution"], a:2, e:"Scale phóng to cả chữ và ứng dụng."},
+    {q:"Tính năng hiển thị phụ đề trực tiếp cho âm thanh phát trên máy là:", o:["Narrator","Voice access","Sticky keys","Live captions"], a:3, e:"Tùy ngôn ngữ được hỗ trợ."},
+    {q:"Ô Find a setting trong Settings dùng để:", o:["Tìm tệp","Tìm nhanh một thiết lập theo tên","Tìm ứng dụng trên Store","Tìm thiết bị Bluetooth"], a:1, e:"Ví dụ gõ \"printer\", \"display\"."},
+    {q:"Chuột phải vào vùng trống Desktop và chọn Personalize sẽ mở:", o:["Trang cá nhân hóa trong Settings","Control Panel","File Explorer","Task Manager"], a:0, e:"Đổi hình nền, màu, chủ đề."},
+    {q:"Tùy chọn Energy saver (tiết kiệm năng lượng) giúp:", o:["Tăng hiệu năng tối đa","Sạc pin nhanh hơn","Kéo dài thời lượng pin bằng cách giảm hoạt động nền, độ sáng","Tắt Windows Update vĩnh viễn"], a:2, e:"Bật nhanh trong Quick Settings."},
+    {q:"Mục Multiple displays trong Display dùng để:", o:["Chia đôi cửa sổ","Tạo Desktop ảo","Đổi hình nền","Thiết lập nhiều màn hình: Duplicate, Extend, Identify"], a:3, e:"Tương tự Win + P."}
+  ];
+
+  // ----- Bài 5: Bảo mật, bảo trì & ứng dụng -----
+  const N5_QUESTIONS = [
+    {q:"Mục đích quan trọng nhất của việc cài đặt Windows Update thường xuyên là:", o:["Đổi giao diện","Vá các lỗ hổng bảo mật và sửa lỗi","Tăng dung lượng ổ đĩa","Cài thêm trò chơi"], a:1, e:"Máy không cập nhật dễ bị mã độc khai thác."},
+    {q:"Tùy chọn Active hours trong Windows Update có tác dụng:", o:["Không tự khởi động lại máy để cập nhật trong khung giờ làm việc đã đặt","Chỉ cập nhật vào ban đêm","Tắt cập nhật vĩnh viễn","Tăng tốc tải cập nhật"], a:0, e:"Advanced options → Active hours."},
+    {q:"Để tạm dừng cập nhật Windows một thời gian, ta dùng:", o:["Update history","Optional updates","Pause updates","Uninstall updates"], a:2, e:"Có thể tạm dừng 1–5 tuần."},
+    {q:"Khi một bản cập nhật gây lỗi, ta có thể gỡ nó tại:", o:["Apps → Installed apps","Task Manager","Device Manager","Windows Update → Update history → Uninstall updates"], a:3, e:"Hoặc trong môi trường khôi phục."},
+    {q:"Phần mềm diệt virus tích hợp sẵn trong Windows 11 là:", o:["Windows Firewall","Microsoft Defender Antivirus","SmartScreen","BitLocker"], a:1, e:"Trong Windows Security."},
+    {q:"Kiểu quét virus nhanh, kiểm tra các vị trí thường bị mã độc tấn công là:", o:["Quick scan","Full scan","Custom scan","Offline scan"], a:0, e:"Full scan quét toàn bộ ổ đĩa."},
+    {q:"Kiểu quét khởi động lại máy và quét trước khi Windows chạy, để diệt mã độc cứng đầu là:", o:["Quick scan","Custom scan","Microsoft Defender Offline scan","Full scan"], a:2, e:"Máy sẽ khởi động lại."},
+    {q:"Để quét virus một ổ USB cụ thể, ta chuột phải ổ USB và chọn:", o:["Format","Eject","Properties","Scan with Microsoft Defender"], a:3, e:"Trong Show more options."},
+    {q:"Tường lửa (Firewall) có chức năng:", o:["Diệt virus trong tệp","Kiểm soát các kết nối mạng vào/ra máy tính","Sao lưu dữ liệu","Mã hóa ổ đĩa"], a:1, e:"Luôn nên bật."},
+    {q:"Tính năng SmartScreen cảnh báo:", o:["Ứng dụng, tệp tải về và trang web có dấu hiệu độc hại","Pin yếu","Ổ đĩa đầy","Cập nhật mới"], a:0, e:"App & browser control."},
+    {q:"Tính năng Controlled folder access trong Windows Security giúp:", o:["Tăng tốc truy cập thư mục","Ẩn thư mục","Bảo vệ thư mục quan trọng khỏi mã độc tống tiền (ransomware)","Chia sẻ thư mục qua mạng"], a:2, e:"Ransomware protection."},
+    {q:"Mật khẩu nào sau đây an toàn nhất?", o:["123456789","ngaysinh2005","password","T!nHoc#2026_An9"], a:3, e:"Dài, kết hợp chữ hoa, thường, số, ký hiệu."},
+    {q:"Xác thực hai yếu tố (2FA) là:", o:["Dùng hai mật khẩu giống nhau","Ngoài mật khẩu còn cần thêm một yếu tố khác (mã OTP, ứng dụng xác thực…) khi đăng nhập","Đăng nhập trên hai máy","Đổi mật khẩu hai lần mỗi tháng"], a:1, e:"Tăng bảo mật khi lộ mật khẩu."},
+    {q:"Thư điện tử giả mạo ngân hàng yêu cầu nhấp liên kết để \"xác minh tài khoản\" là hình thức tấn công:", o:["Lừa đảo (phishing)","DDoS","Spam quảng cáo vô hại","Cập nhật hệ thống"], a:0, e:"Không nhấp liên kết, không cung cấp mật khẩu, OTP."},
+    {q:"Loại mã độc mã hóa toàn bộ dữ liệu và đòi tiền chuộc là:", o:["Adware","Spyware","Ransomware","Worm"], a:2, e:"Sao lưu định kỳ là cách phòng hiệu quả nhất."},
+    {q:"Khi rời khỏi máy tính ở nơi làm việc trong chốc lát, nên:", o:["Tắt màn hình","Để nguyên","Tắt Wi-Fi","Khóa máy bằng Win + L"], a:3, e:"Tránh người khác truy cập trái phép."},
+    {q:"Quy tắc sao lưu 3 – 2 – 1 nghĩa là:", o:["Sao lưu 3 lần mỗi ngày trong 2 tuần","3 bản sao dữ liệu, trên 2 loại phương tiện, 1 bản lưu ở nơi khác","3 ổ cứng, 2 USB, 1 đĩa CD","Sao lưu vào 3 giờ, 2 phút, 1 giây"], a:1, e:"Ví dụ: máy + ổ ngoài + đám mây."},
+    {q:"Tính năng File History giúp:", o:["Tự động lưu các phiên bản cũ của tệp ra ổ đĩa ngoài để khôi phục","Xem lịch sử duyệt web","Xem lịch sử cập nhật","Xem lịch sử sao chép Clipboard"], a:0, e:"Khôi phục qua Previous Versions."},
+    {q:"Windows Backup (sao lưu lên OneDrive) dùng để:", o:["Tăng dung lượng ổ C:","Tăng tốc máy","Sao lưu thư mục, ứng dụng và thiết lập để khôi phục sang máy mới","Diệt virus"], a:2, e:"Settings → Accounts → Windows backup."},
+    {q:"System Restore (điểm khôi phục) có đặc điểm:", o:["Xóa toàn bộ tệp cá nhân","Cài lại Windows","Sao lưu ảnh, video","Đưa cài đặt hệ thống, driver, phần mềm về thời điểm trước, không ảnh hưởng tệp cá nhân"], a:3, e:"Tạo restore point trước khi cài phần mềm lạ."},
+    {q:"Reset this PC với tùy chọn Keep my files sẽ:", o:["Giữ nguyên mọi ứng dụng","Cài lại Windows, giữ tệp cá nhân nhưng xóa các ứng dụng đã cài","Xóa sạch mọi thứ","Chỉ xóa tệp tạm"], a:1, e:"Remove everything để xóa sạch."},
+    {q:"Để vào môi trường khôi phục nâng cao (Advanced startup), ta có thể:", o:["Giữ Shift khi nhấn Restart","Nhấn Win + L","Nhấn Ctrl + Shift + Esc","Nhấn F12 trong Windows"], a:0, e:"Hoặc Settings → System → Recovery → Restart now."},
+    {q:"Safe Mode là chế độ:", o:["Chạy Windows nhanh nhất","Khóa máy an toàn","Khởi động Windows với driver và dịch vụ tối thiểu để khắc phục sự cố","Chế độ dành cho trẻ em"], a:2, e:"Dùng gỡ phần mềm, driver gây lỗi."},
+    {q:"Công cụ Disk Cleanup dùng để:", o:["Chống phân mảnh ổ đĩa","Format ổ đĩa","Sao lưu ổ đĩa","Xóa tệp tạm, thùng rác, tệp cập nhật cũ để giải phóng dung lượng"], a:3, e:"Clean up system files để xóa thêm tệp hệ thống cũ."},
+    {q:"Công cụ Defragment and Optimize Drives thực hiện với ổ SSD là:", o:["Chống phân mảnh như ổ HDD","TRIM (tối ưu SSD)","Format","Nén dữ liệu"], a:1, e:"Nên để chạy tự động theo lịch."},
+    {q:"Việc nên làm ĐẦU TIÊN khi máy tính bỗng chạy chậm bất thường là:", o:["Khởi động lại máy","Cài lại Windows","Mua RAM mới","Format ổ C:"], a:0, e:"Sau đó kiểm tra Task Manager, Startup apps…"},
+    {q:"Ổ C: nên còn trống tối thiểu khoảng bao nhiêu phần trăm để Windows hoạt động ổn định?", o:["1%","5%","15 – 20%","90%"], a:2, e:"Dùng Storage Sense, Disk Cleanup để dọn."},
+    {q:"Ứng dụng đi kèm Windows dùng để biên tập video đơn giản (cắt ghép, chèn chữ, nhạc) là:", o:["Photos","Paint","Media Player","Clipchamp"], a:3, e:"Xuất video MP4."},
+    {q:"Ứng dụng Calculator của Windows 11 có chế độ:", o:["Chỉ Standard","Standard, Scientific, Programmer, Graphing, Date calculation, chuyển đổi đơn vị","Chỉ Scientific","Chỉ chuyển đổi tiền tệ"], a:1, e:"Chọn chế độ ở menu ☰."},
+    {q:"Trong hộp thoại Run (Win + R), gõ lệnh nào để mở Control Panel?", o:["control","panel","ctrl","settings.exe bắt buộc"], a:0, e:"calc: máy tính, notepad: Notepad, taskmgr: Task Manager."},
+    {q:"Lệnh gõ trong Run để xem thông tin chi tiết cấu hình hệ thống là:", o:["winver","calc","msinfo32","mspaint"], a:2, e:"System Information."},
+    {q:"Ứng dụng Notepad dùng để soạn thảo tệp có phần mở rộng:", o:[".docx",".xlsx",".pdf",".txt"], a:3, e:"Văn bản thuần, không định dạng."},
+    {q:"Trình duyệt web mặc định đi kèm Windows 11 là:", o:["Google Chrome","Microsoft Edge","Mozilla Firefox","Internet Explorer"], a:1, e:"Internet Explorer đã ngừng hỗ trợ."},
+    {q:"Tổ hợp phím mở cửa sổ duyệt web riêng tư InPrivate trong Microsoft Edge là:", o:["Ctrl + Shift + N","Ctrl + N","Ctrl + Shift + P","Alt + N"], a:0, e:"Không lưu lịch sử, cookie sau khi đóng."},
+    {q:"Trong trình duyệt, tổ hợp phím mở lại tab vừa đóng nhầm là:", o:["Ctrl + T","Ctrl + W","Ctrl + Shift + T","Ctrl + Z"], a:2, e:"Ctrl + T mở tab mới."},
+    {q:"Tổ hợp phím xem danh sách tệp đã tải về trong Microsoft Edge là:", o:["Ctrl + H","Ctrl + D","Ctrl + F","Ctrl + J"], a:3, e:"Ctrl + H: lịch sử; Ctrl + D: lưu Favorites."},
+    {q:"Dấu hiệu cơ bản của trang web có kết nối an toàn là:", o:["Có nhiều quảng cáo","Địa chỉ bắt đầu bằng https:// và có biểu tượng ổ khóa","Tên miền dài","Có chữ \"miễn phí\""], a:1, e:"Vẫn cần kiểm tra tên miền đúng chính tả."},
+    {q:"Để xóa lịch sử duyệt web, cookie, bộ nhớ đệm trong Microsoft Edge, ta nhấn:", o:["Ctrl + Shift + Delete","Ctrl + Delete","Shift + Delete","Alt + Delete"], a:0, e:"Clear browsing data."},
+    {q:"Ứng dụng Paint trên Windows 11 hiện nay có thể:", o:["Chỉ vẽ đường thẳng","Dựng hình 3D","Xóa phông nền ảnh và làm việc với lớp (layers)","Chỉnh sửa video"], a:2, e:"Các bản cập nhật mới bổ sung tính năng."},
+    {q:"Trong Windows Security, mục Firewall & network protection cho phép bật/tắt tường lửa theo loại mạng:", o:["Chỉ Public","Wi-Fi và Ethernet","LAN và WAN","Domain, Private, Public"], a:3, e:"Nên bật cho tất cả."}
+  ];
+
+
+  // ===== Helpers dùng chung =====
+  const byId = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const pad = n => String(n).padStart(2,"0");
+  const fmtTime = sec => pad(Math.floor(sec/60)) + ":" + pad(sec%60);
+  const LETTERS = ["A","B","C","D"];
+  const rankOf = s => s >= 8 ? "good" : s >= 5 ? "mid" : "low";
+  const rankText = s => s >= 9 ? "Xuất sắc" : s >= 8 ? "Giỏi" : s >= 6.5 ? "Khá" : s >= 5 ? "Trung bình" : "Chưa đạt";
+
+  function toast(msg){
+    const t = byId("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2600);
+  }
+  function confirmBox(title, text, yesLabel){
+    return new Promise(resolve => {
+      byId("modalTitle").textContent = title; byId("modalText").textContent = text;
+      byId("modalYes").textContent = yesLabel || "Đồng ý";
+      const m = byId("modal"); m.classList.add("show");
+      const done = v => { m.classList.remove("show"); byId("modalYes").onclick = byId("modalNo").onclick = null; resolve(v); };
+      byId("modalYes").onclick = () => done(true);
+      byId("modalNo").onclick = () => done(false);
+    });
+  }
+
+  // ===== Khởi tạo một bài học (quiz + lịch sử) =====
+  function initLesson(cfg){
+    const P = cfg.prefix, QUESTIONS = cfg.questions, TOTAL = QUESTIONS.length, STORAGE_KEY = cfg.storageKey;
+    const $ = id => byId(P + id);
+
+    function loadHistory(){
+      try { const d = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Array.isArray(d) ? d : []; }
+      catch(e){ return []; }
+    }
+    function saveHistory(list){
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); return true; }
+      catch(e){ toast("⚠ Không thể lưu vào LocalStorage trên trình duyệt này."); return false; }
+    }
+
+    let answers = new Array(TOTAL).fill(null);
+    let submitted = false, seconds = 0, timerId = null, started = false;
+    const navBtn = i => $("qnav").querySelector(`[data-go="${i}"]`);
+
+    function startTimer(){
+      if (started) return; started = true;
+      timerId = setInterval(() => { seconds++; $("timer").textContent = fmtTime(seconds); }, 1000);
+    }
+
+    // Thứ tự hiển thị các phương án được xáo trộn mỗi lần làm bài; giá trị lưu vẫn là chỉ số gốc
+    let orders = [];
+    const shuffle = arr => { for (let k = arr.length - 1; k > 0; k--){ const r = Math.floor(Math.random() * (k + 1)); [arr[k], arr[r]] = [arr[r], arr[k]]; } return arr; };
+    const letterOf = (i, j) => LETTERS[orders[i].indexOf(j)];
+
+    function renderQuiz(){
+      orders = QUESTIONS.map(item => shuffle(item.o.map((_, j) => j)));
+      $("qnav").innerHTML = QUESTIONS.map((_, i) => `<button type="button" data-go="${i}" title="Câu ${i+1}">${i+1}</button>`).join("");
+      $("quizBox").innerHTML = QUESTIONS.map((item, i) => `
+        <div class="q" id="${P}q${i}">
+          <div class="qt"><span class="qn">Câu ${i+1}.</span>${esc(item.q)}</div>
+          ${orders[i].map((j, pos) => `
+            <label class="opt" data-o="${j}">
+              <input type="radio" name="${P}q${i}" value="${j}" data-i="${i}">
+              <span class="l">${LETTERS[pos]}.</span><span>${esc(item.o[j])}</span>
+            </label>`).join("")}
+          <div class="explain"></div>
+        </div>`).join("");
+    }
+
+    function updateProgress(){
+      const n = answers.filter(a => a !== null).length;
+      $("answeredCount").textContent = n;
+      $("quizBar").style.width = (n / TOTAL * 100) + "%";
+    }
+
+    $("quizBox").addEventListener("change", e => {
+      if (submitted || e.target.type !== "radio") return;
+      const qi = +e.target.dataset.i, oi = +e.target.value;
+      answers[qi] = oi; startTimer();
+      const qEl = $("q" + qi);
+      qEl.classList.add("answered");
+      qEl.querySelectorAll(".opt").forEach(o => o.classList.toggle("sel", +o.dataset.o === oi));
+      navBtn(qi).classList.add("done");
+      updateProgress();
+    });
+
+    $("qnav").addEventListener("click", e => {
+      const b = e.target.closest("[data-go]"); if (!b) return;
+      $("q" + b.dataset.go).scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    const nameInput = $("studentName");
+    nameInput.addEventListener("input", () => {
+      if (nameInput.value.trim().length >= 2){ nameInput.classList.remove("invalid"); $("nameErr").classList.remove("show"); }
+    });
+
+    function validateName(){
+      const name = nameInput.value.trim().replace(/\s+/g, " ");
+      if (name.length < 2){
+        nameInput.classList.remove("invalid"); void nameInput.offsetWidth; nameInput.classList.add("invalid");
+        $("nameErr").classList.add("show");
+        nameInput.scrollIntoView({behavior:"smooth", block:"center"});
+        setTimeout(() => nameInput.focus(), 350);
+        toast("⚠ Vui lòng nhập Họ và tên trước khi nộp bài!");
+        return null;
+      }
+      return name;
+    }
+
+    async function submitQuiz(){
+      if (submitted) return;
+      const name = validateName();
+      if (!name) return;
+      const missing = answers.filter(a => a === null).length;
+      if (missing > 0){
+        const ok = await confirmBox("Còn câu chưa làm", `Bạn còn ${missing} câu chưa trả lời. Các câu này sẽ được tính là sai. Bạn vẫn muốn nộp bài?`, "Nộp bài");
+        if (!ok) return;
+      }
+      submitted = true; clearInterval(timerId);
+
+      let correct = 0;
+      QUESTIONS.forEach((item, i) => {
+        const qEl = $("q" + i), chosen = answers[i], isRight = chosen === item.a;
+        if (isRight) correct++;
+        qEl.classList.add("locked");
+        qEl.querySelectorAll("input").forEach(inp => inp.disabled = true);
+        qEl.querySelectorAll(".opt").forEach(o => {
+          const j = +o.dataset.o; o.classList.remove("sel");
+          if (j === item.a) o.classList.add("correct");
+          else if (j === chosen) o.classList.add("incorrect");
+        });
+        const status = chosen === null ? "⚪ Chưa trả lời." : isRight ? "✅ Chính xác!" : `❌ Sai. Bạn chọn ${letterOf(i, chosen)}.`;
+        qEl.querySelector(".explain").innerHTML = `<b>${status}</b> Đáp án đúng: <b>${letterOf(i, item.a)}</b>. ${esc(item.e)}`;
+        const nb = navBtn(i); nb.classList.remove("done"); nb.classList.add(isRight ? "right" : "wrong");
+      });
+
+      const score = Math.round(correct / TOTAL * 10 * 100) / 100;
+      const rk = rankOf(score);
+      const res = $("result");
+      res.className = "result show " + rk;
+      res.innerHTML = `
+        <div>Kết quả của học viên <b>${esc(name)}</b></div>
+        <div class="score">${score.toLocaleString("vi-VN")} / 10</div>
+        <span class="rank score-chip ${rk}">${rankText(score)}</span>
+        <div class="stats"><span>✅ Đúng: <b>${correct}</b></span><span>❌ Sai/bỏ trống: <b>${TOTAL - correct}</b></span><span>⏱ Thời gian: <b>${fmtTime(seconds)}</b></span></div>
+        <p style="margin:12px 0 0;color:var(--muted)">Xem lại đáp án và giải thích bên trên từng câu hỏi.</p>`;
+
+      nameInput.disabled = true;
+      $("submitBtn").disabled = true;
+
+      const list = loadHistory();
+      list.unshift({ id: Date.now(), name, score, correct, total: TOTAL, time: seconds, date: new Date().toISOString() });
+      if (saveHistory(list)) toast("✔ Đã nộp bài và lưu kết quả!");
+      renderHistory();
+      res.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+
+    function resetQuiz(){
+      answers = new Array(TOTAL).fill(null);
+      submitted = false; started = false; seconds = 0; clearInterval(timerId);
+      $("timer").textContent = "00:00";
+      renderQuiz(); updateProgress();
+      $("result").className = "result"; $("result").innerHTML = "";
+      nameInput.disabled = false; $("submitBtn").disabled = false;
+    }
+
+    $("submitBtn").addEventListener("click", submitQuiz);
+    $("resetBtn").addEventListener("click", async () => {
+      if (!submitted && answers.some(a => a !== null)){
+        const ok = await confirmBox("Làm lại bài", "Toàn bộ câu trả lời hiện tại sẽ bị xóa. Tiếp tục?", "Làm lại");
+        if (!ok) return;
+      }
+      resetQuiz();
+      $("quiz").scrollIntoView({behavior:"smooth"});
+    });
+
+    function renderHistory(){
+      const kw = $("histSearch").value.trim().toLowerCase();
+      const list = loadHistory();
+      const rows = list.filter(r => !kw || String(r.name).toLowerCase().includes(kw));
+      const body = $("histBody");
+      if (!rows.length){
+        body.innerHTML = `<tr><td colspan="7" class="empty">${list.length ? "Không tìm thấy học viên phù hợp." : "Chưa có kết quả nào. Hãy làm bài kiểm tra!"}</td></tr>`;
+        return;
+      }
+      body.innerHTML = rows.map((r, i) => {
+        const d = new Date(r.date);
+        return `<tr>
+          <td>${i+1}</td>
+          <td><b>${esc(r.name)}</b></td>
+          <td><span class="score-chip ${rankOf(r.score)}">${Number(r.score).toLocaleString("vi-VN")}</span></td>
+          <td>${r.correct}/${r.total}</td>
+          <td>${fmtTime(r.time || 0)}</td>
+          <td>${d.toLocaleDateString("vi-VN")} ${d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}</td>
+          <td><button class="del-row" data-del="${r.id}" title="Xóa dòng này">✕</button></td>
+        </tr>`;
+      }).join("");
+    }
+
+    $("histSearch").addEventListener("input", renderHistory);
+    $("histBody").addEventListener("click", async e => {
+      const b = e.target.closest("[data-del]"); if (!b) return;
+      const ok = await confirmBox("Xóa kết quả", "Bạn có chắc muốn xóa kết quả này khỏi lịch sử?", "Xóa");
+      if (!ok) return;
+      saveHistory(loadHistory().filter(r => String(r.id) !== b.dataset.del));
+      renderHistory(); toast("Đã xóa kết quả.");
+    });
+    $("clearBtn").addEventListener("click", async () => {
+      if (!loadHistory().length) return toast("Lịch sử đang trống.");
+      const ok = await confirmBox("Xóa toàn bộ lịch sử", `Tất cả kết quả làm bài của ${cfg.title} sẽ bị xóa và không thể khôi phục.`, "Xóa hết");
+      if (!ok) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      renderHistory(); toast("Đã xóa toàn bộ lịch sử.");
+    });
+    $("exportBtn").addEventListener("click", () => {
+      const list = loadHistory();
+      if (!list.length) return toast("Chưa có dữ liệu để xuất.");
+      const q = v => `"${String(v).replace(/"/g,'""')}"`;
+      const lines = [["STT","Họ tên học viên","Điểm","Số câu đúng","Tổng số câu","Thời gian làm","Ngày nộp"].map(q).join(",")];
+      list.forEach((r, i) => lines.push([i+1, r.name, r.score, r.correct, r.total, fmtTime(r.time||0), new Date(r.date).toLocaleString("vi-VN")].map(q).join(",")));
+      const blob = new Blob(["﻿" + lines.join("\r\n")], {type:"text/csv;charset=utf-8"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = cfg.csvName;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    });
+
+    renderQuiz(); updateProgress(); renderHistory();
+  }
+
+  initLesson({ prefix:"n1-", title:"Bài 1. Giao diện & thao tác",      questions:N1_QUESTIONS, storageKey:"win11_giaodien_quiz_history",  csvName:"ket-qua-win11-bai1-giao-dien.csv" });
+  initLesson({ prefix:"n2-", title:"Bài 2. Cửa sổ & đa nhiệm",         questions:N2_QUESTIONS, storageKey:"win11_danhiem_quiz_history",   csvName:"ket-qua-win11-bai2-da-nhiem.csv" });
+  initLesson({ prefix:"n3-", title:"Bài 3. Tệp & thư mục",             questions:N3_QUESTIONS, storageKey:"win11_tepthumuc_quiz_history", csvName:"ket-qua-win11-bai3-tep-thu-muc.csv" });
+  initLesson({ prefix:"n4-", title:"Bài 4. Cài đặt & cá nhân hóa",     questions:N4_QUESTIONS, storageKey:"win11_caidat_quiz_history",    csvName:"ket-qua-win11-bai4-cai-dat.csv" });
+  initLesson({ prefix:"n5-", title:"Bài 5. Bảo mật & bảo trì",         questions:N5_QUESTIONS, storageKey:"win11_baomat_quiz_history",    csvName:"ket-qua-win11-bai5-bao-mat.csv" });
+  // ===== Chuyển bài học =====
+  const LESSON_KEY = "win11_current_lesson";
+  const LESSONS = { n1:"giaodien", n2:"danhiem", n3:"tepthumuc", n4:"caidat", n5:"baomat" };
+  let current = "giaodien";
+  function showLesson(name, scrollTop){
+    current = name;
+    document.querySelectorAll(".lesson").forEach(l => l.classList.toggle("active", l.id === "lesson-" + name));
+    document.querySelectorAll(".lesson-tabs [data-lesson]").forEach(b => b.classList.toggle("active", b.dataset.lesson === name));
+    try { localStorage.setItem(LESSON_KEY, name); } catch(e){}
+    if (scrollTop) window.scrollTo({top:0});
+    onScroll();
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest("button[data-lesson]"); if (!b) return;
+    showLesson(b.dataset.lesson, true);
+    try { history.replaceState(null, "", "#" + b.dataset.lesson); } catch(e){}
+  });
+
+  // ===== Mục lục đang xem + tiến độ đọc + nút lên đầu =====
+  function onScroll(){
+    const root = byId("lesson-" + current);
+    const links = [...root.querySelectorAll("nav.toc a")];
+    const y = window.scrollY + 120;
+    let idx = 0;
+    links.forEach((a, i) => { const s = document.querySelector(a.getAttribute("href")); if (s && s.offsetTop <= y) idx = i; });
+    links.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const h = document.documentElement.scrollHeight - innerHeight;
+    const bar = root.querySelector(".progress-read i");
+    if (bar) bar.style.width = (h > 0 ? window.scrollY / h * 100 : 0) + "%";
+    byId("toTop").style.display = window.scrollY > 600 ? "block" : "none";
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  byId("toTop").addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+  // ===== Khởi động: ưu tiên #tên-bài trên URL, sau đó bài đã xem gần nhất =====
+  let start = "giaodien";
+  const hash = location.hash.slice(1);
+  const names = Object.values(LESSONS);
+  const byHash = names.includes(hash) ? hash : LESSONS[hash.split("-")[0]];
+  if (byHash) start = byHash;
+  else {
+    try { const saved = localStorage.getItem(LESSON_KEY); if (names.includes(saved)) start = saved; } catch(e){}
+  }
+  showLesson(start, false);
+})();
+</script>
+</body>
+</html>

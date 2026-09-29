@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài giảng Excel 2019</title>
+<style>
+:root{
+  --bg:#f4f6fb; --surface:#ffffff; --surface-2:#eef1f8; --text:#1d2433; --muted:#5b6478;
+  --border:#dde2ee; --primary:#217346; --primary-2:#2e8b57; --primary-soft:#e6f4ea;
+  --accent:#2563eb; --ok:#15803d; --ok-soft:#e6f6ec; --bad:#b91c1c; --bad-soft:#fdecec;
+  --warn:#b45309; --warn-soft:#fff5e5; --code-bg:#1e2230; --code-text:#e6e9f2;
+  --shadow:0 2px 10px rgba(20,30,60,.07); --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#11141b; --surface:#1a1f2a; --surface-2:#232937; --text:#e7eaf2; --muted:#9aa3b8;
+    --border:#2e3546; --primary:#5cc38a; --primary-2:#7ed3a3; --primary-soft:#16301f;
+    --accent:#6ea0ff; --ok:#4ade80; --ok-soft:#173222; --bad:#f87171; --bad-soft:#3a1c1c;
+    --warn:#fbbf24; --warn-soft:#3a2d14; --code-bg:#0c0f15; --code-text:#e6e9f2;
+    --shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65;font-size:16px}
+a{color:var(--accent)}
+code,kbd{font-family:Consolas,"Courier New",monospace;font-size:.92em}
+code{background:var(--surface-2);padding:1px 6px;border-radius:5px}
+kbd{border:1px solid var(--border);border-bottom-width:3px;border-radius:5px;padding:0 6px;background:var(--surface)}
+
+/* Header */
+header.hero{background:linear-gradient(135deg,#0f4d2a,#217346 55%,#33a36b);color:#fff;padding:36px 16px 44px}
+.hero .wrap{max-width:1180px;margin:0 auto}
+.hero .badge{display:inline-block;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:99px;font-size:.85rem;letter-spacing:.3px}
+.hero h1{margin:12px 0 6px;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.25}
+.hero p{margin:0;opacity:.92;max-width:760px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.hero .meta span,.hero .meta a{background:rgba(0,0,0,.18);padding:6px 12px;border-radius:10px;font-size:.9rem;color:#fff;text-decoration:none}
+.hero .meta a:hover{background:rgba(0,0,0,.3)}
+
+/* Layout */
+.layout{max-width:1180px;margin:-22px auto 40px;padding:0 16px;display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
+nav.toc{position:sticky;top:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
+nav.toc h3{margin:4px 8px 10px;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+nav.toc a{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:9px;color:var(--text);text-decoration:none;font-size:.94rem}
+nav.toc a .n{flex:0 0 24px;height:24px;border-radius:7px;background:var(--surface-2);display:grid;place-items:center;font-size:.78rem;font-weight:700;color:var(--muted)}
+nav.toc a:hover,nav.toc a.active{background:var(--primary-soft);color:var(--primary)}
+nav.toc a.active .n{background:var(--primary);color:#fff}
+.progress-read{height:4px;background:var(--surface-2);border-radius:4px;margin:12px 8px 4px;overflow:hidden}
+.progress-read i{display:block;height:100%;width:0;background:var(--primary);transition:width .2s}
+main{min-width:0}
+section.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:22px;scroll-margin-top:16px}
+section.card h2{margin:0 0 14px;font-size:1.45rem;display:flex;align-items:center;gap:12px}
+section.card h2 .num{background:var(--primary);color:#fff;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:1rem;flex:0 0 34px}
+section.card h3{margin:22px 0 8px;font-size:1.1rem;color:var(--primary)}
+.lead{color:var(--muted);margin-top:-4px}
+
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:14px 0}
+.tile{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:16px}
+.tile h4{margin:0 0 6px;font-size:1rem}
+.tile p{margin:0;color:var(--muted);font-size:.94rem}
+.tile .ic{font-size:1.5rem}
+
+.note{border-left:4px solid var(--accent);background:var(--surface-2);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.note.warn{border-color:var(--warn);background:var(--warn-soft)}
+.note.tip{border-color:var(--ok);background:var(--ok-soft)}
+.note b:first-child{display:block;margin-bottom:2px}
+
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.94rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td code{white-space:nowrap}
+
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+ol.steps li{counter-increment:s;position:relative;padding:4px 0 14px 48px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:32px;height:32px;border-radius:50%;background:var(--primary-soft);color:var(--primary);font-weight:700;display:grid;place-items:center}
+ol.steps li:not(:last-child)::after{content:"";position:absolute;left:15px;top:36px;bottom:0;width:2px;background:var(--border)}
+
+/* Query Design mock */
+.designer{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.9rem}
+.designer .bar{background:var(--primary);color:#fff;padding:7px 12px;font-weight:600;display:flex;justify-content:space-between}
+.designer .tables{background:var(--surface-2);padding:16px;display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;position:relative;border-bottom:1px solid var(--border)}
+.tbox{background:var(--surface);border:1px solid var(--border);border-radius:8px;min-width:140px;box-shadow:var(--shadow)}
+.tbox b{display:block;background:var(--primary-soft);color:var(--primary);padding:5px 10px;border-radius:8px 8px 0 0}
+.tbox div{padding:2px 10px;color:var(--muted)}
+.tbox div:last-child{padding-bottom:8px}
+.tbox .pk{color:var(--text);font-weight:600}
+.join-line{align-self:center;color:var(--muted);font-weight:700}
+.qbe{overflow-x:auto;background:var(--surface)}
+.qbe table{font-size:.86rem;min-width:560px}
+.qbe th{width:90px;text-align:right;color:var(--muted);background:var(--surface-2)}
+.qbe td{border-left:1px solid var(--border);min-width:120px}
+.qbe .hl{color:var(--accent);font-weight:600}
+
+pre.code{background:var(--code-bg);color:var(--code-text);padding:16px 18px;border-radius:12px;overflow-x:auto;font-size:.9rem;line-height:1.6;margin:14px 0}
+pre.code .k{color:#ff9e9e;font-weight:700}
+pre.code .a{color:#8cc8ff;font-weight:700}
+pre.code .c{color:#8fd19e;font-style:italic}
+pre.code .s{color:#f5d38a}
+
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.82rem;font-weight:700;margin-right:6px}
+.chip.sel{background:#e0ecff;color:#1d4ed8}
+.chip.act{background:var(--warn-soft);color:var(--warn)}
+.chip.sql{background:var(--ok-soft);color:var(--ok)}
+@media (prefers-color-scheme: dark){.chip.sel{background:#1b2a48;color:#8fb4ff}}
+
+/* Quiz */
+.student-box{background:linear-gradient(135deg,var(--primary-soft),var(--surface-2));border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin:6px 0 18px}
+.student-box label{display:block;font-weight:700;margin-bottom:8px}
+.student-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.student-row input{flex:1 1 260px;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:1rem;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
+.student-row input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft)}
+.student-row input.invalid{border-color:var(--bad);box-shadow:0 0 0 4px var(--bad-soft);animation:shake .35s}
+.err-msg{color:var(--bad);font-size:.9rem;margin-top:8px;display:none;font-weight:600}
+.err-msg.show{display:block}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.quiz-status{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:16px;box-shadow:var(--shadow)}
+.quiz-status .bar{flex:1 1 160px;height:8px;background:var(--surface-2);border-radius:8px;overflow:hidden}
+.quiz-status .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .25s}
+.quiz-status .pill{font-size:.9rem;background:var(--surface-2);padding:4px 10px;border-radius:99px;white-space:nowrap}
+.qnav{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin-bottom:18px}
+.qnav button{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:6px 0;cursor:pointer;font-weight:600;font-size:.85rem}
+.qnav button.done{background:var(--primary);border-color:var(--primary);color:#fff}
+.qnav button.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.qnav button.wrong{background:var(--bad);border-color:var(--bad);color:#fff}
+
+.q{border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px;scroll-margin-top:80px;transition:border-color .2s}
+.q.answered{border-color:color-mix(in srgb,var(--primary) 45%,var(--border))}
+.q .qt{font-weight:600;margin-bottom:10px}
+.q .qt .qn{color:var(--primary);margin-right:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:1px solid var(--border);border-radius:9px;margin-bottom:7px;cursor:pointer;transition:background .15s,border-color .15s}
+.opt:hover{background:var(--surface-2)}
+.opt input{margin-top:5px;accent-color:var(--primary)}
+.opt .l{font-weight:700;color:var(--muted);min-width:18px}
+.opt.sel{border-color:var(--primary);background:var(--primary-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.incorrect{border-color:var(--bad);background:var(--bad-soft)}
+.q.locked .opt{cursor:default}
+.explain{display:none;margin-top:8px;font-size:.92rem;padding:10px 12px;border-radius:9px;background:var(--surface-2)}
+.q.locked .explain{display:block}
+
+.btn{border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:.98rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .1s,filter .15s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:var(--surface-2);color:var(--text);border:1px solid var(--border)}
+.btn-danger{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+.result{display:none;border-radius:14px;padding:22px;margin:18px 0;text-align:center;border:2px solid var(--border)}
+.result.show{display:block}
+.result .score{font-size:3rem;font-weight:800;line-height:1.1}
+.result .rank{display:inline-block;margin-top:6px;padding:4px 14px;border-radius:99px;font-weight:700}
+.result.good{border-color:var(--ok);background:var(--ok-soft)} .result.good .score{color:var(--ok)}
+.result.mid{border-color:var(--warn);background:var(--warn-soft)} .result.mid .score{color:var(--warn)}
+.result.low{border-color:var(--bad);background:var(--bad-soft)} .result.low .score{color:var(--bad)}
+.result .stats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:12px;color:var(--muted)}
+
+/* History */
+.hist-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.hist-tools input{flex:1 1 220px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-size:.95rem}
+.score-chip{display:inline-block;min-width:48px;text-align:center;padding:2px 8px;border-radius:8px;font-weight:700}
+.score-chip.good{background:var(--ok-soft);color:var(--ok)}
+.score-chip.mid{background:var(--warn-soft);color:var(--warn)}
+.score-chip.low{background:var(--bad-soft);color:var(--bad)}
+.empty{text-align:center;color:var(--muted);padding:22px}
+.del-row{background:none;border:none;color:var(--bad);cursor:pointer;font-size:1rem}
+
+/* Modal + toast */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:var(--surface);border-radius:14px;max-width:440px;width:100%;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.modal h3{margin:0 0 8px}
+.modal .actions{justify-content:flex-end}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:10px;z-index:60;transition:transform .3s;font-weight:600;max-width:calc(100% - 32px)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.to-top{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:none;background:var(--primary);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:var(--shadow);display:none;z-index:20}
+footer{text-align:center;color:var(--muted);font-size:.88rem;padding:10px 16px 40px}
+footer .credit{display:inline-block;margin-top:12px;padding:10px 22px;border-radius:99px;background:linear-gradient(135deg,#0f4d2a,#217346 55%,#33a36b);color:#fff;font-size:1rem;font-weight:600;letter-spacing:.2px;box-shadow:0 4px 16px rgba(33,115,70,.35);transition:transform .2s,box-shadow .2s}
+footer .credit:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(33,115,70,.45)}
+.lesson-nav{max-width:1180px;margin:0 auto 18px;padding:0 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lesson-nav a{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;text-decoration:none;color:var(--text);font-weight:600;box-shadow:var(--shadow)}
+.lesson-nav a:hover{border-color:var(--primary);color:var(--primary)}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav.toc{position:static;display:flex;overflow-x:auto;gap:4px;padding:8px}
+  nav.toc h3,.progress-read{display:none}
+  nav.toc a{white-space:nowrap}
+  section.card{padding:20px 16px}
+}
+@media print{nav.toc,.to-top,.quiz-status,.qnav,.actions,.hist-tools,.lesson-nav{display:none!important}.layout{display:block}}
+/* Macro builder mock */
+.builder{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.92rem}
+.builder .bar{background:var(--primary);color:#fff;padding:7px 12px;font-weight:600;display:flex;justify-content:space-between}
+.builder .body{display:grid;grid-template-columns:1fr 220px;min-height:200px}
+.builder .canvas{padding:14px;background:var(--surface)}
+.builder .catalog{background:var(--surface-2);border-left:1px solid var(--border);padding:12px}
+.builder .catalog b{display:block;margin-bottom:6px}
+.builder .catalog div{padding:3px 0;color:var(--muted)}
+.mblock{border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:8px;background:var(--surface-2)}
+.mblock .act{font-weight:700;color:var(--accent)}
+.mblock .arg{display:grid;grid-template-columns:110px 1fr;gap:4px 10px;margin-top:6px;font-size:.88rem}
+.mblock .arg span:nth-child(odd){color:var(--muted)}
+.mblock.cmt{color:var(--ok);font-style:italic;background:transparent;border-style:dashed}
+.mblock.if{border-color:var(--warn);background:var(--warn-soft)}
+.addnew{border:1px dashed var(--border);border-radius:8px;padding:7px 12px;color:var(--muted)}
+
+
+@media (max-width:900px){
+  .builder .body{grid-template-columns:1fr}
+  .builder .catalog{border-left:none;border-top:1px solid var(--border)}
+}
+
+/* Form Design mock */
+.fsec-h{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3px 12px;font-size:.82rem;font-weight:700;color:var(--muted)}
+.fsec{padding:12px 16px;border-bottom:1px solid var(--border)}
+.frow{display:flex;gap:12px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.fctl{display:inline-block;padding:4px 10px;border-radius:5px;font-size:.88rem}
+.fctl.lbl{min-width:70px;color:var(--text)}
+.fctl.box{border:1px solid var(--border);background:var(--surface-2);min-width:180px;color:var(--accent)}
+.fctl.btn-mock{border:1px solid var(--border);background:var(--surface-2);font-weight:600;margin:2px 4px 2px 0}
+
+
+
+/* Mô phỏng giao diện Word */
+.ribbon{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.85rem}
+.ribbon .wtitle{background:var(--primary);color:#fff;padding:6px 12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ribbon .wtabs{display:flex;gap:2px;background:var(--surface-2);padding:4px 8px 0;flex-wrap:wrap}
+.ribbon .wtabs span{padding:4px 10px;border-radius:6px 6px 0 0;color:var(--muted)}
+.ribbon .wtabs span.on{background:var(--surface);color:var(--primary);font-weight:700}
+.ribbon .wgroups{display:flex;background:var(--surface);padding:8px 4px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.ribbon .wgrp{padding:2px 12px;border-right:1px solid var(--border);text-align:center;display:flex;flex-direction:column;justify-content:space-between;gap:4px}
+.ribbon .wgrp:last-child{border-right:none}
+.ribbon .wgrp .it{font-weight:600}
+.ribbon .wgrp .gn{color:var(--muted);font-size:.72rem}
+.ribbon .wdoc{background:var(--surface-2);padding:16px}
+.ribbon .wpage{background:var(--surface);max-width:520px;margin:0 auto;padding:22px 28px;box-shadow:var(--shadow);border:1px solid var(--border);min-height:120px}
+.ribbon .wstatus{background:var(--primary);color:#fff;padding:3px 12px;font-size:.76rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.callouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:10px 0}
+.callouts div{background:var(--surface-2);border-radius:8px;padding:8px 12px;font-size:.9rem}
+.callouts b{color:var(--primary)}
+.flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin:14px 0}
+.flow .st{flex:1 1 150px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:.9rem}
+.flow .st b{display:block;color:var(--primary)}
+.flow .ar{align-self:center;color:var(--muted);font-weight:700}
+.margin-demo{position:relative;max-width:300px;aspect-ratio:210/297;margin:14px auto;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
+.margin-demo .inner{position:absolute;top:8%;bottom:8%;left:14%;right:7%;border:1px dashed var(--primary);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem;text-align:center;padding:6px}
+.margin-demo span{position:absolute;font-size:.72rem;color:var(--primary);font-weight:700}
+
+/* Mô phỏng lưới bảng tính */
+.xl{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:14px 0;font-size:.85rem;background:var(--surface)}
+.xl .fbar{display:flex;gap:10px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--border);font-family:Consolas,"Courier New",monospace;flex-wrap:wrap}
+.xl .fbar .nb{border:1px solid var(--border);padding:1px 8px;min-width:56px;background:var(--surface-2)}
+.xl .gridwrap{overflow-x:auto}
+.xl table{border-collapse:collapse;width:100%;min-width:420px;font-size:.85rem}
+.xl th{background:var(--surface-2);color:var(--muted);font-weight:600;text-align:center;padding:3px 8px;border:1px solid var(--border);white-space:nowrap}
+.xl td{border:1px solid var(--border);padding:3px 8px;white-space:nowrap}
+.xl td.num{text-align:right}
+.xl td.sel{outline:2px solid var(--primary);outline-offset:-2px;background:var(--primary-soft)}
+.xl .sheets{display:flex;gap:2px;padding:3px 8px;background:var(--surface-2);font-size:.8rem;border-top:1px solid var(--border)}
+.xl .sheets span{padding:2px 12px}
+.xl .sheets .on{background:var(--surface);color:var(--primary);font-weight:700;border-bottom:2px solid var(--primary)}
+
+/* Thanh chuyển bài học */
+.lesson-tabs{background:#0b3b20;padding:10px 16px}
+.lesson-tabs .wrap{max-width:1180px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lesson-tabs .brand{color:#fff;font-weight:700;margin-right:auto;opacity:.95}
+.lesson-tabs button{border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:8px 16px;border-radius:99px;font-weight:600;font-size:.94rem;cursor:pointer;transition:background .15s}
+.lesson-tabs button:hover{background:rgba(255,255,255,.12)}
+.lesson-tabs button.active{background:#fff;color:#217346;border-color:#fff}
+.lesson{display:none}
+.lesson.active{display:block}
+.lesson-nav button{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 18px;color:var(--primary);font-weight:600;font-size:1rem;box-shadow:var(--shadow);cursor:pointer;font-family:inherit}
+.lesson-nav button:hover{border-color:var(--primary)}
+</style>
+</head>
+<body>
+
+<div class="lesson-tabs">
+  <div class="wrap">
+    <a class="brand" href="index.html" title="Về trang chủ bộ bài giảng" style="text-decoration:none">🏠 📊 Microsoft Excel 2019</a>
+    <button type="button" data-lesson="nhaplieu">Bài 1. Làm quen &amp; Nhập liệu</button>
+    <button type="button" data-lesson="dinhdang">Bài 2. Định dạng bảng tính</button>
+    <button type="button" data-lesson="congthuc">Bài 3. Công thức &amp; Hàm</button>
+    <button type="button" data-lesson="tracuu">Bài 4. Hàm tra cứu &amp; điều kiện</button>
+    <button type="button" data-lesson="dulieu">Bài 5. Dữ liệu, Biểu đồ &amp; In</button>
+  </div>
+</div>
+
+<!-- ================= BÀI 1: LÀM QUEN & NHẬP LIỆU ================= -->
+<div class="lesson" id="lesson-nhaplieu">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📊 Tin học ứng dụng · Microsoft Excel 2019</span>
+    <h1>Bài 1. Làm quen với Excel 2019 và nhập liệu</h1>
+    <p>Giao diện Excel 2019, sổ tính – trang tính, địa chỉ ô, nhập và sửa dữ liệu đúng kiểu, điền tự động AutoFill – Flash Fill, thao tác hàng cột, Paste Special và cố định tiêu đề.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#x1-s1"><span class="n">1</span>Giao diện Excel 2019</a>
+    <a href="#x1-s2"><span class="n">2</span>Workbook & Worksheet</a>
+    <a href="#x1-s3"><span class="n">3</span>Ô, vùng & di chuyển</a>
+    <a href="#x1-s4"><span class="n">4</span>Nhập & sửa dữ liệu</a>
+    <a href="#x1-s5"><span class="n">5</span>AutoFill & Flash Fill</a>
+    <a href="#x1-s6"><span class="n">6</span>Hàng và cột</a>
+    <a href="#x1-s7"><span class="n">7</span>Sao chép & Paste Special</a>
+    <a href="#x1-s8"><span class="n">8</span>Tìm kiếm, cố định, chế độ xem</a>
+    <a href="#x1-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#x1-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="x1-s1">
+      <h2><span class="num">1</span>Giao diện Excel 2019</h2>
+      <p><b>Microsoft Excel 2019</b> là phần mềm <b>bảng tính điện tử</b> dùng để lưu trữ, tính toán, phân tích và trình bày dữ liệu dạng bảng, biểu đồ.</p>
+      <div class="ribbon" aria-label="Mô phỏng giao diện Excel 2019">
+        <div class="wtitle"><span>💾 ↶ ↷ &nbsp;|&nbsp; BangDiem.xlsx - Excel</span><span>🔍 Tell me what you want to do</span><span>— ☐ ✕</span></div>
+        <div class="wtabs"><span>File</span><span class="on">Home</span><span>Insert</span><span>Page Layout</span><span>Formulas</span><span>Data</span><span>Review</span><span>View</span></div>
+        <div class="wgroups">
+          <div class="wgrp"><span class="it">📋 Paste · ✂ · ⧉ · 🖌</span><span class="gn">Clipboard</span></div>
+          <div class="wgrp"><span class="it">Calibri ▾ 11 ▾ <b>B</b> <i>I</i> <u>U</u></span><span class="gn">Font</span></div>
+          <div class="wgrp"><span class="it">≡ ⤶ Merge</span><span class="gn">Alignment</span></div>
+          <div class="wgrp"><span class="it">General ▾ % , .0</span><span class="gn">Number</span></div>
+          <div class="wgrp"><span class="it">Σ AutoSum · Sort &amp; Filter</span><span class="gn">Editing</span></div>
+        </div>
+        <div class="xl" style="margin:0;border:none;border-radius:0">
+          <div class="fbar"><span class="nb">D3</span><span>✕ ✓ <i>fx</i></span><span>=AVERAGE(B3:C3)</span></div>
+          <div class="gridwrap"><table>
+            <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+            <tr><th>1</th><td><b>Họ tên</b></td><td><b>Toán</b></td><td><b>Văn</b></td><td><b>ĐTB</b></td></tr>
+            <tr><th>2</th><td>Nguyễn Văn An</td><td class="num">8</td><td class="num">7</td><td class="num">7.5</td></tr>
+            <tr><th>3</th><td>Trần Thị Bình</td><td class="num">9</td><td class="num">8</td><td class="num sel">8.5</td></tr>
+          </table></div>
+          <div class="sheets"><span class="on">HK1</span><span>HK2</span><span>⊕</span></div>
+        </div>
+        <div class="wstatus"><span>Ready</span><span>Average: 8.5 · Count: 1 · Sum: 8.5 &nbsp; ▦ ▭ ⎚ &nbsp; − ——●—— + 100%</span></div>
+      </div>
+      <div class="callouts">
+        <div><b>Name Box</b> — hiển thị địa chỉ ô hiện hành (D3); nhập địa chỉ để nhảy nhanh đến ô.</div>
+        <div><b>Formula Bar</b> — thanh công thức, hiển thị/sửa nội dung thật của ô (công thức).</div>
+        <div><b>Tiêu đề cột / hàng</b> — cột A…XFD (<b>16.384</b> cột), hàng 1…<b>1.048.576</b>.</div>
+        <div><b>Sheet tabs</b> — các trang tính; nút ⊕ để thêm trang mới.</div>
+        <div><b>Status bar</b> — khi chọn vùng số, hiện nhanh Average, Count, Sum.</div>
+        <div><b>Fill handle</b> — nút vuông nhỏ góc dưới phải ô chọn, kéo để điền tự động.</div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tab</th><th>Chức năng chính</th></tr></thead>
+        <tbody>
+          <tr><td><b>Home</b></td><td>Sao chép, phông chữ, căn lề, định dạng số, Styles, chèn/xóa ô, AutoSum, sắp xếp – lọc</td></tr>
+          <tr><td><b>Insert</b></td><td>PivotTable, bảng (Table), hình ảnh, biểu đồ, Sparklines, Slicer, liên kết, ký hiệu</td></tr>
+          <tr><td><b>Page Layout</b></td><td>Theme, lề, hướng giấy, khổ giấy, vùng in, tiêu đề in, co giãn khi in</td></tr>
+          <tr><td><b>Formulas</b></td><td>Thư viện hàm, đặt tên vùng (Name Manager), kiểm tra công thức, tùy chọn tính toán</td></tr>
+          <tr><td><b>Data</b></td><td>Lấy dữ liệu ngoài, sắp xếp, lọc, Text to Columns, Remove Duplicates, Data Validation, Subtotal</td></tr>
+          <tr><td><b>Review</b></td><td>Chính tả, ghi chú (Comment), bảo vệ trang tính/sổ tính</td></tr>
+          <tr><td><b>View</b></td><td>Chế độ xem, Freeze Panes, Zoom, gridlines, Split, cửa sổ</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="x1-s2">
+      <h2><span class="num">2</span>Sổ tính (Workbook) và trang tính (Worksheet)</h2>
+      <p>Mỗi tệp Excel là một <b>Workbook (sổ tính)</b>, gồm một hoặc nhiều <b>Worksheet (trang tính)</b>. Workbook mới của Excel 2019 mặc định có <b>1 trang tính</b> tên <i>Sheet1</i>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác với trang tính</th><th>Cách thực hiện</th></tr></thead>
+        <tbody>
+          <tr><td>Thêm trang tính</td><td>Nút ⊕ cạnh tên sheet, hoặc <kbd>Shift</kbd>+<kbd>F11</kbd></td></tr>
+          <tr><td>Đổi tên</td><td>Nhấp đúp vào tên sheet, hoặc chuột phải → <b>Rename</b></td></tr>
+          <tr><td>Di chuyển / sao chép</td><td>Kéo thả tên sheet (giữ <kbd>Ctrl</kbd> khi kéo để sao chép), hoặc chuột phải → <b>Move or Copy</b> (đánh dấu <i>Create a copy</i>)</td></tr>
+          <tr><td>Xóa</td><td>Chuột phải → <b>Delete</b> (không Undo được)</td></tr>
+          <tr><td>Tô màu tên sheet / ẩn – hiện</td><td>Chuột phải → <b>Tab Color</b> / <b>Hide</b>, <b>Unhide</b></td></tr>
+          <tr><td>Chuyển sang sheet trước / sau</td><td><kbd>Ctrl</kbd>+<kbd>Page Up</kbd> / <kbd>Ctrl</kbd>+<kbd>Page Down</kbd></td></tr>
+          <tr><td>Chọn nhiều sheet (nhập liệu đồng thời)</td><td>Giữ <kbd>Ctrl</kbd> hoặc <kbd>Shift</kbd> khi nhấp tên sheet — tiêu đề hiện <b>[Group]</b></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Các định dạng tệp</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phần mở rộng</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><code>.xlsx</code></td><td>Mặc định của Excel 2007 trở về sau</td></tr>
+          <tr><td><code>.xls</code></td><td>Excel 97–2003 (mở ở Compatibility Mode)</td></tr>
+          <tr><td><code>.xlsm</code></td><td>Sổ tính có chứa macro</td></tr>
+          <tr><td><code>.xltx</code></td><td>Tệp mẫu (Template)</td></tr>
+          <tr><td><code>.csv</code></td><td>Văn bản phân cách bằng dấu phẩy — chỉ lưu <b>một trang tính</b>, không giữ định dạng, công thức</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="x1-s3">
+      <h2><span class="num">3</span>Ô, vùng dữ liệu và di chuyển</h2>
+      <ul>
+        <li><b>Ô (Cell)</b> là giao của cột và hàng, có địa chỉ <b>tên cột + số hàng</b>: <code>A1</code>, <code>D3</code>, <code>XFD1048576</code>.</li>
+        <li><b>Vùng (Range)</b> liên tục: <code>ô đầu:ô cuối</code>, ví dụ <code>A1:C5</code> (15 ô). Nhiều vùng rời nhau phân cách bằng dấu phẩy: <code>A1:A5,C1:C5</code>.</li>
+        <li>Cả cột: <code>B:B</code>; cả hàng: <code>3:3</code>.</li>
+      </ul>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phím</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Home</kbd></td><td>Về ô <b>A1</b></td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>End</kbd></td><td>Đến ô cuối cùng của vùng đã sử dụng</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>→</kbd> / <kbd>↓</kbd>…</td><td>Nhảy đến biên của vùng dữ liệu theo hướng mũi tên</td></tr>
+          <tr><td><kbd>Home</kbd></td><td>Về cột A của hàng hiện tại</td></tr>
+          <tr><td><kbd>F5</kbd> / <kbd>Ctrl</kbd>+<kbd>G</kbd></td><td>Hộp thoại <b>Go To</b> (và Go To Special: ô trống, ô công thức…)</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>A</kbd></td><td>Chọn vùng dữ liệu hiện tại (nhấn lần hai chọn cả trang tính)</td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Space</kbd> / <kbd>Shift</kbd>+<kbd>Space</kbd></td><td>Chọn <b>cả cột</b> / <b>cả hàng</b></td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>↓</kbd></td><td>Chọn từ ô hiện tại đến cuối vùng dữ liệu</td></tr>
+          <tr><td><kbd>Ctrl</kbd> + kéo chuột</td><td>Chọn nhiều vùng rời nhau</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="x1-s4">
+      <h2><span class="num">4</span>Nhập và sửa dữ liệu</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Kiểu dữ liệu</th><th>Mặc định căn</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td><b>Số (Number)</b></td><td>Phải</td><td>Dấu thập phân, phân cách hàng nghìn theo thiết lập <b>Region</b> của Windows</td></tr>
+          <tr><td><b>Văn bản (Text)</b></td><td>Trái</td><td>Chuỗi ký tự; số bắt đầu bằng dấu nháy đơn <code>'0912345678</code> được lưu dạng văn bản (giữ số 0 đầu)</td></tr>
+          <tr><td><b>Ngày, giờ</b></td><td>Phải</td><td>Thực chất là <b>số seri</b> (1 = 01/01/1900); nhập theo định dạng ngày của hệ thống</td></tr>
+          <tr><td><b>Công thức</b></td><td>—</td><td>Bắt đầu bằng dấu <code>=</code>, ô hiển thị kết quả, Formula Bar hiển thị công thức</td></tr>
+          <tr><td><b>Logic</b></td><td>Giữa</td><td>TRUE / FALSE</td></tr>
+        </tbody>
+      </table></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Phím</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>Enter</kbd> / <kbd>Tab</kbd></td><td>Ghi dữ liệu và chuyển xuống ô dưới / sang ô phải</td></tr>
+          <tr><td><kbd>Esc</kbd></td><td>Hủy nội dung đang nhập</td></tr>
+          <tr><td><kbd>F2</kbd></td><td>Sửa nội dung ô hiện tại (hoặc nhấp đúp vào ô)</td></tr>
+          <tr><td><kbd>Alt</kbd>+<kbd>Enter</kbd></td><td><b>Xuống dòng trong cùng một ô</b></td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>Enter</kbd></td><td>Nhập cùng một nội dung cho <b>tất cả các ô đang chọn</b></td></tr>
+          <tr><td><kbd>Ctrl</kbd>+<kbd>;</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd></td><td>Nhập ngày hiện tại / giờ hiện tại (giá trị tĩnh)</td></tr>
+          <tr><td><kbd>Delete</kbd></td><td>Xóa <b>nội dung</b> ô (giữ định dạng). Home → <b>Clear</b>: Clear All / Formats / Contents / Comments / Hyperlinks</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Lỗi thường gặp khi nhập ngày</b>Nếu ngày nhập vào bị căn trái (thành văn bản) hoặc hiểu sai ngày/tháng, nguyên nhân là thứ tự ngày–tháng không khớp thiết lập Region của Windows (ví dụ máy dùng tháng/ngày/năm).</div>
+    </section>
+
+    <section class="card" id="x1-s5">
+      <h2><span class="num">5</span>Điền tự động: AutoFill và Flash Fill</h2>
+      <p>Kéo <b>Fill handle</b> (nút vuông góc dưới phải ô chọn) để sao chép hoặc điền chuỗi. <b>Nhấp đúp</b> vào Fill handle để điền xuống đến hết vùng dữ liệu cột bên cạnh.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nhập ban đầu</th><th>Kéo Fill handle được</th></tr></thead>
+        <tbody>
+          <tr><td><code>1</code> (một ô)</td><td>1, 1, 1… (sao chép); giữ <kbd>Ctrl</kbd> khi kéo → 1, 2, 3…</td></tr>
+          <tr><td><code>1</code>, <code>3</code> (chọn cả hai ô)</td><td>5, 7, 9… (cấp số cộng theo bước 2)</td></tr>
+          <tr><td><code>Thứ Hai</code> / <code>Monday</code>, <code>Jan</code></td><td>Tuần tự thứ / tháng theo danh sách tùy chỉnh</td></tr>
+          <tr><td><code>01/09/2025</code></td><td>02/09, 03/09… (tăng theo ngày); Auto Fill Options → Fill Months / Weekdays</td></tr>
+          <tr><td><code>SV001</code></td><td>SV002, SV003…</td></tr>
+          <tr><td>Ô chứa công thức</td><td>Sao chép công thức, địa chỉ tương đối tự điều chỉnh</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>Home → Fill → Series</b>: điền chuỗi Linear (cộng), Growth (nhân), Date với <b>Step value</b> và <b>Stop value</b>.</li>
+        <li><b>Custom Lists</b> (File → Options → Advanced → Edit Custom Lists): tạo danh sách riêng như tên các phòng ban.</li>
+        <li><b>Flash Fill</b> (<kbd>Ctrl</kbd>+<kbd>E</kbd> hoặc Data → Flash Fill): nhận biết mẫu từ ví dụ bạn gõ — ví dụ tách tên từ cột Họ tên, ghép họ và tên, chuẩn hóa chữ hoa.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="x1-s6">
+      <h2><span class="num">6</span>Thao tác với hàng và cột</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Thao tác</th><th>Cách thực hiện</th></tr></thead>
+        <tbody>
+          <tr><td>Chèn hàng/cột/ô</td><td>Chuột phải → <b>Insert</b>; hoặc <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>+</kbd>; Home → Insert</td></tr>
+          <tr><td>Xóa hàng/cột/ô</td><td>Chuột phải → <b>Delete</b>; hoặc <kbd>Ctrl</kbd>+<kbd>-</kbd></td></tr>
+          <tr><td>Độ rộng cột / chiều cao hàng</td><td>Kéo đường biên tiêu đề; Home → Format → <b>Column Width</b> / <b>Row Height</b></td></tr>
+          <tr><td>Vừa khít nội dung (AutoFit)</td><td><b>Nhấp đúp</b> vào đường biên phải của tiêu đề cột</td></tr>
+          <tr><td>Ẩn hàng / ẩn cột</td><td>Chuột phải → <b>Hide</b>; <kbd>Ctrl</kbd>+<kbd>9</kbd> (ẩn hàng) · <kbd>Ctrl</kbd>+<kbd>0</kbd> (ẩn cột)</td></tr>
+          <tr><td>Hiện lại</td><td>Chọn vùng bao quanh → chuột phải → <b>Unhide</b></td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Ô hiển thị #####</b>Ô chứa số hoặc ngày hiển thị <code>#####</code> khi <b>cột quá hẹp</b> để hiện đầy đủ giá trị — chỉ cần nới rộng cột (hoặc là giá trị ngày/giờ âm).</div>
+    </section>
+
+    <section class="card" id="x1-s7">
+      <h2><span class="num">7</span>Sao chép, di chuyển và Paste Special</h2>
+      <p><kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>X</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd> — vùng được sao chép có đường viền nhấp nháy (nhấn <kbd>Esc</kbd> để bỏ). Có thể kéo viền vùng chọn để di chuyển, giữ <kbd>Ctrl</kbd> khi kéo để sao chép.</p>
+      <h3>Paste Special (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>V</kbd>)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tùy chọn</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Values</b></td><td>Chỉ dán <b>giá trị</b> (kết quả), bỏ công thức</td></tr>
+          <tr><td><b>Formulas</b></td><td>Chỉ dán công thức, không dán định dạng</td></tr>
+          <tr><td><b>Formats</b></td><td>Chỉ dán định dạng</td></tr>
+          <tr><td><b>Column widths</b></td><td>Dán độ rộng cột</td></tr>
+          <tr><td><b>Transpose</b></td><td><b>Chuyển hàng thành cột</b> và ngược lại</td></tr>
+          <tr><td><b>Operation: Add / Subtract / Multiply / Divide</b></td><td>Cộng/trừ/nhân/chia giá trị sao chép vào vùng đích (ví dụ tăng giá 10%: chép 1,1 rồi Multiply)</td></tr>
+          <tr><td><b>Skip blanks</b></td><td>Không ghi đè ô đích bằng ô trống</td></tr>
+          <tr><td><b>Paste Link</b></td><td>Dán liên kết <code>=Sheet1!A1</code> — tự cập nhật theo nguồn</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="x1-s8">
+      <h2><span class="num">8</span>Tìm kiếm, cố định tiêu đề và chế độ xem</h2>
+      <ul>
+        <li><kbd>Ctrl</kbd>+<kbd>F</kbd> / <kbd>Ctrl</kbd>+<kbd>H</kbd>: Find / Replace. <b>Options</b>: Within (Sheet/Workbook), Look in (Formulas/Values), Match case, <b>Match entire cell contents</b>; ký tự đại diện <code>*</code> và <code>?</code>.</li>
+        <li><b>View → Freeze Panes</b>: cố định vùng khi cuộn — <b>Freeze Top Row</b> (hàng đầu), <b>Freeze First Column</b> (cột đầu), hoặc <b>Freeze Panes</b> cố định các hàng <b>phía trên</b> và các cột <b>bên trái</b> ô đang chọn (chọn B2 → cố định hàng 1 và cột A). <b>Unfreeze Panes</b> để bỏ.</li>
+        <li><b>View → Split</b>: chia cửa sổ thành 2 hoặc 4 phần cuộn độc lập.</li>
+        <li><b>Chế độ xem</b>: <b>Normal</b>, <b>Page Layout</b> (xem theo trang in, có header/footer), <b>Page Break Preview</b> (xem và kéo đường ngắt trang).</li>
+        <li><b>Lưu</b>: <kbd>Ctrl</kbd>+<kbd>S</kbd>, Save As <kbd>F12</kbd>; AutoRecover tại File → Options → Save.</li>
+      </ul>
+      <div class="note tip"><b>Mẹo</b>Nhấp chuột phải vào Status bar để chọn các thống kê hiển thị nhanh: Average, Count, Numerical Count, Minimum, Maximum, Sum.</div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="x1-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="x1-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="x1-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="x1-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="x1-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="x1-quizBar"></i></div>
+        <span class="pill">⏱ <b id="x1-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="x1-qnav"></div>
+      <div id="x1-quizBox"></div>
+
+      <div class="result" id="x1-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="x1-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="x1-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="x1-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="x1-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="x1-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="x1-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="x1-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav" style="justify-content:flex-end">
+  <button type="button" data-lesson="dinhdang">Bài tiếp theo: Bài 2. Định dạng bảng tính →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 2: ĐỊNH DẠNG BẢNG TÍNH ================= -->
+<div class="lesson" id="lesson-dinhdang">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📊 Tin học ứng dụng · Microsoft Excel 2019</span>
+    <h1>Bài 2. Định dạng bảng tính trong Excel 2019</h1>
+    <p>Định dạng số, ngày, tiền tệ và mã định dạng tùy chỉnh; căn lề, trộn ô, kẻ khung; Format as Table, định dạng có điều kiện, Cell Styles và chèn đối tượng.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#x2-s1"><span class="n">1</span>Hộp thoại Format Cells</a>
+    <a href="#x2-s2"><span class="n">2</span>Định dạng số</a>
+    <a href="#x2-s3"><span class="n">3</span>Mã định dạng tùy chỉnh</a>
+    <a href="#x2-s4"><span class="n">4</span>Căn lề & trộn ô</a>
+    <a href="#x2-s5"><span class="n">5</span>Font, khung, nền, Styles</a>
+    <a href="#x2-s6"><span class="n">6</span>Format as Table</a>
+    <a href="#x2-s7"><span class="n">7</span>Định dạng có điều kiện</a>
+    <a href="#x2-s8"><span class="n">8</span>Ghi chú & đối tượng</a>
+    <a href="#x2-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#x2-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="x2-s1">
+      <h2><span class="num">1</span>Hộp thoại Format Cells (<kbd>Ctrl</kbd>+<kbd>1</kbd>)</h2>
+      <p>Chọn ô/vùng → nhấn <kbd>Ctrl</kbd>+<kbd>1</kbd> (hoặc chuột phải → <b>Format Cells</b>). Hộp thoại gồm 6 tab:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tab</th><th>Chức năng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Number</b></td><td>Kiểu hiển thị số: General, Number, Currency, Accounting, Date, Time, Percentage, Fraction, Scientific, Text, Special, Custom</td></tr>
+          <tr><td><b>Alignment</b></td><td>Căn ngang/dọc, xoay chữ, Wrap text, Shrink to fit, Merge cells, thụt lề</td></tr>
+          <tr><td><b>Font</b></td><td>Phông, kiểu, cỡ, màu, gạch chân, gạch ngang, chỉ số trên/dưới</td></tr>
+          <tr><td><b>Border</b></td><td>Kẻ khung: kiểu nét, màu, Outline, Inside, từng cạnh, đường chéo</td></tr>
+          <tr><td><b>Fill</b></td><td>Màu nền, hiệu ứng tô, mẫu hoa văn</td></tr>
+          <tr><td><b>Protection</b></td><td><b>Locked</b> / <b>Hidden</b> — chỉ có hiệu lực khi bật Protect Sheet (Bài 5)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Giá trị và cách hiển thị</b>Định dạng số chỉ thay đổi <b>cách hiển thị</b>, không thay đổi <b>giá trị thật</b> của ô. Ví dụ ô có giá trị 7,456 hiển thị 7,5 với 1 chữ số thập phân nhưng khi tính toán vẫn dùng 7,456.</div>
+    </section>
+
+    <section class="card" id="x2-s2">
+      <h2><span class="num">2</span>Định dạng số (Number Format)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Kiểu</th><th>Ví dụ hiển thị</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td><b>General</b></td><td>1234.5</td><td>Mặc định, không định dạng đặc biệt</td></tr>
+          <tr><td><b>Number</b></td><td>1,234.50</td><td>Số chữ số thập phân, <i>Use 1000 Separator</i>, cách hiển thị số âm</td></tr>
+          <tr><td><b>Currency</b></td><td>$1,234.50 · 1.234 ₫</td><td>Ký hiệu tiền tệ đặt sát số</td></tr>
+          <tr><td><b>Accounting</b></td><td>$ &nbsp;&nbsp;1,234.50</td><td>Ký hiệu tiền căn lề trái ô, số căn phải, số 0 hiện là "-"</td></tr>
+          <tr><td><b>Date / Time</b></td><td>05/09/2025 · 14:30</td><td>Nhiều kiểu ngày, giờ</td></tr>
+          <tr><td><b>Percentage</b></td><td>85%</td><td>Nhân giá trị với 100 và thêm %; <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>%</kbd></td></tr>
+          <tr><td><b>Fraction / Scientific</b></td><td>1/4 · 1.23E+05</td><td>Phân số / dạng khoa học</td></tr>
+          <tr><td><b>Text</b></td><td>0912345678</td><td>Xem nội dung như văn bản (giữ số 0 đầu), công thức nhập sau đó không được tính</td></tr>
+        </tbody>
+      </table></div>
+      <p>Nhóm <b>Home → Number</b> có nút nhanh: Accounting ($), Percent (%), Comma Style (,), <b>Increase Decimal</b> / <b>Decrease Decimal</b>. Phím tắt: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>!</kbd> (Number 2 số lẻ, có phân cách), <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>$</kbd> (Currency), <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>#</kbd> (Date).</p>
+    </section>
+
+    <section class="card" id="x2-s3">
+      <h2><span class="num">3</span>Mã định dạng tùy chỉnh (Custom)</h2>
+      <p>Format Cells → Number → <b>Custom</b> → nhập mã vào ô <b>Type</b>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mã</th><th>Giá trị</th><th>Hiển thị</th></tr></thead>
+        <tbody>
+          <tr><td><code>#,##0</code></td><td>1500000</td><td>1,500,000</td></tr>
+          <tr><td><code>0.00</code></td><td>7.5</td><td>7.50</td></tr>
+          <tr><td><code>#,##0 "đ"</code></td><td>250000</td><td>250,000 đ</td></tr>
+          <tr><td><code>000</code></td><td>7</td><td>007 (thêm số 0 đầu)</td></tr>
+          <tr><td><code>"SV"000</code></td><td>12</td><td>SV012</td></tr>
+          <tr><td><code>dd/mm/yyyy</code></td><td>ngày 5/9/2025</td><td>05/09/2025</td></tr>
+          <tr><td><code>dddd, dd/mm/yyyy</code></td><td>ngày 5/9/2025</td><td>Friday, 05/09/2025</td></tr>
+          <tr><td><code>[Red]-#,##0;#,##0</code></td><td>-500</td><td style="color:#d13438">-500</td></tr>
+          <tr><td><code>;;;</code></td><td>bất kỳ</td><td>(ẩn giá trị)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Ý nghĩa ký hiệu</b><code>0</code>: luôn hiện chữ số (kể cả 0) · <code>#</code>: chỉ hiện chữ số có nghĩa · <code>,</code>: phân cách hàng nghìn · <code>"…"</code>: chữ cố định · Mã có tối đa 4 phần phân cách bằng <code>;</code>: <i>số dương ; số âm ; số 0 ; văn bản</i>.</div>
+    </section>
+
+    <section class="card" id="x2-s4">
+      <h2><span class="num">4</span>Căn lề, xuống dòng và trộn ô (Alignment)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lệnh</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Căn ngang / căn dọc</b></td><td>Left, Center, Right, Justify / Top, Middle, Bottom</td></tr>
+          <tr><td><b>Wrap Text</b></td><td>Tự xuống dòng trong ô khi chữ dài hơn độ rộng cột (chiều cao hàng tự tăng)</td></tr>
+          <tr><td><b>Shrink to fit</b></td><td>Tự thu nhỏ cỡ chữ cho vừa ô</td></tr>
+          <tr><td><b>Merge &amp; Center</b></td><td>Trộn các ô chọn thành một và căn giữa — <b>chỉ giữ dữ liệu ô trên cùng bên trái</b></td></tr>
+          <tr><td><b>Merge Across</b></td><td>Trộn các ô theo <b>từng hàng</b> riêng biệt</td></tr>
+          <tr><td><b>Merge Cells / Unmerge Cells</b></td><td>Trộn không căn giữa / tách ô đã trộn</td></tr>
+          <tr><td><b>Center Across Selection</b></td><td>(Format Cells → Alignment → Horizontal) Căn giữa qua nhiều cột <b>mà không trộn ô</b> — không ảnh hưởng sắp xếp, lọc</td></tr>
+          <tr><td><b>Orientation</b></td><td>Xoay chữ theo góc (Angle Counterclockwise, Vertical Text…)</td></tr>
+          <tr><td><b>Increase / Decrease Indent</b></td><td>Thụt lề nội dung trong ô</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Hạn chế trộn ô trong vùng dữ liệu</b>Ô trộn gây lỗi khi sắp xếp, lọc, sao chép. Với tiêu đề bảng nên dùng <b>Center Across Selection</b>.</div>
+    </section>
+
+    <section class="card" id="x2-s5">
+      <h2><span class="num">5</span>Phông chữ, khung, nền và Cell Styles</h2>
+      <ul>
+        <li><b>Font</b>: <kbd>Ctrl</kbd>+<kbd>B</kbd> / <kbd>I</kbd> / <kbd>U</kbd>; tăng/giảm cỡ chữ; màu chữ; phông mặc định của Excel 2019 là <b>Calibri 11</b> (đổi tại File → Options → General).</li>
+        <li><b>Borders</b> (Home → Font → Borders): All Borders, Outside Borders, Thick Box Border, Bottom Double Border…; <b>Draw Border</b> để vẽ tự do. Đường lưới mặc định (gridlines) <b>không được in</b> — muốn có khung khi in phải kẻ Borders.</li>
+        <li><b>Fill Color</b>: tô nền ô.</li>
+        <li><b>Format Painter</b>: sao chép định dạng (nhấp đúp để áp dụng nhiều lần).</li>
+        <li><b>Cell Styles</b> (Home → Styles): kiểu ô có sẵn — Good, Bad, Neutral, Heading 1–4, Title, Total, Currency, Percent…; có thể tạo <b>New Cell Style</b>.</li>
+        <li><b>Page Layout → Themes</b>: đổi bộ màu, phông chữ, hiệu ứng của cả sổ tính.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="x2-s6">
+      <h2><span class="num">6</span>Định dạng thành bảng (Format as Table)</h2>
+      <p>Chọn một ô trong vùng dữ liệu → <b>Home → Format as Table</b> hoặc <b>Insert → Table</b> (<kbd>Ctrl</kbd>+<kbd>T</kbd>) → xác nhận vùng và <b>My table has headers</b>. Tab <b>Table Tools → Design</b> xuất hiện.</p>
+      <div class="grid-2">
+        <div class="tile"><h4>Tự mở rộng</h4><p>Nhập dữ liệu ở hàng/cột kế bên, bảng tự mở rộng, định dạng và công thức tự áp dụng.</p></div>
+        <div class="tile"><h4>Lọc sẵn</h4><p>Dòng tiêu đề có sẵn nút lọc; tiêu đề cột thay cho A, B, C khi cuộn xuống.</p></div>
+        <div class="tile"><h4>Total Row</h4><p>Bật dòng tổng, chọn Sum, Average, Count… cho từng cột (dùng hàm SUBTOTAL).</p></div>
+        <div class="tile"><h4>Tham chiếu có cấu trúc</h4><p>Công thức dạng <code>=[@SoLuong]*[@DonGia]</code>, <code>=SUM(tblBanHang[ThanhTien])</code>.</p></div>
+      </div>
+      <p>Các tùy chọn trên tab Design: <b>Table Name</b>, <b>Banded Rows</b>, <b>First/Last Column</b>, <b>Insert Slicer</b>, <b>Remove Duplicates</b>, <b>Convert to Range</b> (chuyển về vùng thường, giữ định dạng).</p>
+    </section>
+
+    <section class="card" id="x2-s7">
+      <h2><span class="num">7</span>Định dạng có điều kiện (Conditional Formatting)</h2>
+      <p>Home → <b>Conditional Formatting</b>: tự động định dạng ô theo giá trị.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nhóm</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td><b>Highlight Cells Rules</b></td><td>Greater Than, Less Than, <b>Between</b>, Equal To, Text that Contains, A Date Occurring, <b>Duplicate Values</b></td></tr>
+          <tr><td><b>Top/Bottom Rules</b></td><td>Top 10 Items, Top 10%, Bottom 10, Above Average, Below Average</td></tr>
+          <tr><td><b>Data Bars</b></td><td>Thanh màu trong ô tỉ lệ với giá trị</td></tr>
+          <tr><td><b>Color Scales</b></td><td>Thang màu (xanh – vàng – đỏ) theo độ lớn</td></tr>
+          <tr><td><b>Icon Sets</b></td><td>Bộ biểu tượng mũi tên, đèn tín hiệu, sao…</td></tr>
+          <tr><td><b>New Rule → Use a formula…</b></td><td>Định dạng theo công thức, ví dụ tô <b>cả hàng</b> khi điểm dưới 5: chọn A2:E30, công thức <code>=$E2&lt;5</code></td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Manage Rules</b> để sửa, xóa, sắp thứ tự ưu tiên các quy tắc; <b>Clear Rules</b> để xóa quy tắc khỏi vùng chọn hoặc cả trang tính.</p>
+      <div class="note tip"><b>Chú ý dấu $ trong công thức điều kiện</b>Công thức được viết cho <b>ô đầu tiên</b> của vùng chọn. <code>$E2</code> cố định cột E nhưng để hàng thay đổi — mỗi hàng được kiểm tra theo ô cột E của chính hàng đó.</div>
+    </section>
+
+    <section class="card" id="x2-s8">
+      <h2><span class="num">8</span>Ghi chú, liên kết và đối tượng đồ họa</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Chức năng</th><th>Thao tác</th></tr></thead>
+        <tbody>
+          <tr><td><b>Comment</b> (ghi chú ô)</td><td>Review → New Comment hoặc <kbd>Shift</kbd>+<kbd>F2</kbd>; ô có tam giác đỏ ở góc trên phải</td></tr>
+          <tr><td><b>Hyperlink</b></td><td>Insert → Link (<kbd>Ctrl</kbd>+<kbd>K</kbd>): đến web, tệp, email hoặc một ô/sheet trong sổ tính (Place in This Document)</td></tr>
+          <tr><td><b>Pictures, Shapes, Icons, 3D Models, SmartArt</b></td><td>Insert → Illustrations (Icons và 3D Models mới trong Excel 2019)</td></tr>
+          <tr><td><b>Text Box, WordArt, Symbol, Equation</b></td><td>Insert → Text / Symbols</td></tr>
+          <tr><td><b>Ẩn đường lưới</b></td><td>View → bỏ chọn <b>Gridlines</b></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="x2-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="x2-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="x2-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="x2-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="x2-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="x2-quizBar"></i></div>
+        <span class="pill">⏱ <b id="x2-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="x2-qnav"></div>
+      <div id="x2-quizBox"></div>
+
+      <div class="result" id="x2-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="x2-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="x2-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="x2-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="x2-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="x2-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="x2-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="x2-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="nhaplieu">← Bài trước: Bài 1. Làm quen &amp; nhập liệu</button>
+  <button type="button" data-lesson="congthuc">Bài tiếp theo: Bài 3. Công thức &amp; hàm cơ bản →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 3: CÔNG THỨC & HÀM CƠ BẢN ================= -->
+<div class="lesson" id="lesson-congthuc">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📊 Tin học ứng dụng · Microsoft Excel 2019</span>
+    <h1>Bài 3. Công thức và hàm cơ bản trong Excel 2019</h1>
+    <p>Toán tử và thứ tự ưu tiên, địa chỉ tương đối – tuyệt đối – hỗn hợp, các nhóm hàm toán học, thống kê, logic, văn bản, ngày giờ và cách xử lý lỗi công thức.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#x3-s1"><span class="n">1</span>Công thức & toán tử</a>
+    <a href="#x3-s2"><span class="n">2</span>Địa chỉ ô</a>
+    <a href="#x3-s3"><span class="n">3</span>Cú pháp hàm & đặt tên</a>
+    <a href="#x3-s4"><span class="n">4</span>Hàm toán học, thống kê</a>
+    <a href="#x3-s5"><span class="n">5</span>Hàm logic</a>
+    <a href="#x3-s6"><span class="n">6</span>Hàm văn bản</a>
+    <a href="#x3-s7"><span class="n">7</span>Hàm ngày giờ</a>
+    <a href="#x3-s8"><span class="n">8</span>Lỗi & kiểm tra công thức</a>
+    <a href="#x3-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#x3-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="x3-s1">
+      <h2><span class="num">1</span>Công thức và toán tử</h2>
+      <p>Công thức luôn <b>bắt đầu bằng dấu =</b>, gồm địa chỉ ô, hằng số, toán tử và hàm. Kết quả tự tính lại khi dữ liệu nguồn thay đổi.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại</th><th>Toán tử</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td>Số học</td><td><code>+ - * / ^ %</code></td><td><code>=B2*C2</code>, <code>=2^3</code> → 8, <code>=50%</code> → 0.5</td></tr>
+          <tr><td>So sánh</td><td><code>= &lt;&gt; &gt; &lt; &gt;= &lt;=</code></td><td><code>=B2&gt;=5</code> → TRUE/FALSE</td></tr>
+          <tr><td>Nối chuỗi</td><td><code>&amp;</code></td><td><code>=A2&amp;" "&amp;B2</code></td></tr>
+          <tr><td>Tham chiếu</td><td><code>:</code> (vùng) · <code>,</code> (hợp) · khoảng trắng (giao)</td><td><code>=SUM(A1:A5,C1:C5)</code></td></tr>
+        </tbody>
+      </table></div>
+      <h3>Thứ tự ưu tiên tính toán</h3>
+      <div class="flow">
+        <div class="st"><b>1</b>( ) Ngoặc đơn</div><div class="ar">›</div>
+        <div class="st"><b>2</b>- Dấu âm</div><div class="ar">›</div>
+        <div class="st"><b>3</b>% Phần trăm</div><div class="ar">›</div>
+        <div class="st"><b>4</b>^ Lũy thừa</div><div class="ar">›</div>
+        <div class="st"><b>5</b>* / Nhân, chia</div><div class="ar">›</div>
+        <div class="st"><b>6</b>+ - Cộng, trừ</div><div class="ar">›</div>
+        <div class="st"><b>7</b>&amp; Nối chuỗi</div><div class="ar">›</div>
+        <div class="st"><b>8</b>So sánh</div>
+      </div>
+      <p>Ví dụ: <code>=2+3*4</code> → 14; <code>=(2+3)*4</code> → 20; <code>=-2^2</code> → 4 (dấu âm được tính trước lũy thừa).</p>
+    </section>
+
+    <section class="card" id="x3-s2">
+      <h2><span class="num">2</span>Địa chỉ ô: tương đối, tuyệt đối, hỗn hợp</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại</th><th>Ví dụ</th><th>Khi sao chép công thức</th></tr></thead>
+        <tbody>
+          <tr><td><b>Tương đối</b></td><td><code>A1</code></td><td>Cả cột và hàng đều thay đổi theo vị trí mới</td></tr>
+          <tr><td><b>Tuyệt đối</b></td><td><code>$A$1</code></td><td>Giữ nguyên, không thay đổi</td></tr>
+          <tr><td><b>Hỗn hợp</b> (cố định cột)</td><td><code>$A1</code></td><td>Cột A giữ nguyên, hàng thay đổi</td></tr>
+          <tr><td><b>Hỗn hợp</b> (cố định hàng)</td><td><code>A$1</code></td><td>Hàng 1 giữ nguyên, cột thay đổi</td></tr>
+        </tbody>
+      </table></div>
+      <p>Đặt con trỏ vào địa chỉ trong công thức và nhấn <kbd>F4</kbd> để xoay vòng: <code>A1</code> → <code>$A$1</code> → <code>A$1</code> → <code>$A1</code> → <code>A1</code>.</p>
+      <div class="xl" aria-label="Ví dụ địa chỉ tuyệt đối">
+        <div class="fbar"><span class="nb">C3</span><span><i>fx</i></span><span>=B3*$B$1</span></div>
+        <div class="gridwrap"><table>
+          <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+          <tr><th>1</th><td>Tỷ giá USD</td><td class="num">25,000</td><td></td></tr>
+          <tr><th>2</th><td><b>Mặt hàng</b></td><td><b>Giá (USD)</b></td><td><b>Giá (VNĐ)</b></td></tr>
+          <tr><th>3</th><td>Bàn phím</td><td class="num">20</td><td class="num sel">500,000</td></tr>
+          <tr><th>4</th><td>Chuột</td><td class="num">8</td><td class="num">200,000</td></tr>
+        </table></div>
+      </div>
+      <p>Sao chép C3 xuống C4 được <code>=B4*$B$1</code>: <code>B3</code> đổi thành <code>B4</code>, còn <code>$B$1</code> (tỷ giá) giữ nguyên.</p>
+      <div class="note"><b>Tham chiếu sang trang tính / sổ tính khác</b><code>=Sheet2!A1</code> · tên sheet có dấu cách: <code>='Chi tiet'!A1</code> · sổ tính khác: <code>=[BaoCao.xlsx]Sheet1!$A$1</code>.</div>
+    </section>
+
+    <section class="card" id="x3-s3">
+      <h2><span class="num">3</span>Cú pháp hàm, chèn hàm và đặt tên vùng</h2>
+      <p>Cú pháp: <code>=TÊNHÀM(đối_số_1, đối_số_2, …)</code>. Đối số có thể là số, chuỗi (trong dấu nháy kép), địa chỉ ô, vùng, hàm khác (hàm lồng nhau).</p>
+      <div class="note warn"><b>Dấu phân cách đối số</b>Tùy thiết lập Region của Windows, đối số được phân cách bằng dấu <b>phẩy ,</b> hoặc <b>chấm phẩy ;</b>. Bài học dùng dấu phẩy.</div>
+      <ul>
+        <li><b>Insert Function</b> (nút <i>fx</i> hoặc <kbd>Shift</kbd>+<kbd>F3</kbd>): tìm và chọn hàm, nhập đối số qua hộp thoại.</li>
+        <li><b>AutoSum</b> (Σ, <kbd>Alt</kbd>+<kbd>=</kbd>): tự chèn <code>=SUM()</code> cho vùng liền kề; mũi tên ▾ có Average, Count Numbers, Max, Min.</li>
+        <li>Khi gõ <code>=</code> và vài chữ đầu, Excel gợi ý danh sách hàm (Formula AutoComplete) — nhấn <kbd>Tab</kbd> để chọn.</li>
+        <li><b>Đặt tên vùng</b>: chọn vùng → gõ tên vào <b>Name Box</b> → Enter; hoặc Formulas → <b>Define Name</b>; quản lý bằng <b>Name Manager</b> (<kbd>Ctrl</kbd>+<kbd>F3</kbd>). Tên vùng là tham chiếu tuyệt đối: <code>=B3*TyGia</code>.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="x3-s4">
+      <h2><span class="num">4</span>Hàm toán học và thống kê</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hàm</th><th>Công dụng</th><th>Ví dụ → kết quả</th></tr></thead>
+        <tbody>
+          <tr><td><code>SUM</code></td><td>Tổng</td><td><code>=SUM(B2:B10)</code></td></tr>
+          <tr><td><code>AVERAGE</code></td><td>Trung bình cộng (bỏ qua ô trống, ô chữ)</td><td><code>=AVERAGE(C2:E2)</code></td></tr>
+          <tr><td><code>MAX</code> / <code>MIN</code></td><td>Giá trị lớn nhất / nhỏ nhất</td><td><code>=MAX(F2:F30)</code></td></tr>
+          <tr><td><code>COUNT</code></td><td>Đếm ô chứa <b>số</b></td><td><code>=COUNT(B2:B30)</code></td></tr>
+          <tr><td><code>COUNTA</code></td><td>Đếm ô <b>không trống</b></td><td><code>=COUNTA(A2:A30)</code></td></tr>
+          <tr><td><code>COUNTBLANK</code></td><td>Đếm ô trống</td><td><code>=COUNTBLANK(D2:D30)</code></td></tr>
+          <tr><td><code>ROUND(số, n)</code></td><td>Làm tròn đến n chữ số thập phân (n âm: làm tròn hàng chục, trăm…)</td><td><code>=ROUND(7.456,1)</code> → 7.5 · <code>=ROUND(1234567,-3)</code> → 1235000</td></tr>
+          <tr><td><code>ROUNDUP</code> / <code>ROUNDDOWN</code></td><td>Luôn làm tròn lên / xuống</td><td><code>=ROUNDUP(7.41,1)</code> → 7.5</td></tr>
+          <tr><td><code>INT</code></td><td>Phần nguyên (làm tròn xuống)</td><td><code>=INT(7.9)</code> → 7 · <code>=INT(-7.9)</code> → -8</td></tr>
+          <tr><td><code>MOD(số, chia)</code></td><td>Số dư của phép chia</td><td><code>=MOD(17,5)</code> → 2</td></tr>
+          <tr><td><code>ABS</code> / <code>SQRT</code> / <code>POWER</code></td><td>Trị tuyệt đối / căn bậc hai / lũy thừa</td><td><code>=SQRT(16)</code> → 4</td></tr>
+          <tr><td><code>PRODUCT</code></td><td>Tích các số</td><td><code>=PRODUCT(B2:D2)</code></td></tr>
+          <tr><td><code>SUMPRODUCT</code></td><td>Tổng các tích tương ứng của các mảng</td><td><code>=SUMPRODUCT(B2:B5,C2:C5)</code> — tổng thành tiền</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="x3-s5">
+      <h2><span class="num">5</span>Hàm logic</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hàm</th><th>Cú pháp / Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td><code>IF</code></td><td><code>=IF(điều_kiện, giá_trị_nếu_đúng, giá_trị_nếu_sai)</code><br><code>=IF(E2&gt;=5,"Đạt","Không đạt")</code></td></tr>
+          <tr><td><code>IF</code> lồng nhau</td><td><code>=IF(E2&gt;=8,"Giỏi",IF(E2&gt;=6.5,"Khá",IF(E2&gt;=5,"TB","Yếu")))</code></td></tr>
+          <tr><td><code>AND</code></td><td>TRUE khi <b>tất cả</b> điều kiện đúng: <code>=IF(AND(C2&gt;=5,D2&gt;=5),"Đạt","Thi lại")</code></td></tr>
+          <tr><td><code>OR</code></td><td>TRUE khi <b>ít nhất một</b> điều kiện đúng: <code>=IF(OR(B2="CNTT",B2="KT"),100,50)</code></td></tr>
+          <tr><td><code>NOT</code></td><td>Đảo giá trị logic</td></tr>
+          <tr><td><code>IFS</code> <span class="chip sql">Mới 2019</span></td><td>Nhiều điều kiện không cần lồng: <code>=IFS(E2&gt;=8,"Giỏi",E2&gt;=6.5,"Khá",E2&gt;=5,"TB",TRUE,"Yếu")</code></td></tr>
+          <tr><td><code>SWITCH</code> <span class="chip sql">Mới 2019</span></td><td>So khớp giá trị: <code>=SWITCH(B2,"A","Loại 1","B","Loại 2","Khác")</code></td></tr>
+          <tr><td><code>IFERROR</code></td><td>Trả giá trị thay thế khi công thức lỗi: <code>=IFERROR(B2/C2,0)</code></td></tr>
+        </tbody>
+      </table></div>
+      <div class="note tip"><b>Mẹo viết IF lồng nhau</b>Sắp xếp điều kiện theo thứ tự từ cao xuống thấp (hoặc thấp lên cao), số hàm IF lồng = số mức phân loại − 1. Đếm đủ dấu ngoặc đóng.</div>
+    </section>
+
+    <section class="card" id="x3-s6">
+      <h2><span class="num">6</span>Hàm văn bản (Text)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hàm</th><th>Ví dụ</th><th>Kết quả</th></tr></thead>
+        <tbody>
+          <tr><td><code>LEFT(chuỗi, n)</code></td><td><code>=LEFT("KT2025",2)</code></td><td>KT</td></tr>
+          <tr><td><code>RIGHT(chuỗi, n)</code></td><td><code>=RIGHT("KT2025",4)</code></td><td>2025</td></tr>
+          <tr><td><code>MID(chuỗi, vị trí, n)</code></td><td><code>=MID("SV-K20-015",4,3)</code></td><td>K20</td></tr>
+          <tr><td><code>LEN</code></td><td><code>=LEN("Excel")</code></td><td>5</td></tr>
+          <tr><td><code>UPPER</code> / <code>LOWER</code> / <code>PROPER</code></td><td><code>=PROPER("nguyễn văn an")</code></td><td>Nguyễn Văn An</td></tr>
+          <tr><td><code>TRIM</code></td><td>Xóa khoảng trắng thừa ở đầu, cuối và giữa các từ</td><td></td></tr>
+          <tr><td><code>VALUE</code></td><td><code>=VALUE(RIGHT("KT2025",4))</code></td><td>2025 (dạng số)</td></tr>
+          <tr><td><code>TEXT(số, "mã")</code></td><td><code>=TEXT(1500000,"#,##0")&amp;" đ"</code></td><td>1,500,000 đ</td></tr>
+          <tr><td><code>FIND</code> / <code>SEARCH</code></td><td>Vị trí chuỗi con (FIND phân biệt hoa thường, SEARCH không)</td><td></td></tr>
+          <tr><td><code>SUBSTITUTE</code></td><td><code>=SUBSTITUTE("0912 345 678"," ","")</code></td><td>0912345678</td></tr>
+          <tr><td><code>CONCATENATE</code> / <code>CONCAT</code> <span class="chip sql">2019</span></td><td><code>=CONCAT(A2," ",B2)</code></td><td>Nối chuỗi</td></tr>
+          <tr><td><code>TEXTJOIN</code> <span class="chip sql">Mới 2019</span></td><td><code>=TEXTJOIN(", ",TRUE,A2:A6)</code></td><td>Nối vùng với dấu phân cách, bỏ ô trống</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note"><b>Kết quả của LEFT, RIGHT, MID là văn bản</b>Khi cần so sánh với số hoặc tính toán, bọc bằng <code>VALUE()</code> hoặc so sánh với chuỗi: <code>=IF(LEFT(A2,1)="1",…)</code>.</div>
+    </section>
+
+    <section class="card" id="x3-s7">
+      <h2><span class="num">7</span>Hàm ngày và giờ</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hàm</th><th>Công dụng</th></tr></thead>
+        <tbody>
+          <tr><td><code>TODAY()</code></td><td>Ngày hiện tại (tự cập nhật mỗi lần tính lại)</td></tr>
+          <tr><td><code>NOW()</code></td><td>Ngày và giờ hiện tại</td></tr>
+          <tr><td><code>DATE(năm, tháng, ngày)</code></td><td>Tạo giá trị ngày: <code>=DATE(2025,9,5)</code></td></tr>
+          <tr><td><code>DAY</code> / <code>MONTH</code> / <code>YEAR</code></td><td>Lấy ngày / tháng / năm từ một giá trị ngày</td></tr>
+          <tr><td><code>WEEKDAY(ngày, [kiểu])</code></td><td>Thứ trong tuần (mặc định 1 = Chủ nhật … 7 = Thứ bảy)</td></tr>
+          <tr><td><code>DATEDIF(bắt đầu, kết thúc, "Y"/"M"/"D")</code></td><td>Khoảng cách năm / tháng / ngày giữa hai ngày (hàm ẩn, không có trong danh sách gợi ý)</td></tr>
+          <tr><td><code>NETWORKDAYS(bắt đầu, kết thúc, [ngày nghỉ])</code></td><td>Số ngày làm việc (trừ Thứ bảy, Chủ nhật)</td></tr>
+          <tr><td><code>EDATE(ngày, số tháng)</code></td><td>Ngày sau/trước n tháng (tính ngày hết hạn hợp đồng)</td></tr>
+          <tr><td><code>HOUR</code> / <code>MINUTE</code> / <code>SECOND</code></td><td>Lấy giờ, phút, giây</td></tr>
+        </tbody>
+      </table></div>
+      <p>Ví dụ tính tuổi: <code>=YEAR(TODAY())-YEAR(C2)</code> hoặc chính xác hơn <code>=DATEDIF(C2,TODAY(),"Y")</code>. Vì ngày là số seri, có thể trừ trực tiếp: <code>=C3-C2</code> ra số ngày.</p>
+    </section>
+
+    <section class="card" id="x3-s8">
+      <h2><span class="num">8</span>Các lỗi thường gặp và kiểm tra công thức</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lỗi</th><th>Nguyên nhân</th></tr></thead>
+        <tbody>
+          <tr><td><code>#DIV/0!</code></td><td>Chia cho 0 hoặc cho ô trống</td></tr>
+          <tr><td><code>#N/A</code></td><td>Không tìm thấy giá trị (thường gặp ở VLOOKUP, MATCH)</td></tr>
+          <tr><td><code>#NAME?</code></td><td>Sai tên hàm, tên vùng chưa định nghĩa, chuỗi thiếu dấu nháy kép</td></tr>
+          <tr><td><code>#REF!</code></td><td>Tham chiếu đến ô không còn tồn tại (đã bị xóa)</td></tr>
+          <tr><td><code>#VALUE!</code></td><td>Sai kiểu dữ liệu, ví dụ cộng số với chữ <code>="abc"+1</code></td></tr>
+          <tr><td><code>#NUM!</code></td><td>Giá trị số không hợp lệ, ví dụ <code>=SQRT(-4)</code></td></tr>
+          <tr><td><code>#NULL!</code></td><td>Giao của hai vùng không có ô chung</td></tr>
+          <tr><td><code>#####</code></td><td>Cột quá hẹp (không phải lỗi công thức)</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Công cụ kiểm tra (tab Formulas → Formula Auditing)</h3>
+      <ul>
+        <li><b>Trace Precedents</b> / <b>Trace Dependents</b>: vẽ mũi tên đến các ô mà công thức phụ thuộc / các ô phụ thuộc vào ô này; <b>Remove Arrows</b>.</li>
+        <li><b>Show Formulas</b> (<kbd>Ctrl</kbd>+<kbd>`</kbd>): hiển thị công thức thay cho kết quả trong toàn trang tính.</li>
+        <li><b>Evaluate Formula</b>: tính từng bước để tìm chỗ sai; <b>Error Checking</b>: dò các ô lỗi.</li>
+        <li><b>Calculation Options</b>: Automatic / Manual — khi để Manual, nhấn <kbd>F9</kbd> để tính lại.</li>
+        <li><b>Circular Reference</b>: công thức tham chiếu đến chính ô chứa nó — Excel cảnh báo và hiển thị ở Status bar.</li>
+      </ul>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="x3-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="x3-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="x3-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="x3-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="x3-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="x3-quizBar"></i></div>
+        <span class="pill">⏱ <b id="x3-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="x3-qnav"></div>
+      <div id="x3-quizBox"></div>
+
+      <div class="result" id="x3-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="x3-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="x3-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="x3-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="x3-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="x3-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="x3-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="x3-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="dinhdang">← Bài trước: Bài 2. Định dạng bảng tính</button>
+  <button type="button" data-lesson="tracuu">Bài tiếp theo: Bài 4. Hàm tra cứu &amp; có điều kiện →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 4: HÀM TRA CỨU & CÓ ĐIỀU KIỆN ================= -->
+<div class="lesson" id="lesson-tracuu">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📊 Tin học ứng dụng · Microsoft Excel 2019</span>
+    <h1>Bài 4. Hàm tra cứu và hàm có điều kiện trong Excel 2019</h1>
+    <p>VLOOKUP, HLOOKUP, INDEX – MATCH; tổng, đếm, trung bình có điều kiện (SUMIF(S), COUNTIF(S), AVERAGEIF(S), MAXIFS, MINIFS); xếp hạng và hàm cơ sở dữ liệu.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#x4-s1"><span class="n">1</span>VLOOKUP</a>
+    <a href="#x4-s2"><span class="n">2</span>HLOOKUP & dò gần đúng</a>
+    <a href="#x4-s3"><span class="n">3</span>INDEX & MATCH</a>
+    <a href="#x4-s4"><span class="n">4</span>SUMIF & SUMIFS</a>
+    <a href="#x4-s5"><span class="n">5</span>COUNTIF, AVERAGEIF, MAXIFS…</a>
+    <a href="#x4-s6"><span class="n">6</span>Xếp hạng & SUBTOTAL</a>
+    <a href="#x4-s7"><span class="n">7</span>Kết hợp hàm thực tế</a>
+    <a href="#x4-s8"><span class="n">8</span>Hàm cơ sở dữ liệu</a>
+    <a href="#x4-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#x4-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="x4-s1">
+      <h2><span class="num">1</span>Hàm VLOOKUP — dò tìm theo cột</h2>
+      <pre class="code"><span class="a">=VLOOKUP</span>(lookup_value, table_array, col_index_num, [range_lookup])</pre>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Đối số</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><b>lookup_value</b></td><td>Giá trị cần tìm (ví dụ mã hàng)</td></tr>
+          <tr><td><b>table_array</b></td><td>Bảng dò — giá trị cần tìm phải nằm ở <b>cột đầu tiên</b> của bảng; thường cố định bằng <code>$</code></td></tr>
+          <tr><td><b>col_index_num</b></td><td><b>Số thứ tự cột</b> (tính trong bảng dò, bắt đầu từ 1) chứa giá trị cần lấy về</td></tr>
+          <tr><td><b>range_lookup</b></td><td><code>0</code>/<code>FALSE</code>: dò <b>chính xác</b> · <code>1</code>/<code>TRUE</code> (hoặc bỏ trống): dò <b>gần đúng</b> — bảng phải sắp xếp tăng dần</td></tr>
+        </tbody>
+      </table></div>
+      <div class="xl" aria-label="Ví dụ VLOOKUP">
+        <div class="fbar"><span class="nb">C2</span><span><i>fx</i></span><span>=VLOOKUP(B2,$F$2:$H$4,2,0)</span></div>
+        <div class="gridwrap"><table>
+          <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr>
+          <tr><th>1</th><td><b>STT</b></td><td><b>Mã hàng</b></td><td><b>Tên hàng</b></td><td><b>Đơn giá</b></td><td></td><td><b>Mã</b></td><td><b>Tên</b></td><td><b>Giá</b></td></tr>
+          <tr><th>2</th><td class="num">1</td><td>BP</td><td class="sel">Bàn phím</td><td class="num">250,000</td><td></td><td>BP</td><td>Bàn phím</td><td class="num">250,000</td></tr>
+          <tr><th>3</th><td class="num">2</td><td>CH</td><td>Chuột</td><td class="num">120,000</td><td></td><td>CH</td><td>Chuột</td><td class="num">120,000</td></tr>
+          <tr><th>4</th><td class="num">3</td><td>LN</td><td>#N/A</td><td class="num">#N/A</td><td></td><td>TN</td><td>Tai nghe</td><td class="num">300,000</td></tr>
+        </table></div>
+      </div>
+      <p>Ô D2: <code>=VLOOKUP(B2,$F$2:$H$4,3,0)</code> lấy đơn giá (cột thứ 3 của bảng dò). Mã "LN" không có trong bảng → lỗi <code>#N/A</code>.</p>
+    </section>
+
+    <section class="card" id="x4-s2">
+      <h2><span class="num">2</span>HLOOKUP và dò tìm gần đúng</h2>
+      <pre class="code"><span class="a">=HLOOKUP</span>(lookup_value, table_array, row_index_num, [range_lookup])</pre>
+      <p>HLOOKUP dò tìm theo <b>hàng đầu tiên</b> của bảng dò (bảng nằm ngang) và trả về giá trị ở <b>hàng thứ</b> <i>row_index_num</i>.</p>
+      <h3>Dò gần đúng (range_lookup = 1) để xếp loại theo ngưỡng</h3>
+      <div class="xl">
+        <div class="fbar"><span class="nb">C2</span><span><i>fx</i></span><span>=VLOOKUP(B2,$E$2:$F$5,2,1)</span></div>
+        <div class="gridwrap"><table>
+          <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+          <tr><th>1</th><td><b>Họ tên</b></td><td><b>ĐTB</b></td><td><b>Xếp loại</b></td><td></td><td><b>Từ điểm</b></td><td><b>Loại</b></td></tr>
+          <tr><th>2</th><td>An</td><td class="num">7.2</td><td class="sel">Khá</td><td></td><td class="num">0</td><td>Yếu</td></tr>
+          <tr><th>3</th><td>Bình</td><td class="num">8.6</td><td>Giỏi</td><td></td><td class="num">5</td><td>Trung bình</td></tr>
+          <tr><th>4</th><td>Cường</td><td class="num">4.5</td><td>Yếu</td><td></td><td class="num">6.5</td><td>Khá</td></tr>
+          <tr><th>5</th><td>Dung</td><td class="num">5</td><td>Trung bình</td><td></td><td class="num">8</td><td>Giỏi</td></tr>
+        </table></div>
+      </div>
+      <div class="note warn"><b>Dò gần đúng</b>Excel tìm giá trị <b>lớn nhất nhưng nhỏ hơn hoặc bằng</b> giá trị cần tìm. Cột đầu của bảng dò <b>bắt buộc sắp xếp tăng dần</b>; nếu giá trị tìm nhỏ hơn giá trị nhỏ nhất của bảng → <code>#N/A</code>.</div>
+    </section>
+
+    <section class="card" id="x4-s3">
+      <h2><span class="num">3</span>INDEX và MATCH</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hàm</th><th>Cú pháp</th><th>Kết quả</th></tr></thead>
+        <tbody>
+          <tr><td><code>MATCH</code></td><td><code>=MATCH(giá_trị, vùng_1_chiều, [match_type])</code><br>match_type: <b>0</b> chính xác · <b>1</b> nhỏ hơn gần nhất (vùng tăng dần) · <b>-1</b> lớn hơn gần nhất (vùng giảm dần)</td><td><b>Vị trí</b> (số thứ tự) của giá trị trong vùng</td></tr>
+          <tr><td><code>INDEX</code></td><td><code>=INDEX(vùng, số_hàng, [số_cột])</code></td><td><b>Giá trị</b> tại giao của hàng và cột trong vùng</td></tr>
+        </tbody>
+      </table></div>
+      <pre class="code"><span class="c">-- Lấy giá (cột H) theo mã hàng ở B2, tìm trong cột F</span>
+<span class="a">=INDEX</span>($H$2:$H$4, <span class="a">MATCH</span>(B2, $F$2:$F$4, 0))
+
+<span class="c">-- Tra bảng hai chiều: hàng theo mã hàng, cột theo tháng</span>
+<span class="a">=INDEX</span>($B$2:$M$20, <span class="a">MATCH</span>(A25,$A$2:$A$20,0), <span class="a">MATCH</span>(B24,$B$1:$M$1,0))</pre>
+      <div class="note tip"><b>Ưu điểm so với VLOOKUP</b>INDEX/MATCH có thể tra cứu khi cột kết quả nằm <b>bên trái</b> cột dò tìm, không bị sai khi chèn/xóa cột trong bảng dò, và tra được bảng hai chiều.</div>
+    </section>
+
+    <section class="card" id="x4-s4">
+      <h2><span class="num">4</span>Tính tổng có điều kiện: SUMIF và SUMIFS</h2>
+      <pre class="code"><span class="a">=SUMIF</span>(range, criteria, [sum_range])                        <span class="c">-- một điều kiện</span>
+<span class="a">=SUMIFS</span>(sum_range, criteria_range1, criteria1, criteria_range2, criteria2, …)   <span class="c">-- nhiều điều kiện</span></pre>
+      <div class="note warn"><b>Chú ý thứ tự đối số</b>Trong <code>SUMIF</code> vùng cần tính tổng ở <b>cuối</b>; trong <code>SUMIFS</code> vùng cần tính tổng ở <b>đầu tiên</b>. Các điều kiện trong SUMIFS kết hợp theo kiểu <b>AND</b>.</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Cách viết điều kiện (criteria)</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><code>"Hà Nội"</code> hoặc <code>G2</code></td><td>Bằng giá trị / bằng giá trị ô G2</td></tr>
+          <tr><td><code>"&gt;=5"</code></td><td>Lớn hơn hoặc bằng 5 (toán tử đặt trong dấu nháy kép)</td></tr>
+          <tr><td><code>"&gt;"&amp;G2</code></td><td>Lớn hơn giá trị ô G2 (nối toán tử với địa chỉ ô)</td></tr>
+          <tr><td><code>"&lt;&gt;"</code></td><td>Khác rỗng (ô có dữ liệu)</td></tr>
+          <tr><td><code>"*Nguyễn*"</code> / <code>"SV??"</code></td><td>Ký tự đại diện: <code>*</code> nhiều ký tự, <code>?</code> một ký tự</td></tr>
+        </tbody>
+      </table></div>
+      <pre class="code"><span class="c">-- Tổng doanh thu (D) của khu vực "Miền Bắc" (B)</span>
+<span class="a">=SUMIF</span>(B2:B100, <span class="s">"Miền Bắc"</span>, D2:D100)
+<span class="c">-- Tổng doanh thu Miền Bắc, tháng 9 (C), doanh thu từ 10 triệu</span>
+<span class="a">=SUMIFS</span>(D2:D100, B2:B100, <span class="s">"Miền Bắc"</span>, C2:C100, 9, D2:D100, <span class="s">"&gt;=10000000"</span>)</pre>
+    </section>
+
+    <section class="card" id="x4-s5">
+      <h2><span class="num">5</span>Đếm, trung bình, lớn nhất – nhỏ nhất có điều kiện</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hàm</th><th>Cú pháp</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td><code>COUNTIF</code></td><td><code>(range, criteria)</code></td><td><code>=COUNTIF(E2:E40,"&gt;=5")</code> — số học sinh đạt</td></tr>
+          <tr><td><code>COUNTIFS</code></td><td><code>(range1, crit1, range2, crit2…)</code></td><td><code>=COUNTIFS(C2:C40,"Nữ",E2:E40,"&gt;=8")</code></td></tr>
+          <tr><td><code>AVERAGEIF</code></td><td><code>(range, criteria, [average_range])</code></td><td><code>=AVERAGEIF(B2:B40,"K20A",E2:E40)</code></td></tr>
+          <tr><td><code>AVERAGEIFS</code></td><td><code>(average_range, range1, crit1…)</code></td><td>Điểm TB của nữ lớp K20A</td></tr>
+          <tr><td><code>MAXIFS</code> / <code>MINIFS</code> <span class="chip sql">Mới 2019</span></td><td><code>(max_range, range1, crit1…)</code></td><td><code>=MAXIFS(E2:E40,B2:B40,"K20A")</code> — điểm cao nhất lớp K20A</td></tr>
+        </tbody>
+      </table></div>
+      <p>Tìm giá trị trùng lặp: <code>=COUNTIF($A$2:$A$100,A2)&gt;1</code> (dùng trong Conditional Formatting để tô các mã bị trùng).</p>
+    </section>
+
+    <section class="card" id="x4-s6">
+      <h2><span class="num">6</span>Xếp hạng, giá trị lớn thứ k và SUBTOTAL</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hàm</th><th>Công dụng</th></tr></thead>
+        <tbody>
+          <tr><td><code>RANK(số, vùng, [order])</code> / <code>RANK.EQ</code></td><td>Thứ hạng của số trong vùng; order = <b>0</b> (hoặc bỏ trống) xếp <b>giảm dần</b> — lớn nhất hạng 1; order = 1 xếp tăng dần. Vùng phải cố định <code>$</code>: <code>=RANK(E2,$E$2:$E$40,0)</code></td></tr>
+          <tr><td><code>LARGE(vùng, k)</code> / <code>SMALL(vùng, k)</code></td><td>Giá trị lớn thứ k / nhỏ thứ k: <code>=LARGE(E2:E40,3)</code></td></tr>
+          <tr><td><code>SUBTOTAL(mã_hàm, vùng)</code></td><td>Tính tổng hợp chỉ trên các <b>hàng đang hiển thị</b> khi lọc: 9 = SUM, 1 = AVERAGE, 2 = COUNT, 3 = COUNTA, 4 = MAX, 5 = MIN; mã 101–111 bỏ qua cả hàng bị ẩn thủ công</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="x4-s7">
+      <h2><span class="num">7</span>Kết hợp hàm trong bài toán thực tế</h2>
+      <p>Ví dụ bảng kê hàng hóa: mã hàng dạng <code>BP-HN-2</code> (ký tự 1–2: mã loại, 4–5: nơi bán, ký tự cuối: loại giá).</p>
+      <pre class="code"><span class="c">-- Tên hàng: lấy 2 ký tự đầu, dò bảng danh mục</span>
+<span class="a">=VLOOKUP</span>(<span class="a">LEFT</span>(A2,2), $K$2:$M$6, 2, 0)
+
+<span class="c">-- Đơn giá: loại giá 1 lấy cột 3, loại 2 lấy cột 4 của bảng giá</span>
+<span class="a">=VLOOKUP</span>(<span class="a">LEFT</span>(A2,2), $K$2:$N$6, <span class="a">IF</span>(<span class="a">RIGHT</span>(A2,1)=<span class="s">"1"</span>,3,4), 0)
+
+<span class="c">-- Nơi bán: MID + dò tìm; nếu không có trong bảng thì ghi "Khác"</span>
+<span class="a">=IFERROR</span>(<span class="a">VLOOKUP</span>(<span class="a">MID</span>(A2,4,2), $P$2:$Q$5, 2, 0), <span class="s">"Khác"</span>)
+
+<span class="c">-- Chọn theo chỉ số: CHOOSE(index, giá_trị_1, giá_trị_2, …)</span>
+<span class="a">=CHOOSE</span>(<span class="a">WEEKDAY</span>(B2), <span class="s">"CN"</span>,<span class="s">"T2"</span>,<span class="s">"T3"</span>,<span class="s">"T4"</span>,<span class="s">"T5"</span>,<span class="s">"T6"</span>,<span class="s">"T7"</span>)</pre>
+      <div class="note tip"><b>Quy trình giải bài tập Excel</b>① Xác định giá trị cần tìm lấy từ đâu (LEFT/RIGHT/MID) → ② Bảng dò nằm dọc hay ngang (VLOOKUP/HLOOKUP) → ③ Cột/hàng trả về cố định hay phụ thuộc điều kiện (IF, MATCH) → ④ Cố định bảng dò bằng <code>$</code> → ⑤ Xử lý lỗi bằng IFERROR.</div>
+    </section>
+
+    <section class="card" id="x4-s8">
+      <h2><span class="num">8</span>Hàm cơ sở dữ liệu (Database)</h2>
+      <pre class="code"><span class="a">=DSUM</span>(database, field, criteria)</pre>
+      <ul>
+        <li><b>database</b>: vùng dữ liệu <b>bao gồm hàng tiêu đề</b>.</li>
+        <li><b>field</b>: cột cần tính — tên cột trong dấu nháy kép (<code>"Doanh thu"</code>), địa chỉ ô tiêu đề hoặc số thứ tự cột.</li>
+        <li><b>criteria</b>: <b>vùng điều kiện</b> gồm ít nhất một ô tiêu đề (giống tiêu đề cột dữ liệu) và ô điều kiện bên dưới. Điều kiện <b>cùng hàng = AND</b>, <b>khác hàng = OR</b>.</li>
+      </ul>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hàm</th><th>Công dụng</th></tr></thead>
+        <tbody>
+          <tr><td><code>DSUM</code> · <code>DAVERAGE</code></td><td>Tổng · trung bình của cột thỏa điều kiện</td></tr>
+          <tr><td><code>DCOUNT</code> · <code>DCOUNTA</code></td><td>Đếm ô số · đếm ô không trống thỏa điều kiện</td></tr>
+          <tr><td><code>DMAX</code> · <code>DMIN</code></td><td>Lớn nhất · nhỏ nhất thỏa điều kiện</td></tr>
+        </tbody>
+      </table></div>
+      <div class="xl" aria-label="Vùng điều kiện">
+        <div class="gridwrap"><table>
+          <tr><th></th><th>J</th><th>K</th></tr>
+          <tr><th>1</th><td><b>Khu vực</b></td><td><b>Doanh thu</b></td></tr>
+          <tr><th>2</th><td>Miền Bắc</td><td>&gt;=10000000</td></tr>
+          <tr><th>3</th><td>Miền Nam</td><td></td></tr>
+        </table></div>
+      </div>
+      <p>Vùng J1:K3 nghĩa là: (Miền Bắc <b>và</b> doanh thu ≥ 10 triệu) <b>hoặc</b> Miền Nam. Công thức: <code>=DSUM(A1:F100,"Doanh thu",J1:K3)</code>. Vùng điều kiện này cũng dùng cho <b>Advanced Filter</b> (Bài 5).</p>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="x4-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="x4-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="x4-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="x4-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="x4-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="x4-quizBar"></i></div>
+        <span class="pill">⏱ <b id="x4-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="x4-qnav"></div>
+      <div id="x4-quizBox"></div>
+
+      <div class="result" id="x4-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="x4-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="x4-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="x4-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="x4-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="x4-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="x4-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="x4-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="congthuc">← Bài trước: Bài 3. Công thức &amp; hàm cơ bản</button>
+  <button type="button" data-lesson="dulieu">Bài tiếp theo: Bài 5. Dữ liệu, biểu đồ &amp; in ấn →</button>
+</div>
+</div>
+
+<!-- ================= BÀI 5: DỮ LIỆU, BIỂU ĐỒ & IN ẤN ================= -->
+<div class="lesson" id="lesson-dulieu">
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">📊 Tin học ứng dụng · Microsoft Excel 2019</span>
+    <h1>Bài 5. Quản lý dữ liệu, biểu đồ và in ấn trong Excel 2019</h1>
+    <p>Sắp xếp, lọc, Advanced Filter, Data Validation, Remove Duplicates, Subtotal, PivotTable, biểu đồ và Sparklines, thiết lập trang in và bảo vệ bảng tính.</p>
+    <div class="meta">
+      <span>⏱ Thời lượng: 90 phút</span>
+      <span>📑 8 mục lý thuyết</span>
+      <span>📝 Kiểm tra: 40 câu trắc nghiệm</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h3>Nội dung bài học</h3>
+    <a href="#x5-s1"><span class="n">1</span>Sắp xếp dữ liệu</a>
+    <a href="#x5-s2"><span class="n">2</span>Lọc dữ liệu</a>
+    <a href="#x5-s3"><span class="n">3</span>Công cụ dữ liệu</a>
+    <a href="#x5-s4"><span class="n">4</span>Subtotal & Group</a>
+    <a href="#x5-s5"><span class="n">5</span>PivotTable</a>
+    <a href="#x5-s6"><span class="n">6</span>Biểu đồ & Sparklines</a>
+    <a href="#x5-s7"><span class="n">7</span>Thiết lập trang & in</a>
+    <a href="#x5-s8"><span class="n">8</span>Bảo vệ bảng tính</a>
+    <a href="#x5-quiz"><span class="n">✎</span>Kiểm tra đánh giá</a>
+    <a href="#x5-history"><span class="n">☰</span>Lịch sử làm bài</a>
+    <div class="progress-read"><i></i></div>
+  </nav>
+
+  <main>
+    <section class="card" id="x5-s1">
+      <h2><span class="num">1</span>Sắp xếp dữ liệu (Sort)</h2>
+      <ul>
+        <li>Sắp xếp nhanh theo một cột: đặt con trỏ trong cột → <b>Data → A→Z</b> (tăng dần) hoặc <b>Z→A</b> (giảm dần). Excel tự mở rộng vùng để giữ nguyên dữ liệu từng hàng.</li>
+        <li>Sắp xếp nhiều cấp: <b>Data → Sort</b> → <b>Add Level</b> để thêm khóa (Sort by, Then by…); chọn <b>Sort On</b> (Cell Values, Cell Color, Font Color, Conditional Formatting Icon) và <b>Order</b> (A to Z, Smallest to Largest, <b>Custom List</b>).</li>
+        <li>Đánh dấu <b>My data has headers</b> để hàng tiêu đề không bị sắp xếp.</li>
+        <li><b>Options</b>: Case sensitive; <b>Sort left to right</b> (sắp xếp theo hàng thay vì theo cột).</li>
+      </ul>
+      <div class="note warn"><b>Không chọn một cột riêng lẻ rồi sắp xếp</b>Nếu chỉ chọn một cột và chọn <i>Continue with the current selection</i>, dữ liệu các cột khác không di chuyển theo → sai lệch dữ liệu giữa các hàng. Hãy chọn <i>Expand the selection</i>.</div>
+    </section>
+
+    <section class="card" id="x5-s2">
+      <h2><span class="num">2</span>Lọc dữ liệu (Filter)</h2>
+      <h3>a) AutoFilter</h3>
+      <p><b>Data → Filter</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd>): hàng tiêu đề xuất hiện nút ▾. Chọn/bỏ chọn giá trị, hoặc dùng <b>Number Filters</b> (Equals, Greater Than, Between, <b>Top 10</b>, Above Average), <b>Text Filters</b> (Contains, Begins With), <b>Date Filters</b> (This Month, Last Year…), lọc theo màu. <b>Custom AutoFilter</b> kết hợp hai điều kiện bằng <b>And</b>/<b>Or</b>. <b>Clear</b> để bỏ lọc.</p>
+      <p>Các hàng không thỏa điều kiện bị <b>ẩn</b> (không bị xóa); số hàng hiển thị màu xanh; Status bar báo "x of y records found".</p>
+      <h3>b) Advanced Filter (Data → Advanced)</h3>
+      <ol class="steps">
+        <li>Tạo <b>vùng điều kiện</b> (Criteria range): hàng tiêu đề chép <b>giống hệt</b> tiêu đề cột dữ liệu, bên dưới ghi điều kiện. <b>Cùng hàng = AND</b>, <b>khác hàng = OR</b>.</li>
+        <li>Mở Data → <b>Advanced</b>: chọn <b>Filter the list, in-place</b> hoặc <b>Copy to another location</b>.</li>
+        <li>Khai báo <b>List range</b> (vùng dữ liệu có tiêu đề), <b>Criteria range</b>, <b>Copy to</b> (ô đích).</li>
+        <li>Đánh dấu <b>Unique records only</b> nếu muốn loại bản ghi trùng.</li>
+      </ol>
+    </section>
+
+    <section class="card" id="x5-s3">
+      <h2><span class="num">3</span>Công cụ dữ liệu (Data Tools)</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Công cụ</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Text to Columns</b></td><td>Tách một cột thành nhiều cột theo dấu phân cách (Delimited: Tab, dấu phẩy, dấu cách…) hoặc độ rộng cố định (Fixed width)</td></tr>
+          <tr><td><b>Flash Fill</b></td><td>Điền theo mẫu (<kbd>Ctrl</kbd>+<kbd>E</kbd>)</td></tr>
+          <tr><td><b>Remove Duplicates</b></td><td>Xóa các hàng trùng lặp theo các cột được chọn (giữ lại hàng xuất hiện đầu tiên)</td></tr>
+          <tr><td><b>Data Validation</b></td><td>Ràng buộc dữ liệu nhập vào ô</td></tr>
+          <tr><td><b>Consolidate</b></td><td>Hợp nhất (tổng hợp) dữ liệu từ nhiều vùng/trang tính</td></tr>
+          <tr><td><b>What-If Analysis</b></td><td>Goal Seek (tìm giá trị đầu vào để đạt kết quả mong muốn), Scenario Manager, Data Table</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Data Validation (Data → Data Validation)</h3>
+      <ul>
+        <li>Tab <b>Settings</b> — <b>Allow</b>: Whole number, Decimal, <b>List</b> (danh sách thả xuống — nhập <code>Nam,Nữ</code> hoặc chọn vùng), Date, Time, Text length, Custom (công thức).</li>
+        <li>Tab <b>Input Message</b>: thông báo gợi ý khi chọn ô.</li>
+        <li>Tab <b>Error Alert</b>: kiểu cảnh báo khi nhập sai — <b>Stop</b> (không cho nhập), <b>Warning</b> (cảnh báo, cho chọn tiếp tục), <b>Information</b> (chỉ thông báo).</li>
+        <li><b>Circle Invalid Data</b>: khoanh tròn các ô đã có dữ liệu vi phạm.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="x5-s4">
+      <h2><span class="num">4</span>Tổng hợp theo nhóm: Subtotal và Group</h2>
+      <ol class="steps">
+        <li><b>Sắp xếp</b> dữ liệu theo cột cần nhóm (bắt buộc — ví dụ sắp xếp theo Khu vực).</li>
+        <li><b>Data → Subtotal</b>: <b>At each change in</b> (cột nhóm), <b>Use function</b> (Sum, Count, Average, Max…), <b>Add subtotal to</b> (các cột cần tính).</li>
+        <li>Tùy chọn: Replace current subtotals, Page break between groups, <b>Summary below data</b>.</li>
+        <li>Dùng các nút cấp <b>1 2 3</b> bên trái để thu gọn/mở rộng: cấp 1 chỉ tổng chung, cấp 2 tổng từng nhóm, cấp 3 toàn bộ chi tiết. Xóa bằng <b>Subtotal → Remove All</b>.</li>
+      </ol>
+      <p><b>Data → Group / Ungroup</b> (<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>→</kbd> / <kbd>←</kbd>): nhóm thủ công các hàng/cột để thu gọn.</p>
+    </section>
+
+    <section class="card" id="x5-s5">
+      <h2><span class="num">5</span>Bảng tổng hợp (PivotTable)</h2>
+      <p><b>PivotTable</b> tổng hợp, phân tích lượng dữ liệu lớn nhanh chóng bằng kéo thả, không cần viết công thức.</p>
+      <ol class="steps">
+        <li>Chọn một ô trong vùng dữ liệu (có tiêu đề, không có hàng/cột trống) → <b>Insert → PivotTable</b> (hoặc <b>Recommended PivotTables</b>).</li>
+        <li>Chọn nơi đặt: <b>New Worksheet</b> hoặc <b>Existing Worksheet</b>.</li>
+        <li>Trong khung <b>PivotTable Fields</b>, kéo trường vào 4 vùng:</li>
+      </ol>
+      <div class="grid-2">
+        <div class="tile"><h4>Filters</h4><p>Lọc toàn bộ báo cáo (ví dụ theo Năm).</p></div>
+        <div class="tile"><h4>Columns</h4><p>Tiêu đề cột (ví dụ Quý).</p></div>
+        <div class="tile"><h4>Rows</h4><p>Tiêu đề hàng (ví dụ Khu vực, Nhân viên).</p></div>
+        <div class="tile"><h4>Values</h4><p>Giá trị tổng hợp — mặc định <b>Sum</b> với số, <b>Count</b> với chữ; đổi bằng <b>Value Field Settings</b> (Average, Max, % of Grand Total…).</p></div>
+      </div>
+      <ul>
+        <li>Khi dữ liệu nguồn thay đổi: <b>Refresh</b> (<kbd>Alt</kbd>+<kbd>F5</kbd>) — PivotTable <b>không tự cập nhật</b>. Mở rộng vùng nguồn: <b>Change Data Source</b> (nên chuyển nguồn thành Table để tự mở rộng).</li>
+        <li><b>Group</b> ngày theo tháng/quý/năm; <b>Slicer</b> và <b>Timeline</b> để lọc trực quan; <b>PivotChart</b> để vẽ biểu đồ từ PivotTable.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="x5-s6">
+      <h2><span class="num">6</span>Biểu đồ (Charts) và Sparklines</h2>
+      <p>Chọn vùng dữ liệu (kèm tiêu đề) → <b>Insert → Recommended Charts</b> hoặc chọn loại biểu đồ. <kbd>Alt</kbd>+<kbd>F1</kbd>: tạo nhanh biểu đồ ngay trên trang tính; <kbd>F11</kbd>: tạo biểu đồ trên một <b>chart sheet</b> mới.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Loại biểu đồ</th><th>Phù hợp để</th></tr></thead>
+        <tbody>
+          <tr><td><b>Column / Bar</b></td><td>So sánh giá trị giữa các nhóm (cột đứng / thanh ngang)</td></tr>
+          <tr><td><b>Line</b></td><td>Xu hướng theo thời gian</td></tr>
+          <tr><td><b>Pie / Doughnut</b></td><td>Tỷ trọng các thành phần trong tổng thể (một chuỗi dữ liệu)</td></tr>
+          <tr><td><b>Scatter (XY)</b></td><td>Tương quan giữa hai biến số</td></tr>
+          <tr><td><b>Combo</b></td><td>Kết hợp cột và đường, có trục phụ (Secondary Axis)</td></tr>
+          <tr><td><b>Funnel</b> · <b>Map</b> <span class="chip sql">Mới 2019</span></td><td>Biểu đồ phễu (các giai đoạn) · bản đồ theo quốc gia/vùng</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>Nút cạnh biểu đồ: <b>Chart Elements (+)</b> — Chart Title, Axis Titles, <b>Data Labels</b>, Legend, Gridlines; <b>Chart Styles (🖌)</b>; <b>Chart Filters</b>.</li>
+        <li>Tab <b>Chart Tools → Design</b>: <b>Switch Row/Column</b> (đổi chuỗi ↔ nhóm), <b>Select Data</b> (sửa vùng dữ liệu), <b>Change Chart Type</b>, <b>Move Chart</b> (sang sheet khác), Quick Layout.</li>
+        <li><b>Sparklines</b> (Insert → Sparklines): biểu đồ thu nhỏ <b>trong một ô</b> — Line, Column, Win/Loss — thể hiện xu hướng của từng hàng.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="x5-s7">
+      <h2><span class="num">7</span>Thiết lập trang và in</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lệnh (tab Page Layout)</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Margins, Orientation, Size</b></td><td>Lề, hướng giấy dọc/ngang, khổ giấy</td></tr>
+          <tr><td><b>Print Area → Set Print Area</b></td><td>Chỉ in vùng được chọn</td></tr>
+          <tr><td><b>Breaks</b></td><td>Chèn/xóa ngắt trang</td></tr>
+          <tr><td><b>Print Titles → Rows to repeat at top</b></td><td><b>Lặp lại hàng tiêu đề</b> ở đầu mỗi trang in (ví dụ <code>$1:$2</code>)</td></tr>
+          <tr><td><b>Scale to Fit</b></td><td>Width/Height = 1 page để co vừa trang; hoặc Scale %</td></tr>
+          <tr><td><b>Sheet Options → Gridlines: Print</b></td><td>In đường lưới; <b>Headings: Print</b> in tên hàng/cột</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>Header/Footer</b>: Insert → Header &amp; Footer hoặc chế độ Page Layout; mã chèn số trang <code>&amp;[Page]</code>, tổng số trang <code>&amp;[Pages]</code>, ngày <code>&amp;[Date]</code>, tên sheet <code>&amp;[Tab]</code>.</li>
+        <li><b>View → Page Break Preview</b>: xem vùng in, kéo đường ngắt trang màu xanh.</li>
+        <li><b>File → Print</b> (<kbd>Ctrl</kbd>+<kbd>P</kbd>): Print Active Sheets / Entire Workbook / Selection; <b>Fit Sheet on One Page</b>, Fit All Columns on One Page.</li>
+        <li><b>Xuất PDF</b>: File → Export → Create PDF/XPS, hoặc Save As → PDF.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="x5-s8">
+      <h2><span class="num">8</span>Bảo vệ bảng tính</h2>
+      <ol class="steps">
+        <li>Chọn các ô <b>cho phép nhập liệu</b> → <kbd>Ctrl</kbd>+<kbd>1</kbd> → tab <b>Protection</b> → bỏ chọn <b>Locked</b>. (Mặc định mọi ô đều <i>Locked</i>.) Chọn <b>Hidden</b> cho ô muốn ẩn công thức.</li>
+        <li><b>Review → Protect Sheet</b>: đặt mật khẩu và chọn các thao tác được phép (Select unlocked cells, Format cells, Sort, Use AutoFilter…).</li>
+        <li>Sau khi bảo vệ, chỉ các ô đã bỏ Locked mới sửa được. <b>Unprotect Sheet</b> để gỡ bảo vệ.</li>
+      </ol>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mức bảo vệ</th><th>Tác dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>Protect Sheet</b></td><td>Bảo vệ nội dung ô trong một trang tính</td></tr>
+          <tr><td><b>Protect Workbook</b> (Structure)</td><td>Không cho thêm, xóa, đổi tên, ẩn, di chuyển trang tính</td></tr>
+          <tr><td><b>Allow Edit Ranges</b></td><td>Cho phép sửa một số vùng (có thể kèm mật khẩu riêng) khi sheet đang được bảo vệ</td></tr>
+          <tr><td><b>File → Info → Protect Workbook → Encrypt with Password</b></td><td>Đặt mật khẩu mở tệp</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note warn"><b>Locked chỉ có hiệu lực khi Protect Sheet</b>Thuộc tính Locked/Hidden không có tác dụng cho đến khi trang tính được bảo vệ.</div>
+    </section>
+    <!-- QUIZ -->
+    <section class="card" id="x5-quiz">
+      <h2><span class="num">✎</span>Kiểm tra đánh giá</h2>
+      <p class="lead">40 câu trắc nghiệm · mỗi câu 0,25 điểm · thang điểm 10 · thứ tự phương án được xáo trộn mỗi lần làm.</p>
+
+      <div class="student-box">
+        <label for="x5-studentName">👤 Họ và tên học viên <span style="color:var(--bad)">*</span></label>
+        <div class="student-row">
+          <input type="text" id="x5-studentName" maxlength="60" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+        </div>
+        <div class="err-msg" id="x5-nameErr">⚠ Vui lòng nhập Họ và tên học viên (ít nhất 2 ký tự) trước khi nộp bài.</div>
+      </div>
+
+      <div class="quiz-status">
+        <span class="pill">✅ Đã làm: <b id="x5-answeredCount">0</b>/40</span>
+        <div class="bar"><i id="x5-quizBar"></i></div>
+        <span class="pill">⏱ <b id="x5-timer">00:00</b></span>
+      </div>
+
+      <div class="qnav" id="x5-qnav"></div>
+      <div id="x5-quizBox"></div>
+
+      <div class="result" id="x5-result"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="x5-submitBtn">📤 Nộp bài</button>
+        <button class="btn btn-ghost" id="x5-resetBtn">🔄 Làm lại</button>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="card" id="x5-history">
+      <h2><span class="num">☰</span>Lịch sử làm bài</h2>
+      <p class="lead">Kết quả được lưu trên trình duyệt này (LocalStorage).</p>
+      <div class="hist-tools">
+        <input type="search" id="x5-histSearch" placeholder="🔍 Tìm theo họ tên học viên…">
+        <button class="btn btn-ghost" id="x5-exportBtn">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="x5-clearBtn">🗑 Xóa toàn bộ</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STT</th><th>Họ tên học viên</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian làm</th><th>Ngày nộp</th><th></th></tr></thead>
+          <tbody id="x5-histBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lesson-nav">
+  <button type="button" data-lesson="tracuu">← Bài trước: Bài 4. Hàm tra cứu &amp; có điều kiện</button>
+</div>
+</div>
+
+
+<footer>Bài giảng điện tử · Microsoft Excel 2019 · Bài 1. Làm quen &amp; Nhập liệu · Bài 2. Định dạng bảng tính · Bài 3. Công thức &amp; Hàm · Bài 4. Hàm tra cứu &amp; điều kiện · Bài 5. Dữ liệu, Biểu đồ &amp; In<br><span class="credit">✨ Bài học được thiết kế nhờ <b>Claude</b> trợ giúp - 2026</span></footer>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">Xác nhận</h3>
+    <p id="modalText"></p>
+    <div class="actions">
+      <button class="btn btn-ghost" id="modalNo">Hủy</button>
+      <button class="btn btn-primary" id="modalYes">Đồng ý</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<button class="to-top" id="toTop" aria-label="Lên đầu trang">↑</button>
+
+<script>
+(function(){
+  "use strict";
+
+  // ===== Ngân hàng câu hỏi (a = chỉ số đáp án đúng trong mảng o) =====
+  // ----- Bài 1: Làm quen & nhập liệu -----
+  const X1_QUESTIONS = [
+    {q:"Microsoft Excel 2019 là phần mềm thuộc loại nào?", o:["Soạn thảo văn bản","Bảng tính điện tử","Trình chiếu","Quản trị cơ sở dữ liệu"], a:1, e:"Excel dùng để lưu trữ, tính toán, phân tích dữ liệu dạng bảng."},
+    {q:"Thành phần hiển thị địa chỉ ô hiện hành (ví dụ D3) nằm bên trái thanh công thức là:", o:["Name Box","Formula Bar","Status bar","Title bar"], a:0, e:"Name Box hiển thị địa chỉ ô, cũng dùng để nhảy nhanh đến ô."},
+    {q:"Thanh công thức (Formula Bar) dùng để:", o:["Hiển thị tên tệp","Chọn hàm","Hiển thị và sửa nội dung thật (công thức) của ô hiện hành","Hiển thị kết quả tổng"], a:2, e:"Ô hiển thị kết quả, Formula Bar hiển thị công thức."},
+    {q:"Một trang tính Excel 2019 có tối đa bao nhiêu hàng?", o:["65.536","16.384","1.000.000","1.048.576"], a:3, e:"1.048.576 hàng và 16.384 cột (A → XFD)."},
+    {q:"Cột cuối cùng của một trang tính Excel 2019 có tên là:", o:["IV","XFD","ZZZ","XYZ"], a:1, e:"16.384 cột, từ A đến XFD."},
+    {q:"Khi chọn một vùng chứa số, thanh trạng thái (Status bar) tự hiển thị:", o:["Average, Count, Sum","Tên sheet","Công thức","Địa chỉ vùng"], a:0, e:"Có thể chuột phải vào Status bar để chọn thêm Max, Min…"},
+    {q:"Một tệp Excel được gọi là:", o:["Worksheet","Cell","Workbook","Range"], a:2, e:"Workbook (sổ tính) chứa một hoặc nhiều Worksheet."},
+    {q:"Workbook mới trong Excel 2019 mặc định có bao nhiêu trang tính?", o:["3","2","5","1"], a:3, e:"Từ Excel 2013 trở đi mặc định có 1 sheet (Sheet1)."},
+    {q:"Phím tắt chèn thêm một trang tính mới là:", o:["Ctrl + N","Shift + F11","Ctrl + F11","Alt + Insert"], a:1, e:"Shift + F11; Ctrl + N tạo workbook mới."},
+    {q:"Để đổi tên trang tính nhanh, ta:", o:["Nhấp đúp vào tên trang tính","Nhấn F2","Nhấp chuột một lần","Nhấn Ctrl + R"], a:0, e:"Hoặc chuột phải → Rename."},
+    {q:"Để sao chép một trang tính bằng chuột, ta giữ phím nào khi kéo tên sheet?", o:["Shift","Alt","Ctrl","Tab"], a:2, e:"Ctrl + kéo tạo bản sao."},
+    {q:"Tổ hợp phím chuyển sang trang tính kế tiếp (bên phải) là:", o:["Ctrl + Tab","Alt + Page Down","Ctrl + →","Ctrl + Page Down"], a:3, e:"Ctrl + Page Up / Page Down chuyển sheet."},
+    {q:"Định dạng tệp mặc định của Excel 2019 là:", o:[".xls",".xlsx",".xlsm",".csv"], a:1, e:".xlsm là tệp có macro, .xls là Excel 97–2003."},
+    {q:"Khi lưu tệp dạng .csv, điều nào sau đây ĐÚNG?", o:["Giữ nguyên mọi trang tính và định dạng","Chỉ lưu trang tính hiện hành, không giữ định dạng và công thức","Lưu cả macro","Lưu dạng hình ảnh"], a:1, e:"CSV là văn bản phân cách bằng dấu phẩy."},
+    {q:"Vùng A1:C5 gồm bao nhiêu ô?", o:["8","10","15","20"], a:2, e:"3 cột × 5 hàng = 15 ô."},
+    {q:"Tổ hợp phím đưa con trỏ về ô A1 là:", o:["Ctrl + Home","Home","Ctrl + Page Up","Alt + Home"], a:0, e:"Home về cột A của hàng hiện tại."},
+    {q:"Tổ hợp phím Ctrl + ↓ có tác dụng:", o:["Xuống một màn hình","Chọn cả cột","Chèn hàng","Nhảy xuống biên dưới của vùng dữ liệu liên tục"], a:3, e:"Ctrl + mũi tên nhảy tới biên vùng dữ liệu."},
+    {q:"Tổ hợp phím chọn toàn bộ cột chứa ô hiện hành là:", o:["Shift + Space","Ctrl + Space","Ctrl + A","Alt + Space"], a:1, e:"Ctrl + Space chọn cột; Shift + Space chọn hàng."},
+    {q:"Để chọn nhiều vùng không liền nhau, ta giữ phím nào khi kéo chọn?", o:["Ctrl","Shift","Alt","Esc"], a:0, e:"Ctrl + kéo chuột."},
+    {q:"Mặc định, dữ liệu kiểu số khi nhập vào ô sẽ được căn:", o:["Trái","Giữa","Phải","Đều hai bên"], a:2, e:"Số căn phải, văn bản căn trái."},
+    {q:"Muốn nhập số điện thoại 0912345678 mà vẫn giữ số 0 ở đầu, ta gõ:", o:["\"0912345678\"","=0912345678","#0912345678","'0912345678"], a:3, e:"Dấu nháy đơn ' ở đầu để nhập dạng văn bản (hoặc định dạng ô là Text)."},
+    {q:"Trong Excel, giá trị ngày tháng thực chất được lưu dưới dạng:", o:["Chuỗi văn bản","Số seri","Giá trị logic","Công thức"], a:1, e:"1 tương ứng 01/01/1900."},
+    {q:"Để xuống dòng trong cùng một ô khi nhập dữ liệu, ta nhấn:", o:["Alt + Enter","Enter","Shift + Enter","Ctrl + Enter"], a:0, e:"Alt + Enter tạo ngắt dòng trong ô."},
+    {q:"Tổ hợp phím Ctrl + Enter khi đang nhập liệu có tác dụng:", o:["Xuống dòng trong ô","Chèn ngắt trang","Nhập cùng nội dung cho tất cả các ô đang được chọn","Lưu tệp"], a:2, e:"Rất tiện khi điền cùng giá trị cho nhiều ô."},
+    {q:"Phím dùng để sửa nội dung của ô hiện hành là:", o:["F1","F4","F5","F2"], a:3, e:"F2 hoặc nhấp đúp vào ô."},
+    {q:"Tổ hợp phím nhập ngày hiện tại (giá trị tĩnh) vào ô là:", o:["Ctrl + D","Ctrl + ;","Ctrl + Shift + ;","Ctrl + T"], a:1, e:"Ctrl + Shift + ; nhập giờ hiện tại."},
+    {q:"Nhấn phím Delete tại một ô có dữ liệu và định dạng sẽ:", o:["Xóa nội dung, giữ lại định dạng","Xóa cả nội dung và định dạng","Xóa ô và dồn ô lên","Chỉ xóa định dạng"], a:0, e:"Dùng Home → Clear → Clear All để xóa cả định dạng."},
+    {q:"Nút vuông nhỏ ở góc dưới bên phải ô được chọn, dùng để điền tự động, gọi là:", o:["Name Box","Sheet tab","Fill handle","Select All"], a:2, e:"Kéo Fill handle để sao chép hoặc điền chuỗi."},
+    {q:"Nhập 1 và 3 vào hai ô liền nhau, chọn cả hai ô rồi kéo Fill handle xuống, các ô tiếp theo sẽ là:", o:["1, 3, 1, 3","4, 5, 6","3, 3, 3","5, 7, 9"], a:3, e:"Excel nhận ra cấp số cộng bước 2."},
+    {q:"Nhấp đúp vào Fill handle có tác dụng:", o:["Xóa dữ liệu","Tự điền xuống đến hết vùng dữ liệu của cột bên cạnh","Sao chép sang phải","Mở hộp thoại Series"], a:1, e:"Rất tiện khi sao chép công thức cho cả bảng."},
+    {q:"Tổ hợp phím sử dụng tính năng Flash Fill là:", o:["Ctrl + E","Ctrl + F","Ctrl + L","Ctrl + R"], a:0, e:"Flash Fill điền theo mẫu nhận biết từ ví dụ."},
+    {q:"Để điền chuỗi số với bước nhảy và giá trị dừng xác định, ta dùng:", o:["Flash Fill","Paste Special","Home → Fill → Series","AutoSum"], a:2, e:"Series: Step value, Stop value."},
+    {q:"Để độ rộng cột tự vừa khít với nội dung dài nhất, ta:", o:["Nhấn F4","Nhấn Ctrl + 0","Chọn Wrap Text","Nhấp đúp vào đường biên phải của tiêu đề cột"], a:3, e:"AutoFit Column Width."},
+    {q:"Ô chứa số hiển thị ##### nghĩa là:", o:["Công thức bị lỗi","Cột quá hẹp để hiển thị giá trị","Dữ liệu bị xóa","Ô bị khóa"], a:1, e:"Nới rộng cột để hiển thị đầy đủ."},
+    {q:"Tổ hợp phím ẩn cột đang chọn là:", o:["Ctrl + 0","Ctrl + 9","Ctrl + H","Ctrl + -"], a:0, e:"Ctrl + 9 ẩn hàng, Ctrl + 0 ẩn cột."},
+    {q:"Tổ hợp phím xóa hàng/cột/ô đang chọn là:", o:["Delete","Ctrl + D","Ctrl + -","Ctrl + X"], a:2, e:"Ctrl + - mở hộp thoại Delete; Ctrl + Shift + + để chèn."},
+    {q:"Tổ hợp phím mở hộp thoại Paste Special là:", o:["Ctrl + Shift + V","Ctrl + P","Alt + V","Ctrl + Alt + V"], a:3, e:"Ctrl + Alt + V."},
+    {q:"Trong Paste Special, tùy chọn chỉ dán kết quả, bỏ công thức là:", o:["Formulas","Values","Formats","All"], a:1, e:"Values dán giá trị."},
+    {q:"Tùy chọn Transpose trong Paste Special dùng để:", o:["Chuyển hàng thành cột và cột thành hàng","Đổi dấu các số","Sắp xếp dữ liệu","Dán liên kết"], a:0, e:"Transpose xoay dữ liệu."},
+    {q:"Muốn hàng tiêu đề (hàng 1) luôn hiển thị khi cuộn xuống, ta dùng:", o:["View → Split","View → New Window","View → Freeze Panes → Freeze Top Row","Page Layout → Print Titles"], a:2, e:"Print Titles lặp tiêu đề khi in, không phải khi cuộn."}
+  ];
+
+  // ----- Bài 2: Định dạng bảng tính -----
+  const X2_QUESTIONS = [
+    {q:"Phím tắt mở hộp thoại Format Cells là:", o:["Ctrl + F","Ctrl + 1","Ctrl + Shift + F","Alt + 1"], a:1, e:"Ctrl + 1."},
+    {q:"Hộp thoại Format Cells gồm các tab nào?", o:["Number, Alignment, Font, Border, Fill, Protection","Home, Insert, Page Layout","Font, Paragraph, Styles","Number, Formula, Data"], a:0, e:"6 tab."},
+    {q:"Phát biểu nào đúng về định dạng số?", o:["Định dạng làm thay đổi giá trị thật của ô","Định dạng làm tròn giá trị khi tính toán","Định dạng chỉ thay đổi cách hiển thị, không thay đổi giá trị thật","Định dạng chuyển số thành văn bản"], a:2, e:"Muốn làm tròn thật phải dùng ROUND."},
+    {q:"Kiểu định dạng hiển thị ký hiệu tiền căn lề trái ô, số 0 hiển thị dấu \"-\" là:", o:["Currency","Number","General","Accounting"], a:3, e:"Accounting căn thẳng ký hiệu tiền."},
+    {q:"Ô chứa 0.85, định dạng Percentage với 0 chữ số thập phân sẽ hiển thị:", o:["0.85%","85%","8.5%","850%"], a:1, e:"Percentage nhân 100 và thêm %."},
+    {q:"Tổ hợp phím định dạng phần trăm cho ô đang chọn là:", o:["Ctrl + Shift + %","Ctrl + 5","Alt + %","Ctrl + P"], a:0, e:"Ctrl + Shift + %."},
+    {q:"Nút Increase Decimal trong nhóm Number dùng để:", o:["Tăng giá trị ô","Làm tròn lên","Tăng số chữ số thập phân hiển thị","Nhân giá trị với 10"], a:2, e:"Chỉ thay đổi hiển thị."},
+    {q:"Mã định dạng tùy chỉnh #,##0 áp dụng cho số 1500000 sẽ hiển thị:", o:["1500000","1,500,000.00","1.5M","1,500,000"], a:3, e:", phân cách hàng nghìn, 0 không số lẻ."},
+    {q:"Mã định dạng 000 áp dụng cho số 7 sẽ hiển thị:", o:["7","007","700","0.07"], a:1, e:"0 luôn hiển thị chữ số."},
+    {q:"Mã định dạng #,##0 \"đ\" áp dụng cho 250000 sẽ hiển thị:", o:["250,000 đ","250000đ","đ 250,000","250,000"], a:0, e:"Chữ trong nháy kép được hiển thị cố định."},
+    {q:"Mã định dạng ;;; có tác dụng:", o:["Hiển thị số âm màu đỏ","Hiển thị số 0","Ẩn giá trị của ô","Phân cách hàng nghìn"], a:2, e:"Bốn phần đều rỗng nên không hiển thị gì."},
+    {q:"Trong mã định dạng tùy chỉnh, các phần được phân cách bởi dấu ; theo thứ tự:", o:["Số âm; số dương; văn bản; số 0","Văn bản; số; ngày","Số 0; số dương; số âm","Số dương; số âm; số 0; văn bản"], a:3, e:"Tối đa 4 phần."},
+    {q:"Để hiển thị ngày dạng 05/09/2025, mã định dạng là:", o:["mm/dd/yy","dd/mm/yyyy","d/m/y","yyyy-dd-mm"], a:1, e:"dd ngày 2 chữ số, mm tháng, yyyy năm 4 chữ số."},
+    {q:"Lệnh Wrap Text có tác dụng:", o:["Tự xuống dòng trong ô khi nội dung dài hơn độ rộng cột","Trộn ô","Thu nhỏ chữ","Xoay chữ"], a:0, e:"Chiều cao hàng tự tăng."},
+    {q:"Lệnh Merge & Center khi áp dụng cho các ô đều có dữ liệu sẽ:", o:["Nối tất cả dữ liệu","Giữ dữ liệu ô dưới cùng bên phải","Chỉ giữ dữ liệu ô trên cùng bên trái","Báo lỗi và không trộn"], a:2, e:"Excel cảnh báo và chỉ giữ ô trên cùng bên trái."},
+    {q:"Lệnh Merge Across có tác dụng:", o:["Trộn toàn bộ vùng thành một ô","Tách ô","Căn giữa không trộn","Trộn các ô theo từng hàng riêng biệt"], a:3, e:"Mỗi hàng thành một ô trộn riêng."},
+    {q:"Để căn giữa tiêu đề qua nhiều cột mà KHÔNG trộn ô, ta chọn Horizontal là:", o:["Center","Center Across Selection","Justify","Distributed"], a:1, e:"Tránh lỗi khi sắp xếp, lọc."},
+    {q:"Tùy chọn Shrink to fit có tác dụng:", o:["Tự thu nhỏ cỡ chữ cho vừa ô","Thu hẹp cột","Xóa khoảng trắng","Gộp ô"], a:0, e:"Alignment → Shrink to fit."},
+    {q:"Phông chữ và cỡ chữ mặc định của Excel 2019 là:", o:["Times New Roman 12","Arial 10","Calibri 11","Tahoma 11"], a:2, e:"Đổi tại File → Options → General."},
+    {q:"Đường lưới (gridlines) mặc định trên trang tính khi in ra sẽ:", o:["Luôn được in","Được in màu xám","Chỉ in ở trang đầu","Không được in, trừ khi bật Print Gridlines hoặc kẻ Borders"], a:3, e:"Muốn có khung bảng khi in phải kẻ Borders."},
+    {q:"Để kẻ khung toàn bộ các ô trong vùng chọn, ta chọn:", o:["Outside Borders","All Borders","Thick Box Border","Bottom Border"], a:1, e:"All Borders kẻ cả viền trong và ngoài."},
+    {q:"Cell Styles dùng để:", o:["Áp dụng nhanh các kiểu định dạng ô có sẵn","Đổi kiểu dữ liệu","Tạo biểu đồ","Bảo vệ ô"], a:0, e:"Good, Bad, Neutral, Heading, Total…"},
+    {q:"Để áp dụng Format Painter liên tiếp cho nhiều vùng, ta:", o:["Nhấp một lần","Nhấn F4","Nhấp đúp vào nút Format Painter","Giữ Shift"], a:2, e:"Nhấn Esc để tắt."},
+    {q:"Tổ hợp phím chuyển vùng dữ liệu thành Table (Format as Table) là:", o:["Ctrl + L","Ctrl + B","Alt + T","Ctrl + T"], a:3, e:"Ctrl + T (hoặc Ctrl + L)."},
+    {q:"Ưu điểm nào KHÔNG phải của Excel Table (Format as Table)?", o:["Tự mở rộng khi thêm dữ liệu","Tự động bảo vệ dữ liệu bằng mật khẩu","Có sẵn nút lọc ở tiêu đề","Có Total Row"], a:1, e:"Bảo vệ dữ liệu dùng Protect Sheet."},
+    {q:"Công thức =[@SoLuong]*[@DonGia] trong Excel Table là kiểu:", o:["Tham chiếu có cấu trúc (structured reference)","Địa chỉ tuyệt đối","Tên vùng","Lỗi cú pháp"], a:0, e:"[@Cột] là giá trị cột đó ở hàng hiện tại."},
+    {q:"Để chuyển Excel Table về vùng dữ liệu thường, ta chọn:", o:["Delete Table","Clear Formats","Convert to Range","Remove Duplicates"], a:2, e:"Table Tools → Design → Convert to Range."},
+    {q:"Conditional Formatting nằm ở tab nào?", o:["Data","Formulas","Insert","Home"], a:3, e:"Home → Styles → Conditional Formatting."},
+    {q:"Để tô màu các giá trị bị trùng lặp trong cột, ta dùng:", o:["Remove Duplicates","Highlight Cells Rules → Duplicate Values","Top/Bottom Rules","Data Validation"], a:1, e:"Remove Duplicates sẽ xóa, không tô màu."},
+    {q:"Để hiển thị thanh màu tỷ lệ với giá trị ngay trong ô, ta dùng:", o:["Data Bars","Color Scales","Icon Sets","Sparklines"], a:0, e:"Data Bars trong Conditional Formatting."},
+    {q:"Để tô màu các ô có giá trị thuộc nhóm 10 giá trị lớn nhất, ta dùng:", o:["Highlight Cells Rules → Greater Than","Icon Sets","Top/Bottom Rules → Top 10 Items","Color Scales"], a:2, e:"Top 10 Items."},
+    {q:"Chọn vùng A2:E30 và dùng quy tắc công thức để tô cả hàng khi điểm ở cột E dưới 5. Công thức đúng là:", o:["=E2<5","=$E$2<5","=E$2<5","=$E2<5"], a:3, e:"Cố định cột E, để hàng thay đổi."},
+    {q:"Để sửa, xóa, sắp xếp thứ tự ưu tiên các quy tắc định dạng có điều kiện, ta dùng:", o:["Clear Rules","Manage Rules","New Rule","Format Painter"], a:1, e:"Conditional Formatting → Manage Rules."},
+    {q:"Tùy chọn Color Scales dùng để:", o:["Tô nền ô theo thang màu tương ứng độ lớn giá trị","Đổi màu chữ","Tô màu tên sheet","Đổi Theme"], a:0, e:"Ví dụ xanh – vàng – đỏ."},
+    {q:"Phím tắt chèn ghi chú (Comment) cho ô trong Excel 2019 là:", o:["Ctrl + M","Alt + C","Shift + F2","F2"], a:2, e:"Ô có ghi chú hiện tam giác đỏ ở góc."},
+    {q:"Để tạo liên kết đến một trang tính khác trong cùng sổ tính, trong hộp thoại Insert Hyperlink ta chọn:", o:["Existing File or Web Page","Create New Document","E-mail Address","Place in This Document"], a:3, e:"Chọn sheet và ô đích."},
+    {q:"Để ẩn đường lưới trên màn hình làm việc, ta:", o:["Page Layout → Print Gridlines","View → bỏ chọn Gridlines","Home → Borders → No Border","File → Options → Hide"], a:1, e:"View → Show → Gridlines."},
+    {q:"Page Layout → Themes dùng để:", o:["Đổi đồng loạt bộ màu, phông, hiệu ứng của sổ tính","Đổi giao diện Windows","Đổi kích thước giấy","Đổi tên sheet"], a:0, e:"Theme áp dụng cho toàn workbook."},
+    {q:"Ô có giá trị 7,456 được định dạng hiển thị 1 chữ số thập phân (7,5). Công thức =A1*2 cho kết quả:", o:["15","15,0","14,912","14"], a:2, e:"Excel tính với giá trị thật 7,456."},
+    {q:"Tính năng chèn biểu tượng dạng vector (Icons) và mô hình 3D trong Excel 2019 nằm ở:", o:["Home","Data","View","Insert → Illustrations"], a:3, e:"Icons, 3D Models là tính năng mới của Office 2019."}
+  ];
+
+  // ----- Bài 3: Công thức & hàm cơ bản -----
+  const X3_QUESTIONS = [
+    {q:"Công thức trong Excel bắt buộc phải bắt đầu bằng ký tự:", o:["#","=","$","@"], a:1, e:"Có thể bắt đầu bằng + hoặc - nhưng chuẩn là dấu =."},
+    {q:"Kết quả của công thức =2+3*4 là:", o:["14","20","24","9"], a:0, e:"Nhân trước cộng sau: 2 + 12 = 14."},
+    {q:"Kết quả của công thức =(2+3)^2 là:", o:["10","13","25","11"], a:2, e:"Tính trong ngoặc trước: 5^2 = 25."},
+    {q:"Toán tử dùng để nối chuỗi trong Excel là:", o:["+","#","|","&"], a:3, e:"Ví dụ =A2&\" \"&B2."},
+    {q:"Kết quả của công thức =\"Tin\"&\"học\" là:", o:["Tin học","Tinhọc","#VALUE!","Tin&học"], a:1, e:"& nối liền, không tự thêm dấu cách."},
+    {q:"Địa chỉ $A$1 là loại địa chỉ:", o:["Tuyệt đối","Tương đối","Hỗn hợp","Tham chiếu vòng"], a:0, e:"Cố định cả cột và hàng."},
+    {q:"Địa chỉ A$1 khi sao chép công thức sẽ:", o:["Giữ nguyên cả cột và hàng","Thay đổi cả cột và hàng","Giữ nguyên hàng 1, cột thay đổi","Giữ nguyên cột A, hàng thay đổi"], a:2, e:"$ đứng trước phần nào thì phần đó cố định."},
+    {q:"Ô C2 chứa công thức =A2*B2. Sao chép C2 sang ô D3, công thức tại D3 là:", o:["=A2*B2","=A3*B3","=B2*C2","=B3*C3"], a:3, e:"Dịch 1 cột, 1 hàng → B3*C3."},
+    {q:"Ô C3 chứa =B3*$B$1. Sao chép xuống C4 được:", o:["=B4*$B$2","=B4*$B$1","=B3*$B$1","=C4*$B$1"], a:1, e:"$B$1 cố định."},
+    {q:"Phím dùng để chuyển đổi nhanh giữa các loại địa chỉ khi đang sửa công thức là:", o:["F4","F2","F9","F3"], a:0, e:"A1 → $A$1 → A$1 → $A1."},
+    {q:"Cách viết đúng để tham chiếu ô A1 ở trang tính tên \"Chi tiet\" là:", o:["=Chi tiet!A1","=[Chi tiet]A1","='Chi tiet'!A1","=\"Chi tiet\".A1"], a:2, e:"Tên sheet có dấu cách đặt trong nháy đơn."},
+    {q:"Tổ hợp phím chèn nhanh hàm SUM (AutoSum) là:", o:["Ctrl + S","Shift + F3","Ctrl + =","Alt + ="], a:3, e:"Alt + =."},
+    {q:"Phím tắt mở hộp thoại Insert Function là:", o:["Ctrl + F3","Shift + F3","Alt + F3","F3"], a:1, e:"Ctrl + F3 mở Name Manager."},
+    {q:"Name Manager (quản lý tên vùng) được mở bằng tổ hợp phím:", o:["Ctrl + F3","Shift + F3","Ctrl + N","Alt + N"], a:0, e:"Formulas → Name Manager."},
+    {q:"Hàm đếm số ô chứa dữ liệu số trong vùng là:", o:["COUNTA","COUNTBLANK","COUNT","SUM"], a:2, e:"COUNTA đếm ô không trống."},
+    {q:"Hàm đếm số ô không trống (cả chữ và số) là:", o:["COUNT","COUNTIF","COUNTBLANK","COUNTA"], a:3, e:"COUNTA."},
+    {q:"Hàm AVERAGE khi tính trung bình sẽ:", o:["Coi ô trống là 0","Bỏ qua ô trống và ô chứa văn bản","Báo lỗi nếu có ô trống","Tính cả ô văn bản bằng 0"], a:1, e:"Chú ý: ô có giá trị 0 vẫn được tính."},
+    {q:"Kết quả của =ROUND(7.456,1) là:", o:["7.5","7.4","7.46","7"], a:0, e:"Làm tròn đến 1 chữ số thập phân."},
+    {q:"Kết quả của =ROUND(1234567,-3) là:", o:["1234","1234.567","1235000","1234000"], a:2, e:"n âm làm tròn đến hàng nghìn."},
+    {q:"Kết quả của =INT(-7.9) là:", o:["-7","7","-7.9","-8"], a:3, e:"INT làm tròn xuống số nguyên nhỏ hơn."},
+    {q:"Kết quả của =MOD(17,5) là:", o:["3","2","3.4","5"], a:1, e:"17 chia 5 dư 2."},
+    {q:"Hàm tính tổng các tích tương ứng của hai vùng B2:B5 và C2:C5 là:", o:["=SUMPRODUCT(B2:B5,C2:C5)","=PRODUCT(B2:C5)","=SUM(B2:B5*C2:C5)","=SUMIF(B2:B5,C2:C5)"], a:0, e:"SUMPRODUCT."},
+    {q:"Cú pháp đúng của hàm IF là:", o:["IF(giá trị đúng, điều kiện, giá trị sai)","IF(điều kiện; giá trị đúng)","IF(điều kiện, giá trị nếu đúng, giá trị nếu sai)","IF(điều kiện, giá trị sai, giá trị đúng)"], a:2, e:"Dấu phân cách có thể là , hoặc ; tùy Region."},
+    {q:"Hàm AND(điều kiện1, điều kiện2) trả về TRUE khi:", o:["Ít nhất một điều kiện đúng","Không có điều kiện nào đúng","Điều kiện 1 đúng","Tất cả các điều kiện đều đúng"], a:3, e:"OR trả TRUE khi ít nhất một điều kiện đúng."},
+    {q:"Để phân loại học sinh thành 4 mức Giỏi, Khá, TB, Yếu bằng IF lồng nhau, cần tối thiểu bao nhiêu hàm IF?", o:["4","3","2","5"], a:1, e:"Số hàm IF = số mức − 1."},
+    {q:"Hàm mới trong Excel 2019 cho phép kiểm tra nhiều điều kiện mà không cần lồng IF là:", o:["IFS","IFERROR","SWITCH","CHOOSE"], a:0, e:"IFS(đk1, kq1, đk2, kq2, …)."},
+    {q:"Công thức =IFERROR(B2/C2,0) trả về 0 khi:", o:["B2 bằng 0","B2/C2 lớn hơn 0","B2/C2 gây lỗi (ví dụ C2 = 0)","C2 lớn hơn B2"], a:2, e:"IFERROR trả giá trị thay thế khi có lỗi."},
+    {q:"Kết quả của =LEFT(\"KT2025\",2) là:", o:["2025","25","KT2","KT"], a:3, e:"Lấy 2 ký tự bên trái."},
+    {q:"Kết quả của =MID(\"SV-K20-015\",4,3) là:", o:["-K2","K20","015","SV-"], a:1, e:"Từ ký tự thứ 4, lấy 3 ký tự."},
+    {q:"Kết quả của =LEN(\"Excel 2019\") là:", o:["10","9","5","4"], a:0, e:"Tính cả dấu cách: 5 + 1 + 4 = 10."},
+    {q:"Hàm chuyển \"nguyễn văn an\" thành \"Nguyễn Văn An\" là:", o:["UPPER","LOWER","PROPER","TRIM"], a:2, e:"PROPER viết hoa chữ cái đầu mỗi từ."},
+    {q:"Hàm xóa khoảng trắng thừa ở đầu, cuối và giữa các từ là:", o:["CLEAN","SUBSTITUTE","REPLACE","TRIM"], a:3, e:"TRIM giữ lại một dấu cách giữa các từ."},
+    {q:"Ô A2 chứa \"KT2025\". Công thức =RIGHT(A2,4)>2000 cho kết quả TRUE, vì sao cần cẩn trọng?", o:["RIGHT trả về số nên luôn đúng","RIGHT trả về văn bản; nên dùng VALUE(RIGHT(A2,4)) khi so sánh số","RIGHT không dùng được với chữ","Vì A2 không phải số"], a:1, e:"Văn bản luôn được xem là lớn hơn số khi so sánh."},
+    {q:"Hàm mới trong Excel 2019 nối các giá trị của một vùng với dấu phân cách và có thể bỏ qua ô trống là:", o:["TEXTJOIN","CONCATENATE","CONCAT","TEXT"], a:0, e:"TEXTJOIN(\", \",TRUE,A2:A6)."},
+    {q:"Hàm trả về ngày hiện tại (tự cập nhật) là:", o:["NOW()","DATE()","TODAY()","DAY()"], a:2, e:"NOW() trả về cả ngày và giờ."},
+    {q:"Để tính số năm tuổi chính xác từ ngày sinh ở C2 đến hôm nay, ta dùng:", o:["=TODAY()-C2","=YEAR(C2)","=DAY(TODAY()-C2)","=DATEDIF(C2,TODAY(),\"Y\")"], a:3, e:"DATEDIF là hàm ẩn, đơn vị \"Y\" = năm."},
+    {q:"Mặc định, hàm WEEKDAY trả về 1 tương ứng với:", o:["Thứ Hai","Chủ nhật","Thứ Bảy","Thứ Ba"], a:1, e:"Kiểu mặc định: 1 = Chủ nhật … 7 = Thứ Bảy."},
+    {q:"Lỗi #DIV/0! xuất hiện khi:", o:["Chia cho 0 hoặc cho ô trống","Sai tên hàm","Tham chiếu ô đã bị xóa","Không tìm thấy giá trị"], a:0, e:"Dùng IFERROR hoặc IF để xử lý."},
+    {q:"Lỗi #NAME? thường do nguyên nhân nào?", o:["Chia cho 0","Cột quá hẹp","Sai tên hàm hoặc chuỗi thiếu dấu nháy kép","Ô bị xóa"], a:2, e:"Ví dụ gõ =SUMM(A1:A5)."},
+    {q:"Tổ hợp phím hiển thị công thức thay cho kết quả trong toàn trang tính là:", o:["Ctrl + F","Ctrl + Shift + F","Alt + F","Ctrl + `"], a:3, e:"Formulas → Show Formulas."}
+  ];
+
+  // ----- Bài 4: Hàm tra cứu & có điều kiện -----
+  const X4_QUESTIONS = [
+    {q:"Hàm VLOOKUP dò tìm giá trị theo:", o:["Hàng đầu tiên của bảng dò","Cột đầu tiên của bảng dò","Cột cuối cùng của bảng dò","Bất kỳ cột nào"], a:1, e:"HLOOKUP dò theo hàng đầu tiên."},
+    {q:"Trong =VLOOKUP(B2,$F$2:$H$10,3,0), số 3 có ý nghĩa:", o:["Lấy giá trị ở cột thứ 3 của bảng dò","Lấy giá trị ở cột C","Dò tìm 3 lần","Lấy 3 ký tự"], a:0, e:"col_index_num tính trong bảng dò."},
+    {q:"Trong hàm VLOOKUP, đối số range_lookup bằng 0 (FALSE) nghĩa là:", o:["Dò gần đúng","Không dò tìm","Dò chính xác","Dò từ dưới lên"], a:2, e:"1/TRUE hoặc bỏ trống là dò gần đúng."},
+    {q:"Khi VLOOKUP dò gần đúng (range_lookup = 1), cột đầu tiên của bảng dò phải:", o:["Sắp xếp giảm dần","Không có giá trị trùng","Là dữ liệu văn bản","Sắp xếp tăng dần"], a:3, e:"Nếu không, kết quả có thể sai."},
+    {q:"Vì sao bảng dò trong VLOOKUP thường được viết dạng địa chỉ tuyệt đối ($F$2:$H$10)?", o:["Để công thức chạy nhanh hơn","Để khi sao chép công thức, bảng dò không bị dịch chuyển","Vì VLOOKUP bắt buộc","Để tránh lỗi #NAME?"], a:1, e:"Nếu không cố định, bảng dò bị dịch theo khi sao chép."},
+    {q:"VLOOKUP trả về lỗi #N/A khi:", o:["Không tìm thấy giá trị cần dò trong cột đầu của bảng dò","col_index_num lớn hơn số cột bảng dò","Chia cho 0","Sai tên hàm"], a:0, e:"col_index_num vượt số cột sẽ báo #REF!."},
+    {q:"Trong =VLOOKUP(B2,$F$2:$H$10,5,0), bảng dò chỉ có 3 cột nên kết quả là:", o:["#N/A","#VALUE!","#REF!","0"], a:2, e:"Chỉ số cột vượt quá phạm vi bảng."},
+    {q:"Hàm HLOOKUP trả về giá trị ở:", o:["Cột thứ n của bảng dò","Ô bên phải giá trị tìm được","Cột đầu tiên","Hàng thứ n của bảng dò"], a:3, e:"row_index_num."},
+    {q:"Khi dò gần đúng để xếp loại, giá trị trả về ứng với:", o:["Giá trị nhỏ nhất của bảng","Giá trị lớn nhất nhưng nhỏ hơn hoặc bằng giá trị cần tìm","Giá trị gần nhất về hai phía","Giá trị lớn hơn gần nhất"], a:1, e:"Ví dụ ĐTB 7.2 ứng với ngưỡng 6.5 → Khá."},
+    {q:"Hàm MATCH trả về:", o:["Vị trí (số thứ tự) của giá trị trong vùng","Giá trị tại vị trí chỉ định","Số lần xuất hiện","TRUE/FALSE"], a:0, e:"INDEX mới trả về giá trị."},
+    {q:"Trong hàm MATCH, match_type bằng 0 nghĩa là:", o:["Nhỏ hơn gần nhất","Lớn hơn gần nhất","Tìm chính xác","Tìm theo ký tự đại diện bắt buộc"], a:2, e:"1: nhỏ hơn gần nhất (tăng dần); -1: lớn hơn gần nhất (giảm dần)."},
+    {q:"Hàm INDEX(vùng, số_hàng, số_cột) trả về:", o:["Vị trí của giá trị","Số hàng của vùng","Địa chỉ ô dạng chuỗi","Giá trị tại giao của hàng và cột trong vùng"], a:3, e:"Thường kết hợp với MATCH."},
+    {q:"Ưu điểm của INDEX/MATCH so với VLOOKUP là:", o:["Chạy được khi không có dữ liệu","Tra cứu được khi cột kết quả nằm bên trái cột dò","Không cần giá trị cần tìm","Tự sắp xếp dữ liệu"], a:1, e:"VLOOKUP chỉ lấy được cột bên phải cột dò."},
+    {q:"Kết quả của =MATCH(\"CH\",{\"BP\",\"CH\",\"TN\"},0) là:", o:["2","CH","1","#N/A"], a:0, e:"\"CH\" ở vị trí thứ 2."},
+    {q:"Cú pháp đúng của hàm SUMIF là:", o:["SUMIF(sum_range, range, criteria)","SUMIF(criteria, range, sum_range)","SUMIF(range, criteria, [sum_range])","SUMIF(range, sum_range, criteria)"], a:2, e:"Vùng tính tổng ở cuối."},
+    {q:"Trong hàm SUMIFS, vùng cần tính tổng (sum_range) đứng ở vị trí:", o:["Cuối cùng","Thứ hai","Thứ ba","Đầu tiên"], a:3, e:"SUMIFS(sum_range, criteria_range1, criteria1, …)."},
+    {q:"Các điều kiện trong SUMIFS, COUNTIFS được kết hợp theo kiểu:", o:["OR","AND","NOT","XOR"], a:1, e:"Tất cả điều kiện phải cùng thỏa."},
+    {q:"Cách viết điều kiện \"lớn hơn hoặc bằng 5\" trong COUNTIF là:", o:["\">=5\"",">=5","=>5","[>=5]"], a:0, e:"Toán tử đặt trong dấu nháy kép."},
+    {q:"Để đếm các ô lớn hơn giá trị trong ô G2, điều kiện viết là:", o:["\">G2\"",">G2","\">\"&G2","\">\"+G2"], a:2, e:"Nối toán tử với địa chỉ ô bằng &."},
+    {q:"Điều kiện \"*Nguyễn*\" trong COUNTIF có nghĩa:", o:["Bằng đúng chuỗi Nguyễn","Bắt đầu bằng Nguyễn","Kết thúc bằng Nguyễn","Chứa chuỗi Nguyễn ở bất kỳ vị trí nào"], a:3, e:"* đại diện nhiều ký tự."},
+    {q:"Công thức =COUNTIF(E2:E40,\">=5\") dùng để:", o:["Tính tổng điểm từ 5","Đếm số ô trong E2:E40 có giá trị từ 5 trở lên","Tính trung bình","Tìm điểm lớn nhất"], a:1, e:"Ví dụ đếm số học sinh đạt."},
+    {q:"Hàm tính trung bình có điều kiện là:", o:["AVERAGEIF","AVERAGEA","AVERAGE","DAVERAGE với một đối số"], a:0, e:"AVERAGEIF(range, criteria, [average_range])."},
+    {q:"Hàm mới trong Excel 2019 tìm giá trị lớn nhất thỏa một hoặc nhiều điều kiện là:", o:["DMAX","MAXA","MAXIFS","LARGE"], a:2, e:"MAXIFS(max_range, criteria_range1, criteria1, …); tương tự MINIFS."},
+    {q:"Để kiểm tra mã trong A2 có bị trùng trong cột A hay không, ta dùng:", o:["=MATCH(A2,A:A)>1","=VLOOKUP(A2,A:A,1,0)>1","=COUNT(A2)>1","=COUNTIF($A$2:$A$100,A2)>1"], a:3, e:"Trả TRUE nếu xuất hiện hơn 1 lần."},
+    {q:"Công thức =RANK(E2,$E$2:$E$40,0) xếp hạng theo thứ tự:", o:["Tăng dần, nhỏ nhất hạng 1","Giảm dần, lớn nhất hạng 1","Ngẫu nhiên","Theo thứ tự nhập"], a:1, e:"order = 0 hoặc bỏ trống → giảm dần."},
+    {q:"Trong hàm RANK, vùng so sánh cần viết địa chỉ tuyệt đối vì:", o:["Khi sao chép công thức, vùng so sánh phải giữ nguyên","RANK bắt buộc","Để xếp hạng giảm dần","Để tránh trùng hạng"], a:0, e:"Nếu không cố định, vùng bị dịch và xếp hạng sai."},
+    {q:"Hàm trả về giá trị lớn thứ 3 trong vùng E2:E40 là:", o:["=MAX(E2:E40,3)","=RANK(3,E2:E40)","=LARGE(E2:E40,3)","=SMALL(E2:E40,3)"], a:2, e:"SMALL trả về giá trị nhỏ thứ k."},
+    {q:"Hàm SUBTOTAL(9, vùng) khác SUM(vùng) ở chỗ:", o:["Tính nhanh hơn","Tính cả ô văn bản","Làm tròn kết quả","Chỉ tính trên các hàng đang hiển thị khi lọc dữ liệu"], a:3, e:"9 = SUM; 109 bỏ qua cả hàng ẩn thủ công."},
+    {q:"Trong hàm SUBTOTAL, mã hàm 1 tương ứng với phép tính:", o:["SUM","AVERAGE","COUNT","MAX"], a:1, e:"1 AVERAGE, 2 COUNT, 3 COUNTA, 4 MAX, 5 MIN, 9 SUM."},
+    {q:"Mã hàng \"BP-HN-2\": công thức lấy 2 ký tự đầu để dò bảng danh mục là:", o:["=VLOOKUP(LEFT(A2,2),$K$2:$M$6,2,0)","=VLOOKUP(RIGHT(A2,2),$K$2:$M$6,2,0)","=VLOOKUP(A2,$K$2:$M$6,2,0)","=VLOOKUP(MID(A2,2,2),$K$2:$M$6,2,0)"], a:0, e:"LEFT(A2,2) = \"BP\"."},
+    {q:"Với mã \"BP-HN-2\", để lấy \"HN\" ta dùng:", o:["=LEFT(A2,5)","=RIGHT(A2,2)","=MID(A2,4,2)","=MID(A2,3,2)"], a:2, e:"Ký tự thứ 4 và 5."},
+    {q:"Công thức =IFERROR(VLOOKUP(B2,$F$2:$G$9,2,0),\"Không có\") sẽ:", o:["Luôn trả về \"Không có\"","Báo lỗi #N/A","Trả về giá trị B2","Trả về \"Không có\" khi không tìm thấy mã"], a:3, e:"IFERROR bắt lỗi #N/A."},
+    {q:"Hàm CHOOSE(2,\"A\",\"B\",\"C\") trả về:", o:["A","B","C","2"], a:1, e:"Chọn giá trị thứ 2 trong danh sách."},
+    {q:"Đơn giá phụ thuộc loại giá (ký tự cuối của mã là 1 hoặc 2). Công thức phù hợp để chọn cột trả về trong VLOOKUP là:", o:["IF(RIGHT(A2,1)=\"1\",3,4)","IF(RIGHT(A2,1)=1,3,4)","LEFT(A2,1)+2","MID(A2,1,1)"], a:0, e:"RIGHT trả về văn bản nên so sánh với \"1\"."},
+    {q:"Trong hàm DSUM(database, field, criteria), đối số criteria là:", o:["Một biểu thức điều kiện như \">5\"","Tên cột cần tính","Vùng điều kiện gồm hàng tiêu đề và điều kiện bên dưới","Vùng cần tính tổng"], a:2, e:"Vùng điều kiện giống Advanced Filter."},
+    {q:"Trong vùng điều kiện của hàm cơ sở dữ liệu, các điều kiện ghi trên CÙNG một hàng được hiểu là:", o:["OR","NOT","Không hợp lệ","AND"], a:3, e:"Cùng hàng = AND, khác hàng = OR."},
+    {q:"Đối số database trong các hàm DSUM, DCOUNT phải:", o:["Không có tiêu đề","Bao gồm cả hàng tiêu đề","Chỉ là một cột","Là tên sheet"], a:1, e:"Field có thể là tên tiêu đề cột."},
+    {q:"Hàm đếm số ô chứa số thỏa điều kiện trong vùng cơ sở dữ liệu là:", o:["DCOUNT","DCOUNTA","COUNTIFS","DSUM"], a:0, e:"DCOUNTA đếm ô không trống."},
+    {q:"Để tra cứu bảng hai chiều (theo mã hàng và theo tháng), cách phù hợp nhất là:", o:["VLOOKUP với col_index cố định","HLOOKUP lồng VLOOKUP","INDEX kết hợp hai hàm MATCH","SUMIF"], a:2, e:"INDEX(vùng, MATCH(hàng), MATCH(cột))."},
+    {q:"Tổng doanh thu (D) của \"Miền Bắc\" (B) trong tháng 9 (C) được tính bằng:", o:["=SUMIF(B:B,\"Miền Bắc\",D:D)","=SUMIFS(B:B,D:D,\"Miền Bắc\",C:C,9)","=SUM(D:D)","=SUMIFS(D:D,B:B,\"Miền Bắc\",C:C,9)"], a:3, e:"sum_range đặt đầu tiên."}
+  ];
+
+  // ----- Bài 5: Dữ liệu, biểu đồ & in ấn -----
+  const X5_QUESTIONS = [
+    {q:"Để sắp xếp dữ liệu theo nhiều cột (nhiều cấp), ta dùng:", o:["Data → A→Z","Data → Sort → Add Level","Home → Format","Data → Filter"], a:1, e:"Sort cho phép thêm nhiều khóa sắp xếp."},
+    {q:"Trong hộp thoại Sort, tùy chọn My data has headers có tác dụng:", o:["Hàng tiêu đề không bị sắp xếp cùng dữ liệu","Thêm hàng tiêu đề","Sắp xếp theo tiêu đề","Ẩn tiêu đề"], a:0, e:"Tiêu đề giữ nguyên ở đầu."},
+    {q:"Khi chỉ chọn một cột rồi sắp xếp và chọn \"Continue with the current selection\", điều gì xảy ra?", o:["Toàn bộ bảng được sắp xếp đúng","Excel báo lỗi","Chỉ cột đó bị sắp xếp, dữ liệu giữa các hàng bị sai lệch","Không có gì thay đổi"], a:2, e:"Nên chọn Expand the selection."},
+    {q:"Để sắp xếp theo thứ tự tùy chỉnh (ví dụ Giỏi, Khá, TB, Yếu), trong Order ta chọn:", o:["A to Z","Smallest to Largest","Cell Color","Custom List"], a:3, e:"Nhập danh sách thứ tự riêng."},
+    {q:"Tổ hợp phím bật/tắt AutoFilter là:", o:["Ctrl + F","Ctrl + Shift + L","Alt + F","Ctrl + L"], a:1, e:"Data → Filter."},
+    {q:"Khi lọc dữ liệu bằng AutoFilter, các hàng không thỏa điều kiện sẽ:", o:["Bị ẩn tạm thời","Bị xóa","Được tô màu","Chuyển sang sheet khác"], a:0, e:"Clear Filter để hiện lại."},
+    {q:"Để lọc 5 nhân viên có doanh số cao nhất bằng AutoFilter, ta dùng:", o:["Text Filters → Contains","Sort Z→A","Number Filters → Top 10 (đặt 5)","Date Filters"], a:2, e:"Top 10 cho phép đổi số lượng."},
+    {q:"Trong Custom AutoFilter, hai điều kiện có thể được kết hợp bằng:", o:["SUM hoặc COUNT","IF hoặc NOT","Chỉ And","And hoặc Or"], a:3, e:"Tối đa hai điều kiện trên một cột."},
+    {q:"Trong vùng điều kiện của Advanced Filter, các điều kiện ghi trên CÁC HÀNG KHÁC NHAU được hiểu là:", o:["AND","OR","NOT","Bị bỏ qua"], a:1, e:"Cùng hàng = AND."},
+    {q:"Để trích lọc dữ liệu sang một vị trí khác, trong Advanced Filter ta chọn:", o:["Copy to another location","Filter the list, in-place","Unique records only","Criteria range"], a:0, e:"Sau đó khai báo ô Copy to."},
+    {q:"Tùy chọn Unique records only trong Advanced Filter có tác dụng:", o:["Chỉ lọc một bản ghi","Xóa dữ liệu trùng khỏi bảng gốc","Loại các bản ghi trùng trong kết quả lọc","Đánh dấu bản ghi trùng"], a:2, e:"Không làm thay đổi dữ liệu gốc."},
+    {q:"Tiêu đề trong vùng điều kiện của Advanced Filter phải:", o:["In đậm","Nằm ở cột A","Viết hoa","Giống hệt tiêu đề cột tương ứng trong vùng dữ liệu"], a:3, e:"Tốt nhất là sao chép tiêu đề."},
+    {q:"Để tách cột \"Họ tên\" thành nhiều cột theo dấu cách, ta dùng:", o:["Remove Duplicates","Text to Columns","Consolidate","Data Validation"], a:1, e:"Chọn Delimited → Space."},
+    {q:"Lệnh Remove Duplicates có tác dụng:", o:["Xóa các hàng trùng lặp theo các cột được chọn","Tô màu các giá trị trùng","Đếm giá trị trùng","Ẩn các hàng trùng"], a:0, e:"Giữ lại hàng xuất hiện đầu tiên."},
+    {q:"Để tạo danh sách thả xuống cho phép chọn \"Nam\" hoặc \"Nữ\" trong ô, ta dùng:", o:["Conditional Formatting","Combo Chart","Data Validation → Allow: List","Flash Fill"], a:2, e:"Source: Nam,Nữ."},
+    {q:"Trong Data Validation, kiểu cảnh báo không cho phép nhập dữ liệu sai là:", o:["Warning","Information","Input Message","Stop"], a:3, e:"Warning và Information vẫn cho phép tiếp tục."},
+    {q:"Tab Input Message trong Data Validation dùng để:", o:["Báo lỗi khi nhập sai","Hiển thị thông báo gợi ý khi chọn ô","Nhập dữ liệu mặc định","Khóa ô"], a:1, e:"Giúp người nhập biết yêu cầu dữ liệu."},
+    {q:"Lệnh Circle Invalid Data dùng để:", o:["Khoanh tròn các ô chứa dữ liệu vi phạm quy tắc Data Validation","Vẽ hình tròn","Xóa dữ liệu sai","Đếm dữ liệu sai"], a:0, e:"Data Validation ▾ → Circle Invalid Data."},
+    {q:"Công cụ tìm giá trị đầu vào để công thức đạt kết quả mong muốn là:", o:["Scenario Manager","Solver Table","Goal Seek","Consolidate"], a:2, e:"Data → What-If Analysis → Goal Seek."},
+    {q:"Trước khi dùng lệnh Subtotal, bắt buộc phải:", o:["Lọc dữ liệu","Tạo PivotTable","Chuyển thành Table","Sắp xếp dữ liệu theo cột cần nhóm"], a:3, e:"Nếu không, mỗi nhóm bị tách thành nhiều đoạn."},
+    {q:"Trong hộp thoại Subtotal, mục At each change in dùng để chọn:", o:["Hàm tính toán","Cột làm căn cứ để nhóm","Cột cần tính tổng","Vị trí đặt kết quả"], a:1, e:"Use function chọn hàm; Add subtotal to chọn cột tính."},
+    {q:"Sau khi Subtotal, nhấn vào nút cấp 2 ở bên trái sẽ hiển thị:", o:["Tổng của từng nhóm và tổng chung","Chỉ tổng chung","Toàn bộ dữ liệu chi tiết","Không hiển thị gì"], a:0, e:"Cấp 1: tổng chung; cấp 3: chi tiết."},
+    {q:"Để xóa kết quả Subtotal, ta mở hộp thoại Subtotal và chọn:", o:["Delete","Cancel","Remove All","Clear"], a:2, e:"Remove All."},
+    {q:"Lệnh tạo PivotTable nằm ở tab:", o:["Data","Home","Formulas","Insert"], a:3, e:"Insert → PivotTable."},
+    {q:"Trong PivotTable Fields, vùng chứa các giá trị được tổng hợp (Sum, Count…) là:", o:["Rows","Values","Columns","Filters"], a:1, e:"Value Field Settings để đổi phép tính."},
+    {q:"Khi kéo một trường chứa số vào vùng Values, PivotTable mặc định dùng phép tính:", o:["Sum","Count","Average","Max"], a:0, e:"Trường văn bản mặc định Count."},
+    {q:"Khi dữ liệu nguồn thay đổi, để PivotTable cập nhật ta dùng:", o:["Nhấn F9","Tạo lại PivotTable","Refresh (Alt + F5)","Không cần làm gì, tự cập nhật"], a:2, e:"PivotTable không tự cập nhật."},
+    {q:"Công cụ lọc trực quan bằng các nút bấm cho PivotTable/Table là:", o:["AutoFilter","Sparklines","Data Bars","Slicer"], a:3, e:"Insert → Slicer; Timeline cho trường ngày."},
+    {q:"Loại biểu đồ phù hợp nhất để thể hiện tỷ trọng các thành phần trong tổng thể là:", o:["Line","Pie","Scatter","Column"], a:1, e:"Pie/Doughnut."},
+    {q:"Loại biểu đồ phù hợp nhất để thể hiện xu hướng doanh thu qua 12 tháng là:", o:["Line","Pie","Doughnut","Funnel"], a:0, e:"Line thể hiện xu hướng theo thời gian."},
+    {q:"Loại biểu đồ nào là MỚI trong Excel 2019?", o:["Pie","Column","Funnel và Map","Scatter"], a:2, e:"Funnel (phễu) và Map (bản đồ)."},
+    {q:"Phím tắt tạo nhanh biểu đồ trên một chart sheet mới là:", o:["Alt + F1","Ctrl + F11","F12","F11"], a:3, e:"Alt + F1 tạo biểu đồ ngay trên trang tính hiện tại."},
+    {q:"Lệnh Switch Row/Column trong Chart Tools → Design có tác dụng:", o:["Đổi loại biểu đồ","Hoán đổi dữ liệu giữa chuỗi (series) và nhóm (category)","Xoay biểu đồ","Đổi màu"], a:1, e:"Chuỗi thành trục và ngược lại."},
+    {q:"Để hiển thị giá trị số trên các cột của biểu đồ, trong Chart Elements ta chọn:", o:["Data Labels","Legend","Gridlines","Axis Titles"], a:0, e:"Data Labels."},
+    {q:"Sparklines là:", o:["Hiệu ứng động của biểu đồ","Đường lưới của biểu đồ","Biểu đồ thu nhỏ nằm trong một ô","Đường xu hướng"], a:2, e:"Line, Column, Win/Loss."},
+    {q:"Để hàng tiêu đề bảng được in lặp lại ở đầu mỗi trang, ta dùng:", o:["View → Freeze Panes","Insert → Header","Page Layout → Print Area","Page Layout → Print Titles → Rows to repeat at top"], a:3, e:"Freeze Panes chỉ có tác dụng trên màn hình."},
+    {q:"Lệnh Set Print Area có tác dụng:", o:["Đặt lề trang","Chỉ in vùng dữ liệu được chọn","In toàn bộ workbook","Chia trang"], a:1, e:"Page Layout → Print Area."},
+    {q:"Để co toàn bộ bảng tính vừa một trang giấy khi in, ta chọn:", o:["Fit Sheet on One Page (hoặc Scale to Fit 1 page)","Landscape","Narrow Margins","Page Break Preview"], a:0, e:"File → Print → No Scaling ▾."},
+    {q:"Mặc định mọi ô trong trang tính đều có thuộc tính:", o:["Hidden","Unlocked","Locked, nhưng chỉ có hiệu lực khi Protect Sheet","Read-only"], a:2, e:"Bỏ Locked cho các ô cần nhập liệu trước khi bảo vệ."},
+    {q:"Để ngăn người khác thêm, xóa, đổi tên các trang tính trong sổ tính, ta dùng:", o:["Protect Sheet","Allow Edit Ranges","Mark as Final","Protect Workbook (Structure)"], a:3, e:"Review → Protect Workbook."}
+  ];
+
+
+  // ===== Helpers dùng chung =====
+  const byId = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const pad = n => String(n).padStart(2,"0");
+  const fmtTime = sec => pad(Math.floor(sec/60)) + ":" + pad(sec%60);
+  const LETTERS = ["A","B","C","D"];
+  const rankOf = s => s >= 8 ? "good" : s >= 5 ? "mid" : "low";
+  const rankText = s => s >= 9 ? "Xuất sắc" : s >= 8 ? "Giỏi" : s >= 6.5 ? "Khá" : s >= 5 ? "Trung bình" : "Chưa đạt";
+
+  function toast(msg){
+    const t = byId("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2600);
+  }
+  function confirmBox(title, text, yesLabel){
+    return new Promise(resolve => {
+      byId("modalTitle").textContent = title; byId("modalText").textContent = text;
+      byId("modalYes").textContent = yesLabel || "Đồng ý";
+      const m = byId("modal"); m.classList.add("show");
+      const done = v => { m.classList.remove("show"); byId("modalYes").onclick = byId("modalNo").onclick = null; resolve(v); };
+      byId("modalYes").onclick = () => done(true);
+      byId("modalNo").onclick = () => done(false);
+    });
+  }
+
+  // ===== Khởi tạo một bài học (quiz + lịch sử) =====
+  function initLesson(cfg){
+    const P = cfg.prefix, QUESTIONS = cfg.questions, TOTAL = QUESTIONS.length, STORAGE_KEY = cfg.storageKey;
+    const $ = id => byId(P + id);
+
+    function loadHistory(){
+      try { const d = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Array.isArray(d) ? d : []; }
+      catch(e){ return []; }
+    }
+    function saveHistory(list){
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); return true; }
+      catch(e){ toast("⚠ Không thể lưu vào LocalStorage trên trình duyệt này."); return false; }
+    }
+
+    let answers = new Array(TOTAL).fill(null);
+    let submitted = false, seconds = 0, timerId = null, started = false;
+    const navBtn = i => $("qnav").querySelector(`[data-go="${i}"]`);
+
+    function startTimer(){
+      if (started) return; started = true;
+      timerId = setInterval(() => { seconds++; $("timer").textContent = fmtTime(seconds); }, 1000);
+    }
+
+    // Thứ tự hiển thị các phương án được xáo trộn mỗi lần làm bài; giá trị lưu vẫn là chỉ số gốc
+    let orders = [];
+    const shuffle = arr => { for (let k = arr.length - 1; k > 0; k--){ const r = Math.floor(Math.random() * (k + 1)); [arr[k], arr[r]] = [arr[r], arr[k]]; } return arr; };
+    const letterOf = (i, j) => LETTERS[orders[i].indexOf(j)];
+
+    function renderQuiz(){
+      orders = QUESTIONS.map(item => shuffle(item.o.map((_, j) => j)));
+      $("qnav").innerHTML = QUESTIONS.map((_, i) => `<button type="button" data-go="${i}" title="Câu ${i+1}">${i+1}</button>`).join("");
+      $("quizBox").innerHTML = QUESTIONS.map((item, i) => `
+        <div class="q" id="${P}q${i}">
+          <div class="qt"><span class="qn">Câu ${i+1}.</span>${esc(item.q)}</div>
+          ${orders[i].map((j, pos) => `
+            <label class="opt" data-o="${j}">
+              <input type="radio" name="${P}q${i}" value="${j}" data-i="${i}">
+              <span class="l">${LETTERS[pos]}.</span><span>${esc(item.o[j])}</span>
+            </label>`).join("")}
+          <div class="explain"></div>
+        </div>`).join("");
+    }
+
+    function updateProgress(){
+      const n = answers.filter(a => a !== null).length;
+      $("answeredCount").textContent = n;
+      $("quizBar").style.width = (n / TOTAL * 100) + "%";
+    }
+
+    $("quizBox").addEventListener("change", e => {
+      if (submitted || e.target.type !== "radio") return;
+      const qi = +e.target.dataset.i, oi = +e.target.value;
+      answers[qi] = oi; startTimer();
+      const qEl = $("q" + qi);
+      qEl.classList.add("answered");
+      qEl.querySelectorAll(".opt").forEach(o => o.classList.toggle("sel", +o.dataset.o === oi));
+      navBtn(qi).classList.add("done");
+      updateProgress();
+    });
+
+    $("qnav").addEventListener("click", e => {
+      const b = e.target.closest("[data-go]"); if (!b) return;
+      $("q" + b.dataset.go).scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    const nameInput = $("studentName");
+    nameInput.addEventListener("input", () => {
+      if (nameInput.value.trim().length >= 2){ nameInput.classList.remove("invalid"); $("nameErr").classList.remove("show"); }
+    });
+
+    function validateName(){
+      const name = nameInput.value.trim().replace(/\s+/g, " ");
+      if (name.length < 2){
+        nameInput.classList.remove("invalid"); void nameInput.offsetWidth; nameInput.classList.add("invalid");
+        $("nameErr").classList.add("show");
+        nameInput.scrollIntoView({behavior:"smooth", block:"center"});
+        setTimeout(() => nameInput.focus(), 350);
+        toast("⚠ Vui lòng nhập Họ và tên trước khi nộp bài!");
+        return null;
+      }
+      return name;
+    }
+
+    async function submitQuiz(){
+      if (submitted) return;
+      const name = validateName();
+      if (!name) return;
+      const missing = answers.filter(a => a === null).length;
+      if (missing > 0){
+        const ok = await confirmBox("Còn câu chưa làm", `Bạn còn ${missing} câu chưa trả lời. Các câu này sẽ được tính là sai. Bạn vẫn muốn nộp bài?`, "Nộp bài");
+        if (!ok) return;
+      }
+      submitted = true; clearInterval(timerId);
+
+      let correct = 0;
+      QUESTIONS.forEach((item, i) => {
+        const qEl = $("q" + i), chosen = answers[i], isRight = chosen === item.a;
+        if (isRight) correct++;
+        qEl.classList.add("locked");
+        qEl.querySelectorAll("input").forEach(inp => inp.disabled = true);
+        qEl.querySelectorAll(".opt").forEach(o => {
+          const j = +o.dataset.o; o.classList.remove("sel");
+          if (j === item.a) o.classList.add("correct");
+          else if (j === chosen) o.classList.add("incorrect");
+        });
+        const status = chosen === null ? "⚪ Chưa trả lời." : isRight ? "✅ Chính xác!" : `❌ Sai. Bạn chọn ${letterOf(i, chosen)}.`;
+        qEl.querySelector(".explain").innerHTML = `<b>${status}</b> Đáp án đúng: <b>${letterOf(i, item.a)}</b>. ${esc(item.e)}`;
+        const nb = navBtn(i); nb.classList.remove("done"); nb.classList.add(isRight ? "right" : "wrong");
+      });
+
+      const score = Math.round(correct / TOTAL * 10 * 100) / 100;
+      const rk = rankOf(score);
+      const res = $("result");
+      res.className = "result show " + rk;
+      res.innerHTML = `
+        <div>Kết quả của học viên <b>${esc(name)}</b></div>
+        <div class="score">${score.toLocaleString("vi-VN")} / 10</div>
+        <span class="rank score-chip ${rk}">${rankText(score)}</span>
+        <div class="stats"><span>✅ Đúng: <b>${correct}</b></span><span>❌ Sai/bỏ trống: <b>${TOTAL - correct}</b></span><span>⏱ Thời gian: <b>${fmtTime(seconds)}</b></span></div>
+        <p style="margin:12px 0 0;color:var(--muted)">Xem lại đáp án và giải thích bên trên từng câu hỏi.</p>`;
+
+      nameInput.disabled = true;
+      $("submitBtn").disabled = true;
+
+      const list = loadHistory();
+      list.unshift({ id: Date.now(), name, score, correct, total: TOTAL, time: seconds, date: new Date().toISOString() });
+      if (saveHistory(list)) toast("✔ Đã nộp bài và lưu kết quả!");
+      renderHistory();
+      res.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+
+    function resetQuiz(){
+      answers = new Array(TOTAL).fill(null);
+      submitted = false; started = false; seconds = 0; clearInterval(timerId);
+      $("timer").textContent = "00:00";
+      renderQuiz(); updateProgress();
+      $("result").className = "result"; $("result").innerHTML = "";
+      nameInput.disabled = false; $("submitBtn").disabled = false;
+    }
+
+    $("submitBtn").addEventListener("click", submitQuiz);
+    $("resetBtn").addEventListener("click", async () => {
+      if (!submitted && answers.some(a => a !== null)){
+        const ok = await confirmBox("Làm lại bài", "Toàn bộ câu trả lời hiện tại sẽ bị xóa. Tiếp tục?", "Làm lại");
+        if (!ok) return;
+      }
+      resetQuiz();
+      $("quiz").scrollIntoView({behavior:"smooth"});
+    });
+
+    function renderHistory(){
+      const kw = $("histSearch").value.trim().toLowerCase();
+      const list = loadHistory();
+      const rows = list.filter(r => !kw || String(r.name).toLowerCase().includes(kw));
+      const body = $("histBody");
+      if (!rows.length){
+        body.innerHTML = `<tr><td colspan="7" class="empty">${list.length ? "Không tìm thấy học viên phù hợp." : "Chưa có kết quả nào. Hãy làm bài kiểm tra!"}</td></tr>`;
+        return;
+      }
+      body.innerHTML = rows.map((r, i) => {
+        const d = new Date(r.date);
+        return `<tr>
+          <td>${i+1}</td>
+          <td><b>${esc(r.name)}</b></td>
+          <td><span class="score-chip ${rankOf(r.score)}">${Number(r.score).toLocaleString("vi-VN")}</span></td>
+          <td>${r.correct}/${r.total}</td>
+          <td>${fmtTime(r.time || 0)}</td>
+          <td>${d.toLocaleDateString("vi-VN")} ${d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}</td>
+          <td><button class="del-row" data-del="${r.id}" title="Xóa dòng này">✕</button></td>
+        </tr>`;
+      }).join("");
+    }
+
+    $("histSearch").addEventListener("input", renderHistory);
+    $("histBody").addEventListener("click", async e => {
+      const b = e.target.closest("[data-del]"); if (!b) return;
+      const ok = await confirmBox("Xóa kết quả", "Bạn có chắc muốn xóa kết quả này khỏi lịch sử?", "Xóa");
+      if (!ok) return;
+      saveHistory(loadHistory().filter(r => String(r.id) !== b.dataset.del));
+      renderHistory(); toast("Đã xóa kết quả.");
+    });
+    $("clearBtn").addEventListener("click", async () => {
+      if (!loadHistory().length) return toast("Lịch sử đang trống.");
+      const ok = await confirmBox("Xóa toàn bộ lịch sử", `Tất cả kết quả làm bài của ${cfg.title} sẽ bị xóa và không thể khôi phục.`, "Xóa hết");
+      if (!ok) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      renderHistory(); toast("Đã xóa toàn bộ lịch sử.");
+    });
+    $("exportBtn").addEventListener("click", () => {
+      const list = loadHistory();
+      if (!list.length) return toast("Chưa có dữ liệu để xuất.");
+      const q = v => `"${String(v).replace(/"/g,'""')}"`;
+      const lines = [["STT","Họ tên học viên","Điểm","Số câu đúng","Tổng số câu","Thời gian làm","Ngày nộp"].map(q).join(",")];
+      list.forEach((r, i) => lines.push([i+1, r.name, r.score, r.correct, r.total, fmtTime(r.time||0), new Date(r.date).toLocaleString("vi-VN")].map(q).join(",")));
+      const blob = new Blob(["﻿" + lines.join("\r\n")], {type:"text/csv;charset=utf-8"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = cfg.csvName;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    });
+
+    renderQuiz(); updateProgress(); renderHistory();
+  }
+
+  initLesson({ prefix:"x1-", title:"Bài 1. Làm quen & Nhập liệu",     questions:X1_QUESTIONS, storageKey:"excel2019_nhaplieu_quiz_history", csvName:"ket-qua-excel-bai1-nhap-lieu.csv" });
+  initLesson({ prefix:"x2-", title:"Bài 2. Định dạng bảng tính",      questions:X2_QUESTIONS, storageKey:"excel2019_dinhdang_quiz_history", csvName:"ket-qua-excel-bai2-dinh-dang.csv" });
+  initLesson({ prefix:"x3-", title:"Bài 3. Công thức & Hàm",          questions:X3_QUESTIONS, storageKey:"excel2019_congthuc_quiz_history", csvName:"ket-qua-excel-bai3-cong-thuc.csv" });
+  initLesson({ prefix:"x4-", title:"Bài 4. Hàm tra cứu & điều kiện",  questions:X4_QUESTIONS, storageKey:"excel2019_tracuu_quiz_history",   csvName:"ket-qua-excel-bai4-tra-cuu.csv" });
+  initLesson({ prefix:"x5-", title:"Bài 5. Dữ liệu, Biểu đồ & In",    questions:X5_QUESTIONS, storageKey:"excel2019_dulieu_quiz_history",   csvName:"ket-qua-excel-bai5-du-lieu.csv" });
+  // ===== Chuyển bài học =====
+  const LESSON_KEY = "excel2019_current_lesson";
+  const LESSONS = { x1:"nhaplieu", x2:"dinhdang", x3:"congthuc", x4:"tracuu", x5:"dulieu" };
+  let current = "nhaplieu";
+  function showLesson(name, scrollTop){
+    current = name;
+    document.querySelectorAll(".lesson").forEach(l => l.classList.toggle("active", l.id === "lesson-" + name));
+    document.querySelectorAll(".lesson-tabs [data-lesson]").forEach(b => b.classList.toggle("active", b.dataset.lesson === name));
+    try { localStorage.setItem(LESSON_KEY, name); } catch(e){}
+    if (scrollTop) window.scrollTo({top:0});
+    onScroll();
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest("button[data-lesson]"); if (!b) return;
+    showLesson(b.dataset.lesson, true);
+    try { history.replaceState(null, "", "#" + b.dataset.lesson); } catch(e){}
+  });
+
+  // ===== Mục lục đang xem + tiến độ đọc + nút lên đầu =====
+  function onScroll(){
+    const root = byId("lesson-" + current);
+    const links = [...root.querySelectorAll("nav.toc a")];
+    const y = window.scrollY + 120;
+    let idx = 0;
+    links.forEach((a, i) => { const s = document.querySelector(a.getAttribute("href")); if (s && s.offsetTop <= y) idx = i; });
+    links.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const h = document.documentElement.scrollHeight - innerHeight;
+    const bar = root.querySelector(".progress-read i");
+    if (bar) bar.style.width = (h > 0 ? window.scrollY / h * 100 : 0) + "%";
+    byId("toTop").style.display = window.scrollY > 600 ? "block" : "none";
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  byId("toTop").addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+  // ===== Khởi động: ưu tiên #tên-bài trên URL, sau đó bài đã xem gần nhất =====
+  let start = "nhaplieu";
+  const hash = location.hash.slice(1);
+  const names = Object.values(LESSONS);
+  const byHash = names.includes(hash) ? hash : LESSONS[hash.split("-")[0]];
+  if (byHash) start = byHash;
+  else {
+    try { const saved = localStorage.getItem(LESSON_KEY); if (names.includes(saved)) start = saved; } catch(e){}
+  }
+  showLesson(start, false);
+})();
+</script>
+</body>
+</html>
